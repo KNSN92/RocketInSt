@@ -1,5 +1,6 @@
 import authConfig from "@/auth.config";
 import { prisma } from "@/prisma";
+import { Room } from "@prisma/client";
 import { getServerSession } from "next-auth";
 
 export default async function App() {
@@ -12,7 +13,7 @@ export default async function App() {
   });
   if (!user?.campus)
     return <h1>あなたは通っているキャンパスを登録していません。</h1>;
-  const campusRooms = user.campus.rooms;
+  const campusRooms: Room[] = user.campus.rooms;
   return (
     <>
       <h1>あなたが通っているキャンパスは{user.campus.name}です。</h1>
