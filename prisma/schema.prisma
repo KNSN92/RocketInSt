@@ -1,0 +1,147 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  role Role @default(User)
+
+  campus   Campus? @relation(fields: [campusId], references: [id])
+  campusId Int?
+
+  courseFrequency CourseFrequency?
+
+  lesson   Lesson? @relation(fields: [lessonId], references: [id])
+  lessonId Int?
+
+  // Self-relation for followers and following
+  followers User[] @relation("UserFollowRelation")
+  following User[] @relation("UserFollowRelation")
+}
+
+enum Role {
+  User
+  Admin
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Campus {
+  id      Int    @id @default(autoincrement())
+  name    String
+  rooms   Room[]
+  members User[]
+}
+
+model Room {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  campus   Campus @relation(fields: [campusId], references: [id], onDelete: Cascade)
+  campusId Int
+
+  lessons Lesson[]
+}
+
+model Lesson {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  schedule LessonSchedule
+
+  room   Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  roomId Int
+
+  enrolledUsers User[]
+}
+
+enum LessonSchedule {
+  FirstPeriod
+  SecondPeriod
+  ThirdPeriod
+  FourthPeriod
+  FifthPeriod
+  SixthPeriod
+  AfterSchool
+}
+
+enum CourseFrequency {
+  OncePerWeek
+  ThricePerWeek
+  FiveTimesPerWeek
+}
