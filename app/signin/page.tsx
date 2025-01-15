@@ -6,7 +6,7 @@ import Image from "next/image";
 export default async function SignIn({
   searchParams,
 }: {
-  searchParams: { callbackUrl: string };
+  searchParams: Promise<{ callbackUrl: string }>;
 }) {
   const { callbackUrl } = await searchParams;
   const session = await getServerSession(authConfig);
