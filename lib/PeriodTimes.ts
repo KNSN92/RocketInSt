@@ -1,8 +1,8 @@
-import type { LessonSchedule } from "@prisma/client";
+import type { LessonPeriod } from "@prisma/client";
 
 type Time = { hours: number, minutes: number }
 
-const courseFreqTimes: {[key in LessonSchedule]: { start: Time, end: Time }} = {
+const courseFreqTimes: {[key in LessonPeriod]: { start: Time, end: Time }} = {
     FirstPeriod:  { start: { hours:  9, minutes: 45 }, end: { hours: 10, minutes: 35 } },
     SecondPeriod: { start: { hours: 10, minutes: 45 }, end: { hours: 11, minutes: 35 } },
     ThirdPeriod:  { start: { hours: 11, minutes: 45 }, end: { hours: 12, minutes: 35 } },

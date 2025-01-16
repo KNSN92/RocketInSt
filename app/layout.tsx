@@ -29,6 +29,12 @@ export default async function RootLayout({
             >
               App
             </Link>
+            <Link
+              href="/form"
+              className="inline-block px-2 py-1 border border-white"
+            >
+              Form
+            </Link>
             {session ? (
               <SignOutButton>
                 <div className="inline-block px-2 py-1 border border-white">
