@@ -4,6 +4,7 @@ import { NextAuthProvider } from "@/lib/providers";
 import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { SignInButton, SignOutButton } from "@/components/AuthButtons";
+import Image from "next/image";
 
 export default async function RootLayout({
   children,
@@ -41,6 +42,15 @@ export default async function RootLayout({
                 </div>
               </SignInButton>
             )}
+            {session?.user?.image ?
+              <Image
+                alt="icon"
+                src={session?.user?.image}
+                width={32}
+                height={32}
+                className="inline-block rounded-full"
+              /> : undefined
+            }
           </div>
           {children}
         </NextAuthProvider>

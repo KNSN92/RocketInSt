@@ -122,7 +122,8 @@ model Lesson {
 
   title String
 
-  schedule LessonSchedule
+  period LessonPeriod
+  day    DayOfWeek
 
   room   Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
   roomId Int
@@ -130,7 +131,15 @@ model Lesson {
   enrolledUsers User[]
 }
 
-enum LessonSchedule {
+enum DayOfWeek {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+}
+
+enum LessonPeriod {
   FirstPeriod
   SecondPeriod
   ThirdPeriod
