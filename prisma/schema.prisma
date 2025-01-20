@@ -29,7 +29,7 @@ model User {
   role Role @default(User)
 
   campus   Campus? @relation(fields: [campusId], references: [id])
-  campusId Int?
+  campusId String?
 
   courseFrequency CourseFrequency?
 
@@ -103,20 +103,31 @@ model Authenticator {
 }
 
 model Campus {
-  id      Int    @id @default(autoincrement())
+  id      String @id @default(uuid())
   name    String
   rooms   Room[]
   members User[]
 }
 
 model Room {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   campus   Campus @relation(fields: [campusId], references: [id], onDelete: Cascade)
-  campusId Int
+  campusId String
 
-  lessons Lesson[]
+  lessons  Lesson[]
+  RoomPlan RoomPlan[]
+}
+
+model RoomPlan {
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId String @unique
+
+  x Int
+  y Int
+  w Int
+  h Int
 }
 
 model Lesson {
