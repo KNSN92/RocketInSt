@@ -1,5 +1,5 @@
 import authConfig from "@/auth.config";
-import { SignInButton } from "@/components/AuthButtons";
+import { SignInButton } from "@/components/common/AuthButtons";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 

@@ -1,5 +1,5 @@
 import authConfig from "@/auth.config";
-import RadioButton from "@/components/RadioButton";
+import RadioButton from "@/components/common/RadioButton";
 import { ROW, COL, ROW_JA, COL_JA } from "@/data/schedules";
 import { prisma } from "@/prisma";
 import { AfterSchool, CourseFrequency, Prisma } from "@prisma/client";
