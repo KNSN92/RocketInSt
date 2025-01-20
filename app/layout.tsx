@@ -3,7 +3,7 @@ import "./globals.css";
 import { NextAuthProvider } from "@/lib/providers";
 import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
-import { SignInButton, SignOutButton } from "@/components/AuthButtons";
+import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
 import Image from "next/image";
 
 export default async function RootLayout({
@@ -24,10 +24,10 @@ export default async function RootLayout({
               RocketIn.st
             </Link>
             <Link
-              href="/app"
+              href="/search"
               className="inline-block px-2 py-1 border border-white"
             >
-              App
+              Search
             </Link>
             <Link
               href="/form"
@@ -48,15 +48,15 @@ export default async function RootLayout({
                 </div>
               </SignInButton>
             )}
-            {session?.user?.image ?
+            {session?.user?.image ? (
               <Image
                 alt="icon"
                 src={session?.user?.image}
                 width={32}
                 height={32}
                 className="inline-block rounded-full"
-              /> : undefined
-            }
+              />
+            ) : undefined}
           </div>
           {children}
         </NextAuthProvider>
