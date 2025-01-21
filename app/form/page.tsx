@@ -8,6 +8,7 @@ import { z } from "zod";
 
 export default async function Form() {
   let items;
+  let campuses;
   try {
     items = await prisma.lesson.findMany({
       select: {
@@ -16,6 +17,19 @@ export default async function Form() {
         day: true,
         period: true,
       },
+    });
+    campuses = (
+      await prisma.campus.findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+      })
+    ).map((item) => {
+      return {
+        title: item.name,
+        value: item.id,
+      };
     });
   } catch (e) {
     console.error(e);
@@ -38,6 +52,15 @@ export default async function Form() {
     <div>
       Form
       <form action={handleFormAction}>
+        <h1>キャンパスを選択</h1>
+        <select name="campus" required className="w-fit bg-black text-white">
+          <option value="">選択</option>
+          {campuses.map((campus, i) => (
+            <option key={i} value={campus.value}>
+              {campus.title}
+            </option>
+          ))}
+        </select>
         <h1>コースを選択</h1>
         <RadioButton
           name="course"
@@ -66,7 +89,7 @@ export default async function Form() {
                     <select
                       required
                       name="lessons"
-                      className="w-full bg-black text-white"
+                      className="w-64 bg-black text-white"
                     >
                       <option value="">選択</option>
                       {table[c][r].map(({ id, title }, i) => (
@@ -107,12 +130,40 @@ const courseAndAfterschoolNumberSchema = z.coerce
   });
 
 const schema = z.object({
+  campus: z
+    .string({
+      invalid_type_error: "キャンパスは文字列として入力してください。",
+    })
+    .uuid({ message: "キャンパスはuuidとして入力してください。" })
+    .superRefine(async (campus, ctx) => {
+      try {
+        const foundCampus = await prisma.campus.findUnique({
+          where: { id: campus },
+        });
+        if (!foundCampus) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: `${campus}はデータベースに存在しません。`,
+          });
+        }
+      } catch (e) {
+        console.error(e);
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "データベースに接続出来ませんでした。",
+          });
+        }
+      }
+    }),
   course: courseAndAfterschoolNumberSchema,
   afterschool: courseAndAfterschoolNumberSchema,
   lessons: z
     .array(
       z
-        .string()
+        .string({
+          invalid_type_error: "授業の一つ一つは文字列として入力してください。",
+        })
         .uuid({ message: "授業の一つ一つはuuidとして入力してください。" })
     )
     .length(totalLessons, {
@@ -134,7 +185,7 @@ const schema = z.object({
             code: z.ZodIssueCode.custom,
             message: `${
               totalLessons - foundLessons
-            }個の授業IDがデータベースに存在しません`,
+            }個の授業IDがデータベースに存在しません。`,
           });
         }
       } catch (e) {
@@ -166,14 +217,15 @@ type AfterSchoolKey = keyof typeof AfterSchoolMap;
 async function handleFormAction(formData: FormData) {
   "use server";
   const parseResult = await schema.safeParseAsync({
+    campus: formData.get("campus"),
     course: formData.get("course"),
     afterschool: formData.get("afterschool"),
     lessons: formData.getAll("lessons"),
   });
+  console.log(parseResult.data, parseResult.error?.message);
   if (!parseResult.success) return;
   const { course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
-  console.log(session);
   const userId = session?.user?.id;
   if (!userId) return;
 
