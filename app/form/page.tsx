@@ -7,7 +7,24 @@ import { getServerSession } from "next-auth";
 import { z } from "zod";
 
 export default async function Form() {
-  const items = await prisma.lesson.findMany();
+  let items;
+  try {
+    items = await prisma.lesson.findMany({
+      select: {
+        id: true,
+        title: true,
+        day: true,
+        period: true,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    return (
+      <div>
+        ページの構築中にエラーが発生しました。ページをリロードし、改善されない場合、改善されるまでしばらくお待ちください。
+      </div>
+    );
+  }
   const table: {
     [key: string]: { [key: string]: { id: string; title: string }[] };
   } = {};
