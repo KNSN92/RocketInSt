@@ -24,6 +24,12 @@ export default async function RootLayout({
               RocketIn.st
             </Link>
             <Link
+              href="/about"
+              className="inline-block px-2 py-1 border border-white"
+            >
+              about
+            </Link>
+            <Link
               href="/search"
               className="inline-block px-2 py-1 border border-white"
             >
