@@ -12,6 +12,8 @@ export default function CampusMap({
   }[];
   mapSize: number;
 }) {
+  if (!mapData.length) return <div />;
+
   const sizeX = Math.max(
     ...mapData.map((mapDataElement) => mapDataElement.x + mapDataElement.w)
   );

@@ -43,7 +43,9 @@ export default async function Home() {
               className="rounded-full border-[1px] border-gray-500 inline"
             />
           ) : undefined}
-          <CampusMap mapData={mapData} mapSize={768} />
+          {mapData.length ? (
+            <CampusMap mapData={mapData} mapSize={768} />
+          ) : undefined}
         </>
       ) : (
         <SignInButton>
