@@ -1,10 +1,14 @@
+import { ChangeEventHandler } from "react";
+
 type RadioButtonArgs = {
   name: string;
   buttons: {
     title: string;
     value: string | number | readonly string[] | undefined;
+    checked?: boolean;
   }[];
   required?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
 export default function RadioButton(args: RadioButtonArgs) {
@@ -18,6 +22,8 @@ export default function RadioButton(args: RadioButtonArgs) {
               type="radio"
               value={v.value}
               name={args.name}
+              defaultChecked={v.checked}
+              onChange={args.onChange}
               required={args.required}
             />
           </label>

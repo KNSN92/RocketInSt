@@ -36,10 +36,10 @@ export default async function RootLayout({
               Search
             </Link>
             <Link
-              href="/form"
+              href="/register"
               className="inline-block px-2 py-1 border border-white"
             >
-              Form
+              Register
             </Link>
             {session ? (
               <SignOutButton>
