@@ -105,8 +105,6 @@ export async function handleRegisterAction(formData: FormData) {
     afterschool: formData.get("afterschool"),
     lessons: formData.getAll("lessons"),
   });
-  console.log(formData)
-  console.log(parseResult.data, parseResult.error?.message);
   if (!parseResult.success) return;
   const { campus, course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
