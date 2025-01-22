@@ -43,7 +43,6 @@ export default function RegisterForm({
       .querySelectorAll<HTMLSelectElement>(".lesson-select")
       .forEach((ele) => {
         ele.selectedIndex = 0;
-        console.log(ele);
       });
     setCourseDays([...CourseFreqToDayOfWeekMap[v as CourseFreqDay]]);
   }
