@@ -5,7 +5,7 @@ import Image from "next/image";
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { query: string; page: string };
+  searchParams: Promise<{ query: string; page: string }>;
 }) {
   const { query } = await searchParams;
   const userList = (await prisma.user.findMany({
