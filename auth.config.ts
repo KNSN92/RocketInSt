@@ -23,7 +23,7 @@ const authConfig: AuthOptions = {
     ],
     pages: {
         signIn: "/signin",
-        newUser: "/app"
+        newUser: "/register"
     },
     callbacks: {
         async session({ session, token: { sub } }): Promise<Session> {
