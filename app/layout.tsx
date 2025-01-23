@@ -16,53 +16,59 @@ export default async function RootLayout({
     <html lang="ja">
       <body className="antialiased bg-black">
         <NextAuthProvider>
-          <div>
-            <Link
-              href="/"
-              className="inline-block px-2 py-1 border border-white"
-            >
-              RocketIn.st
-            </Link>
-            <Link
-              href="/about"
-              className="inline-block px-2 py-1 border border-white"
-            >
-              about
-            </Link>
-            <Link
-              href="/search"
-              className="inline-block px-2 py-1 border border-white"
-            >
-              Search
-            </Link>
-            <Link
-              href="/register"
-              className="inline-block px-2 py-1 border border-white"
-            >
-              Register
-            </Link>
-            {session ? (
-              <SignOutButton>
-                <div className="inline-block px-2 py-1 border border-white">
-                  SignOut
-                </div>
-              </SignOutButton>
-            ) : (
-              <SignInButton>
-                <div className="inline-block px-2 py-1 border border-white">
-                  SignIn
-                </div>
-              </SignInButton>
-            )}
-            {session?.user?.image ? (
-              <Image
-                alt="icon"
-                src={session?.user?.image}
-                width={32}
-                height={32}
-                className="inline-block rounded-full"
-              />
-            ) : undefined}
+          <div className="px-4 h-16 flex items-center justify-between bg-gray-800">
+            <div className="flex items-center">
+              <Link
+                href="/"
+                className="block px-2 py-1 text-3xl font-bold"
+              >
+                (ろご)RocketIn.st
+              </Link>
+              <Link
+                href="/about"
+                className="block px-2 py-1 text-xl"
+              >
+                about
+              </Link>
+              <Link
+                href="/search"
+                className="block px-2 py-1 text-xl"
+              >
+                search
+              </Link>
+            </div>
+            <div className="flex items-center">
+              {session ? (
+                <>
+                  <Link
+                    href="/register"
+                    className="block px-2 py-1 text-xl"
+                  >
+                    register
+                  </Link>
+                  <SignOutButton>
+                    <div className="block px-2 py-1 text-xl">
+                      signout
+                    </div>
+                  </SignOutButton>
+                  {session?.user?.image ? (
+                    <Image
+                      alt="icon"
+                      src={session?.user?.image}
+                      width={48}
+                      height={48}
+                      className="block rounded-full border-1 border-gray-500"
+                    />
+                  ) : undefined}
+                </>
+              ) : (
+                <SignInButton>
+                  <div className="block px-2 py-1 text-xl">
+                    signin
+                  </div>
+                </SignInButton>
+              )}
+            </div>
           </div>
           {children}
         </NextAuthProvider>

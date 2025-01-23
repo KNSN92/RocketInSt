@@ -43,6 +43,7 @@ export default async function Home() {
               className="rounded-full border-[1px] border-gray-500 inline"
             />
           ) : undefined}
+          <div className="h-8" />
           {mapData.length ? (
             <CampusMap mapData={mapData} mapSize={768} />
           ) : undefined}

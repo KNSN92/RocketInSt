@@ -13,7 +13,8 @@ export default async function Register() {
     const { campus, course, afterschool } =
       await fetchUserSchoolInfoOrUndefined(session?.user?.id || undefined);
     return (
-      <div>
+      <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
+        <h1 className="block w-fit mx-auto mb-4 text-4xl font-bold">自身の学校の情報を設定</h1>
         <RegisterForm
           campuses={campuses}
           initialTable={table}
