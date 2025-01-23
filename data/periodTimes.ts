@@ -14,3 +14,10 @@ const periods: {[key in LessonPeriod]: { start: time, end: time }} = {
 export const AfterSchool = { start: { hours: 16, minutes: 15 }, end: { hours: 17, minutes: 30 } } as const
 
 export default periods;
+
+export function isTimeInRange(time: time, timeRange: { start: time, end: time}) {
+    const totalMinutes = time.hours * 60 + time.minutes;
+    const startMinutes = timeRange.start.hours * 60 + timeRange.start.minutes;
+    const endMinutes = timeRange.end.hours * 60 + timeRange.end.minutes;
+    return startMinutes <= totalMinutes && totalMinutes <= endMinutes;
+}
