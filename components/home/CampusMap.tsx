@@ -8,7 +8,7 @@ export default function CampusMap({
     w: number;
     h: number;
     name: string;
-    className?: string;
+    className?: HTMLDivElement["className"];
   }[];
   mapSize: number;
 }) {
