@@ -4,6 +4,7 @@ import { SignInButton } from "@/components/common/AuthButtons";
 import Image from "next/image";
 import { prisma } from "@/prisma";
 import CampusMap from "@/components/home/CampusMap";
+import Link from "next/link";
 
 export default async function Home() {
   const session = await getServerSession(authConfig);
@@ -46,7 +47,10 @@ export default async function Home() {
           <div className="h-8" />
           {mapData.length ? (
             <CampusMap mapData={mapData} mapSize={768} />
-          ) : undefined}
+          ) : <>
+            <div className="text-xl font-bold">混雑状況マップを利用するにはキャンパスを登録してください。</div>
+            <Link href="/register" className="flex items-center justify-center w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold">登録ページへ</Link>
+          </>}
         </>
       ) : (
         <SignInButton>
