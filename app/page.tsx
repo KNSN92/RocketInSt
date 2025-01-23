@@ -40,7 +40,7 @@ export default async function Home() {
               src={session.user.image}
               width={128}
               height={128}
-              className="rounded-full border-[1px] border-gray-500 inline"
+              className="rounded-full"
             />
           ) : undefined}
           <div className="h-8" />

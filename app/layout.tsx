@@ -57,7 +57,7 @@ export default async function RootLayout({
                       src={session?.user?.image}
                       width={48}
                       height={48}
-                      className="block rounded-full border-1 border-gray-500"
+                      className="block rounded-full"
                     />
                   ) : undefined}
                 </>
