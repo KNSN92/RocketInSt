@@ -14,7 +14,7 @@ import { AfterSchoolKey, AfterSchoolMap } from "@/data/afterschool";
 const nicknameSchema = z.string({invalid_type_error: "ニックネームは文字列として入力してください。"}).nonempty({ message: "ニックネームは1文字以上の長さにしてください。" })
 const campusSchema = z.string({invalid_type_error: "キャンパスは文字列として入力してください。",}).uuid({ message: "キャンパスはuuidとして入力してください。" }).superRefine(validateCampus)
 const courseSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => (CourseFreqDays as ReadonlyArray<number>).includes(num), {message: `${CourseFreqDays.join(",")}のいずれかの整数を入力してください。`,})
-const afterschoolSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => 1 <= num && num <= 3, {message: "1~3の整数を入力してください。",})
+const afterschoolSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => 1 <= num && num <= 2, {message: "1~2の整数を入力してください。",})
 const lessonsSchema = z.string({invalid_type_error: "授業の一つ一つは文字列として入力してください。",}).uuid({ message: "授業の一つ一つはuuidとして入力してください。" }).array()
 
 const schema = z
@@ -116,8 +116,11 @@ export async function handleRegisterAction(previousState: { error: boolean, msg?
 
   const courseFreqEnum: CourseFrequency =
     DaysToCourseFreqMap[course as CourseFreqDay];
+  console.log(afterschool);
+  console.log(AfterSchoolMap)
   const afterschoolEnum: AfterSchool =
     AfterSchoolMap[afterschool as AfterSchoolKey];
+  console.log(afterschoolEnum)
 
   await prisma.$transaction([
     prisma.user.update({

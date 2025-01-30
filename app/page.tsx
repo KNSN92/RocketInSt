@@ -224,7 +224,7 @@ async function fetchAfterSchoolStudents(campusId: string, courseFreqs: CourseFre
       courseFrequency: {
         in: courseFreqs
       },
-      afterSchool: "StayUntilEnd"
+      afterSchool: "Stay"
     }
   })
 }

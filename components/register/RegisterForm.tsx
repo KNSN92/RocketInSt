@@ -162,17 +162,8 @@ export default function RegisterForm({
               name="afterschool"
               className="ml-4"
               buttons={[
-                { title: "すぐ帰る", value: 1, checked: initialAfterschool === 1 },
-                {
-                  title: "途中まで居る",
-                  value: 2,
-                  checked: initialAfterschool === 2,
-                },
-                {
-                  title: "最後まで居る",
-                  value: 3,
-                  checked: initialAfterschool === 3,
-                },
+                { title: "帰る", value: 1, checked: initialAfterschool === 1 },
+                { title: "残る", value: 2, checked: initialAfterschool === 2 },
               ]}
               required
             />

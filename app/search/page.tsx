@@ -157,22 +157,23 @@ async function fetchUserList(userId: string, query?: string) {
         afterSchool: true,
       },
     })).map((user) => {
-      if(lessonPeriod === "AfterSchool" && user.afterSchool !== "StayUntilEnd") {
+      if(lessonPeriod === "AfterSchool" && user.afterSchool === "Leave") {
         return {
           name: user.name,
           nickname: user.nickname,
           image: user.image,
           lesson: null
         }
-      }
-      return {
-        name: user.name,
-        nickname: user.nickname,
-        image: user.image,
-        lesson: {
-          title: dayOfWeek && user.courseFrequency && todayCourseFreqs.includes(user.courseFrequency) ? ExtraLessonPeriodJA[lessonPeriod] : null,
-          room: userCampusMainRoom?.name || null,
-          isRecess: false
+      }else {
+        return {
+          name: user.name,
+          nickname: user.nickname,
+          image: user.image,
+          lesson: {
+            title: dayOfWeek && user.courseFrequency && todayCourseFreqs.includes(user.courseFrequency) ? ExtraLessonPeriodJA[lessonPeriod] : null,
+            room: userCampusMainRoom?.name || null,
+            isRecess: false
+          }
         }
       }
     })
