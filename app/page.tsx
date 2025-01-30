@@ -117,7 +117,7 @@ async function fetchUserCampusMap(userId: string) {
     let students = todayAllMember;
     if(lessonPeriod === "AfterSchool") {
       const afterSchoolRatio = await fetchAfterSchoolStudents(userCampus.id, todayCourseFreqs) / todayAllStudents;
-      students = todayAllMember * afterSchoolRatio;
+      students = Math.floor(todayAllMember * afterSchoolRatio);
     }
     const congestion = userCampus.mainRoom ? replaceFinite(todayAllMember / userCampus.mainRoom.capacity, 0) : 0;
     return rooms.map((room) => {
