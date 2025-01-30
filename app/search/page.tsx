@@ -5,10 +5,8 @@ import { getNowJSTTimeWithWeekday } from "@/lib/time";
 import { prisma } from "@/prisma";
 import clsx from "clsx";
 import Image from "next/image";
-import { CourseFreqToDayOfWeekMap, CourseFreqToDaysMap, DayOfWeekToCourseFreqMap, DaysToCourseFreqMap } from "@/data/courseFreqs";
+import { DayOfWeekToCourseFreqMap } from "@/data/courseFreqs";
 
-import type { ExtraLessonPeriod } from "@/data/periodTimes";
-import { CourseFrequency } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { redirect } from "next/navigation";
@@ -52,8 +50,8 @@ async function WhenCampusRegistered({query, userId}: {query: string, userId: str
       <div>{userList.length}人のユーザーが見つかりました。</div>
       <div className="h-2" />
       {
-        rooms.map((room) => (
-          <button className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1">
+        rooms.map((room, i) => (
+          <button className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1" key={i}>
             {room.name}
           </button>
         ))

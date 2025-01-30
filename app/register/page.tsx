@@ -1,4 +1,3 @@
-import { handleRegisterAction } from "@/actions/register/RegisterFormAction";
 import authConfig from "@/auth.config";
 import RegisterForm from "@/components/register/RegisterForm";
 import { ReversedAfterSchoolMap } from "@/data/afterschool";

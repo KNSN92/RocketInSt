@@ -7,7 +7,7 @@ import CampusMap from "@/components/home/CampusMap";
 import Link from "next/link";
 import { NumToDayOfWeekMap } from "@/data/dayOfWeek";
 import { getNowJSTTimeWithWeekday } from "@/lib/time"
-import { getExtraPeriodFromTime, getPeriodFromTime, isTimeInAfterSchool } from "@/data/periodTimes";
+import { getExtraPeriodFromTime } from "@/data/periodTimes";
 import clsx from "clsx";
 import LoginRequired from "@/components/common/LoginRequired";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
@@ -268,10 +268,6 @@ async function fetchUserCampus(userId: string) {
       },
     }
   }))?.campus || null
-}
-
-async function fetchUserCampusMainRoom(userId: string) {
-  return (await prisma.user.findUnique({ where: { id: userId }, select: { campus: { select: { mainRoom: true } } } }))?.campus?.mainRoom || null
 }
 
 function replaceFinite(num: number, defaultNum: number): number {
