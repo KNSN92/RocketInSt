@@ -16,17 +16,17 @@ import { CourseFrequency } from "@prisma/client";
 
 export default async function Home() {
   return (
-    <div className="w-fit mx-auto flex flex-col items-center">
+    <div className="w-fit mx-auto mt-[50px] flex flex-col items-center">
       <div className="h-20" />
       <h1 className="text-6xl font-bold">RocketIn.St</h1>
       <div className="h-4" />
-      <h2 className="text-2xl font-semibold">
-        N/S高 生徒のキャンパス内位置 混雑状況 確認サイト
+      <h2 className="text-[1.2rem] font-semibold text-center">
+        N/S高 生徒のキャンパス内位置<br></br> 混雑状況 確認サイト
       </h2>
       <div className="h-10" />
       <LoginRequired message={
         <SignInButton>
-          <div className="bg-blue-600 text-3xl font-semibold flex justify-center items-center w-64 h-20 rounded-lg border-blue-800 border-[2px] hover:bg-blue-500 hover:border-blue-700">
+          <div className="transition bg-blue-200 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-[30px] py-[15px] rounded-full hover:bg-blue-600 hover:text-white">
             登録 / サインイン
           </div>
         </SignInButton>
@@ -71,7 +71,7 @@ async function WhenUserLoggedIn() {
   if(!session?.user) return undefined;
   return (
     <>
-      <div className="text-3xl font-semibold">
+      <div className="text-2xl font-semibold mt-[20px]">
         こんにちは {session.user?.name}
         さん
       </div>
@@ -80,13 +80,13 @@ async function WhenUserLoggedIn() {
         <Image
           alt="icon"
           src={session.user.image}
-          width={128}
-          height={128}
+          width={80}
+          height={80}
           className="rounded-full"
         />
       ) : undefined}
       <div className="h-12" />
-      <h1 className="text-3xl font-bold">混雑状況マップ(工事中)</h1>
+      <h1 className="text-3xl font-bold mt-[40px]">混雑状況マップ(工事中)</h1>
       <div className="h-4" />
       <CampusRegisterRequired message = {
         <>

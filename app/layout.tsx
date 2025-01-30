@@ -16,13 +16,13 @@ export default async function RootLayout({
     <html lang="ja">
       <body className="antialiased">
         <NextAuthProvider>
-          <div className="px-4 h-16 flex items-center justify-between bg-gray-800">
+          <div className="px-4 h-16 flex items-center justify-between bg-blue-600 text-white">
             <div className="flex items-center">
               <Link
                 href="/"
-                className="block px-2 py-1 text-3xl font-bold"
+                className="block px-2 py-1 pr-[30px] text-3xl font-bold"
               >
-                (ろご)RocketIn.st
+                （ろご）RocketIn.st
               </Link>
               <Link
                 href="/about"
