@@ -29,3 +29,10 @@ export const CourseFreqToDayOfWeekMap: {[day in CourseFreqDay]: DayOfWeek[]} = {
   ],
 };
 
+export const DayOfWeekToCourseFreqMap: {[dayOfWeek in DayOfWeek]: CourseFrequency[]} = {
+  Monday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
+  Tuesday: [ "FiveTimesPerWeek" ],
+  Wednesday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
+  Thursday: [ "OncePerWeek", "FiveTimesPerWeek" ],
+  Friday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
+}

@@ -1,3 +1,4 @@
+import { handleRegisterAction } from "@/actions/register/RegisterFormAction";
 import authConfig from "@/auth.config";
 import RegisterForm from "@/components/register/RegisterForm";
 import { ReversedAfterSchoolMap } from "@/data/afterschool";
@@ -10,19 +11,17 @@ export default async function Register() {
   try {
     const table = await fetchLessonsAndGenTable(session?.user?.id || undefined);
     const campuses = await fetchCampuses();
-    const { campus, course, afterschool } =
+    const { nickname, campus, course, afterschool } =
       await fetchUserSchoolInfoOrUndefined(session?.user?.id || undefined);
     return (
-      <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
-        <h1 className="block w-fit mx-auto mb-4 text-4xl font-bold">自身の学校の情報を設定</h1>
         <RegisterForm
+          initialNickName={nickname}
           campuses={campuses}
           initialTable={table}
           initialCampus={campus}
           initialCourse={course}
           initialAfterschool={afterschool}
         />
-      </div>
     );
   } catch (e) {
     console.error(e);
@@ -95,6 +94,7 @@ async function fetchCampuses() {
 async function fetchUserSchoolInfoOrUndefined(userId?: string) {
   if (!userId)
     return {
+      nickname: undefined,
       campus: undefined,
       course: undefined,
       afterschool: undefined,
@@ -104,12 +104,14 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
       id: userId,
     },
     select: {
+      nickname: true,
       campus: true,
       courseFrequency: true,
       afterSchool: true,
     },
   });
   return {
+    nickname: data?.nickname || undefined,
     campus: data?.campus?.id || undefined,
     course: data?.courseFrequency
       ? CourseFreqToDaysMap[data.courseFrequency]

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export default function CampusMap({
   mapData,
   mapSize,
@@ -7,7 +9,7 @@ export default function CampusMap({
     y: number;
     w: number;
     h: number;
-    name: string;
+    name: ReactNode;
     className?: HTMLDivElement["className"];
   }[];
   mapSize: number;

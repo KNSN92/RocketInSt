@@ -7,16 +7,18 @@ export default async function seed() {
     await prisma.roomPlan.deleteMany()
 
     Object.entries(campuses).forEach(async (value) => {
-        const [campus, rooms] = value
+        const [campusName, { mainRoom, allMember, rooms}] = value
         const { id } = await prisma.campus.create({
             data: {
-                name: campus,
+                name: campusName,
+                allMember: allMember,
             }
         })
-        await rooms.forEach(async (room) => {
-            await prisma.room.create({
+        await rooms.forEach(async (room, i) => {
+            const createdRoom = await prisma.room.create({
                 data: {
                     name: room.name,
+                    capacity: room.capacity,
                     roomPlan: {
                         create: {
                             x: room.plan.x,
@@ -32,6 +34,20 @@ export default async function seed() {
                     }
                 }
             })
+            if(i === mainRoom) {
+                await prisma.campus.update({
+                    where: {
+                        id: id
+                    },
+                    data: {
+                        mainRoom: {
+                            connect: {
+                                id: createdRoom.id
+                            }
+                        }
+                    }
+                })
+            }
         })
     })
 }

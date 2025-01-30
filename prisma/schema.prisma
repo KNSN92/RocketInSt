@@ -104,18 +104,29 @@ model Authenticator {
 }
 
 model Campus {
-  id      String @id @default(uuid())
-  name    String
-  rooms   Room[]
-  members User[]
+  id         String @id @default(uuid())
+  name       String
+
+  rooms      Room[] @relation("rooms")
+
+  mainRoom   Room?   @relation("mainRoom", fields: [mainRoomId], references: [id])
+  mainRoomId String? @unique
+
+  members    User[]
+
+  allMember  Int
 }
 
 model Room {
   id   String @id @default(uuid())
   name String
 
-  campus   Campus @relation(fields: [campusId], references: [id], onDelete: Cascade)
+  campus   Campus @relation(name: "rooms", fields: [campusId], references: [id], onDelete: Cascade)
   campusId String
+
+  mainFor Campus? @relation("mainRoom")
+
+  capacity Int
 
   lessons Lesson[]
 

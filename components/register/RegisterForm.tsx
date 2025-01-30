@@ -3,17 +3,19 @@
 import { ROW, ROW_JA, COL_JA } from "@/data/schedules";
 import RadioButton from "../common/RadioButton";
 import { handleRegisterAction } from "@/actions/register/RegisterFormAction";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useActionState, useState } from "react";
 import {
   CourseFreqDay,
   CourseFreqDays,
   CourseFreqToDayOfWeekMap,
 } from "@/data/courseFreqs";
 import { $Enums, DayOfWeek } from "@prisma/client";
+import clsx from "clsx";
 
 export default function RegisterForm({
   campuses,
   initialTable,
+  initialNickName,
   initialCampus,
   initialCourse,
   initialAfterschool,
@@ -24,6 +26,7 @@ export default function RegisterForm({
       [key: string]: { id: string; title: string; selected?: boolean }[];
     };
   };
+  initialNickName?: string;
   initialCampus?: string;
   initialCourse?: number;
   initialAfterschool?: number;
@@ -65,106 +68,120 @@ export default function RegisterForm({
     });
   }
 
+  const [state, formAction, isPending] = useActionState(handleRegisterAction, { error: false });
+
   return (
-    <form action={handleRegisterAction}>
-      <div className="mt-8 w-96">
-        <h2 className="text-2xl font-bold">キャンパスを選択</h2>
-        <select
-          name="campus"
-          defaultValue={campus}
-          onChange={(e) => {
-            setCampus(e.target.value);
-          }}
-          required
-          className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400"
-        >
-          <option value="">キャンパスを選択</option>
-          {campuses.map((campus, i) => (
-            <option key={i} value={campus.value}>
-              {campus.title}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="mt-8 w-96">
-        <h2 className="text-2xl font-bold">コースを選択</h2>
-        <RadioButton
-          className="ml-4"
-          name="course"
-          buttons={[
-            { title: "週1日", value: 1, checked: courseDays.length === 1 },
-            { title: "週3日", value: 3, checked: courseDays.length === 3 },
-            { title: "週5日", value: 5, checked: courseDays.length === 5 },
-          ]}
-          onChange={handleCourseChange}
-          required
-        />
-      </div>
-      <h2 className="mt-8 block w-96 text-2xl font-bold">授業を選択</h2>
-      <div className="w-fit">
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              {courseDays.map((col, i) => (
-                <th key={i}>{COL_JA[col]}</th>
+    <>
+      {state.error && <div className="mx-auto w-[60vw] min-h-24 h-fit mt-8 p-4 bg-red-600 border-4 border-red-800 rounded-xl flex justify-center items-center text-2xl">
+        {state.msg}
+      </div>}
+      <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
+        <h1 className="block w-fit mx-auto mb-4 text-4xl font-bold">自身の学校の情報を設定</h1>
+        <form action={formAction}>
+          <div className="mt-8 w-96">
+            <h2 className="text-2xl font-bold">ニックネームを入力</h2>
+            <input className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400" name="nickname" defaultValue={initialNickName}  />
+          </div>
+          <div className="mt-8 w-96">
+            <h2 className="text-2xl font-bold">キャンパスを選択</h2>
+            <select
+              name="campus"
+              defaultValue={campus}
+              onChange={(e) => {
+                setCampus(e.target.value);
+              }}
+              required
+              className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400"
+            >
+              <option value="">キャンパスを選択</option>
+              {campuses.map((campus, i) => (
+                <option key={i} value={campus.value}>
+                  {campus.title}
+                </option>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {ROW.map((r, i) => (
-              <tr key={i}>
-                <th>{ROW_JA[r]}</th>
-                {courseDays.map((c, j) => (
-                  <td key={j}>
-                    <select
-                      required
-                      value={
-                        lessonTable[c][r].find((lesson) => lesson.selected)?.id ||
-                        undefined
-                      }
-                      onChange={(e) => handleLessonChange(e, c, r)}
-                      name="lessons"
-                      className="lesson-select w-48 bg-black text-white"
-                    >
-                      <option value="">選択</option>
-                      {lessonTable[c][r].map(({ id, title }, i) => (
-                        <option key={i} value={id}>
-                          {title}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
+            </select>
+          </div>
+          <div className="mt-8 w-96">
+            <h2 className="text-2xl font-bold">コースを選択</h2>
+            <RadioButton
+              className="ml-4"
+              name="course"
+              buttons={[
+                { title: "週1日", value: 1, checked: courseDays.length === 1 },
+                { title: "週3日", value: 3, checked: courseDays.length === 3 },
+                { title: "週5日", value: 5, checked: courseDays.length === 5 },
+              ]}
+              onChange={handleCourseChange}
+              required
+            />
+          </div>
+          <h2 className="mt-8 block w-96 text-2xl font-bold">授業を選択</h2>
+          <div className="w-fit">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  {courseDays.map((col, i) => (
+                    <th key={i}>{COL_JA[col]}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {ROW.map((r, i) => (
+                  <tr key={i}>
+                    <th>{ROW_JA[r]}</th>
+                    {courseDays.map((c, j) => (
+                      <td key={j}>
+                        <select
+                          required
+                          defaultValue={
+                            lessonTable[c][r].find((lesson) => lesson.selected)?.id ||
+                            undefined
+                          }
+                          onChange={(e) => handleLessonChange(e, c, r)}
+                          name="lessons"
+                          className="lesson-select w-48 bg-black text-white"
+                        >
+                          <option value="">選択</option>
+                          {lessonTable[c][r].map(({ id, title }, i) => (
+                            <option key={i} value={id}>
+                              {title}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          </div>
+          <div className="w-96 mt-8">
+            <h2 className="text-2xl font-bold">放課後の動きを選択</h2>
+            <RadioButton
+              name="afterschool"
+              className="ml-4"
+              buttons={[
+                { title: "すぐ帰る", value: 1, checked: initialAfterschool === 1 },
+                {
+                  title: "途中まで居る",
+                  value: 2,
+                  checked: initialAfterschool === 2,
+                },
+                {
+                  title: "最後まで居る",
+                  value: 3,
+                  checked: initialAfterschool === 3,
+                },
+              ]}
+              required
+            />
+          </div>
+          <div className="w-fit mx-auto mt-8">
+            <button type="submit" className={clsx("block w-fit px-8 h-12 rounded-sm text-2xl font-bold", isPending ? "bg-blue-800" : "bg-blue-600")}>{isPending ? "送信中..." : "送信"}</button>
+          </div>
+        </form>
       </div>
-      <div className="w-96 mt-8">
-        <h2 className="text-2xl font-bold">放課後の動きを選択</h2>
-        <RadioButton
-          name="afterschool"
-          className="ml-4"
-          buttons={[
-            { title: "すぐ帰る", value: 1, checked: initialAfterschool === 1 },
-            {
-              title: "途中まで居る",
-              value: 2,
-              checked: initialAfterschool === 2,
-            },
-            {
-              title: "最後まで居る",
-              value: 3,
-              checked: initialAfterschool === 3,
-            },
-          ]}
-          required
-        />
-      </div>
-      <div className="w-fit mx-auto mt-8">
-        <button type="submit" className="block w-24 h-12 bg-blue-600 rounded-sm text-2xl font-bold">送信</button>
-      </div>
-    </form>
+    </>
   );
 }

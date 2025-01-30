@@ -11,6 +11,7 @@ import type { CourseFreqDay } from "@/data/courseFreqs";
 import { AfterSchoolKey, AfterSchoolMap } from "@/data/afterschool";
 
 
+const nicknameSchema = z.string({invalid_type_error: "ニックネームは文字列として入力してください。"}).nonempty({ message: "ニックネームは1文字以上の長さにしてください。" })
 const campusSchema = z.string({invalid_type_error: "キャンパスは文字列として入力してください。",}).uuid({ message: "キャンパスはuuidとして入力してください。" }).superRefine(validateCampus)
 const courseSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => (CourseFreqDays as ReadonlyArray<number>).includes(num), {message: `${CourseFreqDays.join(",")}のいずれかの整数を入力してください。`,})
 const afterschoolSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => 1 <= num && num <= 3, {message: "1~3の整数を入力してください。",})
@@ -18,6 +19,7 @@ const lessonsSchema = z.string({invalid_type_error: "授業の一つ一つは文
 
 const schema = z
   .object({
+    nickname: nicknameSchema,
     campus: campusSchema,
     course: courseSchema,
     afterschool: afterschoolSchema,
@@ -98,18 +100,19 @@ async function validateLessons(
   }
 }
 
-export async function handleRegisterAction(formData: FormData) {
+export async function handleRegisterAction(previousState: { error: boolean, msg?: string}, formData: FormData): Promise<{ error: boolean, msg?: string}> {
   const parseResult = await schema.safeParseAsync({
+    nickname: formData.get("nickname"),
     campus: formData.get("campus"),
     course: formData.get("course"),
     afterschool: formData.get("afterschool"),
     lessons: formData.getAll("lessons"),
   });
-  if (!parseResult.success) return;
-  const { campus, course, afterschool, lessons } = parseResult.data;
+  if (!parseResult.success) return { error: true, msg: parseResult.error?.errors[0].message };
+  const { nickname, campus, course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
   const userId = session?.user?.id;
-  if (!userId) return;
+  if (!userId) return { error: true, msg: "ユーザーidを取得出来ませんでした。" };
 
   const courseFreqEnum: CourseFrequency =
     DaysToCourseFreqMap[course as CourseFreqDay];
@@ -120,6 +123,7 @@ export async function handleRegisterAction(formData: FormData) {
     prisma.user.update({
       where: { id: userId },
       data: {
+        nickname: nickname,
         campus: { connect: { id: campus } },
         courseFrequency: courseFreqEnum,
         afterSchool: afterschoolEnum,

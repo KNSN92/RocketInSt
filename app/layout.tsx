@@ -14,7 +14,7 @@ export default async function RootLayout({
   const session = await getServerSession(authConfig);
   return (
     <html lang="ja">
-      <body className="antialiased bg-black">
+      <body className="antialiased">
         <NextAuthProvider>
           <div className="px-4 h-16 flex items-center justify-between bg-gray-800">
             <div className="flex items-center">
