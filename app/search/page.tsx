@@ -79,7 +79,7 @@ async function WhenCampusRegistered({query, userId}: {query: string, userId: str
               </div>
               <div className="w-fit overflow-hidden flex flex-row items-center justify-end">
                 {
-                  user.lesson?.room ? `${user.lesson.room}にいます` : "キャンパスに居ません"
+                  user.lesson ? (user.lesson.room ? `${user.lesson.room}にいます` : "???") : "キャンパスに居ません"
                 }
               </div>
               <div className="w-fit overflow-hidden hidden flex-row items-center justify-end xl:flex">
@@ -217,10 +217,10 @@ async function fetchUserList(userId: string, query?: string) {
         name: user.name,
         nickname: user.nickname,
         image: user.image,
-        lesson: dayOfWeek && lessonPeriod && user.lesson?.length ? {
-          title: user.lesson[0].title,
+        lesson: dayOfWeek && lessonPeriod ? {
+          title: user.lesson[0]?.title,
           isRecess: lessonPeriod?.isRecess,
-          room: user.lesson[0].rooms ? user.lesson[0].rooms[0].name : null
+          room: user.lesson[0].rooms ? user.lesson[0]?.rooms[0]?.name : null
         } : null
       }
     })
