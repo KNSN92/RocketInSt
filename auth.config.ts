@@ -9,6 +9,11 @@ if(!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     process.exit();
 }
 
+const EmailDomainWhiteList = [
+    "@nnn.ed.jp",
+    "@nnn.ac.jp",
+]
+
 const authConfig: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     session: {
@@ -23,6 +28,7 @@ const authConfig: AuthOptions = {
     ],
     pages: {
         signIn: "/signin",
+        error: "/autherror",
         newUser: "/register"
     },
     callbacks: {
@@ -30,6 +36,15 @@ const authConfig: AuthOptions = {
             if (session.user && sub) session.user.id = sub;
             return session;
         },
+        async signIn(params) {
+            const { profile } = params;
+            if(profile?.email) {
+                const email = profile.email;
+                const canAccept =  EmailDomainWhiteList.some((emailDomain) => email.endsWith(emailDomain));
+                return canAccept;
+            }
+            return false;
+        }
     },
     debug: process.env.NODE_ENV === "development"
 };
