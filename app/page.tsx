@@ -26,7 +26,7 @@ export default async function Home() {
       <div className="h-10" />
       <LoginRequired message={
         <SignInButton>
-          <div className="transition bg-blue-200 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-[30px] py-[15px] rounded-full hover:bg-blue-600 hover:text-white">
+          <div className="transition duration-500 bg-blue-200 text-blue-600 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-[30px] py-[15px] rounded-full hover:bg-blue-600 hover:text-blue-200">
             登録 / サインイン
           </div>
         </SignInButton>
@@ -75,16 +75,6 @@ async function WhenUserLoggedIn() {
         こんにちは {session.user?.name}
         さん
       </div>
-      <div className="h-4" />
-      {session.user.image ? (
-        <Image
-          alt="icon"
-          src={session.user.image}
-          width={80}
-          height={80}
-          className="rounded-full"
-        />
-      ) : undefined}
       <div className="h-12" />
       <h1 className="text-3xl font-bold mt-[40px]">混雑状況マップ(工事中)</h1>
       <div className="h-4" />
