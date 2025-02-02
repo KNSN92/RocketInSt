@@ -154,8 +154,9 @@ model Lesson {
 }
 
 model Period {
-  id    String @id @default(uuid())
-  title String
+  id        String @id @default(uuid())
+  name      String
+  innername String @unique
 
   weekday   WeekDay
   beginTime Int
