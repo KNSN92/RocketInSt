@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { SignInButton } from "@/components/common/AuthButtons";
-import Image from "next/image";
 import { prisma } from "@/prisma";
 import CampusMap from "@/components/home/CampusMap";
 import Link from "next/link";
