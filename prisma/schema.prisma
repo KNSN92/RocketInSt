@@ -162,6 +162,15 @@ model Period {
   endTime   Int
 
   lessons Lesson[]
+
+  tag PeriodTag
+}
+
+enum PeriodTag {
+  Lesson
+  Meeting
+  Event
+  Other
 }
 
 enum WeekDay {
