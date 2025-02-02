@@ -26,10 +26,10 @@ export const ROW_JA: {[key in LessonPeriodType]: string} = {
 
 type DayColumn = {
     readonly [key in LessonPeriodType]: readonly string[];
-  };
-  type WeekTable = {
+};
+type WeekTable = {
     readonly [key in DayOfWeekType]: DayColumn;
-  };
+};
 
 const monday: DayColumn = {
     "FirstPeriod": ["サークル活動", "エキスパートプログラム", "自主学習"] as const,
