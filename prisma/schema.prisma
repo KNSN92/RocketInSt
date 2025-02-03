@@ -146,7 +146,7 @@ model RoomPlan {
 model Lesson {
   id       String @id @default(uuid())
   title    String
-  period   Period @relation(fields: [periodId], references: [id])
+  period   Period @relation(fields: [periodId], references: [id], onDelete: Cascade)
   periodId String
 
   rooms    Room[]
