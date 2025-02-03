@@ -151,6 +151,8 @@ model Lesson {
 
   rooms    Room[]
   students User[]
+
+  @@unique([title, periodId])
 }
 
 model Period {
