@@ -169,6 +169,7 @@ model Period {
 
 enum PeriodTag {
   Lesson
+  Recess
   Meeting
   Event
   Other
