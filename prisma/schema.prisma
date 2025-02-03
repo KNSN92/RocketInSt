@@ -156,7 +156,7 @@ model Lesson {
 model Period {
   id        String @id @default(uuid())
   name      String
-  innername String @unique
+  innername String
 
   weekday   WeekDay
   beginTime Int
@@ -165,6 +165,8 @@ model Period {
   lessons Lesson[]
 
   tag PeriodTag
+
+  @@unique([innername, weekday])
 }
 
 enum PeriodTag {
