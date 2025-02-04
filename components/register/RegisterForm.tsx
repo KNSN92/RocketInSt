@@ -1,16 +1,21 @@
 "use client";
 
-import { ROW, ROW_JA, COL_JA } from "@/data/schedules";
 import RadioButton from "../common/RadioButton";
 import { handleRegisterAction } from "@/actions/register/RegisterFormAction";
 import { ChangeEvent, useActionState, useState } from "react";
 import {
   CourseFreqDay,
   CourseFreqDays,
-  CourseFreqToDayOfWeekMap,
+  DaysToWeekDayMap,
 } from "@/data/courseFreqs";
-import { $Enums, DayOfWeek } from "@prisma/client";
+import { WeekDay } from "@prisma/client";
 import clsx from "clsx";
+import {
+  LessonPeriods,
+  LessonPeriodsJA,
+  LessonPeriodType,
+} from "@/data/periods";
+import { WeekDayJA } from "@/data/weekdays";
 
 export default function RegisterForm({
   campuses,
@@ -23,7 +28,7 @@ export default function RegisterForm({
   campuses: { title: string; value: string }[];
   initialTable: {
     [key: string]: {
-      [key: string]: { id: string; title: string; selected?: boolean }[];
+      [key: string]: { id: string; title: string; selected: boolean }[];
     };
   };
   initialNickName?: string;
@@ -33,10 +38,8 @@ export default function RegisterForm({
 }) {
   const [campus, setCampus] = useState(initialCampus);
   const [lessonTable, setLessonTable] = useState(initialTable);
-  const [courseDays, setCourseDays] = useState<DayOfWeek[]>([
-    ...CourseFreqToDayOfWeekMap[
-      initialCourse ? (initialCourse as CourseFreqDay) : 1
-    ],
+  const [courseDays, setCourseDays] = useState<WeekDay[]>([
+    ...DaysToWeekDayMap[initialCourse ? (initialCourse as CourseFreqDay) : 1],
   ]);
 
   function handleCourseChange(e: ChangeEvent<HTMLInputElement>) {
@@ -47,13 +50,14 @@ export default function RegisterForm({
       .forEach((ele) => {
         ele.selectedIndex = 0;
       });
-    setCourseDays([...CourseFreqToDayOfWeekMap[v as CourseFreqDay]]);
+    setCourseDays([...DaysToWeekDayMap[v as CourseFreqDay]]);
   }
 
+  console.log(JSON.stringify(lessonTable, undefined, "\t"));
   function handleLessonChange(
     e: ChangeEvent<HTMLSelectElement>,
-    c: $Enums.DayOfWeek,
-    r: $Enums.LessonPeriod
+    c: WeekDay,
+    r: LessonPeriodType
   ) {
     const updatedLessons = lessonTable[c][r].map((lesson) => {
       lesson.selected = lesson.id === e.target.value;
@@ -68,25 +72,35 @@ export default function RegisterForm({
     });
   }
 
-  const [state, formAction, isPending] = useActionState(handleRegisterAction, { error: false });
+  const [state, formAction, isPending] = useActionState(handleRegisterAction, {
+    error: false,
+  });
 
   return (
     <>
-      {state.error && <div className="mx-auto w-[60vw] min-h-24 h-fit mt-8 p-4 bg-red-600 border-4 border-red-800 rounded-xl flex justify-center items-center text-2xl">
-        {state.msg}
-      </div>}
+      {state.error && (
+        <div className="mx-auto w-[60vw] min-h-24 h-fit mt-8 p-4 bg-red-600 border-4 border-red-800 rounded-xl flex justify-center items-center text-2xl">
+          {state.msg}
+        </div>
+      )}
       <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
-        <h1 className="block w-fit mx-auto mb-4 text-4xl font-bold">自身の学校の情報を設定</h1>
+        <h1 className="block w-fit mx-auto mb-4 text-4xl font-bold">
+          自身の学校の情報を設定
+        </h1>
         <form action={formAction}>
           <div className="mt-8 w-96">
             <h2 className="text-2xl font-bold">ニックネームを入力</h2>
-            <input className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400" name="nickname" defaultValue={initialNickName}  />
+            <input
+              className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400"
+              name="nickname"
+              defaultValue={initialNickName}
+            />
           </div>
           <div className="mt-8 w-96">
             <h2 className="text-2xl font-bold">キャンパスを選択</h2>
             <select
               name="campus"
-              defaultValue={campus}
+              value={campus}
               onChange={(e) => {
                 setCampus(e.target.value);
               }}
@@ -121,33 +135,45 @@ export default function RegisterForm({
               <thead>
                 <tr>
                   <th></th>
-                  {courseDays.map((col, i) => (
-                    <th key={i}>{COL_JA[col]}</th>
+                  {courseDays.map((weekday, i) => (
+                    <th key={i}>{WeekDayJA[weekday]}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {ROW.map((r, i) => (
+                {LessonPeriods.map((lessonPeriod, i) => (
                   <tr key={i}>
-                    <th>{ROW_JA[r]}</th>
-                    {courseDays.map((c, j) => (
+                    <th>{LessonPeriodsJA[lessonPeriod]}</th>
+                    {courseDays.map((courseDay, j) => (
                       <td key={j}>
                         <select
                           required
-                          defaultValue={
-                            lessonTable[c][r].find((lesson) => lesson.selected)?.id ||
-                            undefined
+                          value={(() => {
+                            console.log(
+                              courseDay,
+                              lessonPeriod,
+                              lessonTable[courseDay][lessonPeriod]
+                            );
+                            return (
+                              lessonTable[courseDay][lessonPeriod].find(
+                                (lesson) => lesson.selected
+                              )?.id || ""
+                            );
+                          })()}
+                          onChange={(e) =>
+                            handleLessonChange(e, courseDay, lessonPeriod)
                           }
-                          onChange={(e) => handleLessonChange(e, c, r)}
                           name="lessons"
                           className="lesson-select w-48 bg-black text-white"
                         >
                           <option value="">選択</option>
-                          {lessonTable[c][r].map(({ id, title }, i) => (
-                            <option key={i} value={id}>
-                              {title}
-                            </option>
-                          ))}
+                          {lessonTable[courseDay][lessonPeriod].map(
+                            ({ id, title }, i) => (
+                              <option key={i} value={id}>
+                                {title}
+                              </option>
+                            )
+                          )}
                         </select>
                       </td>
                     ))}
@@ -162,14 +188,23 @@ export default function RegisterForm({
               name="afterschool"
               className="ml-4"
               buttons={[
-                { title: "帰る", value: 1, checked: initialAfterschool === 1 },
-                { title: "残る", value: 2, checked: initialAfterschool === 2 },
+                { title: "帰る", value: 0, checked: initialAfterschool === 0 },
+                { title: "残る", value: 1, checked: initialAfterschool === 1 },
               ]}
               required
             />
           </div>
           <div className="w-fit mx-auto mt-8">
-            <button type="submit" className={clsx("block w-fit px-8 h-12 rounded-sm text-2xl font-bold", isPending ? "bg-blue-800" : "bg-blue-600")}>{isPending ? "送信中..." : "送信"}</button>
+            <button
+              type="submit"
+              className={clsx(
+                "block w-fit px-8 h-12 rounded-sm text-2xl font-bold",
+                isPending ? "bg-blue-800" : "bg-blue-600"
+              )}
+              onClick={() => console.log(lessonTable)}
+            >
+              {isPending ? "送信中..." : "送信"}
+            </button>
           </div>
         </form>
       </div>

@@ -1,17 +1,17 @@
-import SearchField from "@/components/common/SearchField";
-import { NumToDayOfWeekMap } from "@/data/dayOfWeek";
-import { ExtraLessonPeriodJA, getExtraPeriodFromTime } from "@/data/periodTimes";
-import { getNowJSTTimeWithWeekday } from "@/lib/time";
 import { prisma } from "@/prisma";
 import clsx from "clsx";
 import Image from "next/image";
-import { DayOfWeekToCourseFreqMap } from "@/data/courseFreqs";
-
-import { getServerSession } from "next-auth";
-import authConfig from "@/auth.config";
-import { redirect } from "next/navigation";
-import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import authConfig from "@/auth.config";
+import { getServerSession } from "next-auth";
+
+import { NumToWeekDayMap } from "@/data/weekdays";
+
+import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
+import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
+import SearchField from "@/components/common/SearchField";
+import { RecessPeriods } from "@/data/periods";
 
 export default async function SearchPage({
   searchParams,
@@ -21,25 +21,26 @@ export default async function SearchPage({
   const { query } = await searchParams;
 
   const session = await getServerSession(authConfig);
-  if(!session?.user?.id) redirect("/signin");
+  if (!session?.user?.id) redirect("/signin");
 
   return (
     <div className="mx-auto w-fit mt-8">
-      <CampusRegisterRequired
-        message={
-          <WhenCampusUnregistered />
-        }
-      >
+      <CampusRegisterRequired message={<WhenCampusUnregistered />}>
         <WhenCampusRegistered query={query} userId={session.user.id} />
       </CampusRegisterRequired>
     </div>
   );
 }
 
-async function WhenCampusRegistered({query, userId}: {query: string, userId: string}) {
+async function WhenCampusRegistered({
+  query,
+  userId,
+}: {
+  query: string;
+  userId: string;
+}) {
   const userList = await fetchUserList(userId, query);
   const rooms = await fetchUserCampusRooms(userId);
-  if(!userList) return <></>;
   return (
     <>
       <SearchField
@@ -49,48 +50,62 @@ async function WhenCampusRegistered({query, userId}: {query: string, userId: str
       <div className="h-4" />
       <div>{userList.length}人のユーザーが見つかりました。</div>
       <div className="h-2" />
-      {
-        rooms.map((room, i) => (
-          <button className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1" key={i}>
-            {room.name}
-          </button>
-        ))
-      }
+      {rooms.map((room, i) => (
+        <button
+          className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1"
+          key={i}
+        >
+          {room.name}
+        </button>
+      ))}
       <div className="h-2" />
-      {!userList.length && <div className="h-16 flex items-center text-2xl">
-        <div className="mr-2 w-12 h-12 flex items-center justify-center text-4xl font-bold text-black bg-gray-400 rounded-full">?</div>ユーザーが見つかりませんでした。:(
-      </div>}
       <div className="w-fit">
-          {userList.map((user, i) => (
-            <div className={clsx("w-[60vw] min-w-[512px] h-16 flex flex-row items-center justify-between", i !== 0 && "border-t-[2px] border-gray-800")} key={i}>
-              <div className="w-fit flex flex-row items-center">
-                {
-                  user.image ? <Image
-                    alt="icon"
-                    src={user.image}
-                    width={48}
-                    height={48}
-                    className="inline-block rounded-full"
-                  /> : <div className="mr-2 w-12 h-12 flex items-center justify-center text-4xl font-bold text-black bg-gray-400 rounded-full">?</div>
-                }
-                <div className="m-2 text-2xl text-nowrap">
-                  {user.nickname ? `${user.nickname}(${user.name})` : user.name}
-                </div>
-              </div>
-              <div className="w-fit overflow-hidden flex flex-row items-center justify-end">
-                {
-                  user.lesson ? (user.lesson.room ? `${user.lesson.room}にいます` : "???") : "キャンパスに居ません"
-                }
-              </div>
-              <div className="w-fit overflow-hidden hidden flex-row items-center justify-end xl:flex">
-                {
-                  user.lesson ? (
-                    user.lesson.isRecess ? "休み時間中です。" : `${user.lesson.title}を受講中`
-                  ) : "キャンパスに居ません"
-                }
+        {userList.length === 0 && (
+          <div className="h-16 flex items-center text-2xl">
+            <UnknownUserIcon />
+            ユーザーが見つかりませんでした。:(
+          </div>
+        )}
+        {userList.map((user, i) => (
+          <div
+            className={clsx(
+              "w-[60vw] min-w-[512px] h-16 flex flex-row items-center justify-between",
+              i !== 0 && "border-t-[2px] border-gray-800"
+            )}
+            key={i}
+          >
+            <div className="w-fit flex flex-row items-center">
+              {user.image ? (
+                <Image
+                  alt="icon"
+                  src={user.image}
+                  width={48}
+                  height={48}
+                  className="inline-block rounded-full"
+                />
+              ) : (
+                <UnknownUserIcon />
+              )}
+              <div className="m-2 text-2xl text-nowrap">
+                {user.nickname ? `${user.nickname}(${user.name})` : user.name}
               </div>
             </div>
-          ))}
+            <div className="w-fit overflow-hidden flex flex-row items-center justify-end">
+              {user.lesson
+                ? user.lesson.room
+                  ? `${user.lesson.room}にいます`
+                  : "???"
+                : "キャンパスに居ません"}
+            </div>
+            <div className="w-fit overflow-hidden hidden flex-row items-center justify-end xl:flex">
+              {user.lesson
+                ? user.lesson.period
+                  ? user.lesson.period
+                  : user.lesson.title
+                : "キャンパスに居ません"}
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
@@ -99,43 +114,50 @@ async function WhenCampusRegistered({query, userId}: {query: string, userId: str
 async function WhenCampusUnregistered() {
   return (
     <>
-      <div className="text-xl font-bold">混雑状況マップを利用するにはキャンパスを登録してください。</div>
-      <Link href="/register" className="flex items-center justify-center w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold">登録ページへ</Link>
+      <div className="text-xl font-bold">
+        ユーザー検索を利用するにはキャンパスを登録してください。
+      </div>
+      <Link
+        href="/register"
+        className="mx-auto flex items-center justify-center w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold"
+      >
+        登録ページへ
+      </Link>
     </>
   );
 }
 
 async function fetchUserCampusRooms(userId: string) {
-  return (await prisma.user.findUnique({
-    where: {
-      id: userId
-    },
-    select: {
-      campus: {
+  return (
+    (
+      await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
         select: {
-          rooms: {
+          campus: {
             select: {
-              id: true,
-              name: true,
-            }
-          }
-        }
-      }
-    }
-  }))?.campus?.rooms || [];
+              rooms: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      })
+    )?.campus?.rooms || []
+  );
 }
 
 async function fetchUserList(userId: string, query?: string) {
-  const { weekday, hours, minutes } = getNowJSTTimeWithWeekday();
-  const dayOfWeek = NumToDayOfWeekMap[weekday] || null
-  const todayCourseFreqs = dayOfWeek ? DayOfWeekToCourseFreqMap[dayOfWeek] : []
-  const lessonPeriod = getExtraPeriodFromTime({hours: hours, minutes: minutes})
-  const userCampus = await fetchUserCampus(userId)
-  if(!userCampus) return null;
-
-  if(typeof lessonPeriod === "string") {
-    const userCampusMainRoom = await fetchUserCampusMainRoom(userId);
-    return (await prisma.user.findMany({
+  const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
+  const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
+  const userCampus = await fetchUserCampus(userId);
+  if (!userCampus) return [];
+  return (
+    await prisma.user.findMany({
       where: {
         OR: [
           {
@@ -143,101 +165,100 @@ async function fetchUserList(userId: string, query?: string) {
           },
           {
             nickname: { not: null, contains: query },
-          }
+          },
         ],
         campus: {
-          id: userCampus.id
+          id: userCampus.id,
         },
       },
       select: {
         name: true,
         nickname: true,
         image: true,
-        courseFrequency: true,
-        afterSchool: true,
-      },
-    })).map((user) => {
-      if(lessonPeriod === "AfterSchool" && user.afterSchool === "Leave") {
-        return {
-          name: user.name,
-          nickname: user.nickname,
-          image: user.image,
-          lesson: null
-        }
-      }else {
-        return {
-          name: user.name,
-          nickname: user.nickname,
-          image: user.image,
-          lesson: {
-            title: dayOfWeek && user.courseFrequency && todayCourseFreqs.includes(user.courseFrequency) ? ExtraLessonPeriodJA[lessonPeriod] : null,
-            room: userCampusMainRoom?.name || null,
-            isRecess: false
-          }
-        }
-      }
-    })
-  }else {
-    return (await prisma.user.findMany({
-      where: {
-        OR: [
-          {
-            name: { not: null, contains: query },
+        lessons: {
+          where: {
+            period: {
+              some: {
+                weekday: weekdayEnum,
+                AND: {
+                  beginTime: {
+                    lte: minutes,
+                  },
+                  endTime: {
+                    gte: minutes,
+                  },
+                },
+              },
+            },
           },
-          {
-            nickname: { not: null, contains: query },
-          }
-        ],
-        campus: {
-          id: userCampus.id
-        }
-      },
-      select: {
-        name: true,
-        nickname: true,
-        image: true,
-        lesson: {
-          where: dayOfWeek && lessonPeriod ? {
-            day: dayOfWeek,
-            period: lessonPeriod.period
-          } : undefined,
           select: {
             title: true,
-            rooms: {
+            rooms: true,
+            period: {
               where: {
-                campus: userCampus
-              }
-            }
-          }
-        }
+                weekday: weekdayEnum,
+                AND: {
+                  beginTime: {
+                    lte: minutes,
+                  },
+                  endTime: {
+                    gte: minutes,
+                  },
+                },
+              },
+              select: {
+                name: true,
+                innername: true,
+              },
+            },
+          },
+        },
       },
-    })).map((user) => {
-      console.log(user)
-      return {
-        name: user.name,
-        nickname: user.nickname,
-        image: user.image,
-        lesson: dayOfWeek && lessonPeriod ? {
-          title: user.lesson[0]?.title,
-          isRecess: lessonPeriod?.isRecess,
-          room: user.lesson[0].rooms ? user.lesson[0]?.rooms[0]?.name : null
-        } : null
-      }
     })
-  }
+  ).map((user) => {
+    const lesson = user.lessons.length > 0 ? user.lessons[0] : null;
+    let period = null;
+    if (
+      lesson &&
+      lesson.period.length > 0 &&
+      (RecessPeriods as ReadonlyArray<string>).includes(
+        lesson.period[0].innername
+      )
+    ) {
+      period = lesson.period[0].name;
+    }
+    return {
+      name: user.name,
+      nickname: user.nickname,
+      image: user.image,
+      lesson: lesson && {
+        title: lesson.title,
+        period: period,
+        room: lesson.rooms.length > 0 ? lesson.rooms[0].name : null,
+      },
+    };
+  });
+}
+
+function UnknownUserIcon() {
+  return (
+    <div className="mr-2 w-12 h-12 flex items-center justify-center text-4xl font-bold text-black bg-gray-400 rounded-full">
+      ?
+    </div>
+  );
 }
 
 async function fetchUserCampus(userId: string) {
-  return (await prisma.user.findUnique({
-    where: {
-      id: userId
-    },
-    select: {
-      campus: true
-    }
-  }))?.campus || null
-}
-
-async function fetchUserCampusMainRoom(userId: string) {
-  return (await prisma.user.findUnique({ where: { id: userId }, select: { campus: { select: { mainRoom: true } } } }))?.campus?.mainRoom || null
+  return (
+    (
+      await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          campus: true,
+        },
+      })
+    )?.campus || null
+  );
 }
