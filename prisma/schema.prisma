@@ -144,15 +144,12 @@ model RoomPlan {
 }
 
 model Lesson {
-  id       String @id @default(uuid())
-  title    String
-  period   Period @relation(fields: [periodId], references: [id], onDelete: Cascade)
-  periodId String
+  id     String   @id @default(uuid())
+  title  String
+  period Period[]
 
   rooms    Room[]
   students User[]
-
-  @@unique([title, periodId])
 }
 
 model Period {
