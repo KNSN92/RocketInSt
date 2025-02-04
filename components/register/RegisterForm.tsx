@@ -148,18 +148,11 @@ export default function RegisterForm({
                       <td key={j}>
                         <select
                           required
-                          value={(() => {
-                            console.log(
-                              courseDay,
-                              lessonPeriod,
-                              lessonTable[courseDay][lessonPeriod]
-                            );
-                            return (
-                              lessonTable[courseDay][lessonPeriod].find(
-                                (lesson) => lesson.selected
-                              )?.id || ""
-                            );
-                          })()}
+                          value={
+                            lessonTable[courseDay][lessonPeriod].find(
+                              (lesson) => lesson.selected
+                            )?.id || ""
+                          }
                           onChange={(e) =>
                             handleLessonChange(e, courseDay, lessonPeriod)
                           }

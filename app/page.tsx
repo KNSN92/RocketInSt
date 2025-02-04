@@ -166,8 +166,6 @@ async function fetchUserCampusMap(userId: string) {
     },
   });
 
-  console.log(JSON.stringify(rooms, undefined, "\t"));
-
   return rooms
     .map((room) => {
       const roomPlan = room.roomPlan;
