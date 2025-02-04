@@ -7,6 +7,12 @@ import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
 import Image from "next/image";
 import { RocketInStWhiteTextLogo } from "@/components/common/RocketInStLogos";
 import React, { ReactNode } from "react";
+import { Sawarabi_Gothic } from "next/font/google";
+
+const SawarabiGothicFont = Sawarabi_Gothic({
+  weight: "400",
+  style: "normal",
+});
 
 export default async function RootLayout({
   children,
@@ -16,16 +22,19 @@ export default async function RootLayout({
   const session = await getServerSession(authConfig);
   return (
     <html lang="ja">
-      <body className="antialiased font-extralight w-screen h-screen">
+      <body
+        className={`antialiased font-extralight w-screen h-screen ${SawarabiGothicFont.className}`}
+      >
         <NextAuthProvider>
           <div className="w-auto h-16 flex items-center justify-between bg-blue-600 text-white">
             <div className="flex items-center">
               <NavElement>
-                <Link
-                  href="/"
-                  className="block text-3xl font-bold"
-                >
-                  <RocketInStWhiteTextLogo width={1532} height={200} className="h-12 w-fit object-contain relative top-1"/>
+                <Link href="/" className="block text-3xl font-bold">
+                  <RocketInStWhiteTextLogo
+                    width={1532}
+                    height={200}
+                    className="h-12 w-fit object-contain relative top-1"
+                  />
                 </Link>
               </NavElement>
               <NavLink href="/about" title="about" />
@@ -36,9 +45,7 @@ export default async function RootLayout({
                 <>
                   <NavLink href="/register" title="register" />
                   <SignOutButton>
-                    <NavElement>
-                          signout
-                    </NavElement>
+                    <NavElement>signout</NavElement>
                   </SignOutButton>
                   {session?.user?.image ? (
                     <NavElement>
@@ -54,16 +61,12 @@ export default async function RootLayout({
                 </>
               ) : (
                 <SignInButton>
-                  <NavElement>
-                    signin
-                  </NavElement>
+                  <NavElement>signin</NavElement>
                 </SignInButton>
               )}
             </div>
           </div>
-          <div className="w-full h-[calc(100vh-4rem)]">
-            {children}
-          </div>
+          <div className="w-full h-[calc(100vh-4rem)]">{children}</div>
         </NextAuthProvider>
       </body>
     </html>
@@ -75,18 +78,13 @@ function NavElement({ children }: { children: ReactNode }) {
     <div className="transition duration-400 h-16 px-4 text-xl flex items-center justify-center hover:bg-white hover:bg-opacity-10">
       {children}
     </div>
-  )
+  );
 }
 
-function NavLink({ href, title }: { href: string, title: string }) {
+function NavLink({ href, title }: { href: string; title: string }) {
   return (
-    <Link
-      href={href}
-      className="w-fit h-fit"
-    >
-      <NavElement>
-        {title}
-      </NavElement>
+    <Link href={href} className="w-fit h-fit">
+      <NavElement>{title}</NavElement>
     </Link>
-  )
+  );
 }
