@@ -58,6 +58,7 @@ export default async function seed() {
                                     title: lesson.name ? lesson.name as string : undefined,
                                     period: {
                                         some: {
+                                            tag: "Lesson",
                                             weekday: lesson.weekday,
                                             innername: lesson.period,
                                         }

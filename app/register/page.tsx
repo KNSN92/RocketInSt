@@ -49,6 +49,7 @@ async function fetchLessonsAndGenTable(userId?: string) {
       title: true,
       period: {
         where: {
+          tag: "Lesson",
           innername: {
             in: [...LessonPeriods],
           },

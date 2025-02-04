@@ -82,7 +82,8 @@ async function validateLessons(
           some: {
             weekday: {
               in: DaysToWeekDayMap[course as CourseFreqDay]
-            }
+            },
+            tag: "Lesson"
           }
         },
       },
