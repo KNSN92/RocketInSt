@@ -34,9 +34,7 @@ model User {
 
   courseFrequency CourseFrequency?
 
-  lesson Lesson[]
-
-  afterSchool AfterSchool?
+  lessons Lesson[]
 
   // Self-relation for followers and following
   followers User[] @relation("UserFollowRelation")
@@ -104,17 +102,17 @@ model Authenticator {
 }
 
 model Campus {
-  id         String @id @default(uuid())
-  name       String
+  id   String @id @default(uuid())
+  name String
 
-  rooms      Room[] @relation("rooms")
+  rooms Room[] @relation("rooms")
 
   mainRoom   Room?   @relation("mainRoom", fields: [mainRoomId], references: [id])
   mainRoomId String? @unique
 
-  members    User[]
+  members User[]
 
-  allMember  Int
+  allMember Int
 }
 
 model Room {
@@ -146,42 +144,50 @@ model RoomPlan {
 }
 
 model Lesson {
-  id String @id @default(uuid())
+  id     String   @id @default(uuid())
+  title  String
+  period Period[]
 
-  title String
-
-  period LessonPeriod
-  day    DayOfWeek
-
-  rooms Room[]
-
-  enrolledUsers User[]
+  rooms    Room[]
+  students User[]
 }
 
-enum DayOfWeek {
+model Period {
+  id        String @id @default(uuid())
+  name      String
+  innername String
+
+  weekday   WeekDay
+  beginTime Int
+  endTime   Int
+
+  lessons Lesson[]
+
+  tag PeriodTag
+
+  @@unique([innername, weekday])
+}
+
+enum PeriodTag {
+  Lesson
+  Recess
+  Meeting
+  Event
+  Other
+}
+
+enum WeekDay {
+  Sunday
   Monday
   Tuesday
   Wednesday
   Thursday
   Friday
-}
-
-enum LessonPeriod {
-  FirstPeriod
-  SecondPeriod
-  ThirdPeriod
-  FourthPeriod
-  FifthPeriod
-  SixthPeriod
+  Saturday
 }
 
 enum CourseFrequency {
   OncePerWeek
   ThricePerWeek
   FiveTimesPerWeek
-}
-
-enum AfterSchool {
-  Leave
-  Stay
 }

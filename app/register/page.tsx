@@ -1,7 +1,7 @@
 import authConfig from "@/auth.config";
 import RegisterForm from "@/components/register/RegisterForm";
-import { ReversedAfterSchoolMap } from "@/data/afterschool";
 import { CourseFreqToDaysMap } from "@/data/courseFreqs";
+import { AfterSchoolPeriod, LessonPeriods } from "@/data/periods";
 import { prisma } from "@/prisma";
 import { getServerSession } from "next-auth";
 
@@ -13,14 +13,14 @@ export default async function Register() {
     const { nickname, campus, course, afterschool } =
       await fetchUserSchoolInfoOrUndefined(session?.user?.id || undefined);
     return (
-        <RegisterForm
-          initialNickName={nickname}
-          campuses={campuses}
-          initialTable={table}
-          initialCampus={campus}
-          initialCourse={course}
-          initialAfterschool={afterschool}
-        />
+      <RegisterForm
+        initialNickName={nickname}
+        campuses={campuses}
+        initialTable={table}
+        initialCampus={campus}
+        initialCourse={course}
+        initialAfterschool={afterschool}
+      />
     );
   } catch (e) {
     console.error(e);
@@ -34,19 +34,37 @@ export default async function Register() {
 
 async function fetchLessonsAndGenTable(userId?: string) {
   const items = await prisma.lesson.findMany({
+    where: {
+      period: {
+        some: {
+          tag: "Lesson",
+          innername: {
+            in: [...LessonPeriods],
+          },
+        },
+      },
+    },
     select: {
       id: true,
       title: true,
-      day: true,
-      period: true,
-      enrolledUsers: {
+      period: {
+        where: {
+          innername: {
+            in: [...LessonPeriods],
+          },
+        },
+        select: {
+          innername: true,
+          weekday: true,
+        },
+      },
+      students: {
         where: {
           id: userId,
         },
         select: {
           id: true,
         },
-        take: 1,
       },
     },
     orderBy: {
@@ -58,17 +76,18 @@ async function fetchLessonsAndGenTable(userId?: string) {
       [key: string]: {
         id: string;
         title: string;
-        selected?: boolean;
+        selected: boolean;
       }[];
     };
   } = {};
   items.forEach((item) => {
-    if (!table[item.day]) table[item.day] = {};
-    if (!table[item.day][item.period]) table[item.day][item.period] = [];
-    table[item.day][item.period].push({
+    const { weekday, innername } = item.period[0];
+    if (!table[weekday]) table[weekday] = {};
+    if (!table[weekday][innername]) table[weekday][innername] = [];
+    table[weekday][innername].push({
       id: item.id,
       title: item.title,
-      selected: item.enrolledUsers.length > 0,
+      selected: item.students.length > 0,
     });
   });
   return table;
@@ -106,7 +125,19 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
       nickname: true,
       campus: true,
       courseFrequency: true,
-      afterSchool: true,
+      _count: {
+        select: {
+          lessons: {
+            where: {
+              period: {
+                some: {
+                  innername: AfterSchoolPeriod,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
   return {
@@ -115,8 +146,6 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
     course: data?.courseFrequency
       ? CourseFreqToDaysMap[data.courseFrequency]
       : undefined,
-    afterschool: data?.afterSchool
-      ? ReversedAfterSchoolMap[data.afterSchool]
-      : undefined,
+    afterschool: data?._count.lessons ? 1 : 0,
   };
 }

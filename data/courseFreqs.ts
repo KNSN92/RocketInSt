@@ -1,4 +1,4 @@
-import { CourseFrequency, DayOfWeek } from "@prisma/client";
+import { CourseFrequency, WeekDay } from "@prisma/client";
 
 export const CourseFreqDays = [1, 3, 5] as const
 
@@ -17,22 +17,24 @@ export const CourseFreqToDaysMap: {[courseFreq in CourseFrequency]: CourseFreqDa
     FiveTimesPerWeek: 5
 }
 
-export const CourseFreqToDayOfWeekMap: {[day in CourseFreqDay]: DayOfWeek[]} = {
-  1: [DayOfWeek.Thursday],
-  3: [DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday],
+export const DaysToWeekDayMap: {[day in CourseFreqDay]: WeekDay[]} = {
+  1: [WeekDay.Thursday],
+  3: [WeekDay.Monday, WeekDay.Wednesday, WeekDay.Friday],
   5: [
-    DayOfWeek.Monday,
-    DayOfWeek.Tuesday,
-    DayOfWeek.Wednesday,
-    DayOfWeek.Thursday,
-    DayOfWeek.Friday,
+    WeekDay.Monday,
+    WeekDay.Tuesday,
+    WeekDay.Wednesday,
+    WeekDay.Thursday,
+    WeekDay.Friday,
   ],
 };
 
-export const DayOfWeekToCourseFreqMap: {[dayOfWeek in DayOfWeek]: CourseFrequency[]} = {
+export const WeekDayToCourseFreqMap: {[dayOfWeek in WeekDay]: CourseFrequency[]} = {
+  Sunday: [],
   Monday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
   Tuesday: [ "FiveTimesPerWeek" ],
   Wednesday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
   Thursday: [ "OncePerWeek", "FiveTimesPerWeek" ],
   Friday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
+  Saturday: [],
 }
