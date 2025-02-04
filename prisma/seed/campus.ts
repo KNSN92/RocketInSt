@@ -64,7 +64,7 @@ export default async function seed() {
                                     }
                                 }
                             })
-                        ).id;
+                        )?.id;
                         return {
                             id: lessonId
                         }
