@@ -1,11 +1,13 @@
 
-import seedLesson from "./seed/lesson";
-import seedCampus from "./seed/campus";
+import seedCampus  from "./seed/campus";
+import seedPeriods from "./seed/periods";
+import seedLessons from "./seed/lesson";
 import { prisma } from "@/prisma";
 
 async function main() {
+    await seedPeriods();
+    await seedLessons();
     await seedCampus();
-    await seedLesson();
     console.log('Seed data inserted successfully.')
 }
 

@@ -1,23 +1,80 @@
 import { prisma } from "@/prisma";
 import schedules from "@/data/schedules";
-import { DayOfWeek, LessonPeriod } from "@prisma/client";
-import type { LessonPeriod as LessonPeriodType, DayOfWeek as DayOfWeekType } from "@prisma/client";
+import type { Prisma, WeekDay as WeekDayType } from "@prisma/client";
+import { WeekDayArray } from "@/data/weekdays";
+import { AfterSchoolPeriod, AfterSchoolPeriodJA, LessonPeriods, LessonToRecessPeriodMap, MeetingPeriods, MeetingPeriodsJA, RecessPeriodsJA, RecessPeriodType } from "@/data/periods";
 
 export default async function seed() {
     await prisma.lesson.deleteMany();
 
-    await Object.keys(DayOfWeek).forEach(async (dayOfWeek) => {
-        await Object.keys(LessonPeriod).forEach(async (lessonPeriod) => {
-            const lessons = schedules[dayOfWeek as DayOfWeekType][lessonPeriod as LessonPeriodType];
-            await lessons.forEach( async (lesson) => {
+    await WeekDayArray.forEach(async (weekday) => {
+        await LessonPeriods.forEach(async (lessonPeriod) => {
+            const lessonNames = [...schedules[weekday as WeekDayType][lessonPeriod]];
+            await lessonNames.forEach( async (lessonName) => {
+                const periods: Prisma.PeriodWhereUniqueInput[] = [
+                    {
+                        innername_weekday: {
+                            innername: lessonPeriod,
+                            weekday: weekday,
+                        }
+                    }
+                ]
+                if(LessonToRecessPeriodMap[lessonPeriod]) periods.push({
+                    innername_weekday: { innername: LessonToRecessPeriodMap[lessonPeriod], weekday: weekday }
+                });
                 await prisma.lesson.create({
                     data: {
-                        day: dayOfWeek as DayOfWeekType,
-                        period: lessonPeriod as LessonPeriodType,
-                        title: lesson
+                        title: lessonName,
+                        period: {
+                            connect: periods
+                        },
                     }
-                })
-            })
+                });
+            });
+        });
+        const noonRecessPeriod: RecessPeriodType = "NoonRecess";
+        const noonRecessName = RecessPeriodsJA[noonRecessPeriod];
+        await prisma.lesson.create({
+            data: {
+                title: noonRecessName,
+                period: {
+                    connect: {
+                        innername_weekday: {
+                            innername: noonRecessPeriod,
+                            weekday: weekday,
+                        }
+                    }
+                },
+            }
+        });
+        await MeetingPeriods.forEach(async (meetingPeriod) => {
+            const meetingName = MeetingPeriodsJA[meetingPeriod];
+            await prisma.lesson.create({
+                data: {
+                    title: meetingName,
+                    period: {
+                        connect: {
+                            innername_weekday: {
+                                innername: meetingPeriod,
+                                weekday: weekday,
+                            }
+                        }
+                    },
+                }
+            });
+        });
+        await prisma.lesson.create({
+            data: {
+                title: AfterSchoolPeriodJA,
+                period: {
+                    connect: {
+                        innername_weekday: {
+                            innername: AfterSchoolPeriod,
+                            weekday: weekday,
+                        }
+                    }
+                }
+            }
         })
-    })
+    });
 }
