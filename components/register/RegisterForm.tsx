@@ -76,14 +76,14 @@ export default function RegisterForm({
         {state.msg}
       </div>}
       <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
-        <h1 className="block w-fit mx-auto mb-4 text-4xl font-bold">自身の学校の情報を設定</h1>
+        <h1 className="block w-fit mx-auto mb-4 text-3xl font-bold">情報を設定</h1>
         <form action={formAction}>
           <div className="mt-8 w-96">
-            <h2 className="text-2xl font-bold">ニックネームを入力</h2>
-            <input className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400" name="nickname" defaultValue={initialNickName}  />
+            <h2 className="text-xl font-bold mb-2">ニックネームを入力</h2>
+            <input className="block w-96 h-12 px-2 text-xl rounded-lg bg-white text-black border-1 border-gray-400" name="nickname" defaultValue={initialNickName}  />
           </div>
           <div className="mt-8 w-96">
-            <h2 className="text-2xl font-bold">キャンパスを選択</h2>
+            <h2 className="text-xl font-bold mb-2">キャンパスを選択</h2>
             <select
               name="campus"
               defaultValue={campus}
@@ -91,7 +91,7 @@ export default function RegisterForm({
                 setCampus(e.target.value);
               }}
               required
-              className="block w-96 h-12 px-2 text-xl rounded-lg bg-black text-white border-1 border-gray-400"
+              className="block w-96 h-12 px-2 text-xl rounded-lg bg-white text-black border-1 border-gray-400 mb-2"
             >
               <option value="">キャンパスを選択</option>
               {campuses.map((campus, i) => (
@@ -102,9 +102,9 @@ export default function RegisterForm({
             </select>
           </div>
           <div className="mt-8 w-96">
-            <h2 className="text-2xl font-bold">コースを選択</h2>
+            <h2 className="text-xl font-bold mb-2">コースを選択</h2>
             <RadioButton
-              className="ml-4"
+              className="ml-4 text-base font-sans font-medium"
               name="course"
               buttons={[
                 { title: "週1日", value: 1, checked: courseDays.length === 1 },
@@ -115,7 +115,7 @@ export default function RegisterForm({
               required
             />
           </div>
-          <h2 className="mt-8 block w-96 text-2xl font-bold">授業を選択</h2>
+          <h2 className="mt-8 block w-96 text-xl font-bold mb-3">授業を選択</h2>
           <div className="w-fit">
             <table>
               <thead>
@@ -129,7 +129,7 @@ export default function RegisterForm({
               <tbody>
                 {ROW.map((r, i) => (
                   <tr key={i}>
-                    <th>{ROW_JA[r]}</th>
+                    <th className="text-sm">{ROW_JA[r]}</th>
                     {courseDays.map((c, j) => (
                       <td key={j}>
                         <select
@@ -140,7 +140,7 @@ export default function RegisterForm({
                           }
                           onChange={(e) => handleLessonChange(e, c, r)}
                           name="lessons"
-                          className="lesson-select w-48 bg-black text-white"
+                          className="lesson-select w-48 bg-white text-black"
                         >
                           <option value="">選択</option>
                           {lessonTable[c][r].map(({ id, title }, i) => (
@@ -157,7 +157,7 @@ export default function RegisterForm({
             </table>
           </div>
           <div className="w-96 mt-8">
-            <h2 className="text-2xl font-bold">放課後の動きを選択</h2>
+            <h2 className="text-xl font-bold mb-2">放課後の動きを選択</h2>
             <RadioButton
               name="afterschool"
               className="ml-4"
