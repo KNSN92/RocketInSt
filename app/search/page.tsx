@@ -45,14 +45,14 @@ async function WhenCampusRegistered({
     <>
       <SearchField
         placeholder="名前で検索 (むしめがねー(いつか追加するー))"
-        className="w-[60vw] min-w-[512px] h-12 px-4 rounded-lg bg-black border-[1px] border-white"
+        className="w-[60vw] min-w-[512px] h-12 px-4 rounded-lg bg-white border-[1px] border-blue-600"
       />
       <div className="h-4" />
       <div>{userList.length}人のユーザーが見つかりました。</div>
       <div className="h-2" />
       {rooms.map((room, i) => (
         <button
-          className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1"
+          className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1 mb-4"
           key={i}
         >
           {room.name}
@@ -69,8 +69,9 @@ async function WhenCampusRegistered({
         {userList.map((user, i) => (
           <div
             className={clsx(
-              "w-[60vw] min-w-[512px] h-16 flex flex-row items-center justify-between",
-              i !== 0 && "border-t-[2px] border-gray-800"
+              "w-[60vw] min-w-[512px] h-[80px] flex flex-row items-center justify-between"
+              // ,
+              // i !== 0 && "border-t-[1px] border-gray-800"
             )}
             key={i}
           >
@@ -81,23 +82,23 @@ async function WhenCampusRegistered({
                   src={user.image}
                   width={48}
                   height={48}
-                  className="inline-block rounded-full"
+                  className="inline-block rounded-full mr-4"
                 />
               ) : (
                 <UnknownUserIcon />
               )}
-              <div className="m-2 text-2xl text-nowrap">
-                {user.nickname ? `${user.nickname}(${user.name})` : user.name}
+              <div className="m-2 text-xl text-nowrap">
+                {user.nickname ? `${user.nickname}（${user.name}）` : user.name}
               </div>
             </div>
-            <div className="w-fit overflow-hidden flex flex-row items-center justify-end">
+            <div className="w-fit overflow-hidden flex flex-row items-center justify-end font-bold">
               {user.lesson
                 ? user.lesson.room
                   ? `${user.lesson.room}にいます`
                   : "???"
                 : "キャンパスに居ません"}
             </div>
-            <div className="w-fit overflow-hidden hidden flex-row items-center justify-end xl:flex">
+            <div className="w-fit overflow-hidden hidden flex-row items-center justify-end xl:flex font-bold">
               {user.lesson
                 ? user.lesson.period
                   ? user.lesson.period
