@@ -1,5 +1,4 @@
 import { prisma } from "@/prisma";
-import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
