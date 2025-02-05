@@ -13,6 +13,7 @@ import Loading from "./loading";
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 export default async function RootLayout({
