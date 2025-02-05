@@ -23,8 +23,8 @@ export default async function SignIn({
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-[36rem] h-[30rem] bg-blue-600 rounded-3xl border-blue-200 border-4 flex flex-col items-center justify-center">
-          <h1 className="block text-5xl font-bold mb-2">サインイン</h1>
-          <h2 className="block text-xl font-bold mb-8">学園のGoogleアカウントでのみサインインが可能です。</h2>
+          <h1 className="block text-5xl font-bold mb-2 text-white">サインイン</h1>
+          <h2 className="block text-xl font-bold mb-8 text-white">学園のGoogleアカウントでのみサインインが可能です。</h2>
           <GoogleSignInButton callbackUrl={callbackUrl} />
         </div>
       </div> 

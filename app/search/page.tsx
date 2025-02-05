@@ -45,7 +45,7 @@ async function WhenCampusRegistered({
     <div className="bg-gray-100 p-8 h-1/2">
       <SearchField
         placeholder="名前で検索 (むしめがねー(いつか追加するー))"
-        className="w-[60vw] min-w-[384px] h-12 px-4 rounded-lg border-[1px] border-black"
+        className="w-[60vw] min-w-[384px] h-12 px-4 rounded-lg bg-white border-[1px] border-blue-600"
       />
       <div className="h-4" />
       <div className="pl-8">
@@ -62,6 +62,14 @@ async function WhenCampusRegistered({
       <div className="pl-8">
         {userList.length}人のユーザーが見つかりました。
       </div>
+      {rooms.map((room, i) => (
+        <button
+          className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1 mb-4"
+          key={i}
+        >
+          {room.name}
+        </button>
+      ))}
       <div className="h-2" />
       <div className="w-fit overflow-autoZ">
         {userList.length === 0 && (
@@ -83,10 +91,7 @@ async function WhenCampusRegistered({
         </div>
         {userList.map((user, i) => (
           <div
-            className={clsx(
-              "w-[60vw] px-8 min-w-[384px] h-16 flex flex-row items-center justify-between border-b-2 border-gray-300",
-              i === 0 && "border-t-2 border-gray-300"
-            )}
+            className="w-[60vw] min-w-[384px] h-[80px] flex flex-row items-center justify-between"
             key={i}
           >
             <div className="w-auto min-w-[30vw] overflow-hidden flex flex-row items-center justify-start">
@@ -97,7 +102,7 @@ async function WhenCampusRegistered({
                   width={48}
                   height={48}
                   loading="lazy"
-                  className="inline-block rounded-full"
+                  className="inline-block rounded-full mr-4"
                 />
               ) : (
                 <UnknownUserIcon />
@@ -113,14 +118,14 @@ async function WhenCampusRegistered({
                 )}
               </div>
             </div>
-            <div className="w-[15vw] overflow-hidden flex flex-row items-center justify-start text-nowrap">
+            <div className="w-[15vw] overflow-hidden flex flex-row items-center justify-start font-bold text-nowrap">
               {user.lesson
                 ? user.lesson.room
                   ? `${user.lesson.room}にいます`
                   : "???"
                 : "キャンパスに居ません"}
             </div>
-            <div className="w-[15vw] overflow-hidden hidden flex-row items-center justify-start text-nowrap xl:flex">
+            <div className="w-[15vw] overflow-hidden hidden flex-row items-center justify-start text-nowrap font-bold xl:flex">
               {user.lesson
                 ? user.lesson.period
                   ? user.lesson.period
