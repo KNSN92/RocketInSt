@@ -61,7 +61,7 @@ export default async function RootLayout({
               )}
             </div>
           </div>
-          <div className="w-full h-[calc(100vh-4rem)]">
+          <div className="w-full min-h-[calc(100vh-4rem)]">
             {children}
           </div>
         </NextAuthProvider>
