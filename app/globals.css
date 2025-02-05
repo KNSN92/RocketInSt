@@ -5,8 +5,13 @@
 body {
   color: black;
   background: white;
-  /* font-family: Arial, Helvetica, sans-serif; */
-  font-family: "Sawarabi Gothic";
-  font-weight: 600;
-  font-style: normal;
+}
+
+@keyframes loading-spin {
+  0% {
+    transform: rotate(45deg)
+  }
+  100% {
+    transform: rotate(405deg)
+  }
 }

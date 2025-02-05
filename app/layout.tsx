@@ -6,8 +6,9 @@ import authConfig from "@/auth.config";
 import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
 import Image from "next/image";
 import { RocketInStWhiteTextLogo } from "@/components/common/RocketInStLogos";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 import { Sawarabi_Gothic } from "next/font/google";
+import Loading from "./loading";
 
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",
@@ -33,6 +34,7 @@ export default async function RootLayout({
                   <RocketInStWhiteTextLogo
                     width={1532}
                     height={200}
+                    loading="lazy"
                     className="h-12 w-fit object-contain relative top-1"
                   />
                 </Link>
@@ -66,7 +68,9 @@ export default async function RootLayout({
               )}
             </div>
           </div>
-          <div className="w-full h-[calc(100vh-4rem)]">{children}</div>
+          <div className="w-full h-[calc(100vh-4rem)]">
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </div>
         </NextAuthProvider>
       </body>
     </html>
