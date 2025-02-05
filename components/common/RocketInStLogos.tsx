@@ -10,6 +10,10 @@ export function RocketInStBlackTextLogo(props: NonSrcImageProps) {
   return <Image src="/logo/text_black.png" alt="RocketIn.st Logo" {...props} />;
 }
 
+export function RocketInStLogo(props: NonSrcImageProps) {
+  return <Image src="/logo/logo.png" alt="RocketIn.st Logo" {...props} />;
+}
+
 export function RocketInStLoadingLogo({
   className,
 }: {
