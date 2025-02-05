@@ -61,14 +61,6 @@ async function WhenCampusRegistered({
       <div className="pl-8">
         {userList.length}人のユーザーが見つかりました。
       </div>
-      {rooms.map((room, i) => (
-        <button
-          className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-800 rounded-lg mx-1 mb-4"
-          key={i}
-        >
-          {room.name}
-        </button>
-      ))}
       <div className="h-2" />
       <div className="w-fit overflow-autoZ">
         {userList.length === 0 && (
