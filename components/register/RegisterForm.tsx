@@ -83,7 +83,7 @@ export default function RegisterForm({
           {state.msg}
         </div>
       )}
-      <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800 mb-[300px]">
+      <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
         <h1 className="block w-fit mx-auto mb-4 text-3xl font-bold">
           情報を設定
         </h1>
