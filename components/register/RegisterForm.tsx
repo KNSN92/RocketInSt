@@ -79,16 +79,16 @@ export default function RegisterForm({
   return (
     <>
       {state.error && (
-        <div className="mx-auto w-[60vw] min-h-24 h-fit mt-8 p-4 bg-red-600 border-4 border-red-800 rounded-xl flex justify-center items-center text-2xl">
+        <div className="mx-auto w-[60vw] min-h-24 h-fit mt-8 p-4 text-white bg-red-400 border-4 border-red-300 rounded-xl flex justify-center items-center text-2xl">
           {state.msg}
         </div>
       )}
-      <div className="w-fit mx-auto mt-12 p-16 rounded-2xl border-[1px] border-gray-800">
+      <div className="w-fit mx-auto mt-12 p-16 bg-blue-100 rounded-2xl border-[1px] border-gray-800">
         <h1 className="block w-fit mx-auto mb-4 text-3xl font-bold">
           情報を設定
         </h1>
         <form action={formAction}>
-          <div className="mt-8 w-96">
+          <div className="mt-8 w-96 mx-auto">
             <h2 className="text-xl font-bold mb-2">ニックネームを入力</h2>
             <input
               className="block w-96 h-12 px-2 text-xl rounded-lg bg-[#ebf6f7] text-black border-1 border-gray-400"
@@ -96,7 +96,7 @@ export default function RegisterForm({
               defaultValue={initialNickName}
             />
           </div>
-          <div className="mt-8 w-96">
+          <div className="mt-8 w-96 mx-auto">
             <h2 className="text-xl font-bold mb-2">キャンパスを選択</h2>
             <select
               name="campus"
@@ -115,10 +115,10 @@ export default function RegisterForm({
               ))}
             </select>
           </div>
-          <div className="mt-8 w-96">
+          <div className="mt-8 w-96 mx-auto">
             <h2 className="text-xl font-bold mb-2">コースを選択</h2>
             <RadioButton
-              className="ml-4 text-base font-sans font-medium bg-[#ebf6f7] pl-1.5 py-2"
+              className="p-4 w-96 text-base font-sans font-medium bg-[#ebf6f7] border-1 border-gray-400 rounded-lg"
               name="course"
               buttons={[
                 { title: "週1日", value: 1, checked: courseDays.length === 1 },
@@ -129,23 +129,34 @@ export default function RegisterForm({
               required
             />
           </div>
-          <h2 className="mt-8 block w-96 text-xl font-bold mb-3">授業を選択</h2>
-          <div className="w-fit">
-            <table>
+          <h2 className="mt-8 block mx-auto w-fit text-xl font-bold mb-3">
+            授業を選択
+          </h2>
+          <div className="min-w-96 flex justify-center">
+            <table className="mx-auto w-fit bg-[#ebf6f7] border-1 border-gray-400 rounded-lg">
               <thead>
                 <tr>
                   <th></th>
                   {courseDays.map((weekday, i) => (
-                    <th key={i}>{WeekDayJA[weekday]}</th>
+                    <th
+                      key={i}
+                      className="w-60 text-lg border-l-1 border-gray-400"
+                    >
+                      {WeekDayJA[weekday]}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {LessonPeriods.map((lessonPeriod, i) => (
-                  <tr key={i}>
-                    <th>{LessonPeriodsJA[lessonPeriod]}</th>
+                  <tr className="border-t-1 border-gray-400" key={i}>
+                    <th className="text-lg">
+                      <div className="px-2">
+                        {LessonPeriodsJA[lessonPeriod]}
+                      </div>
+                    </th>
                     {courseDays.map((courseDay, j) => (
-                      <td key={j}>
+                      <td className="border-l-1 border-gray-400" key={j}>
                         <select
                           required
                           value={
@@ -157,7 +168,7 @@ export default function RegisterForm({
                             handleLessonChange(e, courseDay, lessonPeriod)
                           }
                           name="lessons"
-                          className="lesson-select w-48 bg-[#ebf6f7] ml-3 mt-1 py-2 text-black"
+                          className="lesson-select w-60 py-2 bg-[#ebf6f7]"
                         >
                           <option value="">選択</option>
                           {lessonTable[courseDay][lessonPeriod].map(
@@ -175,11 +186,11 @@ export default function RegisterForm({
               </tbody>
             </table>
           </div>
-          <div className="w-96 mt-8">
+          <div className="w-96 mx-auto mt-8">
             <h2 className="text-xl font-bold mb-2">放課後の動きを選択</h2>
             <RadioButton
               name="afterschool"
-              className="ml-4"
+              className="p-4 w-96 text-base font-sans font-medium bg-[#ebf6f7] border-1 border-gray-400 rounded-lg"
               buttons={[
                 { title: "帰る", value: 0, checked: initialAfterschool === 0 },
                 { title: "残る", value: 1, checked: initialAfterschool === 1 },
@@ -191,8 +202,8 @@ export default function RegisterForm({
             <button
               type="submit"
               className={clsx(
-                "block w-fit px-8 h-12 rounded-sm text-2xl font-bold text-white",
-                isPending ? "bg-blue-800" : "bg-blue-600"
+                "block w-fit px-8 h-12 rounded-lg text-2xl font-bold text-white",
+                isPending ? "bg-blue-400" : "bg-blue-600"
               )}
               onClick={() => console.log(lessonTable)}
             >

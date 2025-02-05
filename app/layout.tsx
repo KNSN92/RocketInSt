@@ -5,7 +5,10 @@ import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
 import Image from "next/image";
-import { RocketInStWhiteTextLogo } from "@/components/common/RocketInStLogos";
+import {
+  RocketInStLogo,
+  RocketInStWhiteTextLogo,
+} from "@/components/common/RocketInStLogos";
 import React, { ReactNode, Suspense } from "react";
 import { Sawarabi_Gothic } from "next/font/google";
 import Loading from "./loading";
@@ -25,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`antialiased font-extralight w-screen h-screen ${SawarabiGothicFont.className}`}
+        className={`antialiased w-screen min-h-screen ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
           <div className="w-auto h-16 flex items-center justify-between bg-blue-600 text-white">
@@ -36,7 +39,13 @@ export default async function RootLayout({
                     width={1532}
                     height={200}
                     loading="lazy"
-                    className="h-12 w-fit object-contain relative top-1"
+                    className="hidden md:inline h-12 w-fit object-contain relative top-1"
+                  />
+                  <RocketInStLogo
+                    width={459}
+                    height={459}
+                    loading="lazy"
+                    className="inline md:hidden h-12 w-fit object-contain"
                   />
                 </Link>
               </NavElement>
@@ -69,7 +78,7 @@ export default async function RootLayout({
               )}
             </div>
           </div>
-          <div className="w-full min-h-[calc(100vh-4rem)]">
+          <div className="relative w-full min-h-[calc(100vh-4rem)]">
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </div>
         </NextAuthProvider>

@@ -23,11 +23,9 @@ export default async function SearchPage({
   if (!session?.user?.id) redirect("/signin");
 
   return (
-    <div className="mx-auto w-fit h-full">
-      <CampusRegisterRequired message={<WhenCampusUnregistered />}>
-        <WhenCampusRegistered query={query} userId={session.user.id} />
-      </CampusRegisterRequired>
-    </div>
+    <CampusRegisterRequired message={<WhenCampusUnregistered />}>
+      <WhenCampusRegistered query={query} userId={session.user.id} />
+    </CampusRegisterRequired>
   );
 }
 
@@ -41,108 +39,111 @@ async function WhenCampusRegistered({
   const userList = await fetchUserList(userId, query);
   const rooms = await fetchUserCampusRooms(userId);
   return (
-    <div className="bg-gray-100 p-8 h-1/2">
-      <SearchField
-        placeholder="名前で検索 (むしめがねー(いつか追加するー))"
-        className="w-[60vw] min-w-[384px] h-12 px-4 rounded-lg bg-white border-[1px] border-blue-600"
-      />
-      <div className="h-4" />
-      <div className="pl-8">
-        {rooms.map((room, i) => (
-          <button
-            className="w-fit px-2 py-1 bg-blue-600 border-1 border-blue-400 text-white rounded-lg mx-1"
-            key={i}
-          >
-            {room.name}
-          </button>
-        ))}
+    <>
+      <div className="w-fit mx-auto pt-8">
+        <h1 className="w-fit mx-auto text-5xl font-bold">ユーザーを検索</h1>
+        <p className="mt-4 w-fit mx-auto text-xl font-bold">
+          登録したキャンパスのユーザーを検索出来ます。
+        </p>
       </div>
-      <div className="h-2" />
-      <div className="pl-8">
-        {userList.length}人のユーザーが見つかりました。
-      </div>
-      <div className="h-2" />
-      <div className="w-fit overflow-autoZ">
-        {userList.length === 0 && (
-          <div className="h-16 px-8 flex items-center text-2xl">
-            <UnknownUserIcon />
-            ユーザーが見つかりませんでした。:(
-          </div>
-        )}
-        <div className="w-[60vw] px-8 min-w-[384px] h-10 flex flex-row items-center justify-between">
-          <div className="w-auto min-w-[30vw] flex flex-row items-center text-nowrap">
-            名前
-          </div>
-          <div className="w-[15vw] overflow-hidden flex flex-row items-center justify-start text-nowrap">
-            現在居る部屋
-          </div>
-          <div className="w-[15vw] overflow-hidden hidden flex-row items-center justify-start text-nowrap xl:flex">
-            受講中
+      <div className="w-full 2xl:w-[60vw] p-8 h-full m-auto">
+        <div className="mb-8 w-full flex flex-col items-center">
+          <h2 className="w-fit mx-auto font-bold">名前/ニックネームで検索</h2>
+          <SearchField
+            placeholder="名前/ニックネームで検索 (むしめがねー(いつか追加するー))"
+            className="w-full md:w-[60vw] xl:w-[40vw] h-12 px-4 rounded-lg bg-white border-[1px] border-blue-600"
+          />
+          <div className="mt-2">
+            <h2 className="w-fit mx-auto font-bold">
+              今居る部屋で検索(制作中)
+            </h2>
+            {rooms.map((room, i) => (
+              <button
+                className="w-fit px-2 py-1 bg-blue-500 border-1 border-blue-400 text-white rounded-lg mx-1"
+                key={i}
+              >
+                {room.name}
+              </button>
+            ))}
           </div>
         </div>
-        {userList.map((user, i) => (
-          <div
-            className="w-[60vw] min-w-[384px] h-[80px] flex flex-row items-center justify-between"
-            key={i}
-          >
-            <div className="w-auto min-w-[30vw] overflow-hidden flex flex-row items-center justify-start">
-              {user.image ? (
-                <Image
-                  alt="icon"
-                  src={user.image}
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                  className="inline-block rounded-full mr-4"
-                />
-              ) : (
-                <UnknownUserIcon />
-              )}
-              <div className="m-2 text-2xl text-nowrap">
-                {user.nickname ? (
-                  <>
-                    {user.nickname}
-                    <span className="hidden lg:inline">({user.name})</span>
-                  </>
-                ) : (
-                  user.name
-                )}
-              </div>
+        <div>{userList.length}人のユーザーが見つかりました。</div>
+        <div className="w-auto overflow-auto">
+          <div className="px-8 w-auto min-w-96 h-12 flex flex-row items-center justify-between border-b-1 border-blue-400">
+            <div className="w-1/2 min-w-[50%] flex items-center justify-start text-nowrap">
+              名前
             </div>
-            <div className="w-[15vw] overflow-hidden flex flex-row items-center justify-start font-bold text-nowrap">
-              {user.lesson
-                ? user.lesson.room
-                  ? `${user.lesson.room}にいます`
-                  : "???"
-                : "キャンパスに居ません"}
+            <div className="w-1/2 md:w-1/4 overflow-hidden flex items-center justify-start text-nowrap">
+              現在居る部屋
             </div>
-            <div className="w-[15vw] overflow-hidden hidden flex-row items-center justify-start text-nowrap font-bold xl:flex">
-              {user.lesson
-                ? user.lesson.period
-                  ? user.lesson.period
-                  : user.lesson.title
-                : "キャンパスに居ません"}
+            <div className="w-1/4 overflow-hidden hidden items-center justify-start text-nowrap lg:flex">
+              受講中
             </div>
           </div>
-        ))}
+          {userList.map((user, i) => (
+            <div
+              className="px-8 w-auto min-w-96 h-[80px] flex flex-row items-center justify-between"
+              key={i}
+            >
+              <div className="w-1/2 overflow-hidden flex flex-row items-center justify-start">
+                {user.image ? (
+                  <Image
+                    alt="icon"
+                    src={user.image}
+                    width={48}
+                    height={48}
+                    loading="lazy"
+                    className="inline-block rounded-full mr-4"
+                  />
+                ) : (
+                  <UnknownUserIcon />
+                )}
+                <div className="m-2 text-2xl text-nowrap">
+                  {user.nickname ? (
+                    <>
+                      {user.nickname}
+                      <span className="hidden md:inline">({user.name})</span>
+                    </>
+                  ) : (
+                    user.name
+                  )}
+                </div>
+              </div>
+              <div className="w-1/2 md:w-1/4 overflow-hidden flex flex-row items-center justify-start font-bold text-nowrap">
+                {user.lesson
+                  ? user.lesson.room
+                    ? `${user.lesson.room}にいます`
+                    : "???"
+                  : "キャンパスに居ません"}
+              </div>
+              <div className="w-1/4 overflow-hidden hidden flex-row items-center justify-start text-nowrap font-bold lg:flex">
+                {user.lesson
+                  ? user.lesson.period
+                    ? user.lesson.period
+                    : user.lesson.title
+                  : "キャンパスに居ません"}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 async function WhenCampusUnregistered() {
   return (
-    <>
-      <div className="text-xl font-bold">
+    <div className="mx-auto pt-8 w-fit flex flex-col items-center justify-center">
+      <div className="w-fit text-xl font-bold">
         ユーザー検索を利用するにはキャンパスを登録してください。
       </div>
       <Link
         href="/register"
-        className="mx-auto flex items-center justify-center w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold"
+        className="flex items-center justify-center text-white w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold"
       >
         登録ページへ
       </Link>
-    </>
+    </div>
   );
 }
 
