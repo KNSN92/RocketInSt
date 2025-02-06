@@ -85,6 +85,7 @@ async function WhenUserLoggedIn() {
         さん
       </div>
       <h1 className="text-3xl font-bold mt-24">混雑状況マップ(工事中)</h1>
+      <p className="text-xl font-bold mt-2">※人数の推定の仕組み上誤差が生じる場合があります。</p>
       <CampusRegisterRequired
         message={
           <>

@@ -42,8 +42,9 @@ async function WhenCampusRegistered({
     <>
       <div className="w-fit mx-auto pt-8">
         <h1 className="w-fit mx-auto text-5xl font-bold">ユーザーを検索</h1>
-        <p className="mt-4 w-fit mx-auto text-xl font-bold">
-          登録したキャンパスのユーザーを検索出来ます。
+        <p className="mt-4 w-fit mx-auto text-xl font-bold text-center">
+          登録したキャンパスのユーザーを検索出来ます。<br/>
+          ※人数の推定の仕組み上誤差が生じる場合があります。
         </p>
       </div>
       <div className="w-full 2xl:w-[60vw] p-8 h-full m-auto">
