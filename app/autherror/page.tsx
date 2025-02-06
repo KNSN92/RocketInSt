@@ -29,7 +29,7 @@ export default async function AuthError({searchParams}: {searchParams: Promise<{
         }
         <div className="h-16" />
         <SignInButton>
-          <div className="transition duration-500 bg-blue-200 text-blue-600 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-[30px] py-[15px] rounded-full hover:bg-blue-600 hover:text-blue-200">
+          <div className="transition duration-500 bg-blue-200 text-blue-600 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-8 py-4 rounded-full hover:bg-blue-600 hover:text-blue-200">
             再度サインインを試みる
           </div>
         </SignInButton>

@@ -14,7 +14,7 @@ import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
 
 export default async function Home() {
   return (
-    <div className="w-fit mx-auto mt-[50px] flex flex-col items-center">
+    <div className="w-fit mx-auto pt-12 flex flex-col items-center">
       <div className="h-20" />
       <h1 className="text-6xl font-bold">RocketIn.St</h1>
       <div className="h-4" />
@@ -25,7 +25,7 @@ export default async function Home() {
       <LoginRequired
         message={
           <SignInButton>
-            <div className="transition duration-500 bg-blue-200 text-blue-600 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-[30px] py-[15px] rounded-full hover:bg-blue-600 hover:text-blue-200">
+            <div className="transition duration-500 bg-blue-200 text-blue-600 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-8 py-4 rounded-full hover:bg-blue-600 hover:text-blue-200">
               登録 / サインイン
             </div>
           </SignInButton>
@@ -78,12 +78,12 @@ async function WhenUserLoggedIn() {
   if (!session?.user) return undefined;
   return (
     <>
-      <div className="text-2xl font-semibold mt-[20px]">
+      <div className="text-2xl font-semibold mt-5">
         こんにちは {session.user?.name}
         さん
       </div>
       <div className="h-12" />
-      <h1 className="text-3xl font-bold mt-[40px]">混雑状況マップ(工事中)</h1>
+      <h1 className="text-3xl font-bold mt-10">混雑状況マップ(工事中)</h1>
       <div className="h-4" />
       <CampusRegisterRequired
         message={
@@ -93,7 +93,7 @@ async function WhenUserLoggedIn() {
             </div>
             <Link
               href="/register"
-              className="flex items-center justify-center w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold"
+              className="flex items-center justify-center w-36 h-12 rounded-lg text-white bg-blue-600 text-xl font-bold"
             >
               登録ページへ
             </Link>

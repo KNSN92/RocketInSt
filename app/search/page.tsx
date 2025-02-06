@@ -51,7 +51,7 @@ async function WhenCampusRegistered({
           <h2 className="w-fit mx-auto font-bold">名前/ニックネームで検索</h2>
           <SearchField
             placeholder="名前/ニックネームで検索 (むしめがねー(いつか追加するー))"
-            className="w-full md:w-[60vw] xl:w-[40vw] h-12 px-4 rounded-lg bg-white border-[1px] border-blue-600"
+            className="w-full md:w-[60vw] xl:w-[40vw] h-12 px-4 rounded-lg bg-white border-1 border-blue-600"
           />
           <div className="mt-2">
             <h2 className="w-fit mx-auto font-bold">
@@ -82,7 +82,7 @@ async function WhenCampusRegistered({
           </div>
           {userList.map((user, i) => (
             <div
-              className="px-8 w-auto min-w-96 h-[80px] flex flex-row items-center justify-between"
+              className="px-8 w-auto min-w-96 h-20 flex flex-row items-center justify-between"
               key={i}
             >
               <div className="w-1/2 overflow-hidden flex flex-row items-center justify-start">
