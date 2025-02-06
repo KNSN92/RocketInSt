@@ -41,9 +41,9 @@ const wednesday = {
 } satisfies DayColumn;
 
 const thursday = {
-    "FirstPeriod"  : ["プロジェクトN応用", "自習"] as const,
-    "SecondPeriod" : ["プロジェクトN応用", "自習"] as const,
-    "ThirdPeriod"  : ["キャンパス授業"] as const,
+    "FirstPeriod"  : ["プロジェクトN応用", "自主学習"] as const,
+    "SecondPeriod" : ["プロジェクトN応用", "自主学習"] as const,
+    "ThirdPeriod"  : ["キャンパス授業", "自主学習"] as const,
     "FourthPeriod" : ["アート・デザイン", "自主学習"] as const,
     "FifthPeriod"  : ["アート・デザイン", "自主学習"] as const,
     "SixthPeriod"  : ["コミュニティ活動", "自主学習"] as const,

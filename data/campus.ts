@@ -66,8 +66,9 @@ const campuses: CampusesData = {
                 LessonPeriod("Thursday", "SixthPeriod",  "コミュニティ活動"),
             ]},
             {name: "万里", capacity: 30, plan: {x: 2, y: 2, w: 2, h: 1}, lessons: [
-                LessonPeriod("Thursday", "FirstPeriod",  "自習"),
-                LessonPeriod("Thursday", "SecondPeriod", "自習"),
+                LessonPeriod("Thursday", "FirstPeriod",  "自主学習"),
+                LessonPeriod("Thursday", "SecondPeriod", "自主学習"),
+                LessonPeriod("Thursday", "ThirdPeriod",  "自主学習"),
                 LessonPeriod("Thursday", "FourthPeriod", "自主学習"),
                 LessonPeriod("Thursday", "FifthPeriod",  "自主学習"),
                 LessonPeriod("Thursday", "SixthPeriod",  "自主学習"),
