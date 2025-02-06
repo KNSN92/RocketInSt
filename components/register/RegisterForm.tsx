@@ -1,7 +1,7 @@
 "use client";
 
 import RadioButton from "../common/RadioButton";
-import { handleRegisterAction } from "@/actions/register/RegisterFormAction";
+import handleRegisterAction from "@/actions/register/RegisterFormAction";
 import { ChangeEvent, useActionState, useState } from "react";
 import { CourseFreqDay, CourseFreqDays, DaysToWeekDayMap } from "@/data/courseFreqs";
 import { WeekDay } from "@prisma/client";

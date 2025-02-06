@@ -107,7 +107,7 @@ async function validateLessons(
   }
 }
 
-export async function handleRegisterAction(previousState: { error: boolean, msg?: string}, formData: FormData): Promise<{ error: boolean, msg?: string}> {
+export default async function handleRegisterAction(previousState: { error: boolean, msg?: string}, formData: FormData): Promise<{ error: boolean, msg?: string}> {
   const parseResult = await schema.safeParseAsync({
     nickname: formData.get("nickname"),
     campus: formData.get("campus"),
