@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function About() {
   return (
     <div className="w-screen h-screen overflow-y-scroll snap-y snap-mandatory">
-      <div className="w-screen h-screen snap-start">
+      <div className="w-screen h-screen snap-start snap-always">
         <div className="w-full h-full flex items-center justify-center">
           <div className="w-fit h-fit mx-auto my-auto">
             <h1 className="text-8xl font-bold">便利を世界へ。</h1>
@@ -18,7 +18,7 @@ export default function About() {
         </div>
         <div className="w-[80vw] mx-auto h-1 bg-gray-200" />
       </div>
-      <div className="w-screen h-screen snap-start">
+      <div className="w-screen h-screen snap-start snap-always">
         <div className="w-full h-full flex items-center justify-center">
           <div className="px-16 gap-16 flex flex-row items-center justify-center">
             <div>
@@ -53,7 +53,7 @@ export default function About() {
         </div>
         <div className="w-[80vw] mx-auto h-1 bg-gray-200" />
       </div>
-      <div className="w-screen h-screen snap-start">
+      <div className="w-screen h-screen snap-start snap-always">
         <div className="w-full h-full flex items-center justify-center">
           <div className="px-16 gap-16 flex flex-row items-center justify-center">
             <div>
@@ -88,7 +88,7 @@ export default function About() {
         </div>
         <div className="w-[80vw] mx-auto h-1 bg-gray-200" />
       </div>
-      <div className="w-screen h-screen snap-start flex items-center justify-center">
+      <div className="w-screen h-screen snap-start snap-always flex items-center justify-center">
         <div className="px-16 gap-16 flex flex-row items-center justify-center">
           <div>
             <h1 className="text-4xl font-bold">使用技術</h1>
