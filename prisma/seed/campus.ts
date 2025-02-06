@@ -50,15 +50,14 @@ export default async function seed() {
                 })
             }
             if(room.lessons.length > 0) {
-                const lessonTargets = await Promise.all(
+                const lessonTargets = (await Promise.all(
                     room.lessons.map<Promise<Prisma.LessonWhereUniqueInput>>(async (lesson) => {
                         const lessonId = (
                             await prisma.lesson.findFirst({
                                 where: {
-                                    title: lesson.name ? lesson.name as string : undefined,
+                                    title: lesson.name && (lesson.name as string),
                                     period: {
                                         some: {
-                                            tag: "Lesson",
                                             weekday: lesson.weekday,
                                             innername: lesson.period,
                                         }
@@ -66,11 +65,12 @@ export default async function seed() {
                                 }
                             })
                         )?.id;
+                        console.log(lesson.name, lesson.period, lesson.weekday, lessonId);
                         return {
                             id: lessonId
                         }
                     })
-                );
+                )).filter((item) => item.id !== undefined);
                 await prisma.room.update({
                     where: {
                         id: createdRoom.id
