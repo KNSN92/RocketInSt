@@ -3,11 +3,7 @@
 import RadioButton from "../common/RadioButton";
 import { handleRegisterAction } from "@/actions/register/RegisterFormAction";
 import { ChangeEvent, useActionState, useState } from "react";
-import {
-  CourseFreqDay,
-  CourseFreqDays,
-  DaysToWeekDayMap,
-} from "@/data/courseFreqs";
+import { CourseFreqDay, CourseFreqDays, DaysToWeekDayMap } from "@/data/courseFreqs";
 import { WeekDay } from "@prisma/client";
 import clsx from "clsx";
 import {
@@ -33,14 +29,15 @@ export default function RegisterForm({
   };
   initialNickName?: string;
   initialCampus?: string;
-  initialCourse?: number;
+  initialCourse?: CourseFreqDay;
   initialAfterschool?: number;
 }) {
-  const [campus, setCampus] = useState(initialCampus);
+  const [registerData, setRegisterData] = useState({
+    nickname: initialNickName || "",
+    campus: initialCampus,
+    course: initialCourse || 1,
+  });
   const [lessonTable, setLessonTable] = useState(initialTable);
-  const [courseDays, setCourseDays] = useState<WeekDay[]>([
-    ...DaysToWeekDayMap[initialCourse ? (initialCourse as CourseFreqDay) : 1],
-  ]);
 
   function handleCourseChange(e: ChangeEvent<HTMLInputElement>) {
     const v = Number.parseInt(e.target.value);
@@ -50,7 +47,7 @@ export default function RegisterForm({
       .forEach((ele) => {
         ele.selectedIndex = 0;
       });
-    setCourseDays([...DaysToWeekDayMap[v as CourseFreqDay]]);
+    setRegisterData({...registerData, course: v as CourseFreqDay});
   }
 
   function handleLessonChange(
@@ -92,18 +89,21 @@ export default function RegisterForm({
             <input
               className="block w-96 h-12 px-2 text-xl rounded-lg bg-[#ebf6f7] text-black border-1 border-gray-400"
               name="nickname"
-              defaultValue={initialNickName}
+              value={registerData.nickname}
+              onChange={(e) => setRegisterData({...registerData, nickname: e.target.value})}
+              disabled={isPending}
             />
           </div>
           <div className="mt-8 w-96 mx-auto">
             <h2 className="text-xl font-bold mb-2">キャンパスを選択</h2>
             <select
               name="campus"
-              value={campus}
+              value={registerData.campus}
               onChange={(e) => {
-                setCampus(e.target.value);
+                setRegisterData({...registerData, campus: e.target.value});
               }}
               required
+              disabled={isPending}
               className="block w-96 h-12 px-2 text-xl rounded-lg bg-[#ebf6f7] text-black border-1 border-gray-400 mb-2"
             >
               <option value="">キャンパスを選択</option>
@@ -120,12 +120,13 @@ export default function RegisterForm({
               className="p-4 w-96 text-base font-sans font-medium bg-[#ebf6f7] border-1 border-gray-400 rounded-lg"
               name="course"
               buttons={[
-                { title: "週1日", value: 1, checked: courseDays.length === 1 },
-                { title: "週3日", value: 3, checked: courseDays.length === 3 },
-                { title: "週5日", value: 5, checked: courseDays.length === 5 },
+                { title: "週1日", value: 1, checked: registerData.course === 1 },
+                { title: "週3日", value: 3, checked: registerData.course === 3 },
+                { title: "週5日", value: 5, checked: registerData.course === 5 },
               ]}
               onChange={handleCourseChange}
               required
+              disabled={isPending}
             />
           </div>
           <h2 className="mt-8 block mx-auto w-fit text-xl font-bold mb-3">
@@ -136,7 +137,7 @@ export default function RegisterForm({
               <thead>
                 <tr>
                   <th></th>
-                  {courseDays.map((weekday, i) => (
+                  {DaysToWeekDayMap[registerData.course].map((weekday, i) => (
                     <th
                       key={i}
                       className="w-60 text-lg border-l-1 border-gray-400"
@@ -154,10 +155,9 @@ export default function RegisterForm({
                         {LessonPeriodsJA[lessonPeriod]}
                       </div>
                     </th>
-                    {courseDays.map((courseDay, j) => (
+                    {DaysToWeekDayMap[registerData.course].map((courseDay, j) => (
                       <td className="border-l-1 border-gray-400" key={j}>
                         <select
-                          required
                           value={
                             lessonTable[courseDay][lessonPeriod].find(
                               (lesson) => lesson.selected
@@ -167,6 +167,8 @@ export default function RegisterForm({
                             handleLessonChange(e, courseDay, lessonPeriod)
                           }
                           name="lessons"
+                          required
+                          disabled={isPending}
                           className="lesson-select w-60 py-2 bg-[#ebf6f7]"
                         >
                           <option value="">選択</option>
@@ -195,6 +197,7 @@ export default function RegisterForm({
                 { title: "残る", value: 1, checked: initialAfterschool === 1 },
               ]}
               required
+              disabled={isPending}
             />
           </div>
           <div className="w-fit mx-auto mt-8">
@@ -204,6 +207,7 @@ export default function RegisterForm({
                 "block w-fit px-8 h-12 rounded-lg text-2xl font-bold text-white",
                 isPending ? "bg-blue-400" : "bg-blue-600"
               )}
+              disabled={isPending}
             >
               {isPending ? "送信中..." : "送信"}
             </button>

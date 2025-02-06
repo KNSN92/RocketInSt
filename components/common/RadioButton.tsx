@@ -10,6 +10,7 @@ type RadioButtonArgs = {
     checked?: boolean;
   }[];
   required?: boolean;
+  disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -27,6 +28,7 @@ export default function RadioButton(args: RadioButtonArgs) {
               name={args.name}
               defaultChecked={v.checked}
               onChange={args.onChange}
+              disabled={args.disabled}
               required={args.required}
             />
           </label>
