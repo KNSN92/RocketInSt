@@ -69,7 +69,7 @@ async function WhenCampusRegistered({
         </div>
         <div>{userList.length}人のユーザーが見つかりました。</div>
         <div className="w-auto overflow-auto">
-          <div className="px-8 w-auto min-w-96 h-12 flex flex-row items-center justify-between border-b-1 border-blue-400">
+          <div className="px-8 w-auto min-w-96 h-12 flex flex-row items-center justify-between font-bold border-b-1 border-blue-400">
             <div className="w-1/2 min-w-[50%] flex items-center justify-start text-nowrap">
               名前
             </div>
@@ -109,14 +109,14 @@ async function WhenCampusRegistered({
                   )}
                 </div>
               </div>
-              <div className="w-1/2 md:w-1/4 overflow-hidden flex flex-row items-center justify-start font-bold text-nowrap">
+              <div className="w-1/2 md:w-1/4 overflow-hidden flex flex-row items-center justify-start text-nowrap">
                 {user.lesson
                   ? user.lesson.room
                     ? `${user.lesson.room}にいます`
                     : "???"
                   : "キャンパスに居ません"}
               </div>
-              <div className="w-1/4 overflow-hidden hidden flex-row items-center justify-start text-nowrap font-bold lg:flex">
+              <div className="w-1/4 overflow-hidden hidden flex-row items-center justify-start text-nowrap lg:flex">
                 {user.lesson
                   ? user.lesson.period
                     ? user.lesson.period
