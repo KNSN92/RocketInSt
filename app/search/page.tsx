@@ -11,6 +11,7 @@ import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import SearchField from "@/components/common/SearchField";
 import { RecessPeriods } from "@/data/periods";
+import RefreshButton from "@/components/common/RefreshButton";
 
 export default async function SearchPage({
   searchParams,
@@ -67,7 +68,12 @@ async function WhenCampusRegistered({
             ))}
           </div>
         </div>
-        <div>{userList.length}人のユーザーが見つかりました。</div>
+        <div className="pl-8 flex flex-row items-center justify-start">
+          {/* <RefreshButton className="w-fit h-fit mr-2 p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white">
+            再読み込み
+          </RefreshButton> */}
+          <div>{userList.length}人のユーザーが見つかりました。</div>
+        </div>
         <div className="w-auto overflow-auto">
           <div className="px-8 w-auto min-w-96 h-12 flex flex-row items-center justify-between font-bold border-b-1 border-blue-400">
             <div className="w-1/2 min-w-[50%] flex items-center justify-start text-nowrap">
