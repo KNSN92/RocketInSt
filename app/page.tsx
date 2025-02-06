@@ -11,12 +11,18 @@ import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import { CourseFrequency } from "@prisma/client";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
+import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
 
 export default async function Home() {
   return (
     <div className="w-fit mx-auto pt-12 flex flex-col items-center">
       <div className="h-20" />
-      <h1 className="text-6xl font-bold">RocketIn.St</h1>
+      <RocketInStBlackTextLogo
+        width={1532}
+        height={200}
+        loading="lazy"
+        className="hidden md:inline h-48 w-fit object-contain relative top-1"
+      />
       <div className="h-4" />
       <h2 className="text-[1.2rem] font-semibold text-center">
         N/S高 生徒のキャンパス内位置<br></br> 混雑状況 確認サイト
