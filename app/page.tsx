@@ -11,7 +11,6 @@ import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import { CourseFrequency } from "@prisma/client";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
-import RefreshButton from "@/components/common/RefreshButton";
 
 export default async function Home() {
   return (

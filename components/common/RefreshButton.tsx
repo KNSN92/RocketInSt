@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function RefreshButton({ className, children }: { className?: HTMLButtonElement["className"], children?: React.ReactNode }) {
     const { refresh } = useRouter();

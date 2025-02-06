@@ -11,7 +11,6 @@ import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import SearchField from "@/components/common/SearchField";
 import { RecessPeriods } from "@/data/periods";
-import RefreshButton from "@/components/common/RefreshButton";
 
 export default async function SearchPage({
   searchParams,
