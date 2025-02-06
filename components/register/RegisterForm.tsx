@@ -53,7 +53,6 @@ export default function RegisterForm({
     setCourseDays([...DaysToWeekDayMap[v as CourseFreqDay]]);
   }
 
-  console.log(JSON.stringify(lessonTable, undefined, "\t"));
   function handleLessonChange(
     e: ChangeEvent<HTMLSelectElement>,
     c: WeekDay,
@@ -205,7 +204,6 @@ export default function RegisterForm({
                 "block w-fit px-8 h-12 rounded-lg text-2xl font-bold text-white",
                 isPending ? "bg-blue-400" : "bg-blue-600"
               )}
-              onClick={() => console.log(lessonTable)}
             >
               {isPending ? "送信中..." : "送信"}
             </button>
