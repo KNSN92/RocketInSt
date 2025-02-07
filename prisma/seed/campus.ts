@@ -65,7 +65,6 @@ export default async function seed() {
                                 }
                             })
                         )?.id;
-                        console.log(lesson.name, lesson.period, lesson.weekday, lessonId);
                         return {
                             id: lessonId
                         }
