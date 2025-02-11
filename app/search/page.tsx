@@ -1,6 +1,4 @@
 import { prisma } from "@/prisma";
-import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import authConfig from "@/auth.config";
 import { getServerSession } from "next-auth";
@@ -11,6 +9,9 @@ import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import SearchField from "@/components/common/SearchField";
 import { RecessPeriods } from "@/data/periods";
+import { LinkButton } from "@/components/common/Buttons";
+import Link from "next/link";
+import { UserIcon } from "@/components/common/UserIcon";
 
 export default async function SearchPage({
   searchParams,
@@ -43,7 +44,8 @@ async function WhenCampusRegistered({
       <div className="w-fit mx-auto pt-8">
         <h1 className="w-fit mx-auto text-5xl font-bold">ユーザーを検索</h1>
         <p className="mt-4 w-fit mx-auto text-xl font-bold text-center">
-          登録したキャンパスのユーザーを検索出来ます。<br/>
+          登録したキャンパスのユーザーを検索出来ます。
+          <br />
           ※人数の推定の仕組み上誤差が生じる場合があります。
         </p>
       </div>
@@ -91,19 +93,16 @@ async function WhenCampusRegistered({
               className="px-8 w-auto min-w-96 h-20 flex flex-row items-center justify-between"
               key={i}
             >
-              <div className="w-1/2 overflow-hidden flex flex-row items-center justify-start">
-                {user.image ? (
-                  <Image
-                    alt="icon"
-                    src={user.image}
-                    width={48}
-                    height={48}
-                    loading="lazy"
-                    className="inline-block rounded-full mr-4"
-                  />
-                ) : (
-                  <UnknownUserIcon />
-                )}
+              <Link
+                href={`/user/${user.id}`}
+                className="w-1/2 overflow-hidden flex flex-row items-center justify-start"
+              >
+                <UserIcon
+                  src={user.image}
+                  width={48}
+                  height={48}
+                  className="inline-block mr-4"
+                />
                 <div className="m-2 text-2xl text-nowrap">
                   {user.nickname ? (
                     <>
@@ -114,7 +113,7 @@ async function WhenCampusRegistered({
                     user.name
                   )}
                 </div>
-              </div>
+              </Link>
               <div className="w-1/2 md:w-1/4 overflow-hidden flex flex-row items-center justify-start text-nowrap">
                 {user.lesson
                   ? user.lesson.room
@@ -143,12 +142,7 @@ async function WhenCampusUnregistered() {
       <div className="w-fit text-xl font-bold">
         ユーザー検索を利用するにはキャンパスを登録してください。
       </div>
-      <Link
-        href="/register"
-        className="flex items-center justify-center text-white w-36 h-12 rounded-lg bg-blue-600 text-xl font-bold"
-      >
-        登録ページへ
-      </Link>
+      <LinkButton href="/register">登録ページへ</LinkButton>
     </div>
   );
 }
@@ -198,6 +192,7 @@ async function fetchUserList(userId: string, query?: string) {
         },
       },
       select: {
+        id: true,
         name: true,
         nickname: true,
         image: true,
@@ -254,6 +249,7 @@ async function fetchUserList(userId: string, query?: string) {
       period = lesson.period[0].name;
     }
     return {
+      id: user.id,
       name: user.name,
       nickname: user.nickname,
       image: user.image,
@@ -264,14 +260,6 @@ async function fetchUserList(userId: string, query?: string) {
       },
     };
   });
-}
-
-function UnknownUserIcon() {
-  return (
-    <div className="mr-2 w-12 h-12 flex items-center justify-center text-4xl font-bold text-black bg-gray-400 rounded-full">
-      ?
-    </div>
-  );
 }
 
 async function fetchUserCampus(userId: string) {
