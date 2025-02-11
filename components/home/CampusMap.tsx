@@ -1,8 +1,9 @@
-import { ReactNode } from "react";
+"use client";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 export default function CampusMap({
   mapData,
-  mapSize,
+  className,
 }: {
   mapData: {
     x: number;
@@ -12,43 +13,59 @@ export default function CampusMap({
     name: ReactNode;
     className?: HTMLDivElement["className"];
   }[];
-  mapSize: number;
+  className: HTMLDivElement["className"];
 }) {
-  if (!mapData.length) return <div />;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [grid, setGrid] = useState({ tile: 0, x: 0, y: 0 });
 
-  const sizeX = Math.max(
-    ...mapData.map((mapDataElement) => mapDataElement.x + mapDataElement.w)
-  );
-  const sizeY = Math.max(
-    ...mapData.map((mapDataElement) => mapDataElement.y + mapDataElement.h)
-  );
-  const grid = Math.floor(mapSize / Math.max(sizeX, sizeY));
+  useEffect(() => {
+    const resize = () => {
+      const gridSizeX = Math.max(
+        ...mapData.map((mapDataElement) => mapDataElement.x + mapDataElement.w)
+      );
+      const gridSizeY = Math.max(
+        ...mapData.map((mapDataElement) => mapDataElement.y + mapDataElement.h)
+      );
+      if (!(gridSizeX && gridSizeY)) return;
+      const width = containerRef.current?.clientWidth || 0;
+      const height = containerRef.current?.clientHeight || 0;
+      const tileSize = Math.floor(
+        Math.max(width, height) / Math.max(gridSizeX, gridSizeY)
+      );
+      setGrid({ tile: tileSize, x: gridSizeX, y: gridSizeY });
+    };
+    resize();
+    addEventListener("resize", resize);
+    return () => removeEventListener("resize", resize);
+  }, [mapData]);
 
   return (
-    <div
-      className="block relative"
-      style={{
-        width: `${grid * sizeX}px`,
-        height: `${grid * sizeY}px`,
-      }}
-    >
-      {mapData.map((mapDataElement, i) => (
-        <div
-          key={i}
-          className={mapDataElement.className}
-          style={{
-            position: "absolute",
-            padding: "0px",
-            margin: "0px",
-            left: `${mapDataElement.x * grid + 4}px`,
-            top: `${mapDataElement.y * grid + 4}px`,
-            width: `${mapDataElement.w * grid - 8}px`,
-            height: `${mapDataElement.h * grid - 8}px`,
-          }}
-        >
-          {mapDataElement.name}
-        </div>
-      ))}
+    <div className={className} ref={containerRef}>
+      <div
+        className="block relative"
+        style={{
+          width: `${grid.tile * grid.x}px`,
+          height: `${grid.tile * grid.y}px`,
+        }}
+      >
+        {mapData.map((mapDataElement, i) => (
+          <div
+            key={i}
+            className={mapDataElement.className}
+            style={{
+              position: "absolute",
+              padding: "0px",
+              margin: "0px",
+              left: `${mapDataElement.x * grid.tile + 4}px`,
+              top: `${mapDataElement.y * grid.tile + 4}px`,
+              width: `${mapDataElement.w * grid.tile - 8}px`,
+              height: `${mapDataElement.h * grid.tile - 8}px`,
+            }}
+          >
+            {mapDataElement.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -3,7 +3,6 @@ import authConfig from "@/auth.config";
 import { SignInButton } from "@/components/common/AuthButtons";
 import { prisma } from "@/prisma";
 import CampusMap from "@/components/home/CampusMap";
-import Link from "next/link";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import clsx from "clsx";
 import LoginRequired from "@/components/common/LoginRequired";
@@ -12,6 +11,7 @@ import { CourseFrequency } from "@prisma/client";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
 import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
+import { LinkButton } from "@/components/common/Buttons";
 
 export default async function Home() {
   return (
@@ -83,7 +83,7 @@ async function WhenUserLoggedIn() {
       })
     : [];
   const userCampus = await fetchUserCampus(session.user.id);
-  
+
   return (
     <>
       <div className="text-2xl font-semibold mt-5">
@@ -91,32 +91,33 @@ async function WhenUserLoggedIn() {
         さん
       </div>
       <h1 className="text-3xl font-bold mt-24">混雑状況マップ(工事中)</h1>
-      <p className="text-xl font-bold mt-2">※人数の推定の仕組み上誤差が生じる場合があります。</p>
+      <p className="text-xl font-bold mt-2">
+        ※人数の推定の仕組み上誤差が生じる場合があります。
+      </p>
       <CampusRegisterRequired
         message={
           <>
             <div className="text-xl font-bold">
               混雑状況マップを利用するにはキャンパスを登録してください。
             </div>
-            <Link
-              href="/register"
-              className="flex items-center justify-center w-36 h-12 rounded-lg text-white bg-blue-600 text-xl font-bold"
-            >
-              登録ページへ
-            </Link>
+            <LinkButton href="/register">登録ページへ</LinkButton>
           </>
         }
       >
         <div>
-          <div className="mt-2 w-fit h-fit p-4 bg-gray-100 border-2 border-gray-400 rounded-lg">
+          <div className="mt-2 md:w-[40vw] w-screen h-fit p-4 bg-gray-100 border-2 border-gray-400 rounded-lg">
             <div className="flex mb-2 items-center justify-between">
               {/* <RefreshButton className="w-fit h-fit p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200">
                 再読み込み
               </RefreshButton> */}
-              <div/>
-              {userCampus && <h2 className="w-fit h-fit relative -left-1/2 translate-x-1/2 font-bold text-xl">{userCampus.name}</h2>}
+              <div />
+              {userCampus && (
+                <h2 className="w-fit h-fit relative -left-1/2 translate-x-1/2 font-bold text-xl">
+                  {userCampus.name}
+                </h2>
+              )}
             </div>
-            <CampusMap mapData={mapData} mapSize={768} />
+            <CampusMap className="w-full h-fit" mapData={mapData} />
           </div>
         </div>
       </CampusRegisterRequired>
