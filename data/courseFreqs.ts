@@ -29,7 +29,7 @@ export const DaysToWeekDayMap: {[day in CourseFreqDay]: WeekDay[]} = {
   ],
 };
 
-export const WeekDayToCourseFreqMap: {[dayOfWeek in WeekDay]: CourseFrequency[]} = {
+export const WeekDayToCourseFreqMap: {[weekday in WeekDay]: CourseFrequency[]} = {
   Sunday: [],
   Monday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
   Tuesday: [ "FiveTimesPerWeek" ],
@@ -37,4 +37,10 @@ export const WeekDayToCourseFreqMap: {[dayOfWeek in WeekDay]: CourseFrequency[]}
   Thursday: [ "OncePerWeek", "FiveTimesPerWeek" ],
   Friday: [ "ThricePerWeek", "FiveTimesPerWeek" ],
   Saturday: [],
+}
+
+export const CourseFreqJA: {[courseFreq in CourseFrequency]: string} = {
+  OncePerWeek: "週1日",
+  ThricePerWeek: "週3日",
+  FiveTimesPerWeek: "週5日"
 }
