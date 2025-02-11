@@ -4,7 +4,6 @@ import { NextAuthProvider } from "@/lib/providers";
 import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
-import Image from "next/image";
 import {
   RocketInStLogo,
   RocketInStWhiteTextLogo,
@@ -12,6 +11,7 @@ import {
 import React, { ReactNode, Suspense } from "react";
 import { Sawarabi_Gothic } from "next/font/google";
 import Loading from "./loading";
+import { UserIcon } from "@/components/common/UserIcon";
 
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",
@@ -31,7 +31,7 @@ export default async function RootLayout({
         className={`antialiased w-screen min-h-screen ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
-          <div className="w-auto h-16 flex items-center justify-between bg-blue-600 text-white">
+          <div className="w-screen h-16 overflow-hidden flex items-center justify-between bg-blue-600 text-white shadow-md">
             <div className="flex items-center">
               <NavElement>
                 <Link href="/" className="block text-3xl font-bold">
@@ -53,23 +53,25 @@ export default async function RootLayout({
               <NavLink href="/search" title="search" />
             </div>
             <div className="flex items-center">
-              {session ? (
+              {session?.user ? (
                 <>
                   <NavLink href="/register" title="register" />
                   <SignOutButton>
                     <NavElement>signout</NavElement>
                   </SignOutButton>
-                  {session?.user?.image ? (
+                  <Link
+                    href={`/user/${session.user.id}`}
+                    className="w-fit h-fit"
+                  >
                     <NavElement>
-                      <Image
-                        alt="icon"
-                        src={session?.user?.image}
+                      <UserIcon
+                        src={session.user.image}
                         width={48}
                         height={48}
-                        className="block rounded-full"
+                        className="block"
                       />
                     </NavElement>
-                  ) : undefined}
+                  </Link>
                 </>
               ) : (
                 <SignInButton>
@@ -78,7 +80,7 @@ export default async function RootLayout({
               )}
             </div>
           </div>
-          <div className="relative w-full min-h-[calc(100vh-4rem)]">
+          <div className="w-full h-[calc(100vh-4rem)]">
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </div>
         </NextAuthProvider>
