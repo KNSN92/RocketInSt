@@ -3,15 +3,19 @@
 import RadioButton from "../common/RadioButton";
 import handleRegisterAction from "@/actions/register/RegisterFormAction";
 import { ChangeEvent, useActionState, useState } from "react";
-import { CourseFreqDay, CourseFreqDays, DaysToWeekDayMap } from "@/data/courseFreqs";
+import {
+  CourseFreqDay,
+  CourseFreqDays,
+  DaysToWeekDayMap,
+} from "@/data/courseFreqs";
 import { WeekDay } from "@prisma/client";
-import clsx from "clsx";
 import {
   LessonPeriods,
   LessonPeriodsJA,
   LessonPeriodType,
 } from "@/data/periods";
 import { WeekDayJA } from "@/data/weekdays";
+import { PrimaryButton } from "../common/Buttons";
 
 export default function RegisterForm({
   campuses,
@@ -47,7 +51,7 @@ export default function RegisterForm({
       .forEach((ele) => {
         ele.selectedIndex = 0;
       });
-    setRegisterData({...registerData, course: v as CourseFreqDay});
+    setRegisterData({ ...registerData, course: v as CourseFreqDay });
   }
 
   function handleLessonChange(
@@ -90,7 +94,9 @@ export default function RegisterForm({
               className="block w-96 h-12 px-2 text-xl rounded-lg bg-[#ebf6f7] text-black border-1 border-gray-400"
               name="nickname"
               value={registerData.nickname}
-              onChange={(e) => setRegisterData({...registerData, nickname: e.target.value})}
+              onChange={(e) =>
+                setRegisterData({ ...registerData, nickname: e.target.value })
+              }
               disabled={isPending}
             />
           </div>
@@ -100,7 +106,7 @@ export default function RegisterForm({
               name="campus"
               value={registerData.campus}
               onChange={(e) => {
-                setRegisterData({...registerData, campus: e.target.value});
+                setRegisterData({ ...registerData, campus: e.target.value });
               }}
               required
               disabled={isPending}
@@ -120,9 +126,21 @@ export default function RegisterForm({
               className="p-4 w-96 text-base font-sans font-medium bg-[#ebf6f7] border-1 border-gray-400 rounded-lg"
               name="course"
               buttons={[
-                { title: "週1日", value: 1, checked: registerData.course === 1 },
-                { title: "週3日", value: 3, checked: registerData.course === 3 },
-                { title: "週5日", value: 5, checked: registerData.course === 5 },
+                {
+                  title: "週1日",
+                  value: 1,
+                  checked: registerData.course === 1,
+                },
+                {
+                  title: "週3日",
+                  value: 3,
+                  checked: registerData.course === 3,
+                },
+                {
+                  title: "週5日",
+                  value: 5,
+                  checked: registerData.course === 5,
+                },
               ]}
               onChange={handleCourseChange}
               required
@@ -155,33 +173,35 @@ export default function RegisterForm({
                         {LessonPeriodsJA[lessonPeriod]}
                       </div>
                     </th>
-                    {DaysToWeekDayMap[registerData.course].map((courseDay, j) => (
-                      <td className="border-l-1 border-gray-400" key={j}>
-                        <select
-                          value={
-                            lessonTable[courseDay][lessonPeriod].find(
-                              (lesson) => lesson.selected
-                            )?.id || ""
-                          }
-                          onChange={(e) =>
-                            handleLessonChange(e, courseDay, lessonPeriod)
-                          }
-                          name="lessons"
-                          required
-                          disabled={isPending}
-                          className="lesson-select w-60 py-2 bg-[#ebf6f7]"
-                        >
-                          <option value="">選択</option>
-                          {lessonTable[courseDay][lessonPeriod].map(
-                            ({ id, title }, i) => (
-                              <option key={i} value={id}>
-                                {title}
-                              </option>
-                            )
-                          )}
-                        </select>
-                      </td>
-                    ))}
+                    {DaysToWeekDayMap[registerData.course].map(
+                      (courseDay, j) => (
+                        <td className="border-l-1 border-gray-400" key={j}>
+                          <select
+                            value={
+                              lessonTable[courseDay][lessonPeriod].find(
+                                (lesson) => lesson.selected
+                              )?.id || ""
+                            }
+                            onChange={(e) =>
+                              handleLessonChange(e, courseDay, lessonPeriod)
+                            }
+                            name="lessons"
+                            required
+                            disabled={isPending}
+                            className="lesson-select w-60 py-2 bg-[#ebf6f7]"
+                          >
+                            <option value="">選択</option>
+                            {lessonTable[courseDay][lessonPeriod].map(
+                              ({ id, title }, i) => (
+                                <option key={i} value={id}>
+                                  {title}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </td>
+                      )
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -201,16 +221,9 @@ export default function RegisterForm({
             />
           </div>
           <div className="w-fit mx-auto mt-8">
-            <button
-              type="submit"
-              className={clsx(
-                "block w-fit px-8 h-12 rounded-lg text-2xl font-bold text-white",
-                isPending ? "bg-blue-400" : "bg-blue-600"
-              )}
-              disabled={isPending}
-            >
+            <PrimaryButton type="submit" disabled={isPending}>
               {isPending ? "送信中..." : "送信"}
-            </button>
+            </PrimaryButton>
           </div>
         </form>
       </div>
