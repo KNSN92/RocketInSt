@@ -1,8 +1,8 @@
 "use client";
 
-import RadioButton from "../common/RadioButton";
+import RadioButton from "../../components/common/RadioButton";
 import handleRegisterAction from "@/actions/register/RegisterFormAction";
-import { ChangeEvent, useActionState, useState } from "react";
+import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import {
   CourseFreqDay,
   CourseFreqDays,
@@ -15,7 +15,7 @@ import {
   LessonPeriodType,
 } from "@/data/periods";
 import { WeekDayJA } from "@/data/weekdays";
-import { PrimaryButton } from "../common/Buttons";
+import { PrimaryButton } from "../../components/common/Buttons";
 
 export default function RegisterForm({
   campuses,
@@ -76,6 +76,8 @@ export default function RegisterForm({
     error: false,
   });
 
+  useEffect(() => setRegisterData({ ...registerData }), [isPending]);
+
   return (
     <>
       {state.error && (
@@ -87,6 +89,9 @@ export default function RegisterForm({
         <h1 className="block w-fit mx-auto mb-4 text-3xl font-bold">
           情報を設定
         </h1>
+        <p className="mx-auto mb-4 text-xl">
+          当サイトの機能を使うには以下の情報を入力する必要があります。
+        </p>
         <form action={formAction}>
           <div className="mt-8 w-96 mx-auto">
             <h2 className="text-xl font-bold mb-2">ニックネームを入力</h2>
