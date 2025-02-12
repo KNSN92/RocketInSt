@@ -1,21 +1,21 @@
 "use client";
 
-import RadioButton from "../../components/common/RadioButton";
 import handleRegisterAction from "@/actions/register/RegisterFormAction";
-import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import {
   CourseFreqDay,
   CourseFreqDays,
   DaysToWeekDayMap,
 } from "@/data/courseFreqs";
-import { WeekDay } from "@prisma/client";
 import {
   LessonPeriods,
   LessonPeriodsJA,
   LessonPeriodType,
 } from "@/data/periods";
 import { WeekDayJA } from "@/data/weekdays";
+import { WeekDay } from "@prisma/client";
+import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { PrimaryButton } from "../../components/common/Buttons";
+import RadioButton from "../../components/common/RadioButton";
 
 export default function RegisterForm({
   campuses,
@@ -57,7 +57,7 @@ export default function RegisterForm({
   function handleLessonChange(
     e: ChangeEvent<HTMLSelectElement>,
     c: WeekDay,
-    r: LessonPeriodType
+    r: LessonPeriodType,
   ) {
     const updatedLessons = lessonTable[c][r].map((lesson) => {
       lesson.selected = lesson.id === e.target.value;
@@ -76,27 +76,30 @@ export default function RegisterForm({
     error: false,
   });
 
-  useEffect(() => setRegisterData({ ...registerData }), [isPending]);
+  useEffect(() => {
+    setRegisterData({ ...registerData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPending]);
 
   return (
     <>
       {state.error && (
-        <div className="mx-auto w-[60vw] min-h-24 h-fit mt-8 p-4 text-white bg-red-400 border-4 border-red-300 rounded-xl flex justify-center items-center text-2xl">
+        <div className="mx-auto mt-8 flex h-fit min-h-24 w-[60vw] items-center justify-center rounded-xl border-4 border-red-300 bg-red-400 p-4 text-2xl text-white">
           {state.msg}
         </div>
       )}
-      <div className="w-fit mx-auto mt-12 p-16 bg-blue-100 rounded-2xl border-1 border-gray-800">
-        <h1 className="block w-fit mx-auto mb-4 text-3xl font-bold">
+      <div className="mx-auto my-12 w-fit rounded-2xl border-1 border-gray-800 bg-blue-100 p-16">
+        <h1 className="mx-auto mb-4 block w-fit text-3xl font-bold">
           情報を設定
         </h1>
         <p className="mx-auto mb-4 text-xl">
           当サイトの機能を使うには以下の情報を入力する必要があります。
         </p>
         <form action={formAction}>
-          <div className="mt-8 w-96 mx-auto">
-            <h2 className="text-xl font-bold mb-2">ニックネームを入力</h2>
+          <div className="mx-auto mt-8 w-96">
+            <h2 className="mb-2 text-xl font-bold">ニックネームを入力</h2>
             <input
-              className="block w-96 h-12 px-2 text-xl rounded-lg bg-[#ebf6f7] text-black border-1 border-gray-400"
+              className="block h-12 w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
               name="nickname"
               value={registerData.nickname}
               onChange={(e) =>
@@ -105,8 +108,8 @@ export default function RegisterForm({
               disabled={isPending}
             />
           </div>
-          <div className="mt-8 w-96 mx-auto">
-            <h2 className="text-xl font-bold mb-2">キャンパスを選択</h2>
+          <div className="mx-auto mt-8 w-96">
+            <h2 className="mb-2 text-xl font-bold">キャンパスを選択</h2>
             <select
               name="campus"
               value={registerData.campus}
@@ -115,7 +118,7 @@ export default function RegisterForm({
               }}
               required
               disabled={isPending}
-              className="block w-96 h-12 px-2 text-xl rounded-lg bg-[#ebf6f7] text-black border-1 border-gray-400 mb-2"
+              className="mb-2 block h-12 w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
             >
               <option value="">キャンパスを選択</option>
               {campuses.map((campus, i) => (
@@ -125,10 +128,10 @@ export default function RegisterForm({
               ))}
             </select>
           </div>
-          <div className="mt-8 w-96 mx-auto">
-            <h2 className="text-xl font-bold mb-2">コースを選択</h2>
+          <div className="mx-auto mt-8 w-96">
+            <h2 className="mb-2 text-xl font-bold">コースを選択</h2>
             <RadioButton
-              className="p-4 w-96 text-base font-sans font-medium bg-[#ebf6f7] border-1 border-gray-400 rounded-lg"
+              className="w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
               name="course"
               buttons={[
                 {
@@ -152,18 +155,18 @@ export default function RegisterForm({
               disabled={isPending}
             />
           </div>
-          <h2 className="mt-8 block mx-auto w-fit text-xl font-bold mb-3">
+          <h2 className="mx-auto mb-3 mt-8 block w-fit text-xl font-bold">
             授業を選択
           </h2>
-          <div className="min-w-96 flex justify-center">
-            <table className="mx-auto w-fit bg-[#ebf6f7] border-1 border-gray-400 rounded-lg">
+          <div className="flex min-w-96 justify-center">
+            <table className="mx-auto w-fit rounded-lg border-1 border-gray-400 bg-[#ebf6f7]">
               <thead>
                 <tr>
                   <th></th>
                   {DaysToWeekDayMap[registerData.course].map((weekday, i) => (
                     <th
                       key={i}
-                      className="w-60 text-lg border-l-1 border-gray-400"
+                      className="w-60 border-l-1 border-gray-400 text-lg"
                     >
                       {WeekDayJA[weekday]}
                     </th>
@@ -184,7 +187,7 @@ export default function RegisterForm({
                           <select
                             value={
                               lessonTable[courseDay][lessonPeriod].find(
-                                (lesson) => lesson.selected
+                                (lesson) => lesson.selected,
                               )?.id || ""
                             }
                             onChange={(e) =>
@@ -193,7 +196,7 @@ export default function RegisterForm({
                             name="lessons"
                             required
                             disabled={isPending}
-                            className="lesson-select w-60 py-2 bg-[#ebf6f7]"
+                            className="lesson-select w-60 bg-[#ebf6f7] py-2"
                           >
                             <option value="">選択</option>
                             {lessonTable[courseDay][lessonPeriod].map(
@@ -201,22 +204,22 @@ export default function RegisterForm({
                                 <option key={i} value={id}>
                                   {title}
                                 </option>
-                              )
+                              ),
                             )}
                           </select>
                         </td>
-                      )
+                      ),
                     )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className="w-96 mx-auto mt-8">
-            <h2 className="text-xl font-bold mb-2">放課後の動きを選択</h2>
+          <div className="mx-auto mt-8 w-96">
+            <h2 className="mb-2 text-xl font-bold">放課後の動きを選択</h2>
             <RadioButton
               name="afterschool"
-              className="p-4 w-96 text-base font-sans font-medium bg-[#ebf6f7] border-1 border-gray-400 rounded-lg"
+              className="w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
               buttons={[
                 { title: "帰る", value: 0, checked: initialAfterschool === 0 },
                 { title: "残る", value: 1, checked: initialAfterschool === 1 },
@@ -225,7 +228,7 @@ export default function RegisterForm({
               disabled={isPending}
             />
           </div>
-          <div className="w-fit mx-auto mt-8">
+          <div className="mx-auto mt-8 w-fit">
             <PrimaryButton type="submit" disabled={isPending}>
               {isPending ? "送信中..." : "送信"}
             </PrimaryButton>

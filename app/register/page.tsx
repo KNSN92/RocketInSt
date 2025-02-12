@@ -1,5 +1,5 @@
-import authConfig from "@/auth.config";
 import RegisterForm from "@/app/register/RegisterForm";
+import authConfig from "@/auth.config";
 import { CourseFreqToDaysMap } from "@/data/courseFreqs";
 import { AfterSchoolPeriod, LessonPeriods } from "@/data/periods";
 import { prisma } from "@/prisma";

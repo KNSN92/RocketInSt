@@ -11,11 +11,11 @@ import {
   fetchUserId,
   isUserFriend,
 } from "@/lib/userdata";
+import { combinateUserName } from "@/lib/users";
 import { CourseFrequency, Role } from "@prisma/client";
 import clsx from "clsx";
 import { notFound, redirect } from "next/navigation";
 import FriendRegisterForm from "./FriendRegisterForm";
-import { combinateUserName } from "@/lib/users";
 
 export default async function UserInfo({
   params,
@@ -44,7 +44,7 @@ export default async function UserInfo({
 
 function WhenUserCampusUnregistered() {
   return (
-    <div className="mx-auto pt-8 w-fit flex flex-col items-center justify-center">
+    <div className="mx-auto flex w-fit flex-col items-center justify-center pt-8">
       <div className="w-fit text-xl font-bold">
         ユーザー検索を利用するにはキャンパスを登録してください。
       </div>
@@ -78,12 +78,12 @@ function UserProfile({
 }) {
   console.log("friend", initialIsFriend);
   return (
-    <div className="pt-32 w-fit mx-auto flex flex-col items-center">
+    <div className="mx-auto flex w-fit flex-col items-center pt-32">
       <UserIcon src={image} width={192} height={192} className="text-9xl" />
       <h1
         className={clsx(
           "py-8 text-3xl font-bold",
-          role === "Admin" && "text-[#ff0000]"
+          role === "Admin" && "text-[#ff0000]",
         )}
       >
         {role === "Admin" && "[Admin]"}
@@ -110,7 +110,7 @@ function UserProfile({
           {lessons.length > 0
             ? lessons[0].period.length > 0 &&
               (RecessPeriods as ReadonlyArray<string>).includes(
-                lessons[0].period[0].innername
+                lessons[0].period[0].innername,
               )
               ? lessons[0].period[0].name
               : lessons[0].title

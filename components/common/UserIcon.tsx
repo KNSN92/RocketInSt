@@ -42,7 +42,7 @@ export function UnknownUserIcon({
 }) {
   return (
     <div
-      className={`${className} flex items-center justify-center text-4xl font-bold text-black bg-gray-400 rounded-full`}
+      className={`${className} flex items-center justify-center rounded-full bg-gray-400 text-4xl font-bold text-black`}
       style={style}
     >
       ?

@@ -1,21 +1,51 @@
 "use server";
 
 import authConfig from "@/auth.config";
-import { prisma } from "@/prisma";
-import { Prisma, CourseFrequency } from "@prisma/client";
-import { getServerSession } from "next-auth";
-import { z } from "zod";
-import { redirect } from "next/navigation";
-import { CourseFreqDays, DaysToWeekDayMap, DaysToCourseFreqMap } from "@/data/courseFreqs";
 import type { CourseFreqDay } from "@/data/courseFreqs";
-import { AfterSchoolPeriod, LessonPeriods, MeetingPeriods, RecessPeriods } from "@/data/periods";
+import {
+  CourseFreqDays,
+  DaysToCourseFreqMap,
+  DaysToWeekDayMap,
+} from "@/data/courseFreqs";
+import {
+  AfterSchoolPeriod,
+  LessonPeriods,
+  MeetingPeriods,
+  RecessPeriods,
+} from "@/data/periods";
+import { prisma } from "@/prisma";
+import { CourseFrequency, Prisma } from "@prisma/client";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
-
-const nicknameSchema = z.string({invalid_type_error: "ニックネームは文字列として入力してください。"}).nonempty({ message: "ニックネームは1文字以上の長さにしてください。" })
-const campusSchema = z.string({invalid_type_error: "キャンパスは文字列として入力してください。",}).uuid({ message: "キャンパスはuuidとして入力してください。" }).superRefine(validateCampus)
-const courseSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => (CourseFreqDays as ReadonlyArray<number>).includes(num), {message: `${CourseFreqDays.join(",")}のいずれかの整数を入力してください。`,})
-const afterschoolSchema = z.coerce.number({ invalid_type_error: "整数を入力してください。" }).int({ message: "整数を入力してください。" }).refine((num) => 0 <= num && num <= 1, {message: "0~1の整数を入力してください。",})
-const lessonsSchema = z.string({invalid_type_error: "授業の一つ一つは文字列として入力してください。",}).uuid({ message: "授業の一つ一つはuuidとして入力してください。" }).array()
+const nicknameSchema = z
+  .string({
+    invalid_type_error: "ニックネームは文字列として入力してください。",
+  })
+  .nonempty({ message: "ニックネームは1文字以上の長さにしてください。" });
+const campusSchema = z
+  .string({ invalid_type_error: "キャンパスは文字列として入力してください。" })
+  .uuid({ message: "キャンパスはuuidとして入力してください。" })
+  .superRefine(validateCampus);
+const courseSchema = z.coerce
+  .number({ invalid_type_error: "整数を入力してください。" })
+  .int({ message: "整数を入力してください。" })
+  .refine((num) => (CourseFreqDays as ReadonlyArray<number>).includes(num), {
+    message: `${CourseFreqDays.join(",")}のいずれかの整数を入力してください。`,
+  });
+const afterschoolSchema = z.coerce
+  .number({ invalid_type_error: "整数を入力してください。" })
+  .int({ message: "整数を入力してください。" })
+  .refine((num) => 0 <= num && num <= 1, {
+    message: "0~1の整数を入力してください。",
+  });
+const lessonsSchema = z
+  .string({
+    invalid_type_error: "授業の一つ一つは文字列として入力してください。",
+  })
+  .uuid({ message: "授業の一つ一つはuuidとして入力してください。" })
+  .array();
 
 const schema = z
   .object({
@@ -56,7 +86,7 @@ async function validateLessons(
     afterschool: number;
     lessons: string[];
   },
-  ctx: z.RefinementCtx
+  ctx: z.RefinementCtx,
 ) {
   const { lessons, course } = data;
   const requiredLessons = course * LessonPeriods.length;
@@ -81,10 +111,10 @@ async function validateLessons(
         period: {
           some: {
             weekday: {
-              in: DaysToWeekDayMap[course as CourseFreqDay]
+              in: DaysToWeekDayMap[course as CourseFreqDay],
             },
-            tag: "Lesson"
-          }
+            tag: "Lesson",
+          },
         },
       },
     });
@@ -107,7 +137,10 @@ async function validateLessons(
   }
 }
 
-export default async function handleRegisterAction(previousState: { error: boolean, msg?: string}, formData: FormData): Promise<{ error: boolean, msg?: string}> {
+export default async function handleRegisterAction(
+  previousState: { error: boolean; msg?: string },
+  formData: FormData,
+): Promise<{ error: boolean; msg?: string }> {
   const parseResult = await schema.safeParseAsync({
     nickname: formData.get("nickname"),
     campus: formData.get("campus"),
@@ -115,36 +148,42 @@ export default async function handleRegisterAction(previousState: { error: boole
     afterschool: formData.get("afterschool"),
     lessons: formData.getAll("lessons"),
   });
-  if (!parseResult.success) return { error: true, msg: parseResult.error?.errors[0].message };
+  if (!parseResult.success)
+    return { error: true, msg: parseResult.error?.errors[0].message };
   const { nickname, campus, course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
   const userId = session?.user?.id;
-  if (!userId) return { error: true, msg: "ユーザーidを取得出来ませんでした。" };
+  if (!userId)
+    return { error: true, msg: "ユーザーidを取得出来ませんでした。" };
 
   const courseFreqEnum: CourseFrequency =
     DaysToCourseFreqMap[course as CourseFreqDay];
 
-  const lessonsEntry: Prisma.LessonWhereUniqueInput[] = lessons.map((lesson) => ({ id: lesson }));
-  const otherEntryInnernames: string[] = [ ...MeetingPeriods, RecessPeriods[2] ];
-  if(afterschool === 1) otherEntryInnernames.push(AfterSchoolPeriod);
+  const lessonsEntry: Prisma.LessonWhereUniqueInput[] = lessons.map(
+    (lesson) => ({ id: lesson }),
+  );
+  const otherEntryInnernames: string[] = [...MeetingPeriods, RecessPeriods[2]];
+  if (afterschool === 1) otherEntryInnernames.push(AfterSchoolPeriod);
 
-  const otherEntry: Prisma.LessonWhereUniqueInput[] = (await prisma.lesson.findMany({
-    where: {
-      period: {
-        some: {
-          innername: {
-            in: otherEntryInnernames
+  const otherEntry: Prisma.LessonWhereUniqueInput[] = (
+    await prisma.lesson.findMany({
+      where: {
+        period: {
+          some: {
+            innername: {
+              in: otherEntryInnernames,
+            },
+            weekday: {
+              in: DaysToWeekDayMap[course as CourseFreqDay],
+            },
           },
-          weekday: {
-            in: DaysToWeekDayMap[course as CourseFreqDay]
-          }
-        }
-      }
-    },
-    select: {
-      id: true
-    }
-  })).map((item) => ({ id: item.id }));
+        },
+      },
+      select: {
+        id: true,
+      },
+    })
+  ).map((item) => ({ id: item.id }));
 
   await prisma.$transaction([
     prisma.user.update({
@@ -167,10 +206,7 @@ export default async function handleRegisterAction(previousState: { error: boole
       where: { id: userId },
       data: {
         lessons: {
-          connect: [
-            ...lessonsEntry,
-            ...otherEntry,
-          ]
+          connect: [...lessonsEntry, ...otherEntry],
         },
       },
     }),

@@ -21,7 +21,7 @@ export function RocketInStLoadingLogo({
 }) {
   return (
     <div
-      className={`bg-[url(/logo/loading_back.png)] bg-contain aspect-square flex items-center justify-center ${className}`}
+      className={`flex aspect-square items-center justify-center bg-[url(/logo/loading_back.png)] bg-contain ${className}`}
     >
       <Image
         src="/logo/loading_needle.png"

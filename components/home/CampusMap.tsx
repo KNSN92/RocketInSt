@@ -21,16 +21,16 @@ export default function CampusMap({
   useEffect(() => {
     const resize = () => {
       const gridSizeX = Math.max(
-        ...mapData.map((mapDataElement) => mapDataElement.x + mapDataElement.w)
+        ...mapData.map((mapDataElement) => mapDataElement.x + mapDataElement.w),
       );
       const gridSizeY = Math.max(
-        ...mapData.map((mapDataElement) => mapDataElement.y + mapDataElement.h)
+        ...mapData.map((mapDataElement) => mapDataElement.y + mapDataElement.h),
       );
       if (!(gridSizeX && gridSizeY)) return;
       const width = containerRef.current?.clientWidth || 0;
       const height = containerRef.current?.clientHeight || 0;
       const tileSize = Math.floor(
-        Math.max(width, height) / Math.max(gridSizeX, gridSizeY)
+        Math.max(width, height) / Math.max(gridSizeX, gridSizeY),
       );
       setGrid({ tile: tileSize, x: gridSizeX, y: gridSizeY });
     };
@@ -42,7 +42,7 @@ export default function CampusMap({
   return (
     <div className={className} ref={containerRef}>
       <div
-        className="block relative"
+        className="relative block"
         style={{
           width: `${grid.tile * grid.x}px`,
           height: `${grid.tile * grid.y}px`,
