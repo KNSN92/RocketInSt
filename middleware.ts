@@ -14,5 +14,9 @@ export default withAuth({
 })
 
 export const config = {
-    matcher: ["/register", "/search"]
+    matcher: [
+        "/register",
+        "/search",
+        "/user"
+    ]
 }
