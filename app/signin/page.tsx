@@ -21,7 +21,7 @@ export default async function SignIn({
     redirect("/");
   } else {
     return (
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="flex h-main-content w-full items-center justify-center">
         <div className="flex h-[30rem] w-[36rem] flex-col items-center justify-center rounded-3xl border-4 border-blue-200 bg-blue-600">
           <h1 className="mb-2 block text-5xl font-bold text-white">
             サインイン

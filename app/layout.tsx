@@ -1,17 +1,17 @@
-import Link from "next/link";
-import "./globals.css";
-import { NextAuthProvider } from "@/lib/providers";
-import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
 import {
   RocketInStLogo,
   RocketInStWhiteTextLogo,
 } from "@/components/common/RocketInStLogos";
-import React, { ReactNode, Suspense } from "react";
-import { Sawarabi_Gothic } from "next/font/google";
-import Loading from "./loading";
 import { UserIcon } from "@/components/common/UserIcon";
+import { NextAuthProvider } from "@/lib/providers";
+import { getServerSession } from "next-auth";
+import { Sawarabi_Gothic } from "next/font/google";
+import Link from "next/link";
+import React, { ReactNode, Suspense } from "react";
+import "./globals.css";
+import Loading from "./loading";
 
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",
@@ -24,74 +24,80 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authConfig);
   return (
     <html lang="ja">
       <body
-        className={`antialiased w-screen min-h-screen ${SawarabiGothicFont.className}`}
+        className={`min-h-screen w-screen antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
-          <div className="w-screen h-16 overflow-hidden flex items-center justify-between bg-blue-600 text-white shadow-md">
-            <div className="flex items-center">
-              <NavElement>
-                <Link href="/" className="block text-3xl font-bold">
-                  <RocketInStWhiteTextLogo
-                    width={1532}
-                    height={200}
-                    loading="lazy"
-                    className="hidden md:inline h-12 w-fit object-contain relative top-1"
-                  />
-                  <RocketInStLogo
-                    width={459}
-                    height={459}
-                    loading="lazy"
-                    className="inline md:hidden h-12 w-fit object-contain"
-                  />
-                </Link>
-              </NavElement>
-              <NavLink href="/about" title="about" />
-              <NavLink href="/search" title="search" />
-            </div>
-            <div className="flex items-center">
-              {session?.user ? (
-                <>
-                  <NavLink href="/register" title="register" />
-                  <SignOutButton>
-                    <NavElement>signout</NavElement>
-                  </SignOutButton>
-                  <Link
-                    href={`/user/${session.user.id}`}
-                    className="w-fit h-fit"
-                  >
-                    <NavElement>
-                      <UserIcon
-                        src={session.user.image}
-                        width={48}
-                        height={48}
-                        className="block"
-                      />
-                    </NavElement>
-                  </Link>
-                </>
-              ) : (
-                <SignInButton>
-                  <NavElement>signin</NavElement>
-                </SignInButton>
-              )}
-            </div>
-          </div>
-          <div className="w-full h-[calc(100vh-4rem)]">
+          <Header />
+          <div className="min-h-screen w-full pt-[var(--header-height)]">
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </div>
+          <Footer />
         </NextAuthProvider>
       </body>
     </html>
   );
 }
 
+async function Header() {
+  const session = await getServerSession(authConfig);
+  return (
+    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between overflow-hidden bg-blue-600 text-white shadow-md">
+      <div className="flex items-center">
+        <NavElement>
+          <Link href="/" className="block text-3xl font-bold">
+            <RocketInStWhiteTextLogo
+              width={1532}
+              height={200}
+              loading="lazy"
+              className="relative top-1 hidden h-12 w-fit object-contain md:inline"
+            />
+            <div className="md:hidden h-12 w-12">
+              <RocketInStLogo
+                width={459}
+                height={459}
+                loading="lazy"
+                className="inline-block h-12 w-12 aspect-square object-contain"
+              />
+            </div>
+          </Link>
+        </NavElement>
+        <NavLink href="/about" title="about" />
+        <NavLink href="/search" title="search" />
+      </div>
+      <div className="flex items-center">
+        {session?.user ? (
+          <>
+            <NavLink href="/register" title="register" />
+            <SignOutButton>
+              <NavElement>signout</NavElement>
+            </SignOutButton>
+            <Link href={`/user/${session.user.id}`} className="h-fit w-fit">
+              <NavElement>
+                <UserIcon
+                  src={session.user.image}
+                  width={48}
+                  height={48}
+                  className="block"
+                />
+              </NavElement>
+            </Link>
+          </>
+        ) : (
+          <SignInButton>
+            <NavElement>signin</NavElement>
+          </SignInButton>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function NavElement({ children }: { children: ReactNode }) {
   return (
-    <div className="transition duration-400 h-16 px-4 text-xl flex items-center justify-center hover:bg-white hover:bg-opacity-10">
+    <div className="duration-400 flex h-16 items-center justify-center px-4 text-xl transition hover:bg-white hover:bg-opacity-10">
       {children}
     </div>
   );
@@ -99,8 +105,19 @@ function NavElement({ children }: { children: ReactNode }) {
 
 function NavLink({ href, title }: { href: string; title: string }) {
   return (
-    <Link href={href} className="w-fit h-fit">
+    <Link href={href} className="h-fit w-fit">
       <NavElement>{title}</NavElement>
     </Link>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="h-[var(--footer-height)] w-screen bg-blue-600 flex items-center justify-between">
+      <p className="ml-8 text-white text-2xl">
+        © 2025 RocketInSt Development Team
+      </p>
+      <div></div>
+    </div>
   );
 }

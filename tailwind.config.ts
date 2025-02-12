@@ -8,13 +8,12 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      height: {
+        "main-content": "calc(100vh - var(--header-height))"
       },
       borderWidth: {
         1: "1px"
-      }
+      },
     },
   },
   plugins: [],

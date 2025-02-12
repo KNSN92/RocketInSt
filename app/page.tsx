@@ -1,37 +1,36 @@
-import { getServerSession } from "next-auth";
 import authConfig from "@/auth.config";
 import { SignInButton } from "@/components/common/AuthButtons";
-import { prisma } from "@/prisma";
-import CampusMap from "@/components/home/CampusMap";
-import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
-import clsx from "clsx";
-import LoginRequired from "@/components/common/LoginRequired";
-import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
-import { CourseFrequency } from "@prisma/client";
-import { NumToWeekDayMap } from "@/data/weekdays";
-import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
-import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
 import { LinkButton } from "@/components/common/Buttons";
+import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
+import LoginRequired from "@/components/common/LoginRequired";
+import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
+import CampusMap from "@/components/home/CampusMap";
+import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
+import { NumToWeekDayMap } from "@/data/weekdays";
+import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
+import { prisma } from "@/prisma";
+import { CourseFrequency } from "@prisma/client";
+import clsx from "clsx";
+import { getServerSession } from "next-auth";
 
 export default async function Home() {
   return (
-    <div className="w-fit mx-auto pt-12 flex flex-col items-center">
-      <div className="h-20" />
+    <div className="mx-auto flex w-fit flex-col items-center justify-center text-center py-10">
       <RocketInStBlackTextLogo
         width={1532}
         height={200}
         loading="lazy"
-        className="hidden md:inline h-48 w-fit object-contain relative top-1"
+        className="relative top-1 h-48 w-fit object-contain"
       />
       <div className="h-4" />
-      <h2 className="text-[1.2rem] font-semibold text-center">
+      <h2 className="text-center text-[1.2rem] font-semibold">
         N/S高 生徒のキャンパス内位置<br></br> 混雑状況 確認サイト
       </h2>
       <div className="h-10" />
       <LoginRequired
         message={
           <SignInButton>
-            <div className="transition duration-500 bg-blue-200 text-blue-600 text-[1.5rem] font-semibold flex justify-center items-center w-fit h-fit px-8 py-4 rounded-full hover:bg-blue-600 hover:text-blue-200">
+            <div className="flex h-fit w-fit items-center justify-center rounded-full bg-blue-200 px-8 py-4 text-[1.5rem] font-semibold text-blue-600 transition duration-500 hover:bg-blue-600 hover:text-blue-200">
               登録 / サインイン
             </div>
           </SignInButton>
@@ -63,21 +62,21 @@ async function WhenUserLoggedIn() {
         return {
           ...item,
           name: (
-            <div className="text-center">
+            <div className="text-center overflow-hidden">
               {`${item.name}`}
               <br />
-              {`${item.students}人`}
+              <span className="hidden sm:inline">{`${item.students}人`}</span>
             </div>
           ),
           className: clsx(
-            "flex items-center justify-center border-2 text-lg font-bold text-gray-800 rounded-lg",
+            "flex items-center justify-center border-2 font-bold text-gray-800 rounded-lg",
             {
               "bg-gray-400 border-gray-600": alertLevel === -1,
               "bg-blue-400 border-blue-600": alertLevel === 0,
               "bg-green-400 border-green-600": alertLevel === 1,
               "bg-yellow-400 border-yellow-600": alertLevel === 2,
               "bg-red-400 border-red-600": alertLevel === 3,
-            }
+            },
           ),
         };
       })
@@ -85,43 +84,68 @@ async function WhenUserLoggedIn() {
   const userCampus = await fetchUserCampus(session.user.id);
 
   return (
-    <>
-      <div className="text-2xl font-semibold mt-5">
+    <div>
+      <div className="mt-5 text-2xl font-semibold">
         こんにちは {session.user?.name}
         さん
       </div>
-      <h1 className="text-3xl font-bold mt-24">混雑状況マップ(工事中)</h1>
-      <p className="text-xl font-bold mt-2">
-        ※人数の推定の仕組み上誤差が生じる場合があります。
-      </p>
+      <h1 className="mt-24 text-3xl font-bold">混雑状況マップ(工事中)</h1>
       <CampusRegisterRequired
         message={
-          <>
+          <div className="flex flex-col items-center">
             <div className="text-xl font-bold">
               混雑状況マップを利用するにはキャンパスを登録してください。
             </div>
             <LinkButton href="/register">登録ページへ</LinkButton>
-          </>
+          </div>
         }
       >
+        <p className="mt-2 text-xl font-bold">
+          ※人数の推定の仕組み上誤差が生じる場合があります。
+        </p>
         <div>
-          <div className="mt-2 md:w-[40vw] w-screen h-fit p-4 bg-gray-100 border-2 border-gray-400 rounded-lg">
-            <div className="flex mb-2 items-center justify-between">
+          <div className="mt-2 h-fit w-screen rounded-lg border-2 border-gray-400 bg-gray-100 p-4 lg:w-[80vw] xl:w-[50vw]">
+            <div className="mb-2 flex items-center justify-center">
               {/* <RefreshButton className="w-fit h-fit p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200">
                 再読み込み
               </RefreshButton> */}
               <div />
               {userCampus && (
-                <h2 className="w-fit h-fit relative -left-1/2 translate-x-1/2 font-bold text-xl">
+                <h2 className="h-fit w-fit text-xl font-bold">
                   {userCampus.name}
                 </h2>
               )}
             </div>
-            <CampusMap className="w-full h-fit" mapData={mapData} />
+            <div className="mb-8 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
+              <div className="w-36 h-6 flex items-center gap-2">
+                <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600" />
+                空いている
+              </div>
+              <div className="w-36 h-6 flex items-center gap-2">
+                <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600" />
+                少し混雑
+              </div>
+              <div className="w-36 h-6 flex items-center gap-2">
+                <div className="inline-block w-1/2 min-w-4 h-full bg-yellow-400 border-2 border-yellow-600" />
+                混雑
+              </div>
+              <div className="w-36 h-6 flex items-center gap-2">
+                <div className="inline-block w-1/2 min-w-4 h-full bg-red-400 border-2 border-red-600" />
+                非常に混雑
+              </div>
+              <div className="w-36 h-6 flex items-center gap-2">
+                <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600" />
+                No Data
+              </div>
+            </div>
+            <CampusMap
+              className="h-fit w-full text-xs md:text-lg sm:text-md"
+              mapData={mapData}
+            />
           </div>
         </div>
       </CampusRegisterRequired>
-    </>
+    </div>
   );
 }
 
@@ -135,7 +159,7 @@ async function fetchUserCampusMap(userId: string) {
   if (!userCampus) return [];
   const todayAllStudents = await fetchCampusAllCourseStudents(
     userCampus.id,
-    todayCourseFreqs
+    todayCourseFreqs,
   );
   const allStudents = await fetchCampusAllStudents(userCampus.id);
   const todayCourseRatio = replaceNanInf(todayAllStudents / allStudents, 0);
@@ -191,11 +215,11 @@ async function fetchUserCampusMap(userId: string) {
       if (!roomPlan) return null;
       const roomStudents = room.lessons.reduce(
         (sum, roomStudent) => sum + roomStudent._count.students,
-        0
+        0,
       );
       const students = replaceNanInf(
         Math.floor((roomStudents / todayAllStudents) * todayAllMember),
-        0
+        0,
       );
       const congestion = replaceNanInf(students / room.capacity, 0);
       return {
@@ -223,7 +247,7 @@ async function fetchCampusAllStudents(campusId: string) {
 
 async function fetchCampusAllCourseStudents(
   campusId: string,
-  courseFreqs: CourseFrequency[]
+  courseFreqs: CourseFrequency[],
 ) {
   return await prisma.user.count({
     where: {

@@ -5,13 +5,16 @@
 body {
   color: black;
   background: white;
+
+  --header-height: 4rem;
+  --footer-height: 8rem;
 }
 
 @keyframes loading-spin {
   0% {
-    transform: rotate(45deg)
+    transform: rotate(45deg);
   }
   100% {
-    transform: rotate(405deg)
+    transform: rotate(405deg);
   }
 }

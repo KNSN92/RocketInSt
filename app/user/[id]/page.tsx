@@ -46,7 +46,7 @@ function WhenUserCampusUnregistered() {
   return (
     <div className="mx-auto flex w-fit flex-col items-center justify-center pt-8">
       <div className="w-fit text-xl font-bold">
-        ユーザー検索を利用するにはキャンパスを登録してください。
+        ユーザーのプロフィールを閲覧するにはキャンパスを登録してください。
       </div>
       <LinkButton href="/register">登録ページへ</LinkButton>
     </div>

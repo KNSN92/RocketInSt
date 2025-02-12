@@ -24,9 +24,19 @@ export default async function SearchPage({
   if (!session?.user?.id) redirect("/signin");
 
   return (
-    <CampusRegisterRequired message={<WhenCampusUnregistered />}>
-      <WhenCampusRegistered query={query} userId={session.user.id} />
-    </CampusRegisterRequired>
+    <>
+      <div className="mx-auto w-fit pt-8">
+        <h1 className="mx-auto w-fit text-5xl font-bold">ユーザーを検索</h1>
+        <p className="mx-auto mt-4 w-fit text-center text-xl font-bold">
+          登録したキャンパスのユーザーを検索出来ます。
+          <br />
+          ※人数の推定の仕組み上誤差が生じる場合があります。
+        </p>
+      </div>
+      <CampusRegisterRequired message={<WhenCampusUnregistered />}>
+        <WhenCampusRegistered query={query} userId={session.user.id} />
+      </CampusRegisterRequired>
+    </>
   );
 }
 
@@ -41,14 +51,6 @@ async function WhenCampusRegistered({
   const rooms = await fetchUserCampusRooms(userId);
   return (
     <>
-      <div className="mx-auto w-fit pt-8">
-        <h1 className="mx-auto w-fit text-5xl font-bold">ユーザーを検索</h1>
-        <p className="mx-auto mt-4 w-fit text-center text-xl font-bold">
-          登録したキャンパスのユーザーを検索出来ます。
-          <br />
-          ※人数の推定の仕組み上誤差が生じる場合があります。
-        </p>
-      </div>
       <div className="m-auto h-full w-full p-8 2xl:w-[60vw]">
         <div className="mb-8 flex w-full flex-col items-center">
           <h2 className="mx-auto w-fit font-bold">名前/ニックネームで検索</h2>
