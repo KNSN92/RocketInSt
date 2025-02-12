@@ -44,10 +44,10 @@ export default async function RootLayout({
 async function Header() {
   const session = await getServerSession(authConfig);
   return (
-    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between overflow-hidden bg-blue-600 text-white shadow-md">
+    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 text-white shadow-md">
       <div className="flex items-center">
-        <NavElement>
-          <Link href="/" className="block text-3xl font-bold">
+        <NavLink href="/">
+          <div>
             <RocketInStWhiteTextLogo
               width={1532}
               height={200}
@@ -62,29 +62,44 @@ async function Header() {
                 className="inline-block h-12 w-12 aspect-square object-contain"
               />
             </div>
-          </Link>
-        </NavElement>
-        <NavLink href="/about" title="about" />
-        <NavLink href="/search" title="search" />
+          </div>
+        </NavLink>
+        <NavLink href="/about">about</NavLink>
+        <NavLink href="/search">search</NavLink>
       </div>
       <div className="flex items-center">
         {session?.user ? (
-          <>
-            <NavLink href="/register" title="register" />
-            <SignOutButton>
-              <NavElement>signout</NavElement>
-            </SignOutButton>
-            <Link href={`/user/${session.user.id}`} className="h-fit w-fit">
-              <NavElement>
-                <UserIcon
-                  src={session.user.image}
-                  width={48}
-                  height={48}
-                  className="block"
-                />
-              </NavElement>
-            </Link>
-          </>
+          <NavDropDownLink
+            href={`/user/${session.user.id}`}
+            title={
+              <UserIcon
+                src={session.user.image}
+                width={48}
+                height={48}
+                className="block"
+              />
+            }
+            linklist={[
+              {
+                href: "/register",
+                title: "register",
+              },
+              {
+                href: undefined,
+                element: <div className="w-full h-0.5 bg-blue-700" />,
+              },
+              {
+                href: undefined,
+                element: (
+                  <SignOutButton>
+                    <NavElement>
+                      <span className="text-red-500">signout</span>
+                    </NavElement>
+                  </SignOutButton>
+                ),
+              },
+            ]}
+          />
         ) : (
           <SignInButton>
             <NavElement>signin</NavElement>
@@ -103,11 +118,41 @@ function NavElement({ children }: { children: ReactNode }) {
   );
 }
 
-function NavLink({ href, title }: { href: string; title: string }) {
+function NavLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <Link href={href} className="h-fit w-fit">
-      <NavElement>{title}</NavElement>
+      <NavElement>{children}</NavElement>
     </Link>
+  );
+}
+
+function NavDropDownLink({
+  href,
+  title,
+  linklist,
+}: {
+  href: string;
+  title: ReactNode;
+  linklist: (
+    | { href: string; title: ReactNode }
+    | { href: undefined; element: ReactNode }
+  )[];
+}) {
+  return (
+    <div className="h-16 w-max group">
+      <NavLink href={href}>{title}</NavLink>
+      <div className="bg-blue-600 opacity-0 invisible group-hover:visible group-hover:opacity-100 transition">
+        {linklist.map((link, i) =>
+          link.href !== undefined ? (
+            <NavLink href={link.href} key={i}>
+              {link.title}
+            </NavLink>
+          ) : (
+            link.element
+          ),
+        )}
+      </div>
+    </div>
   );
 }
 
