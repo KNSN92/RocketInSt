@@ -22,11 +22,11 @@ export default async function SignIn({
   } else {
     return (
       <div className="flex h-main-content w-full items-center justify-center">
-        <div className="flex h-[30rem] w-[36rem] flex-col items-center justify-center rounded-3xl border-4 border-blue-200 bg-blue-600">
-          <h1 className="mb-2 block text-5xl font-bold text-white">
+        <div className="p-4 flex h-[30rem] w-[36rem] flex-col items-center justify-center rounded-3xl border-4 border-blue-200 bg-blue-600">
+          <h1 className="mb-2 block text-4xl md:text-5xl font-bold text-white">
             サインイン
           </h1>
-          <h2 className="mb-8 block text-xl font-bold text-white">
+          <h2 className="mb-8 block text-center text-xl font-bold text-white">
             学園のGoogleアカウントでのみサインインが可能です。
           </h2>
           <GoogleSignInButton callbackUrl={callbackUrl} />
@@ -67,7 +67,7 @@ function GoogleSignInButton({ callbackUrl }: { callbackUrl: string }) {
             <path fill="none" d="M0 0h48v48H0z"></path>
           </svg>
         </div>
-        <div className={`text-3xl ${RobotoMidiumFont.className}`}>
+        <div className={`text-2xl md:text-3xl ${RobotoMidiumFont.className}`}>
           Sign in with Google
         </div>
       </div>

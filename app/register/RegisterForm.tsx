@@ -88,18 +88,18 @@ export default function RegisterForm({
           {state.msg}
         </div>
       )}
-      <div className="mx-auto my-12 w-fit rounded-2xl border-1 border-gray-800 bg-blue-100 p-16">
+      <div className="w-screen sm:w-fit sm:mx-auto sm:px-16 my-12 flex flex-col items-center justify-center rounded-2xl border-1 border-gray-800 bg-blue-100 py-16">
         <h1 className="mx-auto mb-4 block w-fit text-3xl font-bold">
           情報を設定
         </h1>
-        <p className="mx-auto mb-4 text-xl">
+        <p className="mx-auto mb-4 text-xl w-80 sm:w-96">
           当サイトの機能を使うには以下の情報を入力する必要があります。
         </p>
-        <form action={formAction}>
-          <div className="mx-auto mt-8 w-96">
+        <form action={formAction} className="w-fit mx-auto">
+          <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">ニックネームを入力</h2>
             <input
-              className="block h-12 w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
+              className="block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
               name="nickname"
               value={registerData.nickname}
               onChange={(e) =>
@@ -108,7 +108,7 @@ export default function RegisterForm({
               disabled={isPending}
             />
           </div>
-          <div className="mx-auto mt-8 w-96">
+          <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">キャンパスを選択</h2>
             <select
               name="campus"
@@ -118,7 +118,7 @@ export default function RegisterForm({
               }}
               required
               disabled={isPending}
-              className="mb-2 block h-12 w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
+              className="mb-2 block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
             >
               <option value="">キャンパスを選択</option>
               {campuses.map((campus, i) => (
@@ -128,10 +128,10 @@ export default function RegisterForm({
               ))}
             </select>
           </div>
-          <div className="mx-auto mt-8 w-96">
+          <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">コースを選択</h2>
             <RadioButton
-              className="w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
+              className="w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
               name="course"
               buttons={[
                 {
@@ -158,15 +158,15 @@ export default function RegisterForm({
           <h2 className="mx-auto mb-3 mt-8 block w-fit text-xl font-bold">
             授業を選択
           </h2>
-          <div className="flex min-w-96 justify-center">
-            <table className="mx-auto w-fit rounded-lg border-1 border-gray-400 bg-[#ebf6f7]">
+          <div className="overflow-auto mx-auto w-80 sm:w-96">
+            <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7]">
               <thead>
                 <tr>
                   <th></th>
                   {DaysToWeekDayMap[registerData.course].map((weekday, i) => (
                     <th
                       key={i}
-                      className="w-60 border-l-1 border-gray-400 text-lg"
+                      className="w-40 sm:w-60 border-l-1 border-gray-400 text-lg"
                     >
                       {WeekDayJA[weekday]}
                     </th>
@@ -177,13 +177,13 @@ export default function RegisterForm({
                 {LessonPeriods.map((lessonPeriod, i) => (
                   <tr className="border-t-1 border-gray-400" key={i}>
                     <th className="text-lg">
-                      <div className="px-2">
+                      <div className="px-2 text-nowrap">
                         {LessonPeriodsJA[lessonPeriod]}
                       </div>
                     </th>
                     {DaysToWeekDayMap[registerData.course].map(
                       (courseDay, j) => (
-                        <td className="border-l-1 border-gray-400" key={j}>
+                        <td className="border-l-1 border-gray-400 w-fit h-fit" key={j}>
                           <select
                             value={
                               lessonTable[courseDay][lessonPeriod].find(
@@ -196,7 +196,7 @@ export default function RegisterForm({
                             name="lessons"
                             required
                             disabled={isPending}
-                            className="lesson-select w-60 bg-[#ebf6f7] py-2"
+                            className="lesson-select w-40 sm:w-60 bg-[#ebf6f7] py-2"
                           >
                             <option value="">選択</option>
                             {lessonTable[courseDay][lessonPeriod].map(
@@ -215,11 +215,11 @@ export default function RegisterForm({
               </tbody>
             </table>
           </div>
-          <div className="mx-auto mt-8 w-96">
+          <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">放課後の動きを選択</h2>
             <RadioButton
               name="afterschool"
-              className="w-96 rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
+              className="w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
               buttons={[
                 { title: "帰る", value: 0, checked: initialAfterschool === 0 },
                 { title: "残る", value: 1, checked: initialAfterschool === 1 },
