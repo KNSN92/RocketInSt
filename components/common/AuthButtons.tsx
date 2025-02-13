@@ -36,5 +36,5 @@ export function SignOutButton({
   children?: ReactNode;
   options?: SignOutParams<true>;
 }) {
-  return <button onClick={() => signOut(options)}>{children}</button>;
+  return <button className="w-full h-full" onClick={() => signOut(options)}>{children}</button>;
 }

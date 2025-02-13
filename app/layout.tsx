@@ -12,6 +12,7 @@ import Link from "next/link";
 import React, { ReactNode, Suspense } from "react";
 import "./globals.css";
 import Loading from "./loading";
+import Image from "next/image";
 
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",
@@ -64,7 +65,6 @@ async function Header() {
             </div>
           </div>
         </NavLink>
-        <NavLink href="/about">about</NavLink>
         <NavLink href="/search">search</NavLink>
       </div>
       <div className="flex items-center">
@@ -72,12 +72,17 @@ async function Header() {
           <NavDropDownLink
             href={`/user/${session.user.id}`}
             title={
-              <UserIcon
-                src={session.user.image}
-                width={48}
-                height={48}
-                className="block"
-              />
+              <>
+                <UserIcon
+                  src={session.user.image}
+                  width={48}
+                  height={48}
+                  className="inline"
+                />
+                <div className="pl-2">
+                  {session.user.name}
+                </div>
+              </>
             }
             linklist={[
               {
@@ -144,11 +149,15 @@ function NavDropDownLink({
       <div className="bg-blue-600 opacity-0 invisible group-hover:visible group-hover:opacity-100 transition">
         {linklist.map((link, i) =>
           link.href !== undefined ? (
-            <NavLink href={link.href} key={i}>
-              {link.title}
-            </NavLink>
+            <Link href={link.href} className="w-full" key={i}>
+              <div className="duration-400 w-full flex h-16 items-center justify-center px-4 text-xl transition hover:bg-white hover:bg-opacity-10">
+                {link.title}
+              </div>
+            </Link>
           ) : (
-            link.element
+            <div className="w-full h-fit" key={i}>
+              {link.element}
+            </div>
           ),
         )}
       </div>
@@ -158,11 +167,19 @@ function NavDropDownLink({
 
 function Footer() {
   return (
-    <div className="h-[var(--footer-height)] w-screen bg-blue-600 flex items-center justify-between">
+    <div className="h-[var(--footer-height)] w-full overflow-scroll bg-blue-600 flex items-center justify-between text-nowrap">
       <p className="ml-8 text-white text-2xl">
         © 2025 RocketInSt Development Team
       </p>
-      <div></div>
+      <div className="mr-8 w-48 flex items-center text-white">
+        <NavLink href="/about">about</NavLink>
+        <div className="bg-white h-16 w-[1px]" />
+        <NavElement>
+          <a className="w-12 h-12" href="https://github.com/KNSN92/RocketInSt">
+            <Image alt="github icon" src="/github.svg" width="48" height="48" />
+          </a>
+        </NavElement>
+      </div>
     </div>
   );
 }
