@@ -79,7 +79,7 @@ async function WhenCampusRegistered({
           </RefreshButton> */}
           <div>{userList.length}人のユーザーが見つかりました。</div>
         </div>
-        <div className="w-auto overflow-auto">
+        <div className="w-full overflow-auto">
           <div className="flex h-12 w-auto min-w-96 flex-row items-center justify-between border-b-1 border-blue-400 px-8 font-bold">
             <div className="flex w-1/2 min-w-[50%] items-center justify-start text-nowrap">
               名前
@@ -98,7 +98,7 @@ async function WhenCampusRegistered({
             >
               <Link
                 href={`/user/${user.id}`}
-                className="flex w-1/2 flex-row items-center justify-start overflow-hidden"
+                className="flex w-1/2 flex-row items-center justify-start overflow-scroll"
               >
                 <UserIcon
                   src={user.image}

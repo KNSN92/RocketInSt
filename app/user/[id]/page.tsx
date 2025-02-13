@@ -78,11 +78,11 @@ function UserProfile({
 }) {
   console.log("friend", initialIsFriend);
   return (
-    <div className="mx-auto flex w-fit flex-col items-center pt-32">
+    <div className="mx-auto flex w-fit flex-col items-center pt-8 md:pt-32">
       <UserIcon src={image} width={192} height={192} className="text-9xl" />
       <h1
         className={clsx(
-          "py-8 text-3xl font-bold",
+          "py-8 text-2xl md:text-3xl font-bold",
           role === "Admin" && "text-[#ff0000]",
         )}
       >
