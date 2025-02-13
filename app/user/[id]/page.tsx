@@ -11,7 +11,7 @@ import {
   fetchUserId,
   isUserFriend,
 } from "@/lib/userdata";
-import { combinateUserName } from "@/lib/users";
+import { combinateUserName, genUserTakingLessonQuery, getTakingLesson, getTakingRoom } from "@/lib/users";
 import { CourseFrequency, Role } from "@prisma/client";
 import clsx from "clsx";
 import { notFound, redirect } from "next/navigation";
@@ -99,22 +99,11 @@ function UserProfile({
         </li>
         <li>
           現在居る部屋：
-          {lessons.length > 0
-            ? lessons[0].rooms.length > 0
-              ? lessons[0].rooms[0].name
-              : "???"
-            : "キャンパスに居ません"}
+          {getTakingRoom(lessons)}
         </li>
         <li>
           受講中の授業：
-          {lessons.length > 0
-            ? lessons[0].period.length > 0 &&
-              (RecessPeriods as ReadonlyArray<string>).includes(
-                lessons[0].period[0].innername,
-              )
-              ? lessons[0].period[0].name
-              : lessons[0].title
-            : "キャンパスに居ません"}
+          {getTakingLesson(lessons)}
         </li>
       </ul>
     </div>
@@ -131,43 +120,6 @@ async function fetchProfileUser(userId: string) {
     campusId: true,
     courseFrequency: true,
     role: true,
-    lessons: {
-      where: {
-        period: {
-          some: {
-            weekday: weekdayEnum,
-            AND: {
-              beginTime: {
-                lte: minutes,
-              },
-              endTime: {
-                gte: minutes,
-              },
-            },
-          },
-        },
-      },
-      select: {
-        title: true,
-        rooms: true,
-        period: {
-          where: {
-            weekday: weekdayEnum,
-            AND: {
-              beginTime: {
-                lte: minutes,
-              },
-              endTime: {
-                gte: minutes,
-              },
-            },
-          },
-          select: {
-            name: true,
-            innername: true,
-          },
-        },
-      },
-    },
+    lessons: genUserTakingLessonQuery(minutes, weekdayEnum),
   });
 }

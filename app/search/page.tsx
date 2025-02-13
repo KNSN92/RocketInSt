@@ -12,6 +12,7 @@ import { UserIcon } from "@/components/common/UserIcon";
 import { RecessPeriods } from "@/data/periods";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import Link from "next/link";
+import { genUserTakingLessonQuery, getTakingLesson, getTakingRoom } from "@/lib/users";
 
 export default async function SearchPage({
   searchParams,
@@ -117,18 +118,10 @@ async function WhenCampusRegistered({
                 </div>
               </Link>
               <div className="flex w-1/2 flex-row items-center justify-start overflow-hidden text-nowrap md:w-1/4">
-                {user.lesson
-                  ? user.lesson.room
-                    ? `${user.lesson.room}にいます`
-                    : "???"
-                  : "キャンパスに居ません"}
+                {user.lesson.room}
               </div>
               <div className="hidden w-1/4 flex-row items-center justify-start overflow-hidden text-nowrap lg:flex">
-                {user.lesson
-                  ? user.lesson.period
-                    ? user.lesson.period
-                    : user.lesson.title
-                  : "キャンパスに居ません"}
+                {user.lesson.lesson}
               </div>
             </div>
           ))}
@@ -198,67 +191,18 @@ async function fetchUserList(userId: string, query?: string) {
         name: true,
         nickname: true,
         image: true,
-        lessons: {
-          where: {
-            period: {
-              some: {
-                weekday: weekdayEnum,
-                AND: {
-                  beginTime: {
-                    lte: minutes,
-                  },
-                  endTime: {
-                    gte: minutes,
-                  },
-                },
-              },
-            },
-          },
-          select: {
-            title: true,
-            rooms: true,
-            period: {
-              where: {
-                weekday: weekdayEnum,
-                AND: {
-                  beginTime: {
-                    lte: minutes,
-                  },
-                  endTime: {
-                    gte: minutes,
-                  },
-                },
-              },
-              select: {
-                name: true,
-                innername: true,
-              },
-            },
-          },
-        },
+        lessons: genUserTakingLessonQuery(minutes, weekdayEnum),
       },
     })
   ).map((user) => {
-    const lesson = user.lessons.length > 0 ? user.lessons[0] : null;
-    let period = null;
-    if (
-      lesson &&
-      lesson.period.length > 0 &&
-      (RecessPeriods as ReadonlyArray<string>).includes(
-        lesson.period[0].innername,
-      )
-    ) {
-      period = lesson.period[0].name;
-    }
     return {
       id: user.id,
       name: user.name,
       nickname: user.nickname,
       image: user.image,
-      lesson: lesson && {
-        title: lesson.title,
-        period: period,
-        room: lesson.rooms.length > 0 ? lesson.rooms[0].name : null,
+      lesson: {
+        room: getTakingRoom(user.lessons),
+        lesson: getTakingLesson(user.lessons),
       },
     };
   });
