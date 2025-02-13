@@ -20,9 +20,8 @@ export async function isUserCampusRegistered(userId: string) {
 }
 
 export async function userExist(userId: string) {
-  return (
-    (await prisma.user.findUnique({ where: { id: userId } })) !== undefined
-  );
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  return user !== undefined && user !== null;
 }
 
 export async function fetchUser<T extends Prisma.UserSelect>(
