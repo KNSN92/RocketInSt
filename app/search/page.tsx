@@ -8,11 +8,10 @@ import { NumToWeekDayMap } from "@/data/weekdays";
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import SearchField from "@/components/common/SearchField";
-import { UserIcon } from "@/components/common/UserIcon";
-import { RecessPeriods } from "@/data/periods";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
-import Link from "next/link";
 import { genUserTakingLessonQuery, getTakingLesson, getTakingRoom } from "@/lib/users";
+import UserList from "@/components/common/UserList";
+import { fetchUserCampusId, fetchUserCampusRooms } from "@/lib/userdata";
 
 export default async function SearchPage({
   searchParams,
@@ -52,7 +51,7 @@ async function WhenCampusRegistered({
   const rooms = await fetchUserCampusRooms(userId);
   return (
     <>
-      <div className="m-auto h-full w-full p-8 2xl:w-[60vw]">
+      <div className="m-auto h-full w-screen p-8 2xl:w-[60vw]">
         <div className="mb-8 flex w-full flex-col items-center">
           <h2 className="mx-auto w-fit font-bold">名前/ニックネームで検索</h2>
           <SearchField
@@ -79,53 +78,7 @@ async function WhenCampusRegistered({
           </RefreshButton> */}
           <div>{userList.length}人のユーザーが見つかりました。</div>
         </div>
-        <div className="w-full overflow-auto">
-          <div className="flex h-12 w-auto min-w-96 flex-row items-center justify-between border-b-1 border-blue-400 px-8 font-bold">
-            <div className="flex w-1/2 min-w-[50%] items-center justify-start text-nowrap">
-              名前
-            </div>
-            <div className="flex w-1/2 items-center justify-start overflow-hidden text-nowrap md:w-1/4">
-              現在居る部屋
-            </div>
-            <div className="hidden w-1/4 items-center justify-start overflow-hidden text-nowrap lg:flex">
-              受講中
-            </div>
-          </div>
-          {userList.map((user, i) => (
-            <div
-              className="flex h-20 w-auto min-w-96 flex-row items-center justify-between px-8"
-              key={i}
-            >
-              <Link
-                href={`/user/${user.id}`}
-                className="flex w-1/2 flex-row items-center justify-start overflow-scroll"
-              >
-                <UserIcon
-                  src={user.image}
-                  width={48}
-                  height={48}
-                  className="mr-4 inline-block"
-                />
-                <div className="m-2 text-nowrap text-2xl">
-                  {user.nickname ? (
-                    <>
-                      {user.nickname}
-                      <span className="hidden md:inline">({user.name})</span>
-                    </>
-                  ) : (
-                    user.name
-                  )}
-                </div>
-              </Link>
-              <div className="flex w-1/2 flex-row items-center justify-start overflow-hidden text-nowrap md:w-1/4">
-                {user.lesson.room}
-              </div>
-              <div className="hidden w-1/4 flex-row items-center justify-start overflow-hidden text-nowrap lg:flex">
-                {user.lesson.lesson}
-              </div>
-            </div>
-          ))}
-        </div>
+        <UserList userList={userList} />
       </div>
     </>
   );
@@ -142,35 +95,11 @@ async function WhenCampusUnregistered() {
   );
 }
 
-async function fetchUserCampusRooms(userId: string) {
-  return (
-    (
-      await prisma.user.findUnique({
-        where: {
-          id: userId,
-        },
-        select: {
-          campus: {
-            select: {
-              rooms: {
-                select: {
-                  id: true,
-                  name: true,
-                },
-              },
-            },
-          },
-        },
-      })
-    )?.campus?.rooms || []
-  );
-}
-
 async function fetchUserList(userId: string, query?: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
-  const userCampus = await fetchUserCampus(userId);
-  if (!userCampus) return [];
+  const userCampusId = await fetchUserCampusId(userId);
+  if (!userCampusId) return [];
   return (
     await prisma.user.findMany({
       where: {
@@ -183,7 +112,7 @@ async function fetchUserList(userId: string, query?: string) {
           },
         ],
         campus: {
-          id: userCampus.id,
+          id: userCampusId,
         },
       },
       select: {
@@ -206,19 +135,4 @@ async function fetchUserList(userId: string, query?: string) {
       },
     };
   });
-}
-
-async function fetchUserCampus(userId: string) {
-  return (
-    (
-      await prisma.user.findUnique({
-        where: {
-          id: userId,
-        },
-        select: {
-          campus: true,
-        },
-      })
-    )?.campus || null
-  );
 }

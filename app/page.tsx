@@ -4,7 +4,7 @@ import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
 import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
-import { UserIcon } from "@/components/common/UserIcon";
+import UserList from "@/components/common/UserList";
 import CampusMap from "@/components/home/CampusMap";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
 import { NumToWeekDayMap } from "@/data/weekdays";
@@ -14,7 +14,6 @@ import { prisma } from "@/prisma";
 import { CourseFrequency } from "@prisma/client";
 import clsx from "clsx";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 
 export default async function Home() {
   return (
@@ -177,55 +176,7 @@ async function hasFriend(userId: string) {
 
 async function FollowingsList({userId}: { userId: string }) {
   const userList = await fetchFollowingUserList(userId);
-  return (
-    <div className="w-full overflow-auto">
-      <div className="flex h-12 w-auto min-w-96 flex-row items-center justify-between border-b-1 border-blue-400 px-8 font-bold">
-        <div className="flex w-1/2 min-w-[50%] items-center justify-start text-nowrap">
-          名前
-        </div>
-        <div className="flex w-1/2 items-center justify-start overflow-hidden text-nowrap md:w-1/4">
-          現在居る部屋
-        </div>
-        <div className="hidden w-1/4 items-center justify-start overflow-hidden text-nowrap lg:flex">
-          受講中
-        </div>
-      </div>
-      {userList.map((user, i) => (
-        <div
-          className="flex h-20 w-auto min-w-96 flex-row items-center justify-between px-8"
-          key={i}
-        >
-          <Link
-            href={`/user/${user.id}`}
-            className="flex w-1/2 flex-row items-center justify-start overflow-scroll"
-          >
-            <UserIcon
-              src={user.image}
-              width={48}
-              height={48}
-              className="mr-4 inline-block"
-            />
-            <div className="m-2 text-nowrap text-2xl">
-              {user.nickname ? (
-                <>
-                  {user.nickname}
-                  <span className="hidden md:inline">({user.name})</span>
-                </>
-              ) : (
-                user.name
-              )}
-            </div>
-          </Link>
-          <div className="flex w-1/2 flex-row items-center justify-start overflow-hidden text-nowrap md:w-1/4">
-            {user.lesson.room}
-          </div>
-          <div className="hidden w-1/4 flex-row items-center justify-start overflow-hidden text-nowrap lg:flex">
-            {user.lesson.lesson}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <UserList userList={userList} />;
 }
 
 async function fetchFollowingUserList(userId: string) {

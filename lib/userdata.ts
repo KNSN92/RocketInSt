@@ -59,3 +59,27 @@ export async function isUserFriend(myUserId: string, friendUserId: string) {
   )?._count.following;
   return following !== undefined && following > 0;
 }
+
+export async function fetchUserCampusRooms(userId: string) {
+  return (
+    (
+      await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          campus: {
+            select: {
+              rooms: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      })
+    )?.campus?.rooms || []
+  );
+}
