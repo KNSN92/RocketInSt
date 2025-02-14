@@ -37,7 +37,9 @@ export default function CampusMap({
     resize();
     addEventListener("resize", resize);
     return () => removeEventListener("resize", resize);
-  }, [mapData]);
+  }, []);
+
+  const gridGap = Math.ceil(grid.tile/40);
 
   return (
     <div className={className} ref={containerRef}>
@@ -56,10 +58,10 @@ export default function CampusMap({
               position: "absolute",
               padding: "0px",
               margin: "0px",
-              left: `${mapDataElement.x * grid.tile + 4}px`,
-              top: `${mapDataElement.y * grid.tile + 4}px`,
-              width: `${mapDataElement.w * grid.tile - 8}px`,
-              height: `${mapDataElement.h * grid.tile - 8}px`,
+              left: `${mapDataElement.x * grid.tile + gridGap}px`,
+              top: `${mapDataElement.y * grid.tile + gridGap}px`,
+              width: `${mapDataElement.w * grid.tile - gridGap*2}px`,
+              height: `${mapDataElement.h * grid.tile - gridGap*2}px`,
             }}
           >
             {mapDataElement.name}
