@@ -146,37 +146,21 @@ async function WhenUserLoggedIn() {
             />
           </div>
         </div>
-        {
-          await hasFriend(session.user.id) && <>
-            <h1 className="mt-24 text-3xl font-bold">フレンドリスト</h1>
-            <FollowingsList userId={session.user.id} />
-          </>
-        }
+        <FollowingsList userId={session.user.id} />
       </CampusRegisterRequired>
     </div>
   );
 }
 
-async function hasFriend(userId: string) {
-  const followingCount = (await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      _count: {
-        select: {
-          following: true,
-        }
-      }
-    }
-  }))?._count.following;
-  if(!followingCount) return false;
-  return followingCount > 0;
-}
-
 async function FollowingsList({userId}: { userId: string }) {
   const userList = await fetchFollowingUserList(userId);
-  return <UserList userList={userList} />;
+  if(userList.length <= 0) return undefined;
+  return (
+    <>
+      <h1 className="mt-24 text-3xl font-bold">フレンドリスト</h1>
+      <UserList userList={userList} />
+    </>
+  );
 }
 
 async function fetchFollowingUserList(userId: string) {
