@@ -5,7 +5,7 @@ import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
 import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
 import UserList from "@/components/common/UserList";
-import CampusMap from "@/components/home/CampusMap";
+import CampusMap, { MapData } from "@/components/home/CampusMap";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
@@ -47,7 +47,7 @@ export default async function Home() {
 async function WhenUserLoggedIn() {
   const session = await getServerSession(authConfig);
   if (!session?.user?.id) return undefined;
-  const mapData = session?.user?.id
+  const mapData: MapData = session?.user?.id
     ? (await fetchUserCampusMap(session.user.id)).map((item) => {
         let alertLevel = -1;
         if (item.congestion < 0) {

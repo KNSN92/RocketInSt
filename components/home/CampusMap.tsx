@@ -1,18 +1,20 @@
 "use client";
 import { ReactNode, useEffect, useRef, useState } from "react";
 
+export type MapData = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  name: ReactNode;
+  className?: HTMLDivElement["className"];
+}[];
+
 export default function CampusMap({
   mapData,
   className,
 }: {
-  mapData: {
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-    name: ReactNode;
-    className?: HTMLDivElement["className"];
-  }[];
+  mapData: MapData;
   className: HTMLDivElement["className"];
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
