@@ -2,20 +2,22 @@
 import { LinkButton } from "@/components/common/Buttons";
 import { UserIcon } from "@/components/common/UserIcon";
 import { CourseFreqJA } from "@/data/courseFreqs";
-import { RecessPeriods } from "@/data/periods";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import {
   fetchUser,
+  fetchUserCampus,
   fetchUserCampusId,
+  fetchUserCampusRooms,
   fetchUserId,
   isUserFriend,
 } from "@/lib/userdata";
-import { combinateUserName, genUserTakingLessonQuery, getTakingLesson, getTakingRoom } from "@/lib/users";
+import { combinateUserName, genUserTakingLessonQuery, getTakingLesson, getTakingRoom, getTakingRoomId } from "@/lib/users";
 import { CourseFrequency, Role } from "@prisma/client";
 import clsx from "clsx";
 import { notFound, redirect } from "next/navigation";
 import FriendRegisterForm from "./FriendRegisterForm";
+import CampusMap from "@/components/home/CampusMap";
 
 export default async function UserInfo({
   params,
@@ -32,6 +34,7 @@ export default async function UserInfo({
   if (profileUser && profileUser.campusId === userCampusId) {
     return (
       <UserProfile
+        userId={userId}
         profileUserId={id}
         initialIsFriend={await isUserFriend(userId, id)}
         {...profileUser}
@@ -53,8 +56,9 @@ function WhenUserCampusUnregistered() {
   );
 }
 
-function UserProfile({
+async function UserProfile({
   initialIsFriend,
+  userId,
   profileUserId,
   name,
   nickname,
@@ -64,6 +68,7 @@ function UserProfile({
   lessons,
 }: {
   initialIsFriend: boolean;
+  userId: string;
   profileUserId: string;
   name: string | null;
   nickname: string | null;
@@ -72,13 +77,13 @@ function UserProfile({
   courseFrequency: CourseFrequency | null;
   lessons: {
     title: string;
-    rooms: { name: string }[];
+    rooms: { id: string, name: string }[];
     period: { name: string; innername: string }[];
   }[];
 }) {
-  console.log("friend", initialIsFriend);
+  const userCampus = await fetchUserCampus(userId);
   return (
-    <div className="mx-auto flex w-fit flex-col items-center pt-8 md:pt-32">
+    <div className="mx-auto py-8 flex w-screen flex-col items-center px-8 md:px-32">
       <UserIcon src={image} width={192} height={192} className="text-9xl" />
       <h1
         className={clsx(
@@ -93,22 +98,60 @@ function UserProfile({
         profileUserId={profileUserId}
         initialIsFriend={initialIsFriend}
       />
-      <ul className="mt-4 text-2xl">
+      <ul className="mt-4 text-2xl text-center sm:text-left">
         <li>
-          コース：{courseFrequency ? CourseFreqJA[courseFrequency] : "未登録"}
+          <span className="font-bold sm:font-normal">
+            コース
+          </span>
+          <span className="hidden sm:inline">：</span>
+          <br className="w-0 inline sm:hidden" />
+          {courseFrequency ? CourseFreqJA[courseFrequency] : "未登録"}
         </li>
-        <li>
-          現在居る部屋：
+        <li className="mt-4 sm:mt-0">
+          <span className="font-bold sm:font-normal">
+            現在居る部屋
+          </span>
+          <span className="hidden sm:inline">：</span>
+          <br className="w-0 inline sm:hidden" />
           {getTakingRoom(lessons)}
         </li>
-        <li>
-          受講中の授業：
+        <li className="mt-4 sm:mt-0">
+          <span className="font-bold sm:font-normal">
+            受講中の授業
+          </span>
+          <span className="hidden sm:inline">：</span>
+          <br className="w-0 inline sm:hidden" />
           {getTakingLesson(lessons)}
         </li>
       </ul>
+      <div className="mt-8 rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen lg:w-[80vw] xl:w-[50vw]">
+        <div className="mb-2 flex items-center justify-center">
+          {/* <RefreshButton className="w-fit h-fit p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200">
+            再読み込み
+          </RefreshButton> */}
+          <div />
+          {userCampus && (
+            <h2 className="h-fit w-fit text-xl font-bold">
+              {userCampus.name}
+            </h2>
+          )}
+        </div>
+        <CampusMap mapData={(await fetchUserCampusRooms(userId, { roomPlan: true, id: true, name: true })).map((room) => {
+          const here = room.id === getTakingRoomId(lessons);
+          // const name = <>{room.name}{here && <><br/>here</>}</>;
+          return {
+            x: room.roomPlan?.x || 0, y: room.roomPlan?.y || 0, w: room.roomPlan?.w || 0, h: room.roomPlan?.h || 0, name: room.name,
+            className: clsx("border-2 rounded-lg flex flex-col items-center justify-center font-bold text-center text-xs md:text-lg sm:text-md",
+              here ? "bg-green-400 border-green-600" : "bg-gray-400 border-gray-600"
+            )
+          }
+        })} className="w-full h-fit text-xs md:text-lg sm:text-md" />
+      </div>
     </div>
   );
 }
+
+
 
 async function fetchProfileUser(userId: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();

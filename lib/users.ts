@@ -103,6 +103,7 @@ type Lesson = Prisma.LessonGetPayload<{
     title: true,
     rooms: {
       select: {
+        id: true,
         name: true,
       }
     },
@@ -115,11 +116,21 @@ type Lesson = Prisma.LessonGetPayload<{
   }
 }>;
 
+export function getTakingRoomId(lessons: Lesson[]) {
+  if(lessons.length > 0) {
+    const firstLesson = lessons[0];
+    if(firstLesson.rooms.length > 0) {
+      return firstLesson.rooms[0].id;
+    }
+  }
+  return "キャンパスに居ません。"
+}
+
 export function getTakingRoom(lessons: Lesson[]) {
   if(lessons.length > 0) {
     const firstLesson = lessons[0];
     if(firstLesson.rooms.length > 0) {
-      return firstLesson.rooms[0].name
+      return firstLesson.rooms[0].name; 
     }else {
       return "???";
     }
