@@ -48,7 +48,7 @@ async function WhenCampusRegistered({
   userId: string;
 }) {
   const userList = await fetchUserList(userId, query);
-  const rooms = await fetchUserCampusRooms(userId);
+  const rooms = await fetchUserCampusRooms(userId, { name: true });
   return (
     <>
       <div className="m-auto h-full w-screen p-8 2xl:w-[60vw]">

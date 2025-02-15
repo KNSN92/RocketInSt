@@ -8,6 +8,10 @@ export async function fetchUserId() {
   return (await getServerSession(authConfig))?.user?.id || undefined;
 }
 
+export async function fetchUserCampus(userId: string) {
+  return (await prisma.user.findUnique({ where: { id: userId }, select: {campus: true} }))?.campus || undefined;
+}
+
 export async function fetchUserCampusId(userId: string) {
   return (
     (await prisma.user.findUnique({ where: { id: userId } }))?.campusId ||
@@ -60,7 +64,9 @@ export async function isUserFriend(myUserId: string, friendUserId: string) {
   return following !== undefined && following > 0;
 }
 
-export async function fetchUserCampusRooms(userId: string) {
+export async function fetchUserCampusRooms<T extends Prisma.RoomSelect>(userId: string, roomSelect: T): Promise<Prisma.RoomGetPayload<{
+  select: T
+}>[]> {
   return (
     (
       await prisma.user.findUnique({
@@ -71,10 +77,7 @@ export async function fetchUserCampusRooms(userId: string) {
           campus: {
             select: {
               rooms: {
-                select: {
-                  id: true,
-                  name: true,
-                },
+                select: roomSelect,
               },
             },
           },
