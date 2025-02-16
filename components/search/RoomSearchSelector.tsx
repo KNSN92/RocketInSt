@@ -28,6 +28,7 @@ export function RoomSearchSelector({
       newSelectedRooms[selectedRoomParam] = true;
     });
     setSelectedRooms(newSelectedRooms);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearchRooms = useDebouncedCallback(
