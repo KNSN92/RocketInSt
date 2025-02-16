@@ -31,6 +31,11 @@ export default async function registerFriendAction(
       msg: parseResult.error.errors[0].message,
     };
   const profileUserId = parseResult.data;
+  if(myUserId === profileUserId) return {
+    isFriend: previousState.isFriend,
+    error: true,
+    msg: "自分自身をフレンド登録しようとしています。",
+  }
   const isFriend = await isUserFriend(myUserId, profileUserId);
   if (!isFriend) {
     await prisma.user.update({

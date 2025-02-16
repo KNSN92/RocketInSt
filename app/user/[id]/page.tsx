@@ -94,17 +94,20 @@ async function UserProfile({
       <UserIcon src={image} width={192} height={192} className="text-9xl" />
       <h1
         className={clsx(
-          "py-8 text-2xl md:text-3xl font-bold",
+          "pt-8 text-2xl md:text-3xl font-bold",
           role === "Admin" && "text-[#ff0000]",
+          userId !== profileUserId && "pb-8",
         )}
       >
         {role === "Admin" && "[Admin]"}
         {combinateUserName(name, nickname)}
       </h1>
-      <FriendRegisterForm
-        profileUserId={profileUserId}
-        initialIsFriend={initialIsFriend}
-      />
+      {userId !== profileUserId && (
+        <FriendRegisterForm
+          profileUserId={profileUserId}
+          initialIsFriend={initialIsFriend}
+        />
+      )}
       <ul className="mt-4 text-2xl text-center sm:text-left">
         <li>
           <span className="font-bold sm:font-normal">コース</span>
