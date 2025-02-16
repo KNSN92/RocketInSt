@@ -167,6 +167,8 @@ async function UserProfile({
 async function fetchProfileUser(userId: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
+  const userCampusId = await fetchUserCampusId(userId);
+  if (!userCampusId) return undefined;
   return await fetchUser(userId, {
     name: true,
     nickname: true,
@@ -174,6 +176,6 @@ async function fetchProfileUser(userId: string) {
     campusId: true,
     courseFrequency: true,
     role: true,
-    lessons: genUserTakingLessonQuery(minutes, weekdayEnum),
+    lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
   });
 }
