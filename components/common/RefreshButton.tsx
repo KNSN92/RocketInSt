@@ -1,28 +1,42 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTransition } from "react";
 
 export default function RefreshButton({
   className,
-  children,
+  defaultChildren,
+  refreshingChildren,
 }: {
   className?: HTMLButtonElement["className"];
-  children?: React.ReactNode;
+  defaultChildren: React.ReactNode;
+  refreshingChildren?: React.ReactNode;
 }) {
   const { refresh } = useRouter();
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshing, startRefresh] = useTransition();
   return (
     <button
-      onClick={async () => {
-        setIsRefreshing(false);
-        await refresh();
-        setIsRefreshing(false);
-      }}
+      onClick={() =>
+        startRefresh(async () => {
+          await refresh();
+        })
+      }
       disabled={isRefreshing}
       className={className}
     >
-      {children}
+      {refreshingChildren && isRefreshing
+        ? refreshingChildren
+        : defaultChildren}
     </button>
+  );
+}
+
+export function DefaultRefreshButton({ className }: { className?: string }) {
+  return (
+    <RefreshButton
+      className={`${className} w-fit h-fit px-2 py-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200`}
+      defaultChildren={"再読み込み"}
+      refreshingChildren={"再読み込み中..."}
+    />
   );
 }
