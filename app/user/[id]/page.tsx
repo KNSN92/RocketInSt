@@ -126,12 +126,23 @@ async function UserProfile({
         </li>
       </ul>
       <DefaultRefreshButton className="my-2" />
-      <div className="mt-8 rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen lg:w-[80vw] xl:w-[50vw]">
+      <h2 className="mt-8 mb-2 text-3xl font-bold">どこに居るかMap</h2>
+      <div className="rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen md:w-[60vw] xl:w-[35vw]">
         <div className="mb-2 flex items-center justify-center">
           <div />
           {userCampus && (
             <h2 className="h-fit w-fit text-xl font-bold">{userCampus.name}</h2>
           )}
+        </div>
+        <div className="my-4 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
+          <div className="w-36 h-6 flex items-center gap-2">
+            <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600" />
+            居る
+          </div>
+          <div className="w-36 h-6 flex items-center gap-2">
+            <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600" />
+            居ない
+          </div>
         </div>
         <CampusMap
           mapData={(
@@ -142,7 +153,6 @@ async function UserProfile({
             })
           ).map((room) => {
             const here = room.id === getTakingRoomId(lessons);
-            // const name = <>{room.name}{here && <><br/>here</>}</>;
             return {
               x: room.roomPlan?.x || 0,
               y: room.roomPlan?.y || 0,
