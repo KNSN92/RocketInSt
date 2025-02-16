@@ -8,7 +8,7 @@ import { NumToWeekDayMap } from "@/data/weekdays";
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
-import SearchField from "@/components/common/SearchField";
+import { DefaultSearchField } from "@/components/common/SearchField";
 import UserList from "@/components/common/UserList";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import { fetchUserCampusId, fetchUserCampusRooms } from "@/lib/userdata";
@@ -58,11 +58,7 @@ async function WhenCampusRegistered({
     <>
       <div className="m-auto h-full w-screen p-8 2xl:w-[60vw]">
         <div className="mb-8 flex w-full flex-col items-center">
-          <h2 className="mx-auto w-fit font-bold">名前/ニックネームで検索</h2>
-          <SearchField
-            placeholder="名前/ニックネームで検索 (むしめがねー(いつか追加するー))"
-            className="h-12 w-full rounded-lg border-1 border-blue-600 bg-white px-4 md:w-[60vw] xl:w-[40vw]"
-          />
+          <DefaultSearchField />
           <div className="mt-2">
             <h2 className="mx-auto w-fit font-bold">
               今居る部屋で検索(制作中)
