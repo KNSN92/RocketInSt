@@ -17,7 +17,7 @@ export default function FriendRegisterForm({
     msg: "",
   });
   useEffect(() => {
-    if (state.error) console.log(state.msg);
+    if (state.error) console.error(state.msg);
   }, [state]);
   return (
     <form action={action}>
