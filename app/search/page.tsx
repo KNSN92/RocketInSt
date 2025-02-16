@@ -8,8 +8,9 @@ import { NumToWeekDayMap } from "@/data/weekdays";
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
-import { DefaultSearchField } from "@/components/common/SearchField";
 import UserList from "@/components/common/UserList";
+import { RoomSearchSelector } from "@/components/search/RoomSearchSelector";
+import { DefaultSearchField } from "@/components/search/SearchField";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import { fetchUserCampusId, fetchUserCampusRooms } from "@/lib/userdata";
 import {
@@ -21,9 +22,19 @@ import {
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: Promise<{ query: string; page: string }>;
+  searchParams: Promise<{
+    query?: string;
+    page?: string;
+    room?: string | string[];
+  }>;
 }) {
-  const { query } = await searchParams;
+  const { query, room } = await searchParams;
+  const rooms: string[] = room
+    ? typeof room === "string"
+      ? [room]
+      : room
+    : [];
+  console.log(query, rooms);
 
   const session = await getServerSession(authConfig);
   if (!session?.user?.id) redirect("/signin");
@@ -39,7 +50,11 @@ export default async function SearchPage({
         </p>
       </div>
       <CampusRegisterRequired message={<WhenCampusUnregistered />}>
-        <WhenCampusRegistered query={query} userId={session.user.id} />
+        <WhenCampusRegistered
+          query={query}
+          roomQuery={rooms}
+          userId={session.user.id}
+        />
       </CampusRegisterRequired>
     </>
   );
@@ -47,12 +62,14 @@ export default async function SearchPage({
 
 async function WhenCampusRegistered({
   query,
+  roomQuery,
   userId,
 }: {
-  query: string;
+  query?: string;
+  roomQuery: string[];
   userId: string;
 }) {
-  const userList = await fetchUserList(userId, query);
+  const userList = await fetchUserList(userId, query, roomQuery);
   const rooms = await fetchUserCampusRooms(userId, { name: true });
   return (
     <>
@@ -61,16 +78,12 @@ async function WhenCampusRegistered({
           <DefaultSearchField />
           <div className="mt-2">
             <h2 className="mx-auto w-fit font-bold">
-              今居る部屋で検索(制作中)
+              今居る部屋で検索(恐らく機能する)
             </h2>
-            {rooms.map((room, i) => (
-              <button
-                className="mx-1 w-fit rounded-lg border-1 border-blue-400 bg-blue-500 px-2 py-1 text-white"
-                key={i}
-              >
-                {room.name}
-              </button>
-            ))}
+            <RoomSearchSelector
+              rooms={rooms.map((room) => room.name)}
+              className="mx-1"
+            />
           </div>
         </div>
         <div className="flex flex-row items-center justify-start pl-8">
@@ -94,7 +107,11 @@ async function WhenCampusUnregistered() {
   );
 }
 
-async function fetchUserList(userId: string, query?: string) {
+async function fetchUserList(
+  userId: string,
+  query?: string,
+  roomQuery?: string[],
+) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
   const userCampusId = await fetchUserCampusId(userId);
@@ -113,6 +130,34 @@ async function fetchUserList(userId: string, query?: string) {
         campus: {
           id: userCampusId,
         },
+        lessons:
+          !roomQuery || roomQuery.length <= 0
+            ? undefined
+            : {
+                some: {
+                  rooms: {
+                    some: {
+                      campusId: userCampusId,
+                      name: {
+                        in: roomQuery,
+                      },
+                    },
+                  },
+                  period: {
+                    some: {
+                      weekday: weekdayEnum,
+                      AND: {
+                        beginTime: {
+                          lte: minutes,
+                        },
+                        endTime: {
+                          gte: minutes,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
       },
       select: {
         id: true,
@@ -121,6 +166,14 @@ async function fetchUserList(userId: string, query?: string) {
         image: true,
         lessons: genUserTakingLessonQuery(minutes, weekdayEnum),
       },
+      orderBy: [
+        {
+          nickname: "desc",
+        },
+        {
+          name: "desc",
+        },
+      ],
     })
   ).map((user) => {
     return {
