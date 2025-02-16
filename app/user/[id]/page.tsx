@@ -1,6 +1,8 @@
 "use server";
 import { LinkButton } from "@/components/common/Buttons";
+import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import { UserIcon } from "@/components/common/UserIcon";
+import CampusMap from "@/components/home/CampusMap";
 import { CourseFreqJA } from "@/data/courseFreqs";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
@@ -12,12 +14,17 @@ import {
   fetchUserId,
   isUserFriend,
 } from "@/lib/userdata";
-import { combinateUserName, genUserTakingLessonQuery, getTakingLesson, getTakingRoom, getTakingRoomId } from "@/lib/users";
+import {
+  combinateUserName,
+  genUserTakingLessonQuery,
+  getTakingLesson,
+  getTakingRoom,
+  getTakingRoomId,
+} from "@/lib/users";
 import { CourseFrequency, Role } from "@prisma/client";
 import clsx from "clsx";
 import { notFound, redirect } from "next/navigation";
 import FriendRegisterForm from "./FriendRegisterForm";
-import CampusMap from "@/components/home/CampusMap";
 
 export default async function UserInfo({
   params,
@@ -77,7 +84,7 @@ async function UserProfile({
   courseFrequency: CourseFrequency | null;
   lessons: {
     title: string;
-    rooms: { id: string, name: string }[];
+    rooms: { id: string; name: string }[];
     period: { name: string; innername: string }[];
   }[];
 }) {
@@ -100,58 +107,62 @@ async function UserProfile({
       />
       <ul className="mt-4 text-2xl text-center sm:text-left">
         <li>
-          <span className="font-bold sm:font-normal">
-            コース
-          </span>
+          <span className="font-bold sm:font-normal">コース</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
           {courseFrequency ? CourseFreqJA[courseFrequency] : "未登録"}
         </li>
         <li className="mt-4 sm:mt-0">
-          <span className="font-bold sm:font-normal">
-            現在居る部屋
-          </span>
+          <span className="font-bold sm:font-normal">現在居る部屋</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
           {getTakingRoom(lessons)}
         </li>
         <li className="mt-4 sm:mt-0">
-          <span className="font-bold sm:font-normal">
-            受講中の授業
-          </span>
+          <span className="font-bold sm:font-normal">受講中の授業</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
           {getTakingLesson(lessons)}
         </li>
       </ul>
+      <DefaultRefreshButton className="my-2" />
       <div className="mt-8 rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen lg:w-[80vw] xl:w-[50vw]">
         <div className="mb-2 flex items-center justify-center">
-          {/* <RefreshButton className="w-fit h-fit p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200">
-            再読み込み
-          </RefreshButton> */}
           <div />
           {userCampus && (
-            <h2 className="h-fit w-fit text-xl font-bold">
-              {userCampus.name}
-            </h2>
+            <h2 className="h-fit w-fit text-xl font-bold">{userCampus.name}</h2>
           )}
         </div>
-        <CampusMap mapData={(await fetchUserCampusRooms(userId, { roomPlan: true, id: true, name: true })).map((room) => {
-          const here = room.id === getTakingRoomId(lessons);
-          // const name = <>{room.name}{here && <><br/>here</>}</>;
-          return {
-            x: room.roomPlan?.x || 0, y: room.roomPlan?.y || 0, w: room.roomPlan?.w || 0, h: room.roomPlan?.h || 0, name: room.name,
-            className: clsx("border-2 rounded-lg flex flex-col items-center justify-center font-bold text-center text-xs md:text-lg sm:text-md",
-              here ? "bg-green-400 border-green-600" : "bg-gray-400 border-gray-600"
-            )
-          }
-        })} className="w-full h-fit text-xs md:text-lg sm:text-md" />
+        <CampusMap
+          mapData={(
+            await fetchUserCampusRooms(userId, {
+              roomPlan: true,
+              id: true,
+              name: true,
+            })
+          ).map((room) => {
+            const here = room.id === getTakingRoomId(lessons);
+            // const name = <>{room.name}{here && <><br/>here</>}</>;
+            return {
+              x: room.roomPlan?.x || 0,
+              y: room.roomPlan?.y || 0,
+              w: room.roomPlan?.w || 0,
+              h: room.roomPlan?.h || 0,
+              name: room.name,
+              className: clsx(
+                "border-2 rounded-lg flex flex-col items-center justify-center font-bold text-center text-xs md:text-lg sm:text-md",
+                here
+                  ? "bg-green-400 border-green-600"
+                  : "bg-gray-400 border-gray-600",
+              ),
+            };
+          })}
+          className="w-full h-fit text-xs md:text-lg sm:text-md"
+        />
       </div>
     </div>
   );
 }
-
-
 
 async function fetchProfileUser(userId: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();

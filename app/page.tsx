@@ -3,13 +3,18 @@ import { SignInButton } from "@/components/common/AuthButtons";
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
+import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
 import UserList from "@/components/common/UserList";
 import CampusMap, { MapData } from "@/components/home/CampusMap";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
-import { genUserTakingLessonQuery, getTakingLesson, getTakingRoom } from "@/lib/users";
+import {
+  genUserTakingLessonQuery,
+  getTakingLesson,
+  getTakingRoom,
+} from "@/lib/users";
 import { prisma } from "@/prisma";
 import { CourseFrequency } from "@prisma/client";
 import clsx from "clsx";
@@ -22,7 +27,7 @@ export default async function Home() {
         width={1532}
         height={200}
         loading="lazy"
-        className="relative top-1 max-h-48 w-screen object-contain"
+        className="relative top-1 px-4 max-h-48 w-screen object-contain"
       />
       <div className="h-4" />
       <h2 className="text-center text-[1.2rem] font-semibold">
@@ -107,18 +112,13 @@ async function WhenUserLoggedIn() {
         </p>
         <div>
           <div className="mt-2 h-fit w-screen rounded-lg border-2 border-gray-400 bg-gray-100 p-4 lg:w-[80vw] xl:w-[50vw]">
-            <div className="mb-2 flex items-center justify-center">
-              {/* <RefreshButton className="w-fit h-fit p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200">
-                再読み込み
-              </RefreshButton> */}
-              <div />
-              {userCampus && (
-                <h2 className="h-fit w-fit text-xl font-bold">
-                  {userCampus.name}
-                </h2>
-              )}
-            </div>
-            <div className="mb-8 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
+            {userCampus && (
+              <h2 className="h-fit w-full text-center text-xl font-bold">
+                {userCampus.name}
+              </h2>
+            )}
+            <DefaultRefreshButton className="my-2" />
+            <div className="my-4 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
               <div className="w-36 h-6 flex items-center gap-2">
                 <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600" />
                 空いている
@@ -152,9 +152,9 @@ async function WhenUserLoggedIn() {
   );
 }
 
-async function FollowingsList({userId}: { userId: string }) {
+async function FollowingsList({ userId }: { userId: string }) {
   const userList = await fetchFollowingUserList(userId);
-  if(userList.length <= 0) return undefined;
+  if (userList.length <= 0) return undefined;
   return (
     <>
       <h1 className="mt-24 text-3xl font-bold">フレンドリスト</h1>
@@ -173,9 +173,9 @@ async function fetchFollowingUserList(userId: string) {
       where: {
         followers: {
           some: {
-            id: userId
-          }
-        }
+            id: userId,
+          },
+        },
       },
       select: {
         id: true,

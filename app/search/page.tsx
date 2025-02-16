@@ -7,11 +7,16 @@ import { NumToWeekDayMap } from "@/data/weekdays";
 
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
+import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import SearchField from "@/components/common/SearchField";
-import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
-import { genUserTakingLessonQuery, getTakingLesson, getTakingRoom } from "@/lib/users";
 import UserList from "@/components/common/UserList";
+import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import { fetchUserCampusId, fetchUserCampusRooms } from "@/lib/userdata";
+import {
+  genUserTakingLessonQuery,
+  getTakingLesson,
+  getTakingRoom,
+} from "@/lib/users";
 
 export default async function SearchPage({
   searchParams,
@@ -73,10 +78,8 @@ async function WhenCampusRegistered({
           </div>
         </div>
         <div className="flex flex-row items-center justify-start pl-8">
-          {/* <RefreshButton className="w-fit h-fit mr-2 p-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white">
-            再読み込み
-          </RefreshButton> */}
           <div>{userList.length}人のユーザーが見つかりました。</div>
+          <DefaultRefreshButton className="my-2 ml-4" />
         </div>
         <UserList userList={userList} />
       </div>
