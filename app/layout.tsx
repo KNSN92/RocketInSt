@@ -8,11 +8,11 @@ import { UserIcon } from "@/components/common/UserIcon";
 import { NextAuthProvider } from "@/lib/providers";
 import { getServerSession } from "next-auth";
 import { Sawarabi_Gothic } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import React, { ReactNode, Suspense } from "react";
 import "./globals.css";
 import Loading from "./loading";
-import Image from "next/image";
 
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",
@@ -65,7 +65,7 @@ async function Header() {
             </div>
           </div>
         </NavLink>
-        <NavLink href="/search">search</NavLink>
+        {session && <NavLink href="/search">search</NavLink>}
       </div>
       <div className="flex items-center">
         {session?.user ? (
@@ -79,9 +79,7 @@ async function Header() {
                   height={48}
                   className="inline"
                 />
-                <div className="pl-2">
-                  {session.user.name}
-                </div>
+                <div className="pl-2">{session.user.name}</div>
               </>
             }
             linklist={[
