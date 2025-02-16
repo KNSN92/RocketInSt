@@ -44,8 +44,6 @@ export default async function SearchPage({
         <h1 className="mx-auto w-fit text-5xl font-bold">ユーザーを検索</h1>
         <p className="mx-auto mt-4 w-fit text-center text-xl font-bold">
           登録したキャンパスのユーザーを検索出来ます。
-          <br />
-          ※人数の推定の仕組み上誤差が生じる場合があります。
         </p>
       </div>
       <CampusRegisterRequired message={<WhenCampusUnregistered />}>
