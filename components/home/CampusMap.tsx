@@ -39,9 +39,10 @@ export default function CampusMap({
     resize();
     addEventListener("resize", resize);
     return () => removeEventListener("resize", resize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const gridGap = Math.ceil(grid.tile/40);
+  const gridGap = Math.ceil(grid.tile / 40);
 
   return (
     <div className={className} ref={containerRef}>
@@ -62,8 +63,8 @@ export default function CampusMap({
               margin: "0px",
               left: `${mapDataElement.x * grid.tile + gridGap}px`,
               top: `${mapDataElement.y * grid.tile + gridGap}px`,
-              width: `${mapDataElement.w * grid.tile - gridGap*2}px`,
-              height: `${mapDataElement.h * grid.tile - gridGap*2}px`,
+              width: `${mapDataElement.w * grid.tile - gridGap * 2}px`,
+              height: `${mapDataElement.h * grid.tile - gridGap * 2}px`,
             }}
           >
             {mapDataElement.name}
