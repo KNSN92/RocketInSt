@@ -16,46 +16,7 @@ export function combinateUserName(
   }
 }
 
-type UserTakingLessonQuery =  {
-  where: {
-    period: {
-      some: {
-        weekday: WeekDay | undefined,
-        AND: {
-          beginTime: {
-            lte: number,
-          },
-          endTime: {
-            gte: number,
-          },
-        },
-      },
-    },
-  },
-  select: {
-    title: true,
-    rooms: true,
-    period: {
-      where: {
-        weekday: WeekDay | undefined,
-        AND: {
-          beginTime: {
-            lte: number,
-          },
-          endTime: {
-            gte: number,
-          },
-        },
-      },
-      select: {
-        name: true,
-        innername: true,
-      },
-    },
-  },
-};
-
-export function genUserTakingLessonQuery(minutes: number, weekdayEnum: WeekDay | undefined): UserTakingLessonQuery {
+export function genUserTakingLessonQuery(campusId: string, minutes: number, weekdayEnum: WeekDay | undefined) {
   return (
     {
       where: {
@@ -75,7 +36,11 @@ export function genUserTakingLessonQuery(minutes: number, weekdayEnum: WeekDay |
       },
       select: {
         title: true,
-        rooms: true,
+        rooms: {
+          where: {
+            campusId: campusId
+          }
+        },
         period: {
           where: {
             weekday: weekdayEnum,
@@ -95,7 +60,7 @@ export function genUserTakingLessonQuery(minutes: number, weekdayEnum: WeekDay |
         },
       },
     }
-  );
+  ) as const satisfies Prisma.UserSelect["lessons"];
 }
 
 type Lesson = Prisma.LessonGetPayload<{
@@ -130,7 +95,7 @@ export function getTakingRoom(lessons: Lesson[]) {
   if(lessons.length > 0) {
     const firstLesson = lessons[0];
     if(firstLesson.rooms.length > 0) {
-      return firstLesson.rooms[0].name; 
+      return firstLesson.rooms[0].name;
     }else {
       return "???";
     }

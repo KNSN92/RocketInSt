@@ -34,7 +34,6 @@ export default async function SearchPage({
       ? [room]
       : room
     : [];
-  console.log(query, rooms);
 
   const session = await getServerSession(authConfig);
   if (!session?.user?.id) redirect("/signin");
@@ -164,7 +163,7 @@ async function fetchUserList(
         name: true,
         nickname: true,
         image: true,
-        lessons: genUserTakingLessonQuery(minutes, weekdayEnum),
+        lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
       },
       orderBy: [
         {

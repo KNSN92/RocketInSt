@@ -10,6 +10,7 @@ import CampusMap, { MapData } from "@/components/home/CampusMap";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
+import { fetchUserCampusId } from "@/lib/userdata";
 import {
   genUserTakingLessonQuery,
   getTakingLesson,
@@ -166,8 +167,8 @@ async function FollowingsList({ userId }: { userId: string }) {
 async function fetchFollowingUserList(userId: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
-  const userCampus = await fetchUserCampus(userId);
-  if (!userCampus) return [];
+  const userCampusId = await fetchUserCampusId(userId);
+  if (!userCampusId) return [];
   return (
     await prisma.user.findMany({
       where: {
@@ -182,7 +183,7 @@ async function fetchFollowingUserList(userId: string) {
         name: true,
         nickname: true,
         image: true,
-        lessons: genUserTakingLessonQuery(minutes, weekdayEnum),
+        lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
       },
     })
   ).map((user) => {
