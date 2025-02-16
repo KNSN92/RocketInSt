@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Image from "next/image";
 import { CSSProperties } from "react";
 
@@ -20,7 +21,7 @@ export function UserIcon({
         width={width}
         height={height}
         loading="lazy"
-        className={`rounded-full ${className}`}
+        className={clsx(className, "rounded-full")}
       />
     );
   } else {
@@ -42,7 +43,10 @@ export function UnknownUserIcon({
 }) {
   return (
     <div
-      className={`${className} flex items-center justify-center rounded-full bg-gray-400 text-4xl font-bold text-black`}
+      className={clsx(
+        className,
+        "flex items-center justify-center rounded-full bg-gray-400 text-4xl font-bold text-black",
+      )}
       style={style}
     >
       ?

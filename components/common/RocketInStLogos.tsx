@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Image, { ImageProps } from "next/image";
 
 type NonSrcImageProps = Omit<Omit<ImageProps, "src">, "alt">;
@@ -21,7 +22,10 @@ export function RocketInStLoadingLogo({
 }) {
   return (
     <div
-      className={`flex aspect-square items-center justify-center bg-[url(/logo/loading_back.png)] bg-contain ${className}`}
+      className={clsx(
+        className,
+        "flex aspect-square items-center justify-center bg-[url(/logo/loading_back.png)] bg-contain",
+      )}
     >
       <Image
         src="/logo/loading_needle.png"
