@@ -54,7 +54,7 @@ export function DefaultSearchField() {
     );
   }, [searchInput.current?.value]);
   return (
-    <div className="relative flex transition w-screen md:w-[60vw] xl:w-[40vw]">
+    <div className="mx-4 relative flex transition w-full md:w-[60vw] xl:w-[40vw]">
       <div
         className={clsx(
           "w-fit h-fit absolute translate-y-1/4 pointer-events-none transition",
