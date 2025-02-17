@@ -30,18 +30,20 @@ export default async function Home() {
         loading="lazy"
         className="relative top-1 px-4 max-h-48 w-screen object-contain"
       />
-      <div className="h-4" />
-      <h2 className="text-center text-[1.2rem] font-semibold">
-        N/S高 生徒のキャンパス内位置<br></br> 混雑状況 確認サイト
-      </h2>
-      <div className="h-10" />
       <LoginRequired
         message={
-          <SignInButton>
-            <div className="flex h-fit w-fit items-center justify-center rounded-full bg-blue-200 px-8 py-4 text-[1.5rem] font-semibold text-blue-600 transition duration-500 hover:bg-blue-600 hover:text-blue-200">
-              登録 / サインイン
-            </div>
-          </SignInButton>
+          <>
+            <div className="h-4" />
+            <h2 className="text-center text-[1.2rem] font-semibold">
+              N/S高 生徒のキャンパス内位置<br></br> 混雑状況 確認サイト
+            </h2>
+            <div className="h-10" />
+            <SignInButton>
+              <div className="flex h-fit w-fit items-center justify-center rounded-full bg-blue-200 px-8 py-4 text-[1.5rem] font-semibold text-blue-600 transition duration-500 hover:bg-blue-600 hover:text-blue-200">
+                登録 / サインイン
+              </div>
+            </SignInButton>
+          </>
         }
       >
         <WhenUserLoggedIn />
@@ -93,11 +95,11 @@ async function WhenUserLoggedIn() {
 
   return (
     <div className="w-screen sm:w-fit">
-      <div className="mt-5 text-2xl font-semibold">
+      <div className="text-2xl font-semibold">
         こんにちは {session.user?.name}
         さん
       </div>
-      <h1 className="mt-24 text-3xl font-bold">混雑状況マップ(工事中)</h1>
+      <h1 className="mt-8 text-3xl font-bold">混雑状況マップ</h1>
       <CampusRegisterRequired
         message={
           <div className="flex flex-col items-center">
@@ -158,7 +160,7 @@ async function FollowingsList({ userId }: { userId: string }) {
   if (userList.length <= 0) return undefined;
   return (
     <>
-      <h1 className="mt-24 text-3xl font-bold">フレンドリスト</h1>
+      <h1 className="mt-8 text-3xl font-bold">フレンドリスト</h1>
       <UserList userList={userList} />
     </>
   );
