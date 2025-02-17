@@ -37,7 +37,7 @@ export function DefaultRefreshButton({ className }: { className?: string }) {
     <RefreshButton
       className={clsx(
         className,
-        "w-fit h-fit px-2 py-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-white disabled:bg-blue-300 disabled:border-blue-200",
+        "w-fit h-fit px-2 py-1 bg-blue-500 border-blue-400 border-1 rounded-lg text-nowrap text-white disabled:bg-blue-300 disabled:border-blue-200",
       )}
       defaultChildren={"再読み込み"}
       refreshingChildren={"再読み込み中..."}
