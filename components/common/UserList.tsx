@@ -1,4 +1,5 @@
 import { combinateUserName } from "@/lib/users";
+import clsx from "clsx";
 import Link from "next/link";
 import { UserIcon } from "./UserIcon";
 
@@ -27,6 +28,12 @@ export default function UserList({
           </tr>
         </thead>
         <tbody>
+          <tr
+            className={clsx(
+              "min-w-full w-fit h-16",
+              userList.length > 0 && "hidden",
+            )}
+          />
           {userList.map((user, i) => (
             <tr
               className="min-w-full w-fit h-16 odd:bg-white even: bg-gray-50 hover:bg-gray-100"
