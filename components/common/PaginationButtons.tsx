@@ -15,7 +15,7 @@ export default function PaginationButtons({
   limit: number;
   total: number;
 }) {
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.max(1, Math.ceil(total / limit));
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
