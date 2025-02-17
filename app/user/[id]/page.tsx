@@ -1,6 +1,7 @@
 "use server";
 import { LinkButton } from "@/components/common/Buttons";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
+import UpdatedTime from "@/components/common/UpdatedTime";
 import { UserIcon } from "@/components/common/UserIcon";
 import CampusMap from "@/components/home/CampusMap";
 import { CourseFreqJA } from "@/data/courseFreqs";
@@ -128,7 +129,13 @@ async function UserProfile({
           {getTakingLesson(lessons)}
         </li>
       </ul>
-      <DefaultRefreshButton className="my-2" />
+      <div>
+        <DefaultRefreshButton className="my-2" />
+        <span className="ml-4 text-lg">
+          更新：
+          <UpdatedTime />
+        </span>
+      </div>
       <h2 className="mt-8 mb-2 text-3xl font-bold">どこに居るかMap</h2>
       <div className="rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen md:w-[60vw] xl:w-[35vw]">
         <div className="mb-2 flex items-center justify-center">

@@ -8,6 +8,7 @@ import { NumToWeekDayMap } from "@/data/weekdays";
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
+import UpdatedTime from "@/components/common/UpdatedTime";
 import UserList from "@/components/common/UserList";
 import { RoomSearchSelector } from "@/components/search/RoomSearchSelector";
 import { DefaultSearchField } from "@/components/search/SearchField";
@@ -87,7 +88,13 @@ async function WhenCampusRegistered({
         </div>
         <div className="flex flex-row items-center justify-start pl-8">
           <div>{userList.length}人のユーザーが見つかりました。</div>
-          <DefaultRefreshButton className="my-2 ml-4" />
+          <div>
+            <DefaultRefreshButton className="my-2 ml-4" />
+            <span className="ml-4 text-lg">
+              更新：
+              <UpdatedTime />
+            </span>
+          </div>
         </div>
         <UserList userList={userList} />
       </div>

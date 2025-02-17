@@ -5,6 +5,7 @@ import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
+import UpdatedTime from "@/components/common/UpdatedTime";
 import UserList from "@/components/common/UserList";
 import CampusMap, { MapData } from "@/components/home/CampusMap";
 import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
@@ -120,7 +121,13 @@ async function WhenUserLoggedIn() {
                 {userCampus.name}
               </h2>
             )}
-            <DefaultRefreshButton className="my-2" />
+            <div>
+              <DefaultRefreshButton className="my-2" />
+              <span className="ml-4 text-lg">
+                更新：
+                <UpdatedTime />
+              </span>
+            </div>
             <div className="my-4 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
               <div className="w-36 h-6 flex items-center gap-2">
                 <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600" />
