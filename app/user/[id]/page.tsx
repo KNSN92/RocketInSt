@@ -129,14 +129,14 @@ async function UserProfile({
           {getTakingLesson(lessons)}
         </li>
       </ul>
-      <div>
-        <DefaultRefreshButton className="my-2" />
-        <span className="ml-4 text-lg">
+      <div className="mt-4 flex items-center justify-center md:gap-4 flex-col md:flex-row">
+        <DefaultRefreshButton className="block" />
+        <div className="text-lg text-nowrap">
           更新：
           <UpdatedTime />
-        </span>
+        </div>
       </div>
-      <h2 className="mt-8 mb-2 text-3xl font-bold">どこに居るかMap</h2>
+      <h2 className="mt-6 mb-2 text-3xl font-bold">どこに居るかMap</h2>
       <div className="rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen md:w-[60vw] xl:w-[35vw]">
         <div className="mb-2 flex items-center justify-center">
           <div />

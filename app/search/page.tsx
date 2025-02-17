@@ -86,14 +86,16 @@ async function WhenCampusRegistered({
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center justify-start pl-8">
-          <div>{userList.length}人のユーザーが見つかりました。</div>
-          <div>
-            <DefaultRefreshButton className="my-2 ml-4" />
-            <span className="ml-4 text-lg">
+        <div className="flex items-center gap-4 md:gap-8 flex-col-reverse md:flex-row">
+          <div className="text-lg text-nowrap">
+            {userList.length}人のユーザーが見つかりました。
+          </div>
+          <div className="flex items-center justify-center md:gap-4 flex-col md:flex-row">
+            <DefaultRefreshButton className="block" />
+            <div className="text-lg text-nowrap">
               更新：
               <UpdatedTime />
-            </span>
+            </div>
           </div>
         </div>
         <UserList userList={userList} />
