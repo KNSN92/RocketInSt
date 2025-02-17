@@ -77,10 +77,12 @@ async function WhenCampusRegistered({
             <h2 className="mx-auto w-fit font-bold">
               今居る部屋で検索(恐らく機能する)
             </h2>
-            <RoomSearchSelector
-              rooms={rooms.map((room) => room.name)}
-              className="mx-1"
-            />
+            <div className="mx-1 w-screen flex justify-center gap-1 flex-nowrap overflow-auto">
+              <RoomSearchSelector
+                rooms={rooms.map((room) => room.name)}
+                className="block text-nowrap"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-row items-center justify-start pl-8">
