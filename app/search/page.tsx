@@ -7,6 +7,7 @@ import { NumToWeekDayMap } from "@/data/weekdays";
 
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
+import PaginationButtons from "@/components/common/PaginationButtons";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import UpdatedTime from "@/components/common/UpdatedTime";
 import UserList from "@/components/common/UserList";
@@ -20,21 +21,25 @@ import {
   getTakingRoom,
 } from "@/lib/users";
 
+const pageLimit = 20;
+
 export default async function SearchPage({
   searchParams,
 }: {
   searchParams: Promise<{
-    query?: string;
     page?: string;
+    query?: string;
     room?: string | string[];
   }>;
 }) {
-  const { query, room } = await searchParams;
+  const { query, room, page } = await searchParams;
   const rooms: string[] = room
     ? typeof room === "string"
       ? [room]
       : room
     : [];
+  const parsedPage = parseInt(page || "1");
+  const pageNum = isFinite(parsedPage) ? Math.max(1, parsedPage) : 1;
 
   const session = await getServerSession(authConfig);
   if (!session?.user?.id) redirect("/signin");
@@ -49,6 +54,7 @@ export default async function SearchPage({
       </div>
       <CampusRegisterRequired message={<WhenCampusUnregistered />}>
         <WhenCampusRegistered
+          page={pageNum}
           query={query}
           roomQuery={rooms}
           userId={session.user.id}
@@ -59,15 +65,31 @@ export default async function SearchPage({
 }
 
 async function WhenCampusRegistered({
+  page,
   query,
   roomQuery,
   userId,
 }: {
+  page: number;
   query?: string;
   roomQuery: string[];
   userId: string;
 }) {
-  const userList = await fetchUserList(userId, query, roomQuery);
+  const [totalUser, userList] = await fetchUserList(
+    page,
+    userId,
+    query,
+    roomQuery,
+  );
+  // const totalPages = Math.ceil(totalUser / pageLimit);
+  // if (totalUser > 0 && totalPages < page) {
+  //   const params = new URLSearchParams();
+  //   params.set("page", totalPages.toString());
+  //   if (query) params.set("query", query);
+  //   roomQuery.forEach((room) => params.append("room", room));
+  //   redirect(`/search?${params.toString()}`);
+  // }
+
   const rooms = await fetchUserCampusRooms(userId, { name: true });
   return (
     <>
@@ -88,7 +110,7 @@ async function WhenCampusRegistered({
         </div>
         <div className="flex items-center gap-4 md:gap-8 flex-col-reverse md:flex-row">
           <div className="text-lg text-nowrap">
-            {userList.length}人のユーザーが見つかりました。
+            {totalUser}人のユーザーが見つかりました。
           </div>
           <div className="flex items-center justify-center md:gap-4 flex-col md:flex-row">
             <DefaultRefreshButton className="block" />
@@ -99,6 +121,14 @@ async function WhenCampusRegistered({
           </div>
         </div>
         <UserList userList={userList} />
+        <div className="mt-4 flex justify-center">
+          <PaginationButtons
+            pageParam="page"
+            page={page}
+            limit={pageLimit}
+            total={totalUser}
+          />
+        </div>
       </div>
     </>
   );
@@ -116,6 +146,7 @@ async function WhenCampusUnregistered() {
 }
 
 async function fetchUserList(
+  page: number,
   userId: string,
   query?: string,
   roomQuery?: string[],
@@ -124,75 +155,83 @@ async function fetchUserList(
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
   const userCampusId = await fetchUserCampusId(userId);
   if (!userCampusId) return [];
-  return (
-    await prisma.user.findMany({
-      where: {
-        OR: [
-          {
-            name: { not: null, contains: query },
-          },
-          {
-            nickname: { not: null, contains: query },
-          },
-        ],
-        campus: {
-          id: userCampusId,
-        },
-        lessons:
-          !roomQuery || roomQuery.length <= 0
-            ? undefined
-            : {
+  const where = {
+    OR: [
+      {
+        name: { not: null, contains: query },
+      },
+      {
+        nickname: { not: null, contains: query },
+      },
+    ],
+    campus: {
+      id: userCampusId,
+    },
+    lessons:
+      !roomQuery || roomQuery.length <= 0
+        ? undefined
+        : {
+            some: {
+              rooms: {
                 some: {
-                  rooms: {
-                    some: {
-                      campusId: userCampusId,
-                      name: {
-                        in: roomQuery,
-                      },
-                    },
+                  campusId: userCampusId,
+                  name: {
+                    in: roomQuery,
                   },
-                  period: {
-                    some: {
-                      weekday: weekdayEnum,
-                      AND: {
-                        beginTime: {
-                          lte: minutes,
-                        },
-                        endTime: {
-                          gte: minutes,
-                        },
-                      },
+                },
+              },
+              period: {
+                some: {
+                  weekday: weekdayEnum,
+                  AND: {
+                    beginTime: {
+                      lte: minutes,
+                    },
+                    endTime: {
+                      gte: minutes,
                     },
                   },
                 },
               },
-      },
-      select: {
-        id: true,
-        name: true,
-        nickname: true,
-        image: true,
-        lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
-      },
-      orderBy: [
-        {
-          nickname: "desc",
+            },
+          },
+  };
+  return Promise.all([
+    await prisma.user.count({
+      where: where,
+    }),
+    (
+      await prisma.user.findMany({
+        where: where,
+        select: {
+          id: true,
+          name: true,
+          nickname: true,
+          image: true,
+          lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
         },
-        {
-          name: "desc",
+        orderBy: [
+          {
+            nickname: "desc",
+          },
+          {
+            name: "desc",
+          },
+        ],
+        skip: (page - 1) * pageLimit,
+        take: pageLimit,
+      })
+    ).map((user) => {
+      return {
+        id: user.id,
+        name: user.name,
+        nickname: user.nickname,
+        image: user.image,
+        lesson: {
+          room: getTakingRoom(user.lessons),
+          lesson: getTakingLesson(user.lessons),
         },
-      ],
-    })
-  ).map((user) => {
-    return {
-      id: user.id,
-      name: user.name,
-      nickname: user.nickname,
-      image: user.image,
-      lesson: {
-        room: getTakingRoom(user.lessons),
-        lesson: getTakingLesson(user.lessons),
-      },
-    };
-  });
+      };
+    }),
+  ]);
 }

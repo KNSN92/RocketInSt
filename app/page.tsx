@@ -3,6 +3,7 @@ import { SignInButton } from "@/components/common/AuthButtons";
 import { LinkButton } from "@/components/common/Buttons";
 import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
+import PaginationButtons from "@/components/common/PaginationButtons";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
 import UpdatedTime from "@/components/common/UpdatedTime";
@@ -22,7 +23,16 @@ import { CourseFrequency } from "@prisma/client";
 import clsx from "clsx";
 import { getServerSession } from "next-auth";
 
-export default async function Home() {
+const pageLimit = 10;
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page } = await searchParams;
+  const parsedPage = parseInt(page || "1");
+  const pageNum = isFinite(parsedPage) ? Math.max(1, parsedPage) : 1;
   return (
     <div className="mx-auto flex w-fit flex-col items-center justify-center text-center py-10">
       <RocketInStBlackTextLogo
@@ -47,13 +57,13 @@ export default async function Home() {
           </>
         }
       >
-        <WhenUserLoggedIn />
+        <WhenUserLoggedIn page={pageNum} />
       </LoginRequired>
     </div>
   );
 }
 
-async function WhenUserLoggedIn() {
+async function WhenUserLoggedIn({ page }: { page: number }) {
   const session = await getServerSession(authConfig);
   if (!session?.user?.id) return undefined;
   const mapData: MapData = session?.user?.id
@@ -156,57 +166,83 @@ async function WhenUserLoggedIn() {
             />
           </div>
         </div>
-        <FollowingsList userId={session.user.id} />
+        <FollowingsList userId={session.user.id} page={page} />
       </CampusRegisterRequired>
     </div>
   );
 }
 
-async function FollowingsList({ userId }: { userId: string }) {
-  const userList = await fetchFollowingUserList(userId);
-  if (userList.length <= 0) return undefined;
+async function FollowingsList({
+  userId,
+  page,
+}: {
+  userId: string;
+  page: number;
+}) {
+  const [totalUser, userList] = await fetchFollowingUserList(userId, page);
+  // const totalPages = Math.ceil(totalUser / pageLimit);
+  // if (totalUser > 0 && totalPages < page) {
+  //   redirect(`/?page=${totalPages}`);
+  // }
+  if (totalUser <= 0) return undefined;
   return (
     <>
       <h1 className="mt-8 text-3xl font-bold">フレンドリスト</h1>
       <UserList userList={userList} />
+      <div className="mt-4 flex justify-center">
+        <PaginationButtons
+          pageParam="page"
+          page={page}
+          limit={pageLimit}
+          total={totalUser}
+        />
+      </div>
     </>
   );
 }
 
-async function fetchFollowingUserList(userId: string) {
+async function fetchFollowingUserList(userId: string, page: number) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
   const userCampusId = await fetchUserCampusId(userId);
   if (!userCampusId) return [];
-  return (
-    await prisma.user.findMany({
-      where: {
-        followers: {
-          some: {
-            id: userId,
-          },
+  const where = {
+    followers: {
+      some: {
+        id: userId,
+      },
+    },
+  };
+  return Promise.all([
+    await prisma.user.count({
+      where: where,
+    }),
+    (
+      await prisma.user.findMany({
+        where: where,
+        select: {
+          id: true,
+          name: true,
+          nickname: true,
+          image: true,
+          lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
         },
-      },
-      select: {
-        id: true,
-        name: true,
-        nickname: true,
-        image: true,
-        lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
-      },
-    })
-  ).map((user) => {
-    return {
-      id: user.id,
-      name: user.name,
-      nickname: user.nickname,
-      image: user.image,
-      lesson: {
-        room: getTakingRoom(user.lessons),
-        lesson: getTakingLesson(user.lessons),
-      },
-    };
-  });
+        skip: (page - 1) * pageLimit,
+        take: pageLimit,
+      })
+    ).map((user) => {
+      return {
+        id: user.id,
+        name: user.name,
+        nickname: user.nickname,
+        image: user.image,
+        lesson: {
+          room: getTakingRoom(user.lessons),
+          lesson: getTakingLesson(user.lessons),
+        },
+      };
+    }),
+  ]);
 }
 
 async function fetchUserCampusMap(userId: string) {

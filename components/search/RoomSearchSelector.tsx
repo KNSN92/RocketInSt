@@ -34,6 +34,7 @@ export function RoomSearchSelector({
   const handleSearchRooms = useDebouncedCallback(
     (pressedRooms: { [key: string]: boolean }) => {
       const params = new URLSearchParams(searchParams);
+      params.set("page", "1");
       params.delete("room");
       Object.entries(pressedRooms).map(([room, pressed]) => {
         if (pressed) params.append("room", room);
