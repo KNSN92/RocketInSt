@@ -20,6 +20,7 @@ import {
   getTakingLesson,
   getTakingRoom,
 } from "@/lib/users";
+import clsx from "clsx";
 
 const pageLimit = 20;
 
@@ -121,16 +122,19 @@ async function WhenCampusRegistered({
           </div>
         </div>
         <UserList userList={userList} />
-        {totalUser > pageLimit && (
-          <div className="mt-4 flex justify-center">
-            <PaginationButtons
-              pageParam="page"
-              page={page}
-              limit={pageLimit}
-              total={totalUser}
-            />
-          </div>
-        )}
+        <div
+          className={clsx(
+            "mt-4 flex justify-center",
+            totalUser <= pageLimit && "hidden",
+          )}
+        >
+          <PaginationButtons
+            pageParam="page"
+            page={page}
+            limit={pageLimit}
+            total={totalUser}
+          />
+        </div>
       </div>
     </>
   );

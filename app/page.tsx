@@ -189,16 +189,19 @@ async function FollowingsList({
     <>
       <h1 className="mt-8 text-3xl font-bold">フレンドリスト</h1>
       <UserList userList={userList} />{" "}
-      {totalUser > pageLimit && (
-        <div className="mt-4 flex justify-center">
-          <PaginationButtons
-            pageParam="page"
-            page={page}
-            limit={pageLimit}
-            total={totalUser}
-          />
-        </div>
-      )}
+      <div
+        className={clsx(
+          "mt-4 flex justify-center",
+          totalUser <= pageLimit && "hidden",
+        )}
+      >
+        <PaginationButtons
+          pageParam="page"
+          page={page}
+          limit={pageLimit}
+          total={totalUser}
+        />
+      </div>
     </>
   );
 }
