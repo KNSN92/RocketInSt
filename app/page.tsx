@@ -188,15 +188,18 @@ async function FollowingsList({
   return (
     <>
       <h1 className="mt-8 text-3xl font-bold">フレンドリスト</h1>
-      <UserList userList={userList} />
-      <div className="mt-4 flex justify-center">
-        <PaginationButtons
-          pageParam="page"
-          page={page}
-          limit={pageLimit}
-          total={totalUser}
-        />
-      </div>
+      <UserList userList={userList} />({" "}
+      {totalUser > pageLimit && (
+        <div className="mt-4 flex justify-center">
+          <PaginationButtons
+            pageParam="page"
+            page={page}
+            limit={pageLimit}
+            total={totalUser}
+          />
+        </div>
+      )}
+      )
     </>
   );
 }

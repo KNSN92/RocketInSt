@@ -121,14 +121,16 @@ async function WhenCampusRegistered({
           </div>
         </div>
         <UserList userList={userList} />
-        <div className="mt-4 flex justify-center">
-          <PaginationButtons
-            pageParam="page"
-            page={page}
-            limit={pageLimit}
-            total={totalUser}
-          />
-        </div>
+        {totalUser > pageLimit && (
+          <div className="mt-4 flex justify-center">
+            <PaginationButtons
+              pageParam="page"
+              page={page}
+              limit={pageLimit}
+              total={totalUser}
+            />
+          </div>
+        )}
       </div>
     </>
   );
