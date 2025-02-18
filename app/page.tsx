@@ -188,7 +188,7 @@ async function FollowingsList({
   return (
     <>
       <h1 className="mt-8 text-3xl font-bold">フレンドリスト</h1>
-      <UserList userList={userList} />({" "}
+      <UserList userList={userList} />{" "}
       {totalUser > pageLimit && (
         <div className="mt-4 flex justify-center">
           <PaginationButtons
@@ -199,7 +199,6 @@ async function FollowingsList({
           />
         </div>
       )}
-      )
     </>
   );
 }
