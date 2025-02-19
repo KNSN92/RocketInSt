@@ -298,7 +298,9 @@ async function LessonsTable({
                   className="p-2 border-l-1 border-gray-400 w-fit h-fit"
                   key={j}
                 >
-                  {lessons[weekday][period]}
+                  {lessons[weekday] && lessons[weekday][period]
+                    ? lessons[weekday][period]
+                    : "???"}
                 </td>
               ),
             )}
