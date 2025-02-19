@@ -37,7 +37,7 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`min-h-screen w-screen antialiased ${SawarabiGothicFont.className}`}
+        className={`min-h-screen w-screen bg-[var(--color-white)] text-[var(--color-black)] antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
           <Header />
