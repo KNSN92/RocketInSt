@@ -6,6 +6,7 @@ import {
 } from "@/components/common/RocketInStLogos";
 import { UserIcon } from "@/components/common/UserIcon";
 import { NextAuthProvider } from "@/lib/providers";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Sawarabi_Gothic } from "next/font/google";
 import Image from "next/image";
@@ -13,6 +14,14 @@ import Link from "next/link";
 import React, { ReactNode, Suspense } from "react";
 import "./globals.css";
 import Loading from "./loading";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | RocketInSt",
+    default: "RocketInSt",
+  },
+  description: "N/S高生のキャンパス内位置や混雑状況を確認出来るサイトです。",
+};
 
 const SawarabiGothicFont = Sawarabi_Gothic({
   weight: "400",

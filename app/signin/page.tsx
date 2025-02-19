@@ -1,8 +1,13 @@
 import authConfig from "@/auth.config";
 import { SignInButton } from "@/components/common/AuthButtons";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Roboto } from "next/font/google";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Signin",
+};
 
 const RobotoMidiumFont = Roboto({
   weight: "500",

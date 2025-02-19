@@ -1,12 +1,19 @@
 import { RocketInStLogo } from "@/components/common/RocketInStLogos";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 export default function About() {
   return (
     <div className="h-fit w-screen">
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="mx-auto my-auto h-fit w-fit">
-          <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">便利を世界へ。</h1>
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">
+            便利を世界へ。
+          </h1>
           <div className="mt-4 flex flex-row items-center justify-center">
             <div className="ml-12 md:ml-24 lg:ml-48 mr-4 inline-block h-0 w-5 md:w-10 lg:w-20 border-t-2 border-black align-middle"></div>
             <h2 className="inline-block text-xl md:text-2xl lg:text-4xl">
@@ -19,7 +26,9 @@ export default function About() {
       <div className="min-h-screen flex h-full w-full items-center justify-center">
         <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-4 md:px-16 py-4">
           <div className="overflow-scroll w-full">
-            <h1 className="text-2xl md:text-4xl font-bold">RocketIn.stのきっかけ</h1>
+            <h1 className="text-2xl md:text-4xl font-bold">
+              RocketIn.stのきっかけ
+            </h1>
             <p className="pt-4 text-lg md:text-xl overflow-auto">
               当サイトはN/S高等学校内で行われる学内コンペティションに応募するために誕生しました。
               <br />
@@ -52,7 +61,9 @@ export default function About() {
       <div className="min-h-screen flex h-full w-full items-center justify-center">
         <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-4 md:px-16 py-4">
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold">RocketIn.stの由来</h1>
+            <h1 className="text-2xl md:text-4xl font-bold">
+              RocketIn.stの由来
+            </h1>
             <p className="pt-4 text-xl">
               当サイトの名称の由来はLocation Informationから来ています。
               <br />

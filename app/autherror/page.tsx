@@ -1,6 +1,18 @@
 import { SignInButton } from "@/components/common/AuthButtons";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ error: string }>;
+}): Promise<Metadata> {
+  const { error } = await searchParams;
+  return {
+    title: `Error '${error}'`,
+  };
+}
 
 export default async function AuthError({
   searchParams,

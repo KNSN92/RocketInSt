@@ -1,4 +1,3 @@
-"use server";
 import { LinkButton } from "@/components/common/Buttons";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import UpdatedTime from "@/components/common/UpdatedTime";
@@ -24,9 +23,27 @@ import {
 } from "@/lib/users";
 import { CourseFrequency, Role } from "@prisma/client";
 import clsx from "clsx";
+import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import FriendRegisterForm from "./FriendRegisterForm";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  if (!id) {
+    return {
+      title: "???'s profile",
+    };
+  }
+  const user = await fetchUser(id, { id: true, nickname: true });
+  const userName = user ? user.nickname : "???";
+  return {
+    title: `${userName}'s profile`,
+  };
+}
 export default async function UserInfo({
   params,
 }: {

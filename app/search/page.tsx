@@ -21,6 +21,27 @@ import {
   getTakingRoom,
 } from "@/lib/users";
 import clsx from "clsx";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ query?: string; room?: string | string[] }>;
+}): Promise<Metadata> {
+  const { query, room } = await searchParams;
+  const rooms: string[] = room
+    ? typeof room === "string"
+      ? [room]
+      : room
+    : [];
+  const title: string[] = [];
+  if (query) title.push(`'${query}'`);
+  if (rooms.length > 0)
+    title.push(rooms.map((room) => `'${room}'`).join(" or "));
+  return {
+    title: title.join(" in ") + " Search",
+  };
+}
 
 const pageLimit = 20;
 

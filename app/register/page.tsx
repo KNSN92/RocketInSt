@@ -3,7 +3,12 @@ import authConfig from "@/auth.config";
 import { CourseFreqToDaysMap } from "@/data/courseFreqs";
 import { AfterSchoolPeriod, LessonPeriods } from "@/data/periods";
 import { prisma } from "@/prisma";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
+
+export const metadata: Metadata = {
+  title: "Register",
+};
 
 export default async function Register() {
   const session = await getServerSession(authConfig);
