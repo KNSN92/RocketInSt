@@ -180,7 +180,7 @@ function Footer() {
       </p>
       <div className="mr-8 w-48 flex items-center text-white">
         <NavLink href="/about">about</NavLink>
-        <div className="bg-white h-16 w-[1px]" />
+        <div className="bg-white h-10 w-[1px]" />
         <NavElement>
           <a className="w-12 h-12" href="https://github.com/KNSN92/RocketInSt">
             <Image alt="github icon" src="/github.svg" width="48" height="48" />
