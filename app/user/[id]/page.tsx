@@ -3,8 +3,17 @@ import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import UpdatedTime from "@/components/common/UpdatedTime";
 import { UserIcon } from "@/components/common/UserIcon";
 import CampusMap from "@/components/home/CampusMap";
-import { CourseFreqJA } from "@/data/courseFreqs";
-import { NumToWeekDayMap } from "@/data/weekdays";
+import {
+  CourseFreqJA,
+  CourseFreqToDaysMap,
+  DaysToWeekDayMap,
+} from "@/data/courseFreqs";
+import {
+  LessonPeriods,
+  LessonPeriodsJA,
+  LessonPeriodType,
+} from "@/data/periods";
+import { NumToWeekDayMap, WeekDayJA } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import {
   fetchUser,
@@ -21,7 +30,7 @@ import {
   getTakingRoom,
   getTakingRoomId,
 } from "@/lib/users";
-import { CourseFrequency, Role } from "@prisma/client";
+import { CourseFrequency, Role, WeekDay } from "@prisma/client";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -108,7 +117,7 @@ async function UserProfile({
 }) {
   const userCampus = await fetchUserCampus(userId);
   return (
-    <div className="mx-auto py-8 flex w-screen flex-col items-center px-8 md:px-32">
+    <div className="mx-auto py-8 flex w-screen flex-col items-center sm:px-8 md:px-32">
       <UserIcon src={image} width={192} height={192} className="text-9xl" />
       <h1
         className={clsx(
@@ -197,7 +206,101 @@ async function UserProfile({
           className="w-full h-fit text-xs md:text-lg sm:text-md"
         />
       </div>
+      <h2 className="mt-6 mb-2 text-3xl font-bold">授業</h2>
+      <div className="overflow-auto w-screen mx-4 text-nowrap">
+        <LessonsTable
+          userId={profileUserId}
+          courseFrequency={courseFrequency}
+        />
+      </div>
     </div>
+  );
+}
+
+async function LessonsTable({
+  userId,
+  courseFrequency,
+}: {
+  userId: string;
+  courseFrequency: CourseFrequency | null;
+}) {
+  if (!courseFrequency) return undefined;
+  const fetchedLessons = (
+    await fetchUser(userId, {
+      lessons: {
+        where: {
+          period: {
+            some: {
+              tag: "Lesson",
+            },
+          },
+        },
+        select: {
+          period: {
+            where: {
+              tag: "Lesson",
+            },
+            select: {
+              weekday: true,
+              innername: true,
+            },
+          },
+          title: true,
+        },
+      },
+    })
+  )?.lessons;
+  if (!fetchedLessons) return undefined;
+  const lessons: { [key in WeekDay]: { [key in LessonPeriodType]: string } } =
+    fetchedLessons.reduce(
+      (acc, fetchedLesson) => {
+        if (fetchedLesson.period.length <= 0) return acc;
+        const period = fetchedLesson.period[0];
+        if (!acc[period.weekday])
+          acc[period.weekday] = {} as (typeof lessons)[WeekDay];
+        acc[period.weekday][period.innername as LessonPeriodType] =
+          fetchedLesson.title;
+        return acc;
+      },
+      {} as typeof lessons,
+    );
+  return (
+    <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7]">
+      <thead>
+        <tr>
+          <th></th>
+          {DaysToWeekDayMap[CourseFreqToDaysMap[courseFrequency]].map(
+            (weekday, i) => (
+              <th
+                key={i}
+                className="w-40 sm:w-60 border-l-1 border-gray-400 text-lg"
+              >
+                {WeekDayJA[weekday]}
+              </th>
+            ),
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {LessonPeriods.map((period, i) => (
+          <tr className="border-t-1 border-gray-400" key={i}>
+            <th className="text-lg">
+              <div className="px-2 text-nowrap">{LessonPeriodsJA[period]}</div>
+            </th>
+            {DaysToWeekDayMap[CourseFreqToDaysMap[courseFrequency]].map(
+              (weekday, j) => (
+                <td
+                  className="p-2 border-l-1 border-gray-400 w-fit h-fit"
+                  key={j}
+                >
+                  {lessons[weekday][period]}
+                </td>
+              ),
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
