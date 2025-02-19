@@ -18,7 +18,7 @@ export function UserIcon({
   const statusIconClassName = clsx(
     statusStyle === "border" && {
       "border-green-400": status === "active",
-      "border-gray-400": status === "inactive",
+      "border-gray-600": status === "inactive",
     },
   );
   const statusDotClassName = clsx(
@@ -28,7 +28,9 @@ export function UserIcon({
     },
   );
   const iconBorderWidth =
-    status === "active" || status === "inactive" ? `${size / 24}px` : undefined;
+    statusStyle === "border" && (status === "active" || status === "inactive")
+      ? `${size / 24}px`
+      : undefined;
   let iconElement = null;
   iconElement = src ? (
     <Image
