@@ -19,6 +19,7 @@ import {
   genUserTakingLessonQuery,
   getTakingLesson,
   getTakingRoom,
+  getTakingRoomId,
 } from "@/lib/users";
 import clsx from "clsx";
 import { Metadata } from "next";
@@ -255,6 +256,7 @@ async function fetchUserList(
         nickname: user.nickname,
         image: user.image,
         lesson: {
+          id: getTakingRoomId(user.lessons),
           room: getTakingRoom(user.lessons),
           lesson: getTakingLesson(user.lessons),
         },

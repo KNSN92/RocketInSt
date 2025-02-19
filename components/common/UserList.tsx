@@ -12,6 +12,7 @@ export default function UserList({
     nickname: string | null;
     image: string | null;
     lesson: {
+      id?: string;
       room: string;
       lesson: string;
     };
@@ -46,8 +47,11 @@ export default function UserList({
                 >
                   <UserIcon
                     src={user.image}
-                    width={48}
-                    height={48}
+                    size={48}
+                    status={
+                      user.lesson.id !== undefined ? "active" : "inactive"
+                    }
+                    statusStyle="dot"
                     className="mr-4 inline-block"
                   />
                   <div className="m-2 text-nowrap text-2xl">

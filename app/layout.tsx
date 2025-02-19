@@ -84,8 +84,8 @@ async function Header() {
               <>
                 <UserIcon
                   src={session.user.image}
-                  width={48}
-                  height={48}
+                  size={48}
+                  status="none"
                   className="inline"
                 />
                 <div className="pl-2">{session.user.name}</div>

@@ -88,7 +88,7 @@ export function getTakingRoomId(lessons: Lesson[]) {
       return firstLesson.rooms[0].id;
     }
   }
-  return "キャンパスに居ません。"
+  return undefined
 }
 
 export function getTakingRoom(lessons: Lesson[]) {

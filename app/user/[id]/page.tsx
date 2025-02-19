@@ -118,7 +118,12 @@ async function UserProfile({
   const userCampus = await fetchUserCampus(userId);
   return (
     <div className="mx-auto py-8 flex w-screen flex-col items-center sm:px-8 md:px-32">
-      <UserIcon src={image} width={192} height={192} className="text-9xl" />
+      <UserIcon
+        src={image}
+        size={192}
+        status={getTakingRoomId(lessons) !== undefined ? "active" : "inactive"}
+        statusStyle="border"
+      />
       <h1
         className={clsx(
           "pt-8 text-2xl md:text-3xl font-bold",

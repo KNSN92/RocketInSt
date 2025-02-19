@@ -17,6 +17,7 @@ import {
   genUserTakingLessonQuery,
   getTakingLesson,
   getTakingRoom,
+  getTakingRoomId,
 } from "@/lib/users";
 import { prisma } from "@/prisma";
 import { CourseFrequency } from "@prisma/client";
@@ -242,6 +243,7 @@ async function fetchFollowingUserList(userId: string, page: number) {
         nickname: user.nickname,
         image: user.image,
         lesson: {
+          id: getTakingRoomId(user.lessons),
           room: getTakingRoom(user.lessons),
           lesson: getTakingLesson(user.lessons),
         },
