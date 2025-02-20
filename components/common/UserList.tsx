@@ -58,7 +58,7 @@ export default function UserList({
                       user.nickname && <span className={clsx("block text-nowrap text-2xl", user.name && "relative top-2")}>{user.nickname}</span>
                     }
                     {
-                      user.name && <span className={clsx("block text-nowrap text-gray-600", user.nickname ? "relative left-2 text-md" : "text-2xl")}>{user.name}</span>
+                      user.name && <span className={clsx("block text-nowrap text-gray-600 dark:text-gray-400", user.nickname ? "relative left-2 text-md" : "text-2xl")}>{user.name}</span>
                     }
                     {
                       !user.name && !user.nickname && <span className="text-nowrap text-2xl">???</span>

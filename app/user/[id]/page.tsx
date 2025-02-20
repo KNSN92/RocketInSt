@@ -277,7 +277,7 @@ async function LessonsTable({
       {} as typeof lessons,
     );
   return (
-    <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a]">
+    <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 dark:border-gray-600 bg-[#ebf6f7] dark:bg-[#00171a]">
       <thead>
         <tr>
           <th></th>
@@ -285,7 +285,7 @@ async function LessonsTable({
             (weekday, i) => (
               <th
                 key={i}
-                className="w-40 sm:w-60 border-l-1 border-gray-400 text-lg"
+                className="w-40 sm:w-60 border-l-1 border-gray-400 dark:border-gray-600 text-lg"
               >
                 {WeekDayJA[weekday]}
               </th>
@@ -295,14 +295,14 @@ async function LessonsTable({
       </thead>
       <tbody>
         {LessonPeriods.map((period, i) => (
-          <tr className="border-t-1 border-gray-400" key={i}>
+          <tr className="border-t-1 border-gray-400 dark:border-gray-600" key={i}>
             <th className="text-lg">
               <div className="px-2 text-nowrap">{LessonPeriodsJA[period]}</div>
             </th>
             {DaysToWeekDayMap[CourseFreqToDaysMap[courseFrequency]].map(
               (weekday, j) => (
                 <td
-                  className="p-2 border-l-1 border-gray-400 w-fit h-fit"
+                  className="p-2 border-l-1 border-gray-400 dark:border-gray-600 w-fit h-fit"
                   key={j}
                 >
                   {lessons[weekday] && lessons[weekday][period]
