@@ -9,7 +9,7 @@ import clsx from "clsx";
 
 export default function ThemeButton() {
 
-	const rawTheme = localStorage.theme;
+	const rawTheme = typeof window !== "undefined" ? localStorage.theme : undefined;
 	const [theme, setTheme] = useState<"light" | "dark" | undefined>(rawTheme === "undefined" ? undefined : rawTheme);
 
 	useEffect(() => {
