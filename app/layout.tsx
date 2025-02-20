@@ -183,11 +183,12 @@ function Footer() {
         <ThemeButton />
         <NavLink href="/about">about</NavLink>
         <div className="bg-white h-10 w-[1px]" />
-        <NavElement>
-          <a className="w-12 h-12" href="https://github.com/KNSN92/RocketInSt">
-            <Image alt="github icon" src="/github.svg" width="48" height="48" />
-          </a>
-        </NavElement>
+        <a className="w-full h-full flex items-center" href="https://github.com/KNSN92/RocketInSt">
+          <NavElement>
+            <Image alt="github icon" src="/github_dark.svg" width="32" height="32" className="dark:hidden" />
+            <Image alt="github icon" src="/github_light.svg" width="32" height="32" className="hidden dark:inline" />
+          </NavElement>
+        </a>
       </div>
     </div>
   );
