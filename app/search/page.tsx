@@ -119,7 +119,7 @@ async function WhenCampusRegistered({
       <div className="m-auto h-full w-screen p-8 2xl:w-[60vw]">
         <div className="mb-8 flex w-full flex-col items-center">
           <DefaultSearchField />
-          <div className="mt-2">
+          {rooms.length > 0 && <div className="mt-2">
             <h2 className="mx-auto w-fit font-bold">
               今居る部屋で検索(恐らく機能する)
             </h2>
@@ -129,7 +129,7 @@ async function WhenCampusRegistered({
                 className="block text-nowrap"
               />
             </div>
-          </div>
+          </div>}
         </div>
         <div className="flex items-center gap-4 md:gap-8 flex-col-reverse md:flex-row">
           <div className="text-lg text-nowrap">
