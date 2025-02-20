@@ -13,7 +13,7 @@ export default function ThemeButton() {
 	const [theme, setTheme] = useState<"light" | "dark" | undefined>(rawTheme === "undefined" ? undefined : rawTheme);
 
 	useEffect(() => {
-		localStorage.theme = theme;
+		if(typeof window !== "undefined") localStorage.theme = theme;
 		document.documentElement.classList.toggle(
 			"dark",
 			theme === "dark" ||
