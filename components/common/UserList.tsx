@@ -42,7 +42,7 @@ export default function UserList({
               <td className="h-16 p-0 m-0">
                 <Link
                   href={`/user/${user.id}`}
-                  className="w-full h-full pl-8 flex flex-row items-center justify-start overflow-scroll"
+                  className="w-full h-full pl-8 flex flex-row items-center justify-start overflow-x-scroll"
                 >
                   <UserIcon
                     src={user.image}
@@ -53,7 +53,7 @@ export default function UserList({
                     statusStyle="dot"
                     className="mr-4 inline-block"
                   />
-                  <div className="m-2">
+                  <div className="mx-2">
                     {
                       user.nickname && <span className={clsx("block text-nowrap text-2xl", user.name && "relative top-2")}>{user.nickname}</span>
                     }
