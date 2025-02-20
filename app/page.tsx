@@ -5,7 +5,7 @@ import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
 import PaginationButtons from "@/components/common/PaginationButtons";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
-import { RocketInStBlackTextLogo } from "@/components/common/RocketInStLogos";
+import { RocketInStBlackTextLogo, RocketInStWhiteTextLogo } from "@/components/common/RocketInStLogos";
 import UpdatedTime from "@/components/common/UpdatedTime";
 import UserList from "@/components/common/UserList";
 import CampusMap, { MapData } from "@/components/home/CampusMap";
@@ -40,7 +40,13 @@ export default async function Home({
         width={1532}
         height={200}
         loading="lazy"
-        className="relative top-1 px-4 max-h-48 w-screen object-contain"
+        className="relative top-1 px-4 max-h-48 w-screen object-contain inline dark:hidden"
+      />
+      <RocketInStWhiteTextLogo
+        width={1532}
+        height={200}
+        loading="lazy"
+        className="relative top-1 px-4 max-h-48 w-screen object-contain hidden dark:inline"
       />
       <LoginRequired
         message={
@@ -91,13 +97,13 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
             </div>
           ),
           className: clsx(
-            "flex items-center justify-center border-2 font-bold text-gray-800 rounded-lg",
+            "flex items-center justify-center border-2 font-bold rounded-lg",
             {
-              "bg-gray-400 border-gray-600": alertLevel === -1,
-              "bg-blue-400 border-blue-600": alertLevel === 0,
-              "bg-green-400 border-green-600": alertLevel === 1,
-              "bg-yellow-400 border-yellow-600": alertLevel === 2,
-              "bg-red-400 border-red-600": alertLevel === 3,
+              "bg-gray-400 border-gray-600 dark:bg-gray-600 dark:border-gray-400": alertLevel === -1,
+              "bg-blue-400 border-blue-600 dark:bg-blue-600 dark:border-blue-400": alertLevel === 0,
+              "bg-green-400 border-green-600 dark:bg-green-600 dark:border-green-400": alertLevel === 1,
+              "bg-yellow-400 border-yellow-600 dark:bg-yellow-600 dark:border-yellow-400": alertLevel === 2,
+              "bg-red-400 border-red-600 dark:bg-red-600 dark:border-red-400": alertLevel === 3,
             },
           ),
         };
@@ -126,7 +132,7 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
           ※人数の推定の仕組み上誤差が生じる場合があります。
         </p>
         <div>
-          <div className="mt-2 h-fit w-screen rounded-lg border-2 border-gray-400 bg-gray-100 p-4 lg:w-[80vw] xl:w-[50vw]">
+          <div className="mt-2 h-fit w-screen rounded-lg border-2 border-gray-400 bg-gray-100 dark:bg-black p-4 lg:w-[80vw] xl:w-[50vw]">
             {userCampus && (
               <h2 className="h-fit w-full text-center text-xl font-bold">
                 {userCampus.name}
@@ -141,23 +147,23 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
             </div>
             <div className="my-4 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600 dark:bg-blue-600 dark:border-blue-400" />
                 空いている
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600 dark:bg-green-600 dark:border-green-400" />
                 少し混雑
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-yellow-400 border-2 border-yellow-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-yellow-400 border-2 border-yellow-600 dark:bg-yellow-600 dark:border-yellow-400" />
                 混雑
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-red-400 border-2 border-red-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-red-400 border-2 border-red-600 dark:bg-red-600 dark:border-red-400" />
                 非常に混雑
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600 dark:bg-gray-600 dark:border-gray-400" />
                 No Data
               </div>
             </div>

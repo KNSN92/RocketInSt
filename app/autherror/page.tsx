@@ -25,7 +25,7 @@ export default async function AuthError({
   const { error } = await searchParams;
   return (
     <div className="w-full h-main-content flex items-center justify-center">
-      <div className="w-fit px-8 h-[30rem] bg-red-600 rounded-3xl border-red-400 text-white border-4 flex flex-col items-center justify-center">
+      <div className="w-fit px-8 h-[30rem] bg-red-600 rounded-3xl border-red-400 dark:bg-red-700 dark:border-red-600 text-white border-4 flex flex-col items-center justify-center">
         <h1 className="mx-auto w-fit text-3xl md:text-4xl font-bold">
           認証に失敗しました :(
         </h1>

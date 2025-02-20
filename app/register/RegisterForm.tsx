@@ -88,7 +88,7 @@ export default function RegisterForm({
           {state.msg}
         </div>
       )}
-      <div className="w-screen sm:w-fit sm:mx-auto sm:px-16 my-12 flex flex-col items-center justify-center rounded-2xl border-1 border-gray-800 bg-blue-100 py-16">
+      <div className="w-screen sm:w-fit sm:mx-auto sm:px-16 my-12 flex flex-col items-center justify-center rounded-2xl border-1 border-gray-800 bg-blue-100 dark:bg-blue-950 py-16">
         <h1 className="mx-auto mb-4 block w-fit text-3xl font-bold">
           情報を設定
         </h1>
@@ -99,7 +99,7 @@ export default function RegisterForm({
           <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">ニックネームを入力</h2>
             <input
-              className="block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
+              className="block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a] px-2 text-xl"
               name="nickname"
               value={registerData.nickname}
               onChange={(e) =>
@@ -118,7 +118,7 @@ export default function RegisterForm({
               }}
               required
               disabled={isPending}
-              className="mb-2 block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] px-2 text-xl text-black"
+              className="mb-2 block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a] px-2 text-xl"
             >
               <option value="">キャンパスを選択</option>
               {campuses.map((campus, i) => (
@@ -131,7 +131,7 @@ export default function RegisterForm({
           <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">コースを選択</h2>
             <RadioButton
-              className="w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
+              className="w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a] p-4 font-sans text-base font-medium"
               name="course"
               buttons={[
                 {
@@ -159,7 +159,7 @@ export default function RegisterForm({
             授業を選択
           </h2>
           <div className="overflow-auto mx-auto w-80 sm:w-96">
-            <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7]">
+            <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a]">
               <thead>
                 <tr>
                   <th></th>
@@ -196,7 +196,7 @@ export default function RegisterForm({
                             name="lessons"
                             required
                             disabled={isPending}
-                            className="lesson-select w-40 sm:w-60 bg-[#ebf6f7] py-2"
+                            className="lesson-select w-40 sm:w-60 bg-[#ebf6f7] dark:bg-[#0f191a] py-2"
                           >
                             <option value="">選択</option>
                             {lessonTable[courseDay][lessonPeriod].map(
@@ -219,7 +219,7 @@ export default function RegisterForm({
             <h2 className="mb-2 text-xl font-bold">放課後の動きを選択</h2>
             <RadioButton
               name="afterschool"
-              className="w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] p-4 font-sans text-base font-medium"
+              className="w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a] p-4 font-sans text-base font-medium"
               buttons={[
                 { title: "帰る", value: 0, checked: initialAfterschool === 0 },
                 { title: "残る", value: 1, checked: initialAfterschool === 1 },

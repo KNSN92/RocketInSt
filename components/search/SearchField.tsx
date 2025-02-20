@@ -63,11 +63,11 @@ export function DefaultSearchField() {
             : "translate-x-[1rem]",
         )}
       >
-        <MagnifyingGlassIcon className="w-8 text-gray-900 opacity-30 transition" />
+        <MagnifyingGlassIcon className="w-8 text-zinc-900 dark:text-zinc-100 opacity-30 transition" />
       </div>
       <SearchField
         placeholder={focus ? undefined : "        名前/ニックネームで検索"}
-        className="w-full h-12 rounded-lg border-1 border-blue-600 px-4 md:w-[60vw] xl:w-[40vw]"
+        className="w-full h-12 rounded-lg border-1 border-blue-600 px-4 md:w-[60vw] xl:w-[40vw] dark:bg-black"
         onFocus={() => {
           setFocus(true);
         }}

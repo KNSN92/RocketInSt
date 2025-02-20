@@ -175,7 +175,7 @@ async function UserProfile({
         </div>
       </div>
       <h2 className="mt-6 mb-2 text-3xl font-bold">どこに居るかMap</h2>
-      <div className="rounded-lg border-2 border-gray-400 bg-gray-100 p-4 w-screen md:w-[60vw] xl:w-[35vw]">
+      <div className="rounded-lg border-2 border-gray-400 bg-gray-100 dark:bg-black p-4 w-screen md:w-[60vw] xl:w-[35vw]">
         <div className="mb-2 flex items-center justify-center">
           <div />
           {userCampus && (
@@ -184,11 +184,11 @@ async function UserProfile({
         </div>
         <div className="my-4 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
           <div className="w-36 h-6 flex items-center gap-2">
-            <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600" />
+            <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600 dark:bg-green-600 dark:border-green-400" />
             居る
           </div>
           <div className="w-36 h-6 flex items-center gap-2">
-            <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600" />
+            <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600 dark:bg-gray-600 dark:border-gray-400" />
             居ない
           </div>
         </div>
@@ -210,8 +210,8 @@ async function UserProfile({
               className: clsx(
                 "border-2 rounded-lg flex flex-col items-center justify-center font-bold text-center text-xs md:text-lg sm:text-md",
                 here
-                  ? "bg-green-400 border-green-600"
-                  : "bg-gray-400 border-gray-600",
+                  ? "bg-green-400 border-green-600 dark:bg-green-600 dark:border-green-400"
+                  : "bg-gray-400 border-gray-600 dark:bg-gray-600 dark:border-gray-400",
               ),
             };
           })}
@@ -277,7 +277,7 @@ async function LessonsTable({
       {} as typeof lessons,
     );
   return (
-    <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7]">
+    <table className="w-fit h-fit mx-auto rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-[#0f191a]">
       <thead>
         <tr>
           <th></th>

@@ -14,6 +14,7 @@ import Link from "next/link";
 import React, { ReactNode, Suspense } from "react";
 import "./globals.css";
 import Loading from "./loading";
+import ThemeButton from "@/components/common/ThemeButton";
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +38,7 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`min-h-screen w-screen bg-[var(--color-light)] text-[var(--color-dark)] antialiased ${SawarabiGothicFont.className}`}
+        className={`min-h-screen w-screen bg-[var(--color-light)] text-[var(--color-dark)] dark:bg-[var(--color-dark)] dark:text-[var(--color-light)] antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
           <Header />
@@ -54,7 +55,7 @@ export default async function RootLayout({
 async function Header() {
   const session = await getServerSession(authConfig);
   return (
-    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 text-white shadow-md">
+    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 dark:bg-blue-900 text-white shadow-md">
       <div className="flex items-center">
         <NavLink href="/">
           <div>
@@ -153,7 +154,7 @@ function NavDropDownLink({
   return (
     <div className="h-16 w-max group">
       <NavLink href={href}>{title}</NavLink>
-      <div className="bg-blue-600 opacity-0 invisible group-hover:visible group-hover:opacity-100 transition">
+      <div className="bg-blue-600 dark:bg-blue-900 opacity-0 invisible group-hover:visible group-hover:opacity-100 transition">
         {linklist.map((link, i) =>
           link.href !== undefined ? (
             <Link href={link.href} className="w-full" key={i}>
@@ -174,11 +175,12 @@ function NavDropDownLink({
 
 function Footer() {
   return (
-    <div className="h-[var(--footer-height)] w-full overflow-scroll bg-blue-600 flex items-center justify-between text-nowrap">
+    <div className="h-[var(--footer-height)] w-screen overflow-scroll bg-blue-600 dark:bg-blue-900 flex items-center justify-between text-nowrap">
       <p className="ml-8 text-white text-2xl">
         © 2025 RocketInSt Development Team
       </p>
-      <div className="mr-8 w-48 flex items-center text-white">
+      <div className="w-fit flex items-center text-white mr-8">
+        <ThemeButton />
         <NavLink href="/about">about</NavLink>
         <div className="bg-white h-10 w-[1px]" />
         <NavElement>
@@ -190,3 +192,4 @@ function Footer() {
     </div>
   );
 }
+

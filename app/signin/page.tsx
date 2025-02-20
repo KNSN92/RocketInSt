@@ -27,7 +27,7 @@ export default async function SignIn({
   } else {
     return (
       <div className="flex h-main-content w-full items-center justify-center">
-        <div className="p-4 flex h-[30rem] w-[36rem] flex-col items-center justify-center rounded-3xl border-4 border-blue-200 bg-blue-600">
+        <div className="p-4 flex h-[30rem] w-[36rem] flex-col items-center justify-center rounded-3xl border-4 border-blue-200 bg-blue-600 dark:bg-blue-800 border-blue-600">
           <h1 className="mb-2 block text-4xl md:text-5xl font-bold text-white">
             サインイン
           </h1>
