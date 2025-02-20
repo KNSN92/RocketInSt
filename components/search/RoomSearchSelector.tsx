@@ -44,8 +44,6 @@ export function RoomSearchSelector({
     300,
   );
 
-  useEffect(() => {}, []);
-
   return (
     <>
       {rooms.map((room, i) => (
