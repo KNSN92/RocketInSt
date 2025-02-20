@@ -52,8 +52,8 @@ export function RoomSearchSelector({
             className,
             "w-fit rounded-lg border-1 px-2 py-1 text-white",
             selectedRooms[room]
-              ? "border-blue-300 bg-blue-700 dark:bg-blue-800 dark:border-blue-900"
-              : "border-blue-400 bg-blue-500 dark:bg-blue-700 dark:border-blue-800",
+              ? "border-blue-300 bg-blue-700 dark:bg-blue-950/60 dark:text-blue-700 dark:border-blue-700"
+              : "border-blue-400 bg-blue-500 dark:bg-transparent dark:text-blue-500 dark:border-blue-500",
           )}
           value={room}
           onClick={() => {

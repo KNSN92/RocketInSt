@@ -87,7 +87,7 @@ export default function About() {
               alt="about rocketinst"
               width={859}
               height={659}
-              className="w-[80vw] md:w-[50vw]"
+              className="w-[80vw] md:w-[50vw] dark:bg-gray-200 dark:p-2"
             />
           </div>
         </div>

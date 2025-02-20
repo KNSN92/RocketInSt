@@ -38,7 +38,7 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`min-h-screen w-screen bg-[var(--color-light)] text-[var(--color-dark)] dark:bg-[var(--color-dark)] dark:text-[var(--color-light)] antialiased ${SawarabiGothicFont.className}`}
+        className={`min-h-screen w-screen bg-[var(--color-light)] text-[var(--color-dark)] dark:bg-[var(--color-dark)] dark:text-gray-200 antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
           <Header />
@@ -99,7 +99,7 @@ async function Header() {
               },
               {
                 href: undefined,
-                element: <div className="w-full h-0.5 bg-blue-700" />,
+                element: <div className="w-full h-0.5 bg-blue-700 dark:bg-blue-950" />,
               },
               {
                 href: undefined,

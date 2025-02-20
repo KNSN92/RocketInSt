@@ -36,7 +36,7 @@ export default function UserList({
           />
           {userList.map((user, i) => (
             <tr
-              className="min-w-full w-fit h-16 odd:bg-white even: bg-gray-50 hover:bg-gray-100 odd:dark:bg-black even:dark:bg-zinc-950 hover:dark:bg-zinc-900"
+              className="min-w-full w-fit h-16 odd:bg-white even: bg-gray-50 hover:bg-gray-100 odd:dark:bg-zinc-950 even:dark:bg-black hover:dark:bg-zinc-900"
               key={i}
             >
               <td className="h-16 p-0 m-0">

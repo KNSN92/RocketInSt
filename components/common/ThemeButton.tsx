@@ -32,20 +32,20 @@ export default function ThemeButton() {
 		)
 	}, [theme]);
 	return (
-		<div className="w-fit mx-8 flex text-lg border-2 border-blue-800 rounded-full">
-			<button className={clsx("w-fit h-fit p-2 flex gap-1 items-center rounded-l-full", theme === "light" && "bg-blue-800")}
+		<div className="w-fit mx-8 flex text-lg border-2 border-blue-800 dark:border-blue-600 rounded-full">
+			<button className={clsx("w-fit h-fit p-2 flex gap-1 items-center rounded-l-full", theme === "light" && "bg-blue-800 dark:bg-blue-600")}
 				onClick={() => setTheme("light")}
 			>
 				<OutlineSunIcon height={24} className={theme !== "light" ? "inline" : "hidden"} />
 				<SolidSunIcon height={24} className={theme === "light" ? "inline" : "hidden"} />
 			</button>
-			<button className={clsx("w-fit h-fit p-2 flex gap-1 items-center", theme === "dark" && "bg-blue-800")}
+			<button className={clsx("w-fit h-fit p-2 flex gap-1 items-center", theme === "dark" && "bg-blue-800 dark:bg-blue-600")}
 				onClick={() => setTheme("dark")}
 			>
 				<OutlineMoonIcon height={24} className={theme !== "dark" ? "inline" : "hidden"} />
 				<SolidMoonIcon height={24} className={theme === "dark" ? "inline" : "hidden"} />
 			</button>
-			<button className={clsx("w-fit h-fit p-2 flex gap-1 items-center rounded-r-full", theme === undefined && "bg-blue-800")}
+			<button className={clsx("w-fit h-fit p-2 flex gap-1 items-center rounded-r-full", theme === undefined && "bg-blue-800 dark:bg-blue-600")}
 				onClick={() => setTheme(undefined)}
 			>
 				<OutlineComputerDesktopIcon height={24} className={theme !== undefined ? "inline" : "hidden"} />

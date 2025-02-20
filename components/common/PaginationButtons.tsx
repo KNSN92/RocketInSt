@@ -120,8 +120,8 @@ function PaginationButton(
   const className = clsx(
     "flex justify-center items-center size-10 rounded-lg border-1 text-white text-lg",
     props.disabled
-      ? "bg-blue-700 border-blue-300 select-none"
-      : "bg-blue-500 border-blue-400 hover:bg-blue-400 hover:border-blue-300",
+      ? "bg-blue-700 border-blue-300 select-none dark:bg-transparent dark:border-blue-900 dark:text-blue-900"
+      : "bg-blue-500 border-blue-400 hover:bg-blue-400 hover:border-blue-300 dark:bg-transparent dark:border-blue-500 dark:text-blue-500 hover:dark:border-blue-700 hover:dark:text-blue-700",
   );
   if (props.disabled) {
     return <span className={className}>{props.children}</span>;
