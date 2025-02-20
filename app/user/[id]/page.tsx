@@ -306,7 +306,7 @@ async function LessonsTable({
             {DaysToWeekDayMap[CourseFreqToDaysMap[courseFrequency]].map(
               (weekday, j) => (
                 <td
-                  className="p-2 border-l-1 border-gray-400 dark:border[#b8e2e6] w-fit h-fit"
+                  className="p-2 border-l-1 border-gray-400 dark:border-[#b8e2e6] w-fit h-fit"
                   key={j}
                 >
                   {lessons[weekday] && lessons[weekday][period]
