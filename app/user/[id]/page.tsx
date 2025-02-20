@@ -24,7 +24,6 @@ import {
   isUserFriend,
 } from "@/lib/userdata";
 import {
-  combinateUserName,
   genUserTakingLessonQuery,
   getTakingLesson,
   getTakingRoom,
