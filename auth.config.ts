@@ -3,7 +3,7 @@ import { Session } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "./prisma";
-import { userExist } from "./lib/userdata";
+// import { userExist } from "./lib/userdata";
 
 if(!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     console.error("[ERROR] Google Client ID or Google Client Secret isn't set.");
@@ -44,7 +44,7 @@ const authConfig: AuthOptions = {
             if(profile?.email) {
                 const email = profile.email;
                 let canAccept = EmailDomainWhiteList.some((emailDomain) => email.endsWith(emailDomain));
-                canAccept = canAccept && await userExist(user.id);
+                canAccept = canAccept;// && await userExist(user.id);
                 return canAccept;
             }
             return false;
