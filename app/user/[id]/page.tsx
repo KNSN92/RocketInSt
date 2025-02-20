@@ -115,19 +115,19 @@ async function UserProfile({
   }[];
 }) {
   const userCampus = await fetchUserCampus(userId);
+  const takingRoomId = getTakingRoomId(lessons);
   return (
     <div className="mx-auto py-8 flex w-screen flex-col items-center sm:px-8 md:px-32">
       <UserIcon
         src={image}
         size={192}
-        status={getTakingRoomId(lessons) !== undefined ? "active" : "inactive"}
+        status={takingRoomId !== undefined ? "active" : "inactive"}
         statusStyle="border"
       />
       <h1
         className={clsx(
-          "pt-8 font-bold flex flex-col justify-center items-center gap-2",
+          "pt-8 pb-4 font-bold flex flex-col justify-center items-center gap-2",
           role === "Admin" && "text-[#ff0000]",
-          userId !== profileUserId && "pb-8",
         )}
       >
         {role === "Admin" && <span className="block text-nowrap text-3xl relative top-2">&lt;Admin&gt;</span>}
@@ -141,6 +141,10 @@ async function UserProfile({
           !name && !nickname && <span className="text-nowrap text-4xl">???</span>
         }
       </h1>
+      <div className={clsx("flex items-center gap-2", userId !== profileUserId && "pb-8")}>
+        <div className={clsx("size-6 rounded-full", takingRoomId !== undefined ? "bg-green-400" : "bg-gray-400")} />
+        <span className="font-bold text-xl">{takingRoomId !== undefined ? "アクティブ" : "非アクティブ"}</span>
+      </div>
       {userId !== profileUserId && (
         <FriendRegisterForm
           profileUserId={profileUserId}
