@@ -126,13 +126,21 @@ async function UserProfile({
       />
       <h1
         className={clsx(
-          "pt-8 text-2xl md:text-3xl font-bold",
+          "pt-8 font-bold flex flex-col justify-center items-center gap-2",
           role === "Admin" && "text-[#ff0000]",
           userId !== profileUserId && "pb-8",
         )}
       >
-        {role === "Admin" && "[Admin]"}
-        {combinateUserName(name, nickname)}
+        {role === "Admin" && <span className="block text-nowrap text-3xl relative top-2">&lt;Admin&gt;</span>}
+        {
+          nickname && <span className="block text-nowrap text-4xl">{nickname}</span>
+        }
+        {
+          name && <span className={clsx("block text-nowrap", nickname ? "text-xl" : "text-4xl")}>{name}</span>
+        }
+        {
+          !name && !nickname && <span className="text-nowrap text-4xl">???</span>
+        }
       </h1>
       {userId !== profileUserId && (
         <FriendRegisterForm

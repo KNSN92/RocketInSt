@@ -1,4 +1,3 @@
-import { combinateUserName } from "@/lib/users";
 import clsx from "clsx";
 import Link from "next/link";
 import { UserIcon } from "./UserIcon";
@@ -54,8 +53,16 @@ export default function UserList({
                     statusStyle="dot"
                     className="mr-4 inline-block"
                   />
-                  <div className="m-2 text-nowrap text-2xl">
-                    {combinateUserName(user.name, user.nickname)}
+                  <div className="m-2">
+                    {
+                      user.nickname && <span className={clsx("block text-nowrap text-2xl", user.name && "relative top-2")}>{user.nickname}</span>
+                    }
+                    {
+                      user.name && <span className={clsx("block text-nowrap text-gray-600", user.nickname ? "relative left-2 text-md" : "text-2xl")}>{user.name}</span>
+                    }
+                    {
+                      !user.name && !user.nickname && <span className="text-nowrap text-2xl">???</span>
+                    }
                   </div>
                 </Link>
               </td>
