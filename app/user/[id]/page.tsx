@@ -64,7 +64,7 @@ export default async function UserInfo({
 
   const { id } = await params;
   const profileUser = await fetchProfileUser(id);
-  if (profileUser && profileUser.campusId === userCampusId) {
+  if (profileUser /* && profileUser.campusId === userCampusId*/) {
     return (
       <UserProfile
         userId={userId}
@@ -114,7 +114,7 @@ async function UserProfile({
     period: { name: string; innername: string }[];
   }[];
 }) {
-  const userCampus = await fetchUserCampus(userId);
+  const userCampus = await fetchUserCampus(profileUserId);
   const takingRoomId = getTakingRoomId(lessons);
   return (
     <div className="mx-auto py-8 flex w-screen flex-col items-center sm:px-8 md:px-32">
@@ -130,20 +130,43 @@ async function UserProfile({
           role === "Admin" && "text-[#ff0000]",
         )}
       >
-        {role === "Admin" && <span className="block text-nowrap text-3xl relative top-2">&lt;Admin&gt;</span>}
-        {
-          nickname && <span className="block text-nowrap text-4xl">{nickname}</span>
-        }
-        {
-          name && <span className={clsx("block text-nowrap", nickname ? "text-xl" : "text-4xl")}>{name}</span>
-        }
-        {
-          !name && !nickname && <span className="text-nowrap text-4xl">???</span>
-        }
+        {role === "Admin" && (
+          <span className="block text-nowrap text-3xl relative top-2">
+            &lt;Admin&gt;
+          </span>
+        )}
+        {nickname && (
+          <span className="block text-nowrap text-4xl">{nickname}</span>
+        )}
+        {name && (
+          <span
+            className={clsx(
+              "block text-nowrap",
+              nickname ? "text-xl" : "text-4xl",
+            )}
+          >
+            {name}
+          </span>
+        )}
+        {!name && !nickname && (
+          <span className="text-nowrap text-4xl">???</span>
+        )}
       </h1>
-      <div className={clsx("flex items-center gap-2", userId !== profileUserId && "pb-8")}>
-        <div className={clsx("size-6 rounded-full", takingRoomId !== undefined ? "bg-green-400" : "bg-gray-400")} />
-        <span className="font-bold text-xl">{takingRoomId !== undefined ? "アクティブ" : "非アクティブ"}</span>
+      <div
+        className={clsx(
+          "flex items-center gap-2",
+          userId !== profileUserId && "pb-8",
+        )}
+      >
+        <div
+          className={clsx(
+            "size-6 rounded-full",
+            takingRoomId !== undefined ? "bg-green-400" : "bg-gray-400",
+          )}
+        />
+        <span className="font-bold text-xl">
+          {takingRoomId !== undefined ? "アクティブ" : "非アクティブ"}
+        </span>
       </div>
       {userId !== profileUserId && (
         <FriendRegisterForm
@@ -198,7 +221,7 @@ async function UserProfile({
         </div>
         <CampusMap
           mapData={(
-            await fetchUserCampusRooms(userId, {
+            await fetchUserCampusRooms(profileUserId, {
               roomPlan: true,
               id: true,
               name: true,
@@ -299,7 +322,10 @@ async function LessonsTable({
       </thead>
       <tbody>
         {LessonPeriods.map((period, i) => (
-          <tr className="border-t-1 border-gray-400 dark:border-[#b8e2e6]" key={i}>
+          <tr
+            className="border-t-1 border-gray-400 dark:border-[#b8e2e6]"
+            key={i}
+          >
             <th className="text-lg">
               <div className="px-2 text-nowrap">{LessonPeriodsJA[period]}</div>
             </th>
