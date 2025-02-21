@@ -23,7 +23,9 @@ const nicknameSchema = z
   .string({
     invalid_type_error: "ニックネームは文字列として入力してください。",
   })
-  .nonempty({ message: "ニックネームは1文字以上の長さにしてください。" });
+  .nonempty({ message: "ニックネームは1文字以上の長さにしてください。" })
+  .max(20, {message: "ニックネームは20文字以下の長さにしてください。"});
+
 const campusSchema = z
   .string({ invalid_type_error: "キャンパスは文字列として入力してください。" })
   .uuid({ message: "キャンパスはuuidとして入力してください。" })

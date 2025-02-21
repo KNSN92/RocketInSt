@@ -136,7 +136,7 @@ async function UserProfile({
           </span>
         )}
         {nickname && (
-          <span className="block text-nowrap text-4xl">{nickname}</span>
+          <span className="block text-center text-4xl">{nickname}</span>
         )}
         {name && (
           <span
