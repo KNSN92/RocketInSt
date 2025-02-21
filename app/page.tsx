@@ -102,15 +102,15 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
           className: clsx(
             "flex items-center justify-center border-2 font-bold rounded-lg",
             {
-              "bg-gray-400 border-gray-600 dark:bg-transparent dark:border-gray-600 dark:text-gray-600":
+              "bg-gray-400 border-gray-600 dark:bg-dark dark:border-gray-600 dark:text-gray-600":
                 alertLevel === -1,
-              "bg-blue-400 border-blue-600 dark:bg-transparent dark:border-blue-600 dark:text-blue-600":
+              "bg-blue-400 border-blue-600 dark:bg-dark dark:border-blue-600 dark:text-blue-600":
                 alertLevel === 0,
-              "bg-green-400 border-green-600 dark:bg-transparent dark:border-green-600 dark:text-green-600":
+              "bg-green-400 border-green-600 dark:bg-dark dark:border-green-600 dark:text-green-600":
                 alertLevel === 1,
-              "bg-yellow-400 border-yellow-600 dark:bg-transparent dark:border-yellow-600 dark:text-yellow-600":
+              "bg-yellow-400 border-yellow-600 dark:bg-dark dark:border-yellow-600 dark:text-yellow-600":
                 alertLevel === 2,
-              "bg-red-400 border-red-600 dark:bg-transparent dark:border-red-600 dark:text-red-600":
+              "bg-red-400 border-red-600 dark:bg-dark dark:border-red-600 dark:text-red-600":
                 alertLevel === 3,
             },
           ),
@@ -155,23 +155,23 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
             </div>
             <div className="my-4 mx-auto w-fit h-fit flex flex-row flex-wrap gap-4 text-nowrap">
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600 dark:bg-transparent dark:border-blue-600 dark:text-blue-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-blue-400 border-2 border-blue-600 dark:bg-dark dark:border-blue-600 dark:text-blue-600" />
                 空いている
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600 dark:bg-transparent dark:border-green-600 dark:text-green-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-green-400 border-2 border-green-600 dark:bg-dark dark:border-green-600 dark:text-green-600" />
                 少し混雑
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-yellow-400 border-2 border-yellow-600 dark:bg-transparent dark:border-yellow-600 dark:text-yellow-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-yellow-400 border-2 border-yellow-600 dark:bg-dark dark:border-yellow-600 dark:text-yellow-600" />
                 混雑
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-red-400 border-2 border-red-600 dark:bg-transparent dark:border-red-600 dark:text-red-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-red-400 border-2 border-red-600 dark:bg-dark dark:border-red-600 dark:text-red-600" />
                 非常に混雑
               </div>
               <div className="w-36 h-6 flex items-center gap-2">
-                <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600 dark:bg-transparent dark:border-gray-600 dark:text-gray-600" />
+                <div className="inline-block w-1/2 min-w-4 h-full bg-gray-400 border-2 border-gray-600 dark:bg-dark dark:border-gray-600 dark:text-gray-600" />
                 No Data
               </div>
             </div>

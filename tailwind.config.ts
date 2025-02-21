@@ -14,6 +14,10 @@ export default {
       borderWidth: {
         1: "1px"
       },
+      colors: {
+        "light": "var(--color-light)",
+        "dark": "var(--color-dark)"
+      }
     },
   },
   plugins: [],

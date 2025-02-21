@@ -4,6 +4,7 @@ import {
   RocketInStLogo,
   RocketInStWhiteTextLogo,
 } from "@/components/common/RocketInStLogos";
+import ThemeButton from "@/components/common/ThemeButton";
 import { UserIcon } from "@/components/common/UserIcon";
 import { NextAuthProvider } from "@/lib/providers";
 import { Metadata } from "next";
@@ -14,7 +15,6 @@ import Link from "next/link";
 import React, { ReactNode, Suspense } from "react";
 import "./globals.css";
 import Loading from "./loading";
-import ThemeButton from "@/components/common/ThemeButton";
 
 export const metadata: Metadata = {
   title: {
@@ -55,7 +55,7 @@ export default async function RootLayout({
 async function Header() {
   const session = await getServerSession(authConfig);
   return (
-    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 dark:bg-blue-900 text-white shadow-md">
+    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 dark:bg-blue-900 text-light shadow-md">
       <div className="flex items-center">
         <NavLink href="/">
           <div>
@@ -99,7 +99,9 @@ async function Header() {
               },
               {
                 href: undefined,
-                element: <div className="w-full h-0.5 bg-blue-700 dark:bg-blue-950" />,
+                element: (
+                  <div className="w-full h-0.5 bg-blue-700 dark:bg-blue-950" />
+                ),
               },
               {
                 href: undefined,
@@ -125,7 +127,7 @@ async function Header() {
 
 function NavElement({ children }: { children: ReactNode }) {
   return (
-    <div className="duration-400 flex h-16 items-center justify-center px-4 text-xl transition hover:bg-white hover:bg-opacity-10">
+    <div className="duration-400 flex h-16 items-center justify-center px-4 text-xl transition hover:bg-white/10">
       {children}
     </div>
   );
@@ -158,7 +160,7 @@ function NavDropDownLink({
         {linklist.map((link, i) =>
           link.href !== undefined ? (
             <Link href={link.href} className="w-full" key={i}>
-              <div className="duration-400 w-full flex h-16 items-center justify-center px-4 text-xl transition hover:bg-white hover:bg-opacity-10">
+              <div className="duration-400 w-full flex h-16 items-center justify-center px-4 text-xl transition hover:bg-white/10">
                 {link.title}
               </div>
             </Link>
@@ -183,14 +185,28 @@ function Footer() {
         <ThemeButton />
         <NavLink href="/about">about</NavLink>
         <div className="bg-white h-10 w-[1px]" />
-        <a className="w-full h-full flex items-center" href="https://github.com/KNSN92/RocketInSt">
+        <a
+          className="w-full h-full flex items-center"
+          href="https://github.com/KNSN92/RocketInSt"
+        >
           <NavElement>
-            <Image alt="github icon" src="/github_dark.svg" width="32" height="32" className="dark:hidden" />
-            <Image alt="github icon" src="/github_light.svg" width="32" height="32" className="hidden dark:inline" />
+            <Image
+              alt="github icon"
+              src="/github_dark.svg"
+              width="32"
+              height="32"
+              className="dark:hidden"
+            />
+            <Image
+              alt="github icon"
+              src="/github_light.svg"
+              width="32"
+              height="32"
+              className="hidden dark:inline"
+            />
           </NavElement>
         </a>
       </div>
     </div>
   );
 }
-

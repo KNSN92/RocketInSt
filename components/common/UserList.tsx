@@ -36,7 +36,7 @@ export default function UserList({
           />
           {userList.map((user, i) => (
             <tr
-              className="min-w-full w-fit h-16 odd:bg-white even: bg-gray-50 hover:bg-gray-100 odd:dark:bg-zinc-950 even:dark:bg-black hover:dark:bg-zinc-900"
+              className="min-w-full w-fit h-16 odd:bg-light even: bg-gray-50 hover:bg-gray-100 odd:dark:bg-zinc-950 even:dark:bg-dark hover:dark:bg-zinc-900"
               key={i}
             >
               <td className="h-16 p-0 m-0">
@@ -54,15 +54,31 @@ export default function UserList({
                     className="mr-4 inline-block"
                   />
                   <div className="mx-2">
-                    {
-                      user.nickname && <span className={clsx("block text-nowrap text-2xl", user.name && "relative top-2")}>{user.nickname}</span>
-                    }
-                    {
-                      user.name && <span className={clsx("block text-nowrap text-gray-600 dark:text-gray-400", user.nickname ? "relative left-2 text-md" : "text-2xl")}>{user.name}</span>
-                    }
-                    {
-                      !user.name && !user.nickname && <span className="text-nowrap text-2xl">???</span>
-                    }
+                    {user.nickname && (
+                      <span
+                        className={clsx(
+                          "block text-nowrap text-2xl",
+                          user.name && "relative top-2",
+                        )}
+                      >
+                        {user.nickname}
+                      </span>
+                    )}
+                    {user.name && (
+                      <span
+                        className={clsx(
+                          "block text-nowrap text-gray-600 dark:text-gray-400",
+                          user.nickname
+                            ? "relative left-2 text-md"
+                            : "text-2xl",
+                        )}
+                      >
+                        {user.name}
+                      </span>
+                    )}
+                    {!user.name && !user.nickname && (
+                      <span className="text-nowrap text-2xl">???</span>
+                    )}
                   </div>
                 </Link>
               </td>

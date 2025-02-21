@@ -67,7 +67,7 @@ export function DefaultSearchField() {
       </div>
       <SearchField
         placeholder={focus ? undefined : "        名前/ニックネームで検索"}
-        className="w-full h-12 rounded-lg border-1 border-blue-600 px-4 md:w-[60vw] xl:w-[40vw] dark:bg-black"
+        className="w-full h-12 rounded-lg border-1 border-blue-600 px-4 md:w-[60vw] xl:w-[40vw] dark:bg-dark"
         onFocus={() => {
           setFocus(true);
         }}
