@@ -5,7 +5,10 @@ import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
 import LoginRequired from "@/components/common/LoginRequired";
 import PaginationButtons from "@/components/common/PaginationButtons";
 import { DefaultRefreshButton } from "@/components/common/RefreshButton";
-import { RocketInStBlackTextLogo, RocketInStWhiteTextLogo } from "@/components/common/RocketInStLogos";
+import {
+  RocketInStBlackTextLogo,
+  RocketInStWhiteTextLogo,
+} from "@/components/common/RocketInStLogos";
 import UpdatedTime from "@/components/common/UpdatedTime";
 import UserList from "@/components/common/UserList";
 import CampusMap, { MapData } from "@/components/home/CampusMap";
@@ -90,7 +93,7 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
         return {
           ...item,
           name: (
-            <div className="text-center overflow-hidden">
+            <div className="text-center overflow-scroll">
               {`${item.name}`}
               <br />
               <span className="hidden sm:inline">{`${item.students}人`}</span>
@@ -99,11 +102,16 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
           className: clsx(
             "flex items-center justify-center border-2 font-bold rounded-lg",
             {
-              "bg-gray-400 border-gray-600 dark:bg-transparent dark:border-gray-600 dark:text-gray-600": alertLevel === -1,
-              "bg-blue-400 border-blue-600 dark:bg-transparent dark:border-blue-600 dark:text-blue-600": alertLevel === 0,
-              "bg-green-400 border-green-600 dark:bg-transparent dark:border-green-600 dark:text-green-600": alertLevel === 1,
-              "bg-yellow-400 border-yellow-600 dark:bg-transparent dark:border-yellow-600 dark:text-yellow-600": alertLevel === 2,
-              "bg-red-400 border-red-600 dark:bg-transparent dark:border-red-600 dark:text-red-600": alertLevel === 3,
+              "bg-gray-400 border-gray-600 dark:bg-transparent dark:border-gray-600 dark:text-gray-600":
+                alertLevel === -1,
+              "bg-blue-400 border-blue-600 dark:bg-transparent dark:border-blue-600 dark:text-blue-600":
+                alertLevel === 0,
+              "bg-green-400 border-green-600 dark:bg-transparent dark:border-green-600 dark:text-green-600":
+                alertLevel === 1,
+              "bg-yellow-400 border-yellow-600 dark:bg-transparent dark:border-yellow-600 dark:text-yellow-600":
+                alertLevel === 2,
+              "bg-red-400 border-red-600 dark:bg-transparent dark:border-red-600 dark:text-red-600":
+                alertLevel === 3,
             },
           ),
         };
