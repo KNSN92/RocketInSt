@@ -17,14 +17,14 @@ export function RocketInStLogo(props: NonSrcImageProps) {
 }
 
 export function RocketInStLoadingLogo({
-  classNameName,
+  className,
 }: {
-  classNameName?: HTMLDivElement["className"];
+  className?: HTMLDivElement["className"];
 }) {
   return (
     <div
       className={clsx(
-        classNameName,
+        className,
         "flex aspect-square items-center justify-center bg-[url(/logo/loading_back.png)] bg-contain",
       )}
     >
