@@ -1,6 +1,7 @@
 import { RocketInStLogo } from "@/components/common/RocketInStLogos";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
@@ -9,13 +10,18 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="h-fit w-screen">
+      <Link href="/about/extra" className="">
+        <div className="w-fit h-fit fixed left-full -translate-x-1/2 -translate-y-1/2 text-4xl bg-blue-700 pt-36 px-12 rotate-45">
+          Extra!
+        </div>
+      </Link>
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="mx-auto my-auto h-fit w-fit">
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">
             便利を世界へ。
           </h1>
           <div className="mt-4 flex flex-row items-center justify-center">
-            <div className="ml-12 md:ml-24 lg:ml-48 mr-4 inline-block h-0 w-5 md:w-10 lg:w-20 border-t-2 border-black align-middle"></div>
+            <div className="ml-12 md:ml-24 lg:ml-48 mr-4 inline-block h-0 w-5 md:w-10 lg:w-20 border-t-2 border-bgcolorinverse align-middle"></div>
             <h2 className="inline-block text-xl md:text-2xl lg:text-4xl">
               RocketIn.St Development Team
             </h2>

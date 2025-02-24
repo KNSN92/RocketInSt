@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
+    "@gsap/react": "^2.1.2",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.2.1",
     "clsx": "^2.1.1",
+    "gsap": "^3.12.7",
     "i": "^0.3.7",
     "next": "15.1.4",
     "next-auth": "^4.24.11",

@@ -6,6 +6,7 @@ import {
 } from "@/components/common/RocketInStLogos";
 import ThemeButton from "@/components/common/ThemeButton";
 import { UserIcon } from "@/components/common/UserIcon";
+import { HeaderShowHideButton } from "@/components/layout/HeaderShowHideButton";
 import { NextAuthProvider } from "@/lib/providers";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -38,10 +39,11 @@ export default async function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`min-h-screen w-screen bg-[var(--color-light)] text-[var(--color-dark)] dark:bg-[var(--color-dark)] dark:text-gray-200 antialiased ${SawarabiGothicFont.className}`}
+        className={`min-h-screen w-screen bg-bgcolor text-[var(--color-dark)] dark:text-gray-200 antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
           <Header />
+          <HeaderShowHideButton />
           <div className="min-h-screen w-full pt-[var(--header-height)]">
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </div>
@@ -55,7 +57,7 @@ export default async function RootLayout({
 async function Header() {
   const session = await getServerSession(authConfig);
   return (
-    <div className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 dark:bg-blue-900 text-light shadow-md">
+    <header className="fixed inset-0 z-50 flex h-[var(--header-height)] w-screen items-center justify-between bg-blue-600 dark:bg-blue-900 text-light shadow-md">
       <div className="flex items-center">
         <NavLink href="/">
           <div>
@@ -121,7 +123,7 @@ async function Header() {
           </SignInButton>
         )}
       </div>
-    </div>
+    </header>
   );
 }
 
@@ -177,7 +179,7 @@ function NavDropDownLink({
 
 function Footer() {
   return (
-    <div className="h-[var(--footer-height)] w-screen overflow-scroll bg-blue-600 dark:bg-blue-900 flex items-center justify-between text-nowrap">
+    <footer className="h-[var(--footer-height)] w-screen overflow-scroll bg-blue-600 dark:bg-blue-900 flex items-center justify-between text-nowrap">
       <p className="ml-8 text-white text-2xl">
         © 2025 RocketInSt Development Team
       </p>
@@ -186,27 +188,29 @@ function Footer() {
         <NavLink href="/about">about</NavLink>
         <div className="bg-white h-10 w-[1px]" />
         <a
-          className="w-full h-full flex items-center"
+          className="w-fit h-full flex items-center"
           href="https://github.com/KNSN92/RocketInSt"
         >
           <NavElement>
-            <Image
-              alt="github icon"
-              src="/github_dark.svg"
-              width="32"
-              height="32"
-              className="dark:hidden"
-            />
-            <Image
-              alt="github icon"
-              src="/github_light.svg"
-              width="32"
-              height="32"
-              className="hidden dark:inline"
-            />
+            <div className="w-8 h-8">
+              <Image
+                alt="github icon"
+                src="/github_dark.svg"
+                width="32"
+                height="32"
+                className="dark:hidden"
+              />
+              <Image
+                alt="github icon"
+                src="/github_light.svg"
+                width="32"
+                height="32"
+                className="hidden dark:inline"
+              />
+            </div>
           </NavElement>
         </a>
       </div>
-    </div>
+    </footer>
   );
 }

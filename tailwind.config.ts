@@ -16,7 +16,9 @@ export default {
       },
       colors: {
         "light": "var(--color-light)",
-        "dark": "var(--color-dark)"
+        "dark": "var(--color-dark)",
+        "bgcolor": "var(--bg-color)",
+        "bgcolorinverse": "var(--bg-color-inverse)",
       }
     },
   },

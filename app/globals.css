@@ -7,20 +7,37 @@ body {
   --color-dark: black;
   --color-light: white;
 
+  --bg-color: var(--color-light);
+  --bg-color-inverse: var(--color-dark);
+
   --color: rgba(240, 240, 240, 0.5);
   background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
       linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
   background-size: 55px 55px;
 
-  --header-height: 4rem;
+  --header-height: 0rem;
   --footer-height: 8rem;
 }
 
 body:is(.dark *) {
+  --bg-color: var(--color-dark);
+  --bg-color-inverse: var(--color-light);
+
   --color: rgba(40, 40, 40, 0.5);
   background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
       linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
   background-size: 55px 55px;
+}
+
+header {
+  visibility: hidden;
+}
+
+body:is(.header *) {
+  header {
+    visibility: visible;
+  }
+  --header-height: 4rem;
 }
 
 @keyframes loading-spin {
