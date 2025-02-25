@@ -470,7 +470,7 @@ function UsefulToTheWorld() {
   return (
     <div className="useful-to-the-world absolute w-screen h-screen flex justify-center items-center">
       <div>
-        <h1 className="text-8xl">便利を世界へ</h1>
+        <h1 className="text-8xl">便利を世界へ。</h1>
         <div className="useful-to-the-world-sub flex items-center gap-4 pt-4 pl-48">
           <div className="inline-block w-16 h-[1px] bg-bgcolorinverse" />
           <h2 className="text-4xl">RocketInSt Development Team</h2>
