@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -12,6 +13,7 @@ export function HeaderShowHideButton() {
     } else {
       document.documentElement.classList.remove("header");
     }
+    ScrollTrigger.refresh();
   }, [showed]);
   return (
     <button
