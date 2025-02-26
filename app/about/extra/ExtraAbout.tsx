@@ -21,14 +21,17 @@ export default function ExtraAbout() {
       gsap.registerPlugin(ScrollTrigger);
       gsap.registerPlugin(MotionPathPlugin);
 
+      addEventListener("DOMContentLoaded", () => ScrollTrigger.refresh());
+      addEventListener("resize", () => ScrollTrigger.refresh());
+
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const vw50 = vw / 2;
       const vh50 = vh / 2;
 
-      gsap.set(".useful-to-the-world", {
-        y: vh,
-      });
+      // gsap.set(".useful-to-the-world", {
+      //   y: vh,
+      // });
       gsap.set(".features", {
         y: vh,
       });
@@ -44,7 +47,6 @@ export default function ExtraAbout() {
             toggleActions: "play none reverse none",
             scrub: true,
             pin: true,
-            markers: true,
           },
           onComplete: () => {
             replace("/");
@@ -235,14 +237,34 @@ export default function ExtraAbout() {
               },
               ">",
             )
-            //便利を世界へ 出現
-            .to(
-              ".useful-to-the-world",
+            //便利を世界へ。 出現
+            .fromTo(
+              ".useful-to-the-world-char-odd",
               {
-                y: 0,
+                autoAlpha: 0,
+                yPercent: 20,
+              },
+              {
+                autoAlpha: 1,
+                yPercent: 0,
                 duration: 2,
+                stagger: 0.4,
               },
               "<+=50%",
+            )
+            .fromTo(
+              ".useful-to-the-world-char-even",
+              {
+                autoAlpha: 0,
+                yPercent: -20,
+              },
+              {
+                autoAlpha: 1,
+                yPercent: 0,
+                duration: 2,
+                stagger: 0.4,
+              },
+              "<",
             )
             .fromTo(
               ".useful-to-the-world-sub",
@@ -277,12 +299,16 @@ export default function ExtraAbout() {
               },
               ">",
             )
-            .to(
-              ".features",
-              {
-                xPercent: -100 * (7 / 8),
-                duration: 10 * 2,
-              },
+            .add(
+              gsap
+                .timeline()
+                .to(".features", { x: -vw * 1, duration: 2 }, "+=0.00")
+                .to(".features", { x: -vw * 2, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 3, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 4, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 5, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 6, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 7, duration: 2 }, "+=0.25"),
               "+=0.5",
             )
             .to(
@@ -335,7 +361,7 @@ export default function ExtraAbout() {
           ".logo-needle",
           {
             rotate: 360 * 5,
-            duration: 42,
+            duration: 40.5,
           },
           "startNeedleRotate",
         )
@@ -437,7 +463,7 @@ export default function ExtraAbout() {
   );
   return (
     <div
-      className="relative w-screen h-main-content flex justify-start items-center overflow-hidden"
+      className="relative w-screen h-screen flex justify-start items-center overflow-hidden"
       ref={page}
     >
       <Intro />
@@ -470,7 +496,15 @@ function UsefulToTheWorld() {
   return (
     <div className="useful-to-the-world absolute w-screen h-screen flex justify-center items-center">
       <div>
-        <h1 className="text-8xl">便利を世界へ。</h1>
+        <div className="text-8xl flex">
+          <div className="useful-to-the-world-char-odd">便</div>
+          <div className="useful-to-the-world-char-even">利</div>
+          <div className="useful-to-the-world-char-odd">を</div>
+          <div className="useful-to-the-world-char-even">世</div>
+          <div className="useful-to-the-world-char-odd">界</div>
+          <div className="useful-to-the-world-char-even">へ</div>
+          <div className="useful-to-the-world-char-odd">。</div>
+        </div>
         <div className="useful-to-the-world-sub flex items-center gap-4 pt-4 pl-48">
           <div className="inline-block w-16 h-[1px] bg-bgcolorinverse" />
           <h2 className="text-4xl">RocketInSt Development Team</h2>
@@ -491,30 +525,37 @@ function Features() {
       <FeatureSection
         title="居場所表示機能"
         desc="この人どこに居るっけ？と言う事とはもうおさらば。"
+        img="/extraabout/location.png"
       />
       <FeatureSection
         title="混雑状況マップ"
         desc="混雑しているか色ですぐに判別。部屋を決める際にどうぞ。"
+        img="/extraabout/congestion.png"
       />
       <FeatureSection
         title="ユーザー検索機能"
         desc="ユーザー名で検索出来ることは勿論。ユーザーが今居る部屋でも検索出来ます。"
+        img="/extraabout/search.png"
       />
       <FeatureSection
         title="フレンド機能"
         desc="メインページからでもユーザーがどこに居るのかすぐに分かります。今後さらなる機能が追加される可能性があります。"
+        img="/extraabout/friend.png"
       />
       <FeatureSection
         title="レスポンシブ対応"
-        desc="このページを除く全てのサイトをレスポンシブ対応済みです。スマホでも問題無く閲覧が可能です。"
+        desc="このページを除く全てのページをレスポンシブ対応済みです。スマホでも問題無く閲覧が可能です。"
+        img="/extraabout/responsive.png"
       />
       <FeatureSection
         title="ダークモード対応"
         desc="フッターから切り替える事が出来るダークモードは目に優しく、夜でも快適に閲覧が可能な上、画面が暗くなるため電力消費量の削減にもつながります。"
+        img="/extraabout/dark.png"
       />
       <FeatureSection
         title="N/S高生のみログイン可能"
         desc="メールアドレスが@nnn.ed.jpで終わるユーザーのみ登録を許可することで、N/S高生のみログイン出来る機能が実現されました。"
+        img="/extraabout/onlylogin.png"
       />
     </div>
   );
@@ -523,12 +564,17 @@ function Features() {
 function FeatureSection({
   title,
   desc,
+  img,
 }: {
   title: ReactNode;
   desc: ReactNode;
+  img: string;
 }) {
   return (
     <div className="px-32 w-screen h-screen flex flex-col items-center justify-center gap-6">
+      <div className="w-1/3 h-1/3 relative mb-16">
+        <Image src={img} alt="feature img" fill={true} objectFit="contain" />
+      </div>
       <h1 className="text-6xl">{title}</h1>
       <p className="text-3xl">{desc}</p>
     </div>
