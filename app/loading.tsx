@@ -12,7 +12,7 @@ export default function Loading() {
     gsap.to(".logo-needle", {
       rotate: 360, repeat: -1, transformOrigin: "50% 50%", ease: "power1", duration: 1
     })
-  }, { scope: containerRef.current as HTMLElement })
+  }, { scope: containerRef })
   return (
     <div className="flex h-main-content w-screen flex-col items-center justify-center" ref={containerRef}>
       <RocketInStSvgLogo className="logo size-[max(10vw,_10vh)]" />

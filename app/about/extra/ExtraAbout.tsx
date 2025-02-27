@@ -531,7 +531,7 @@ export default function ExtraAbout() {
           duration: 2,
         });
     },
-    { scope: page.current as Element },
+    { scope: page },
   );
   return (
     <div
