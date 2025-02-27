@@ -10,14 +10,16 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="h-fit w-screen">
-      <Link
-        href="/about/extra"
-        className="block absolute left-full -translate-x-full size-48 overflow-hidden"
+      <div
+        className="absolute left-full -translate-x-full size-48 overflow-hidden"
       >
-        <div className="size-[calc(100%_*_sqrt(2))] text-5xl bg-blue-700 text-gray-200 flex justify-center items-end  -translate-x-[calc(50%_-_50%_*_sqrt(2))] -translate-y-1/2 rotate-45">
+        <Link
+          className="size-[calc(100%_*_sqrt(2))] text-5xl bg-blue-700 text-gray-200 flex justify-center items-end  -translate-x-[calc(50%_-_50%_*_sqrt(2))] -translate-y-1/2 rotate-45"
+          href="/about/extra"
+        >
           Extra!
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="mx-auto my-auto h-fit w-fit">
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">
