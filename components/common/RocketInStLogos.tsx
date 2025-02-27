@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import Image, { ImageProps } from "next/image";
 import { JSX, SVGProps } from "react";
 
@@ -14,29 +13,6 @@ export function RocketInStBlackTextLogo(props: NonSrcImageProps) {
 
 export function RocketInStLogo(props: NonSrcImageProps) {
   return <Image src="/logo/logo.png" alt="RocketIn.st Logo" {...props} />;
-}
-
-export function RocketInStLoadingLogo({
-  className,
-}: {
-  className?: HTMLDivElement["className"];
-}) {
-  return (
-    <div
-      className={clsx(
-        className,
-        "flex aspect-square items-center justify-center bg-[url(/logo/loading_back.png)] bg-contain",
-      )}
-    >
-      <Image
-        src="/logo/loading_needle.png"
-        alt="RocketIn.st Loading Needle"
-        width={47}
-        height={367}
-        className="h-[80%] w-fit rotate-45 animate-[loading-spin_1s_ease-in-out_infinite]"
-      />
-    </div>
-  );
 }
 
 export function RocketInStSvgLogo(
