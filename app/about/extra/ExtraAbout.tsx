@@ -644,7 +644,7 @@ function FeatureSection({
 }) {
   return (
     <div className="px-32 w-screen h-screen flex flex-col items-center justify-center gap-6">
-      <div className="w-1/3 h-1/3 relative mb-16">
+      <div className="w-2/3 h-1/3 relative mb-16">
         <Image src={img} alt="feature img" fill={true} objectFit="contain" />
       </div>
       <h1 className="text-6xl">{title}</h1>
