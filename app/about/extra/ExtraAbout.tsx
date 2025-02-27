@@ -396,8 +396,8 @@ export default function ExtraAbout() {
             //使用ライブラリとか 出現
             .fromTo(
               ".usedlibs",
-              { y: vh },
-              { y: 0, duration: 2 },
+              { y: vh, autoAlpha: 0, },
+              { y: 0, autoAlpha: 1, duration: 2 },
               "<+=50%",
             )
             .to(
