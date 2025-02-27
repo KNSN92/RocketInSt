@@ -362,8 +362,8 @@ export default function ExtraAbout() {
             //特徴 出現
             .fromTo(
               ".features",
-              { y: vh },
-              { y: 0, duration: 2 },
+              { y: vh, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 2 },
               "<+=10%",
             )
             .to(
