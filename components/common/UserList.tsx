@@ -67,9 +67,9 @@ export default function UserList({
                     {user.name && (
                       <span
                         className={clsx(
-                          "block text-nowrap text-gray-600 dark:text-gray-400",
+                          "block text-nowrap",
                           user.nickname
-                            ? "relative left-2 text-md"
+                            ? "relative left-2 text-md text-gray-600 dark:text-gray-400"
                             : "text-2xl",
                         )}
                       >
