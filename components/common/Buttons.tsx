@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Link from "next/link";
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
 
@@ -23,20 +24,17 @@ type ButtonProps = DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-export function PrimaryButton(props: Omit<ButtonProps, "className">) {
-  return (
-    <button
-      className="flex h-fit w-fit items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-xl font-bold text-white hover:bg-blue-700 disabled:bg-blue-900 dark:bg-blue-700 hover:dark:bg-blue-800 disabled:dark:bg-blue-900"
-      {...props}
-    ></button>
-  );
-}
+const ButtonColors = {
+  "primary": "bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-900 dark:bg-blue-700 hover:dark:bg-blue-800 disabled:dark:bg-blue-900",
+  "secondary": "bg-gray-600 text-white hover:bg-gray-700 disabled:bg-gray-900"
+};
+type ButtonColor = keyof typeof ButtonColors;
 
-export function SecondaryButton(props: Omit<ButtonProps, "className">) {
+export function Button(props: ButtonProps & { color: ButtonColor }) {
   return (
     <button
-      className="flex h-fit w-fit items-center justify-center rounded-lg bg-gray-600 px-4 py-2 text-xl font-bold text-white hover:bg-gray-700 disabled:bg-gray-900"
-      {...props}
-    ></button>
-  );
+    className={clsx("flex h-fit w-fit items-center justify-center rounded-lg  px-4 py-2 text-xl font-bold ", ButtonColors[props.color], props.className)}
+    {...props}
+  ></button>
+  )
 }

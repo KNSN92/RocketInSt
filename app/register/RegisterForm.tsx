@@ -14,7 +14,7 @@ import {
 import { WeekDayJA } from "@/data/weekdays";
 import { WeekDay } from "@prisma/client";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
-import { PrimaryButton } from "../../components/common/Buttons";
+import { Button } from "../../components/common/Buttons";
 import RadioButton from "../../components/common/RadioButton";
 
 export default function RegisterForm({
@@ -229,9 +229,9 @@ export default function RegisterForm({
             />
           </div>
           <div className="mx-auto mt-8 w-fit">
-            <PrimaryButton type="submit" disabled={isPending}>
+            <Button color="primary" type="submit" disabled={isPending}>
               {isPending ? "送信中..." : "送信"}
-            </PrimaryButton>
+            </Button>
           </div>
         </form>
       </div>

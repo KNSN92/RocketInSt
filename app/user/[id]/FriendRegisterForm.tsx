@@ -1,7 +1,7 @@
 "use client";
 
 import registerFriendAction from "@/actions/users/RegisterFriendAction";
-import { PrimaryButton, SecondaryButton } from "@/components/common/Buttons";
+import { Button } from "@/components/common/Buttons";
 import { useActionState, useEffect } from "react";
 
 export default function FriendRegisterForm({
@@ -23,13 +23,13 @@ export default function FriendRegisterForm({
     <form action={action}>
       <input type="hidden" name="user" value={profileUserId} />
       {state.isFriend ? (
-        <SecondaryButton type="submit" disabled={isPending}>
+        <Button color="secondary" type="submit" disabled={isPending}>
           {isPending ? "解除中..." : "フレンド解除"}
-        </SecondaryButton>
+        </Button>
       ) : (
-        <PrimaryButton type="submit" disabled={isPending}>
+        <Button color="primary" type="submit" disabled={isPending}>
           {isPending ? "登録中..." : "フレンド登録"}
-        </PrimaryButton>
+        </Button>
       )}
     </form>
   );
