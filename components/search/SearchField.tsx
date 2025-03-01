@@ -1,7 +1,6 @@
 "use client";
 
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
-import clsx from "clsx";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   DetailedHTMLProps,
@@ -53,21 +52,22 @@ export function DefaultSearchField() {
       searchInput.current ? searchInput.current.value.length > 0 : false,
     );
   }, [searchInput.current?.value]);
+  const magnifyingGlassX = (focus || hasText) ? `calc(${searchInput.current?.clientWidth}px - 100%)` : "0px";
+  console.log(magnifyingGlassX)
   return (
     <div className="mx-4 relative flex transition w-full md:w-[60vw] xl:w-[40vw]">
       <div
-        className={clsx(
-          "w-fit h-fit absolute translate-y-1/4 pointer-events-none transition",
-          focus || hasText
-            ? "translate-x-[calc(100vw_-_3rem)] md:translate-x-[calc(60vw_-_3rem)] xl:translate-x-[calc(40vw_-_3rem)]"
-            : "translate-x-[1rem]",
-        )}
+        className="w-fit h-fit px-4 absolute pointer-events-none transition"
+        style={{
+          top: "50%",
+          transform: `translate(${magnifyingGlassX}, -50%)`
+        }}
       >
         <MagnifyingGlassIcon className="w-8 text-zinc-900 dark:text-zinc-100 opacity-30 transition" />
       </div>
       <SearchField
         placeholder={focus ? undefined : "        名前/ニックネームで検索"}
-        className="w-full h-12 rounded-lg border-1 border-blue-600 px-4 md:w-[60vw] xl:w-[40vw] dark:bg-dark"
+        className="w-full h-12 rounded-lg border-1 outline-0 border-blue-600 focus:border-2 focus:border-blue-800 focus:dark:border-blue-400 px-4 md:w-[60vw] xl:w-[40vw] dark:bg-dark"
         onFocus={() => {
           setFocus(true);
         }}
