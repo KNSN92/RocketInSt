@@ -100,6 +100,10 @@ async function Header() {
                 title: "register",
               },
               {
+                href: "/settings",
+                title: "settings",
+              },
+              {
                 href: undefined,
                 element: (
                   <div className="w-full h-0.5 bg-blue-700 dark:bg-blue-950" />

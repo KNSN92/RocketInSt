@@ -20,7 +20,6 @@ import RadioButton from "../../components/common/RadioButton";
 export default function RegisterForm({
   campuses,
   initialTable,
-  initialNickName,
   initialCampus,
   initialCourse,
   initialAfterschool,
@@ -31,13 +30,11 @@ export default function RegisterForm({
       [key: string]: { id: string; title: string; selected: boolean }[];
     };
   };
-  initialNickName?: string;
   initialCampus?: string;
   initialCourse?: CourseFreqDay;
   initialAfterschool?: number;
 }) {
   const [registerData, setRegisterData] = useState({
-    nickname: initialNickName || "",
     campus: initialCampus,
     course: initialCourse || 1,
   });
@@ -96,18 +93,6 @@ export default function RegisterForm({
           当サイトの機能を使うには以下の情報を入力する必要があります。
         </p>
         <form action={formAction} className="w-fit mx-auto">
-          <div className="mx-auto mt-8 w-80 sm:w-96">
-            <h2 className="mb-2 text-xl font-bold">ニックネームを入力</h2>
-            <input
-              className="block h-12 w-full rounded-lg border-1 border-gray-400 bg-[#ebf6f7] dark:bg-transparent dark:border-[#b8e2e6] dark:text-[#b8e2e6] px-2 text-xl"
-              name="nickname"
-              value={registerData.nickname}
-              onChange={(e) =>
-                setRegisterData({ ...registerData, nickname: e.target.value })
-              }
-              disabled={isPending}
-            />
-          </div>
           <div className="mx-auto mt-8 w-80 sm:w-96">
             <h2 className="mb-2 text-xl font-bold">キャンパスを選択</h2>
             <select

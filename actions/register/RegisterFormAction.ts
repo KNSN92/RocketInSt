@@ -19,13 +19,6 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-const nicknameSchema = z
-  .string({
-    invalid_type_error: "ニックネームは文字列として入力してください。",
-  })
-  .nonempty({ message: "ニックネームは1文字以上の長さにしてください。" })
-  .max(20, {message: "ニックネームは20文字以下の長さにしてください。"});
-
 const campusSchema = z
   .string({ invalid_type_error: "キャンパスは文字列として入力してください。" })
   .uuid({ message: "キャンパスはuuidとして入力してください。" })
@@ -51,7 +44,6 @@ const lessonsSchema = z
 
 const schema = z
   .object({
-    nickname: nicknameSchema,
     campus: campusSchema,
     course: courseSchema,
     afterschool: afterschoolSchema,
@@ -67,7 +59,7 @@ async function validateCampus(campus: string, ctx: z.RefinementCtx) {
     if (!foundCampus) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: `${campus}はデータベースに存在しません。`,
+        message: `キャンパスがデータベースに存在しません。`,
       });
     }
   } catch (e) {
@@ -144,7 +136,6 @@ export default async function handleRegisterAction(
   formData: FormData,
 ): Promise<{ error: boolean; msg?: string }> {
   const parseResult = await schema.safeParseAsync({
-    nickname: formData.get("nickname"),
     campus: formData.get("campus"),
     course: formData.get("course"),
     afterschool: formData.get("afterschool"),
@@ -152,7 +143,7 @@ export default async function handleRegisterAction(
   });
   if (!parseResult.success)
     return { error: true, msg: parseResult.error?.errors[0].message };
-  const { nickname, campus, course, afterschool, lessons } = parseResult.data;
+  const { campus, course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
   const userId = session?.user?.id;
   if (!userId)
@@ -191,7 +182,6 @@ export default async function handleRegisterAction(
     prisma.user.update({
       where: { id: userId },
       data: {
-        nickname: nickname,
         campus: { connect: { id: campus } },
         courseFrequency: courseFreqEnum,
       },

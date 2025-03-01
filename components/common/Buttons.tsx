@@ -26,7 +26,8 @@ type ButtonProps = DetailedHTMLProps<
 
 const ButtonColors = {
   "primary": "bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-900 dark:bg-blue-700 hover:dark:bg-blue-800 disabled:dark:bg-blue-900",
-  "secondary": "bg-gray-600 text-white hover:bg-gray-700 disabled:bg-gray-900"
+  "secondary": "bg-gray-600 text-white hover:bg-gray-700 disabled:bg-gray-900",
+  "error": "bg-red-600 text-white hover:bg-red-700 disabled:bg-red-900 dark:bg-red-700 hover:dark:bg-red-800 disabled:dark:bg-red-900",
 };
 type ButtonColor = keyof typeof ButtonColors;
 

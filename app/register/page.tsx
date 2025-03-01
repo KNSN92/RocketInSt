@@ -15,11 +15,10 @@ export default async function Register() {
   try {
     const table = await fetchLessonsAndGenTable(session?.user?.id || undefined);
     const campuses = await fetchCampuses();
-    const { nickname, campus, course, afterschool } =
+    const { campus, course, afterschool } =
       await fetchUserSchoolInfoOrUndefined(session?.user?.id || undefined);
     return (
       <RegisterForm
-        initialNickName={nickname}
         campuses={campuses}
         initialTable={table}
         initialCampus={campus}
@@ -118,7 +117,6 @@ async function fetchCampuses() {
 async function fetchUserSchoolInfoOrUndefined(userId?: string) {
   if (!userId)
     return {
-      nickname: undefined,
       campus: undefined,
       course: undefined,
       afterschool: undefined,
@@ -128,7 +126,6 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
       id: userId,
     },
     select: {
-      nickname: true,
       campus: true,
       courseFrequency: true,
       _count: {
@@ -147,7 +144,6 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
     },
   });
   return {
-    nickname: data?.nickname || undefined,
     campus: data?.campus?.id || undefined,
     course: data?.courseFrequency
       ? CourseFreqToDaysMap[data.courseFrequency]
