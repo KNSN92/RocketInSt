@@ -14,6 +14,7 @@ export function AuthSuccessNotificator() {
     } else {
       replace("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <></>;
 }

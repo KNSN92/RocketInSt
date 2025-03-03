@@ -14,6 +14,7 @@ export function AuthErrorNotificator() {
         : `認証に失敗しました。:(\n何らかの理由でサインインに失敗しました。もう何回かサインインを試みて同じエラーが出る場合は、改善するまでしばらくお待ちください。\nエラーの種類:${error}`;
     notify(message, "error");
     replace("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <></>;
 }
