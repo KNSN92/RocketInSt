@@ -11,13 +11,14 @@ const profileUserSchema = z
   );
 
 export default async function registerFriendAction(
-  previousState: { isFriend: boolean; error: boolean; msg: string },
+  previousState: { isFriend: boolean; success: boolean; error: boolean; msg: string },
   formData: FormData,
 ) {
   const myUserId = await fetchUserId();
   if (!myUserId)
     return {
       isFriend: previousState.isFriend,
+      success: false,
       error: true,
       msg: "ログインしてください。",
     };
@@ -27,12 +28,14 @@ export default async function registerFriendAction(
   if (!parseResult.success)
     return {
       isFriend: previousState.isFriend,
+      success: false,
       error: true,
       msg: parseResult.error.errors[0].message,
     };
   const profileUserId = parseResult.data;
   if(myUserId === profileUserId) return {
     isFriend: previousState.isFriend,
+    success: false,
     error: true,
     msg: "自分自身をフレンド登録しようとしています。",
   }
@@ -50,7 +53,7 @@ export default async function registerFriendAction(
         },
       },
     });
-    return { isFriend: true, error: false, msg: "" };
+    return { isFriend: true, success: true, error: false, msg: "" };
   } else {
     await prisma.user.update({
       where: {
@@ -64,6 +67,6 @@ export default async function registerFriendAction(
         },
       },
     });
-    return { isFriend: false, error: false, msg: "" };
+    return { isFriend: false, success: true, error: false, msg: "" };
   }
 }

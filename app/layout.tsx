@@ -1,5 +1,6 @@
 import authConfig from "@/auth.config";
 import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
+import NotificationList from "@/components/common/NotificationList";
 import {
   RocketInStLogo,
   RocketInStWhiteTextLogo,
@@ -7,6 +8,7 @@ import {
 import ThemeButton from "@/components/common/ThemeButton";
 import { UserIcon } from "@/components/common/UserIcon";
 import { HeaderShowHideButton } from "@/components/layout/HeaderShowHideButton";
+import { NotificationProvider } from "@/lib/notification";
 import { NextAuthProvider } from "@/lib/providers";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -42,12 +44,12 @@ export default async function RootLayout({
         className={`min-h-screen w-screen bg-bgcolor text-[var(--color-dark)] dark:text-gray-200 antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
-          <Header />
-          <HeaderShowHideButton />
-          <div className="min-h-screen w-full pt-[var(--header-height)]">
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </div>
-          <Footer />
+          <NotificationProvider>
+            <Header />
+            <HeaderShowHideButton />
+            <Main>{children}</Main>
+            <Footer />
+          </NotificationProvider>
         </NextAuthProvider>
       </body>
     </html>
@@ -128,6 +130,15 @@ async function Header() {
         )}
       </div>
     </header>
+  );
+}
+
+function Main({ children }: { children: ReactNode }) {
+  return (
+    <main className="min-h-screen w-full pt-[var(--header-height)]">
+      <NotificationList className="pt-4" />
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </main>
   );
 }
 

@@ -29,7 +29,7 @@ const authConfig: AuthOptions = {
     ],
     pages: {
         signIn: "/signin",
-        error: "/autherror",
+        error: "/auth/error",
         newUser: "/register"
     },
     callbacks: {
@@ -38,17 +38,15 @@ const authConfig: AuthOptions = {
             return session;
         },
         async signIn(params) {
-            const { profile, user } = params;
-            console.log(user);
-            console.log("user:", await prisma.user.findUnique({ where: { id: user.id } }));
-            if(profile?.email) {
-                const email = profile.email;
-                let canAccept = EmailDomainWhiteList.some((emailDomain) => email.endsWith(emailDomain));
-                canAccept = canAccept;// && await userExist(user.id);
+            const { user } = params;
+            if(user.email) {
+                const email = user.email;
+                const canAccept = EmailDomainWhiteList.some((emailDomain) => email.endsWith(emailDomain));
+                // canAccept = canAccept && await userExist(user.id);
                 return canAccept;
             }
             return false;
-        }
+        },
     },
     debug: process.env.NODE_ENV === "development"
 };

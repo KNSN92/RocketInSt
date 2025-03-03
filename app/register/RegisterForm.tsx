@@ -12,7 +12,9 @@ import {
   LessonPeriodType,
 } from "@/data/periods";
 import { WeekDayJA } from "@/data/weekdays";
+import { useNotification } from "@/lib/notification";
 import { WeekDay } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { Button } from "../../components/common/Buttons";
 import RadioButton from "../../components/common/RadioButton";
@@ -70,6 +72,7 @@ export default function RegisterForm({
   }
 
   const [state, formAction, isPending] = useActionState(handleRegisterAction, {
+    success: false,
     error: false,
   });
 
@@ -78,13 +81,20 @@ export default function RegisterForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPending]);
 
+  const { push } = useRouter();
+  const { notify } = useNotification();
+
+  useEffect(() => {
+    if (state.error) notify(state.msg || "", "error");
+    if (state.success) {
+      notify("情報を設定しました。", "success");
+      push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
+
   return (
     <>
-      {state.error && (
-        <div className="mx-auto mt-8 flex h-fit min-h-24 w-[60vw] items-center justify-center rounded-xl border-4 border-red-300 bg-red-400 p-4 text-2xl text-white dark:bg-transparent dark:border-1 dark:border-red-600 dark:text-red-600">
-          {state.msg}
-        </div>
-      )}
       <div className="w-screen sm:w-fit sm:mx-auto sm:px-16 my-12 flex flex-col items-center justify-center rounded-2xl border-1 border-blue-400 bg-blue-100 dark:bg-transparent dark:border-2 py-16">
         <h1 className="mx-auto mb-4 block w-fit text-3xl font-bold">
           情報を設定
@@ -160,7 +170,10 @@ export default function RegisterForm({
               </thead>
               <tbody>
                 {LessonPeriods.map((lessonPeriod, i) => (
-                  <tr className="border-t-1 border-gray-400 dark:border-[#b8e2e6]" key={i}>
+                  <tr
+                    className="border-t-1 border-gray-400 dark:border-[#b8e2e6]"
+                    key={i}
+                  >
                     <th className="text-lg">
                       <div className="px-2 text-nowrap dark:text-[#b8e2e6]">
                         {LessonPeriodsJA[lessonPeriod]}
@@ -168,7 +181,10 @@ export default function RegisterForm({
                     </th>
                     {DaysToWeekDayMap[registerData.course].map(
                       (courseDay, j) => (
-                        <td className="border-l-1 border-gray-400 dark:border-[#b8e2e6] w-fit h-fit" key={j}>
+                        <td
+                          className="border-l-1 border-gray-400 dark:border-[#b8e2e6] w-fit h-fit"
+                          key={j}
+                        >
                           <select
                             value={
                               lessonTable[courseDay][lessonPeriod].find(

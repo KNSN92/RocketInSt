@@ -12,10 +12,10 @@ const nicknameSchema = z
   })
   .max(20, {message: "ニックネームは20文字以下の長さにしてください。"});
 
-export async function setNickname(prevState: { nickname: string | undefined, error: boolean; msg?: string }, formData: FormData): Promise<{ nickname: string | undefined, error: boolean; msg?: string }> {
+export async function setNickname(prevState: { nickname: string | undefined, success: boolean, error: boolean; msg?: string }, formData: FormData): Promise<{ nickname: string | undefined, success: boolean, error: boolean; msg?: string }> {
 	const parseResult = nicknameSchema.safeParse(formData.get("nickname"));
 	if (!parseResult.success)
-		return { nickname: prevState.nickname, error: true, msg: parseResult.error?.errors[0].message };
+		return { nickname: prevState.nickname, success: false, error: true, msg: parseResult.error?.errors[0].message };
 	const userId = await fetchUserId();
 	const nickname = parseResult.data;
 	await prisma.user.update({
@@ -28,6 +28,7 @@ export async function setNickname(prevState: { nickname: string | undefined, err
 	});
 	return {
 		nickname: nickname,
+		success: true,
 		error: false,
 	}
 }

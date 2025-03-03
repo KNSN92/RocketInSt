@@ -2,6 +2,7 @@
 
 import registerFriendAction from "@/actions/users/RegisterFriendAction";
 import { Button } from "@/components/common/Buttons";
+import { useNotification } from "@/lib/notification";
 import { useActionState, useEffect } from "react";
 
 export default function FriendRegisterForm({
@@ -13,11 +14,21 @@ export default function FriendRegisterForm({
 }) {
   const [state, action, isPending] = useActionState(registerFriendAction, {
     isFriend: initialIsFriend,
+    success: false,
     error: false,
     msg: "",
   });
+  const { notify } = useNotification();
   useEffect(() => {
     if (state.error) console.error(state.msg);
+    if (state.success) {
+      if (state.isFriend) {
+        notify("フレンドに登録しました。");
+      } else {
+        notify("フレンドを解除しました。");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
   return (
     <form action={action}>

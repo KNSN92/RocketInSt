@@ -16,7 +16,6 @@ import {
 import { prisma } from "@/prisma";
 import { CourseFrequency, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const campusSchema = z
@@ -132,9 +131,9 @@ async function validateLessons(
 }
 
 export default async function handleRegisterAction(
-  previousState: { error: boolean; msg?: string },
+  previousState: { success: boolean, error: boolean; msg?: string },
   formData: FormData,
-): Promise<{ error: boolean; msg?: string }> {
+): Promise<{ success: boolean, error: boolean; msg?: string }> {
   const parseResult = await schema.safeParseAsync({
     campus: formData.get("campus"),
     course: formData.get("course"),
@@ -142,12 +141,12 @@ export default async function handleRegisterAction(
     lessons: formData.getAll("lessons"),
   });
   if (!parseResult.success)
-    return { error: true, msg: parseResult.error?.errors[0].message };
+    return { success: false, error: true, msg: parseResult.error?.errors[0].message };
   const { campus, course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
   const userId = session?.user?.id;
   if (!userId)
-    return { error: true, msg: "ユーザーidを取得出来ませんでした。" };
+    return { success: false, error: true, msg: "ユーザーidを取得出来ませんでした。" };
 
   const courseFreqEnum: CourseFrequency =
     DaysToCourseFreqMap[course as CourseFreqDay];
@@ -204,5 +203,5 @@ export default async function handleRegisterAction(
     }),
   ]);
 
-  return redirect("/");
+  return {success: true, error: false};
 }

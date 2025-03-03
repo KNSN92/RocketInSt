@@ -1,5 +1,6 @@
 "use client";
 
+import { useNotification } from "@/lib/notification";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -15,11 +16,13 @@ export default function RefreshButton({
 }) {
   const { refresh } = useRouter();
   const [isRefreshing, startRefresh] = useTransition();
+  const { notify } = useNotification();
   return (
     <button
       onClick={() =>
-        startRefresh(async () => {
-          await refresh();
+        startRefresh(() => {
+          refresh();
+          notify("ページを再読み込みしました。");
         })
       }
       disabled={isRefreshing}

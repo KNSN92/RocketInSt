@@ -34,7 +34,9 @@ export default async function SignIn({
           <h2 className="mb-8 block text-center text-xl font-bold text-white">
             学園のGoogleアカウントでのみサインインが可能です。
           </h2>
-          <GoogleSignInButton callbackUrl={callbackUrl} />
+          <GoogleSignInButton
+            callbackUrl={`/auth/success?callbackUrl=${callbackUrl}`}
+          />
         </div>
       </div>
     );
