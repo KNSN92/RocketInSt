@@ -125,178 +125,202 @@ export default function ExtraAbout() {
           "<",
         )
         .add(
-          gsap.timeline().fromTo(
-            ".textlogo-rocket0",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-rocket0",
-            { yPercent: -50, yoyo: true, repeat: 1, duration: 2 }
-          ),
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-rocket0",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-rocket0", {
+              yPercent: -50,
+              yoyo: true,
+              repeat: 1,
+              duration: 2,
+            }),
           "<",
         )
         .add(
-          gsap.timeline().fromTo(
-            ".textlogo-R1",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-R1",
-            { rotate: -15, transformOrigin: "50% 50%" }
-          ).to(
-            ".textlogo-R1",
-            { rotate: 15 }
-          ).to(
-            ".textlogo-R1",
-            { rotate: 0 }
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-compass2",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-compass2",
-            { rotate: 360, transformOrigin: "50% 50%", duration: 2 }
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-          ".textlogo-c3",
-          { autoAlpha: 0 },
-          { autoAlpha: 1, duration: 0.25 }
-        ).to(
-          ".textlogo-c3",
-          { rotate: 90, transformOrigin: "50% 50%" }
-        )
-        .to(
-          ".textlogo-c3",
-          { rotate: 0, ease: "back.in", transformOrigin: "50% 50%" }
-        ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-k4",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-k4",
-            { yPercent: -20 },
-          ).to(
-            ".textlogo-k4",
-            { yPercent: 20 },
-          ).to(
-            ".textlogo-k4",
-            { yPercent: 0 },
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-e5",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-e5",
-            { scaleX: -1, transformOrigin: "50% 50%" }
-          ).to(
-            ".textlogo-e5",
-            { scaleX: 1, transformOrigin: "50% 50%" },
-            "+=1"
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-t6",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-t6",
-            { scale: 1.25, duration: 1.5, repeat: 1, yoyo: true }
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-I7",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-I7",
-            { scaleY: 1.5, transformOrigin: "50% 50%", duration: 1.5 }
-          ).to(
-            ".textlogo-I7",
-            { scaleY: 1, transformOrigin: "50% 50%", duration: 1 }
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-n8",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-n8",
-            { rotate: 360, transformOrigin: "50% 50%", ease: "back.inOut", duration: 2 }
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-            ".textlogo-dot9",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-dot9",
-            { yPercent: -1000 }
-          ).to(
-            ".textlogo-dot9",
-            { yPercent: 0 }
-          ),
-          "<+=0.25",
-        )
-        .add(
-          gsap.timeline().fromTo(
-              ".textlogo-s10",
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-R1",
               { autoAlpha: 0 },
-              { autoAlpha: 1, duration: 0.25 }
-            ).to(
-              ".textlogo-s10",
-              { scaleY: 0.1, repeat: 1, yoyo: true, transformOrigin: "50% 50%" }
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-R1", { rotate: -15, transformOrigin: "50% 50%" })
+            .to(".textlogo-R1", { rotate: 15 })
+            .to(".textlogo-R1", { rotate: 0 }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-compass2",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-compass2", {
+              rotate: 360,
+              transformOrigin: "50% 50%",
+              duration: 2,
+            }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-c3",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-c3", { rotate: 90, transformOrigin: "50% 50%" })
+            .to(".textlogo-c3", {
+              rotate: 0,
+              ease: "back.in",
+              transformOrigin: "50% 50%",
+            }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-k4",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-k4", { yPercent: -20 })
+            .to(".textlogo-k4", { yPercent: 20 })
+            .to(".textlogo-k4", { yPercent: 0 }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-e5",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-e5", { scaleX: -1, transformOrigin: "50% 50%" })
+            .to(
+              ".textlogo-e5",
+              { scaleX: 1, transformOrigin: "50% 50%" },
+              "+=1",
             ),
           "<+=0.25",
         )
         .add(
-          gsap.timeline().fromTo(
-            ".textlogo-t11",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.25 }
-          ).to(
-            ".textlogo-t11",
-            { scaleY: 10, repeat: 1, yoyo: true, transformOrigin: "50% 50%" }
-          ),
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-t6",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-t6", {
+              scale: 1.25,
+              duration: 1.5,
+              repeat: 1,
+              yoyo: true,
+            }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-I7",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-I7", {
+              scaleY: 1.5,
+              transformOrigin: "50% 50%",
+              duration: 1.5,
+            })
+            .to(".textlogo-I7", {
+              scaleY: 1,
+              transformOrigin: "50% 50%",
+              duration: 1,
+            }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-n8",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-n8", {
+              rotate: 360,
+              transformOrigin: "50% 50%",
+              ease: "back.inOut",
+              duration: 2,
+            }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-dot9",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-dot9", { yPercent: -1000 })
+            .to(".textlogo-dot9", { yPercent: 0 }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-s10",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-s10", {
+              scaleY: 0.1,
+              repeat: 1,
+              yoyo: true,
+              transformOrigin: "50% 50%",
+            }),
+          "<+=0.25",
+        )
+        .add(
+          gsap
+            .timeline()
+            .fromTo(
+              ".textlogo-t11",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.25 },
+            )
+            .to(".textlogo-t11", {
+              scaleY: 10,
+              repeat: 1,
+              yoyo: true,
+              transformOrigin: "50% 50%",
+            }),
           "<+=0.25",
         )
         //コンパス画面右下へ移動
-        .to(
-          ".logo",
-          {
-            motionPath: {
-              path: [
-                { x: vw50, y: -vh50 * 0.25 },
-                { x: vw50, y: vh50 },
-              ],
-            },
-            scale: 1,
-            alpha: 0.25,
-            duration: 2,
-          }
-        )
+        .to(".logo", {
+          motionPath: {
+            path: [
+              { x: vw50, y: -vh50 * 0.25 },
+              { x: vw50, y: vh50 },
+            ],
+          },
+          scale: 1,
+          alpha: 0.25,
+          duration: 2,
+        })
         .set(".logo", {
           zIndex: 0,
         })
@@ -396,7 +420,7 @@ export default function ExtraAbout() {
             //使用ライブラリとか 出現
             .fromTo(
               ".usedlibs",
-              { y: vh, autoAlpha: 0, },
+              { y: vh, autoAlpha: 0 },
               { y: 0, autoAlpha: 1, duration: 2 },
               "<+=50%",
             )
@@ -510,7 +534,7 @@ export default function ExtraAbout() {
         .fromTo(
           ".last-circle",
           {
-            y: -vh50*1.1,
+            y: -vh50 * 1.1,
           },
           {
             duration: 3,
@@ -621,7 +645,7 @@ function Features() {
       />
       <FeatureSection
         title="ダークモード対応"
-        desc="フッターから切り替える事が出来るダークモードは目に優しく、夜でも快適に閲覧が可能な上、画面が暗くなるため電力消費量の削減にもつながります。"
+        desc="フッターから切り替える事が出来るダークモードは目に優しく、夜でも快適に閲覧が可能です。"
         img="/extraabout/dark.png"
       />
       <FeatureSection
