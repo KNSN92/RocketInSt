@@ -3,7 +3,7 @@
 import { Notification, useNotification } from "@/lib/notification";
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 
 const NotificationColors: {
   [notificationType in Notification["type"]]: string;
@@ -37,6 +37,15 @@ export default function NotificationList({
 
 function NotificationElement({ notification }: { notification: Notification }) {
   const { remove } = useNotification();
+  useEffect(() => {
+    if (!notification.closeDelay) return;
+    const timeoutId = setTimeout(() => {
+      remove(notification);
+    }, notification.closeDelay);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  });
   return (
     <div
       className={clsx(

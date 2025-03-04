@@ -13,6 +13,7 @@ export type Notification = {
   id: string;
   message: string;
   type: "info" | "success" | "warn" | "error";
+  closeDelay: number | null;
 };
 
 const NotificationContext = createContext<
@@ -34,10 +35,14 @@ export function useNotification() {
   }
   const [notifications, setNotifications] = ctx;
 
-  const notify = (message: string, type: Notification["type"] = "info") => {
+  const notify = (
+    message: string,
+    type: Notification["type"] = "info",
+    closeDelay: number | null = 3000,
+  ) => {
     setNotifications([
       ...notifications,
-      { id: crypto.randomUUID(), message, type },
+      { id: crypto.randomUUID(), message, type, closeDelay },
     ]);
   };
   const remove = (notification: Notification) => {
