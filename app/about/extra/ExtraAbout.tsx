@@ -21,9 +21,6 @@ export default function ExtraAbout() {
       gsap.registerPlugin(ScrollTrigger);
       gsap.registerPlugin(MotionPathPlugin);
 
-      addEventListener("DOMContentLoaded", () => ScrollTrigger.refresh());
-      addEventListener("resize", () => ScrollTrigger.refresh());
-
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const vw50 = vw / 2;
@@ -554,6 +551,14 @@ export default function ExtraAbout() {
           scale: 30,
           duration: 2,
         });
+
+      const refresh = () => ScrollTrigger.refresh();
+      addEventListener("DOMContentLoaded", refresh);
+      addEventListener("resize", () => refresh);
+      return () => {
+        removeEventListener("DOMContentLoaded", () => refresh);
+        removeEventListener("resize", () => refresh);
+      };
     },
     { scope: page },
   );
