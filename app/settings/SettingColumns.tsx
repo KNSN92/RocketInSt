@@ -19,7 +19,7 @@ export function SetNickname({
   const { notify } = useNotification();
   useEffect(() => {
     if (state.error) {
-      notify(state.msg || "", "error");
+      notify(state.msg || "", "error", 15000);
     }
     if (state.success) {
       notify(`ニックネームを${state.nickname}に変更しました。`, "success");

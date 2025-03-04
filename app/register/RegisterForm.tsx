@@ -85,7 +85,7 @@ export default function RegisterForm({
   const { notify } = useNotification();
 
   useEffect(() => {
-    if (state.error) notify(state.msg || "", "error");
+    if (state.error) notify(state.msg || "", "error", 15000);
     if (state.success) {
       notify("情報を設定しました。", "success");
       push("/");
