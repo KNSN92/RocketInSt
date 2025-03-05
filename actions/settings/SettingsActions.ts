@@ -35,8 +35,6 @@ export async function setNickname(prevState: { nickname: string | undefined, suc
 
 export async function deleteUser(prevState: { success: boolean, error: boolean; msg?: string }, formData: FormData): Promise<{ success: boolean, error: boolean; msg?: string }> {
 	const userId = await fetchUserId();
-	console.log(userId);
-	if(userId) console.log(await fetchUser(userId, { name: true }));
 	try {
 		await prisma.user.delete({
 			where: {

@@ -52,15 +52,17 @@ export function DefaultSearchField() {
       searchInput.current ? searchInput.current.value.length > 0 : false,
     );
   }, [searchInput.current?.value]);
-  const magnifyingGlassX = (focus || hasText) ? `calc(${searchInput.current?.clientWidth}px - 100%)` : "0px";
-  console.log(magnifyingGlassX)
+  const magnifyingGlassX =
+    focus || hasText
+      ? `calc(${searchInput.current?.clientWidth}px - 100%)`
+      : "0px";
   return (
     <div className="mx-4 relative flex transition w-full md:w-[60vw] xl:w-[40vw]">
       <div
         className="w-fit h-fit px-4 absolute pointer-events-none transition"
         style={{
           top: "50%",
-          transform: `translate(${magnifyingGlassX}, -50%)`
+          transform: `translate(${magnifyingGlassX}, -50%)`,
         }}
       >
         <MagnifyingGlassIcon className="w-8 text-zinc-900 dark:text-zinc-100 opacity-30 transition" />
