@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  }
+}
 
 generator client {
   provider = "prisma-client"
@@ -34,6 +34,7 @@ model User {
   courseFrequency CourseFrequency?
 
   lessons Lesson[]
+  lessonsRegisteredDate DateTime?
 
   // Self-relation for followers and following
   followers User[] @relation("UserFollowRelation")
