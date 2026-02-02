@@ -12,7 +12,7 @@ import {
 import UpdatedTime from "@/components/common/UpdatedTime";
 import UserList from "@/components/common/UserList";
 import CampusMap, { MapData } from "@/components/home/CampusMap";
-import { WeekDayToCourseFreqMap } from "@/data/courseFreqs";
+import { WeekDayToCourseMap } from "@/data/course";
 import { NumToWeekDayMap } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import { fetchUserCampusId } from "@/lib/userdata";
@@ -270,7 +270,7 @@ async function fetchUserCampusMap(userId: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
   const todayCourseFreqs = weekdayEnum
-    ? WeekDayToCourseFreqMap[weekdayEnum]
+    ? WeekDayToCourseMap[weekdayEnum]
     : [];
   const userCampus = await fetchUserCampus(userId);
   if (!userCampus) return [];

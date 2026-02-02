@@ -1,12 +1,12 @@
 "use server";
 
 import authConfig from "@/auth.config";
-import type { CourseFreqDay } from "@/data/courseFreqs";
+import type { CourseDay } from "@/data/course";
 import {
-  CourseFreqDays,
-  DaysToCourseFreqMap,
+  CourseDays,
+  DaysToCourseMap,
   DaysToWeekDayMap,
-} from "@/data/courseFreqs";
+} from "@/data/course";
 import {
   AfterSchoolPeriod,
   LessonPeriods,
@@ -25,8 +25,8 @@ const campusSchema = z
 const courseSchema = z.coerce
   .number({ invalid_type_error: "整数を入力してください。" })
   .int({ message: "整数を入力してください。" })
-  .refine((num) => (CourseFreqDays as ReadonlyArray<number>).includes(num), {
-    message: `${CourseFreqDays.join(",")}のいずれかの整数を入力してください。`,
+  .refine((num) => (CourseDays as ReadonlyArray<number>).includes(num), {
+    message: `${CourseDays.join(",")}のいずれかの整数を入力してください。`,
   });
 const afterschoolSchema = z.coerce
   .number({ invalid_type_error: "整数を入力してください。" })
@@ -104,7 +104,7 @@ async function validateLessons(
         period: {
           some: {
             weekday: {
-              in: DaysToWeekDayMap[course as CourseFreqDay],
+              in: DaysToWeekDayMap[course as CourseDay],
             },
             tag: "Lesson",
           },
@@ -149,7 +149,7 @@ export default async function handleRegisterAction(
     return { success: false, error: true, msg: "ユーザーidを取得出来ませんでした。" };
 
   const courseFreqEnum: CourseFrequency =
-    DaysToCourseFreqMap[course as CourseFreqDay];
+    DaysToCourseMap[course as CourseDay];
 
   const lessonsEntry: Prisma.LessonWhereUniqueInput[] = lessons.map(
     (lesson) => ({ id: lesson }),
@@ -166,7 +166,7 @@ export default async function handleRegisterAction(
               in: otherEntryInnernames,
             },
             weekday: {
-              in: DaysToWeekDayMap[course as CourseFreqDay],
+              in: DaysToWeekDayMap[course as CourseDay],
             },
           },
         },

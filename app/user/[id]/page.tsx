@@ -4,10 +4,10 @@ import UpdatedTime from "@/components/common/UpdatedTime";
 import { UserIcon } from "@/components/common/UserIcon";
 import CampusMap from "@/components/home/CampusMap";
 import {
-  CourseFreqJA,
-  CourseFreqToDaysMap,
+  CourseJA,
+  CourseToDaysMap,
   DaysToWeekDayMap,
-} from "@/data/courseFreqs";
+} from "@/data/course";
 import {
   LessonPeriods,
   LessonPeriodsJA,
@@ -179,7 +179,7 @@ async function UserProfile({
           <span className="font-bold sm:font-normal">コース</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
-          {courseFrequency ? CourseFreqJA[courseFrequency] : "未登録"}
+          {courseFrequency ? CourseJA[courseFrequency] : "未登録"}
         </li>
         <li className="mt-4 sm:mt-0">
           <span className="font-bold sm:font-normal">現在居る部屋</span>
@@ -308,7 +308,7 @@ async function LessonsTable({
       <thead>
         <tr>
           <th></th>
-          {DaysToWeekDayMap[CourseFreqToDaysMap[courseFrequency]].map(
+          {DaysToWeekDayMap[CourseToDaysMap[courseFrequency]].map(
             (weekday, i) => (
               <th
                 key={i}
@@ -329,7 +329,7 @@ async function LessonsTable({
             <th className="text-lg">
               <div className="px-2 text-nowrap">{LessonPeriodsJA[period]}</div>
             </th>
-            {DaysToWeekDayMap[CourseFreqToDaysMap[courseFrequency]].map(
+            {DaysToWeekDayMap[CourseToDaysMap[courseFrequency]].map(
               (weekday, j) => (
                 <td
                   className="p-2 border-l-1 border-gray-400 dark:border-[#b8e2e6] w-fit h-fit"

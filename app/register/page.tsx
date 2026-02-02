@@ -1,6 +1,6 @@
 import RegisterForm from "@/app/register/RegisterForm";
 import authConfig from "@/auth.config";
-import { CourseFreqToDaysMap } from "@/data/courseFreqs";
+import { CourseToDaysMap } from "@/data/course";
 import { AfterSchoolPeriod, LessonPeriods } from "@/data/periods";
 import { prisma } from "@/prisma";
 import { Metadata } from "next";
@@ -146,7 +146,7 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
   return {
     campus: data?.campus?.id || undefined,
     course: data?.courseFrequency
-      ? CourseFreqToDaysMap[data.courseFrequency]
+      ? CourseToDaysMap[data.courseFrequency]
       : undefined,
     afterschool: data?._count.lessons ? 1 : 0,
   };

@@ -28,7 +28,7 @@ model User {
 
   role Role @default(User)
   moderatorOrMentorCampusId String?
-  //　ロールキャベツを感じた(???)
+  //　ロールキャベツを感じた(???) roleCampusって名前の時にね
   moderatorOrMentorCampus Campus? @relation(name: "moderatorOrMentorCampus", fields: [moderatorOrMentorCampusId], references: [id])
 
   campus   Campus? @relation(fields: [campusId], references: [id])
@@ -146,6 +146,8 @@ model Lesson {
 
   rooms    Room[]
   students User[]
+
+  createdAt DateTime @default(now())
 }
 
 model Period {

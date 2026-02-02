@@ -2,10 +2,10 @@
 
 import handleRegisterAction from "@/actions/register/RegisterFormAction";
 import {
-  CourseFreqDay,
-  CourseFreqDays,
+  CourseDay,
+  CourseDays,
   DaysToWeekDayMap,
-} from "@/data/courseFreqs";
+} from "@/data/course";
 import {
   LessonPeriods,
   LessonPeriodsJA,
@@ -33,7 +33,7 @@ export default function RegisterForm({
     };
   };
   initialCampus?: string;
-  initialCourse?: CourseFreqDay;
+  initialCourse?: CourseDay;
   initialAfterschool?: number;
 }) {
   const [registerData, setRegisterData] = useState({
@@ -44,13 +44,13 @@ export default function RegisterForm({
 
   function handleCourseChange(e: ChangeEvent<HTMLInputElement>) {
     const v = Number.parseInt(e.target.value);
-    if (!CourseFreqDays.find((n) => v === n)) return;
+    if (!CourseDays.find((n) => v === n)) return;
     document
       .querySelectorAll<HTMLSelectElement>(".lesson-select")
       .forEach((ele) => {
         ele.selectedIndex = 0;
       });
-    setRegisterData({ ...registerData, course: v as CourseFreqDay });
+    setRegisterData({ ...registerData, course: v as CourseDay });
   }
 
   function handleLessonChange(

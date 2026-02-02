@@ -1362,7 +1362,8 @@ export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof Room
 
 export const LessonScalarFieldEnum = {
   id: 'id',
-  title: 'title'
+  title: 'title',
+  createdAt: 'createdAt'
 } as const
 
 export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
