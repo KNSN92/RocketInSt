@@ -2,7 +2,7 @@
 
 import { fetchUser, fetchUserId } from "@/lib/userdata";
 import { prisma } from "@/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma-gen/browser";
 import { signOut } from "next-auth/react";
 import { z } from "zod";
 

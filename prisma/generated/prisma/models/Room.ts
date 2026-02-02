@@ -230,6 +230,7 @@ export type RoomOrderByWithRelationInput = {
 
 export type RoomWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name_campusId?: Prisma.RoomNameCampusIdCompoundUniqueInput
   AND?: Prisma.RoomWhereInput | Prisma.RoomWhereInput[]
   OR?: Prisma.RoomWhereInput[]
   NOT?: Prisma.RoomWhereInput | Prisma.RoomWhereInput[]
@@ -240,7 +241,7 @@ export type RoomWhereUniqueInput = Prisma.AtLeast<{
   campus?: Prisma.XOR<Prisma.CampusScalarRelationFilter, Prisma.CampusWhereInput>
   mainFor?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
   lessons?: Prisma.LessonListRelationFilter
-}, "id">
+}, "id" | "name_campusId">
 
 export type RoomOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -342,6 +343,11 @@ export type RoomNullableScalarRelationFilter = {
 
 export type RoomOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type RoomNameCampusIdCompoundUniqueInput = {
+  name: string
+  campusId: string
 }
 
 export type RoomCountOrderByAggregateInput = {

@@ -29,7 +29,7 @@ import {
   getTakingRoom,
   getTakingRoomId,
 } from "@/lib/users";
-import { CourseFrequency, Role, WeekDay } from "@prisma/client";
+import { Course, Role, WeekDay } from "@prisma-gen/browser";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -107,7 +107,7 @@ async function UserProfile({
   nickname: string | null;
   image: string | null;
   role: Role;
-  courseFrequency: CourseFrequency | null;
+  courseFrequency: Course | null;
   lessons: {
     title: string;
     rooms: { id: string; name: string }[];
@@ -228,11 +228,12 @@ async function UserProfile({
             })
           ).map((room) => {
             const here = room.id === getTakingRoomId(lessons);
+            const roomPlan = room.roomPlan?.valueOf() as { x: number; y: number; w: number; h: number } | null;
             return {
-              x: room.roomPlan?.x || 0,
-              y: room.roomPlan?.y || 0,
-              w: room.roomPlan?.w || 0,
-              h: room.roomPlan?.h || 0,
+              x: roomPlan?.x || 0,
+              y: roomPlan?.y || 0,
+              w: roomPlan?.w || 0,
+              h: roomPlan?.h || 0,
               name: <div className="overflow-scroll">{room.name}</div>,
               className: clsx(
                 "border-2 rounded-lg flex flex-col items-center justify-center font-bold text-center text-xs md:text-lg sm:text-md",
@@ -261,7 +262,7 @@ async function LessonsTable({
   courseFrequency,
 }: {
   userId: string;
-  courseFrequency: CourseFrequency | null;
+  courseFrequency: Course | null;
 }) {
   if (!courseFrequency) return undefined;
   const fetchedLessons = (

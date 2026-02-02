@@ -1,4 +1,4 @@
-import { WeekDay } from "@prisma/client";
+import { WeekDay } from "@prisma-gen/browser";
 
 export const NumToWeekDayMap: { [dayOfweek: number]: WeekDay | null } = {
   0: WeekDay.Sunday,

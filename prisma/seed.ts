@@ -4,9 +4,9 @@ import seedLessons from "./seed/lesson";
 import seedPeriods from "./seed/periods";
 
 async function main() {
-  await seedPeriods();
-  await seedLessons();
-  await seedCampus();
+  await seedPeriods(prisma);
+  await seedLessons(prisma);
+  await seedCampus(prisma);
   console.log("Seed data inserted successfully.");
 }
 

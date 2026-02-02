@@ -13,7 +13,7 @@ import {
 } from "@/data/periods";
 import { WeekDayJA } from "@/data/weekdays";
 import { useNotification } from "@/lib/notification";
-import { WeekDay } from "@prisma/client";
+import { WeekDay } from "@prisma-gen/browser";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { Button } from "../../components/common/Buttons";

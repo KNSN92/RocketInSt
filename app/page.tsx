@@ -23,7 +23,7 @@ import {
   getTakingRoomId,
 } from "@/lib/users";
 import { prisma } from "@/prisma";
-import { CourseFrequency } from "@prisma/client";
+import { Course } from "@prisma-gen/browser";
 import clsx from "clsx";
 import { getServerSession } from "next-auth";
 
@@ -280,7 +280,7 @@ async function fetchUserCampusMap(userId: string) {
   );
   const allStudents = await fetchCampusAllStudents(userCampus.id);
   const todayCourseRatio = replaceNanInf(todayAllStudents / allStudents, 0);
-  const todayAllMember = Math.floor(userCampus.allMember * todayCourseRatio);
+  const todayAllMember = Math.floor(userCampus.memberCount * todayCourseRatio);
 
   const rooms = await prisma.room.findMany({
     where: {
@@ -314,7 +314,7 @@ async function fetchUserCampusMap(userId: string) {
             select: {
               students: {
                 where: {
-                  courseFrequency: {
+                  course: {
                     in: todayCourseFreqs,
                   },
                 },
@@ -328,7 +328,7 @@ async function fetchUserCampusMap(userId: string) {
 
   return rooms
     .map((room) => {
-      const roomPlan = room.roomPlan;
+      const roomPlan = room.roomPlan?.valueOf() as { x: number; y: number; w: number; h: number } | null;
       if (!roomPlan) return null;
       const roomStudents = room.lessons.reduce(
         (sum, roomStudent) => sum + roomStudent._count.students,
@@ -364,15 +364,15 @@ async function fetchCampusAllStudents(campusId: string) {
 
 async function fetchCampusAllCourseStudents(
   campusId: string,
-  courseFreqs: CourseFrequency[],
+  courses: Course[],
 ) {
   return await prisma.user.count({
     where: {
       campus: {
         id: campusId,
       },
-      courseFrequency: {
-        in: courseFreqs,
+      course: {
+        in: courses,
       },
     },
   });
@@ -390,7 +390,7 @@ async function fetchUserCampus(userId: string) {
             select: {
               id: true,
               name: true,
-              allMember: true,
+              memberCount: true,
               mainRoom: true,
             },
           },

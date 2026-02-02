@@ -13,10 +13,10 @@ import {
   RecessPeriodTimes,
 } from "@/data/periods";
 import { WeekDayArray } from "@/data/weekdays";
-import { prisma } from "@/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@/prisma/generated/prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/client";
 
-export default async function seed() {
+export default async function seed(prisma: Omit<PrismaClient<never, undefined, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends">) {
   await prisma.period.deleteMany();
 
   await LessonPeriods.forEach(async (lessonPeriod) => {

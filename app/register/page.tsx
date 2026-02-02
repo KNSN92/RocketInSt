@@ -127,7 +127,7 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
     },
     select: {
       campus: true,
-      courseFrequency: true,
+      course: true,
       _count: {
         select: {
           lessons: {
@@ -145,8 +145,8 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
   });
   return {
     campus: data?.campus?.id || undefined,
-    course: data?.courseFrequency
-      ? CourseToDaysMap[data.courseFrequency]
+    course: data?.course
+      ? CourseToDaysMap[data.course]
       : undefined,
     afterschool: data?._count.lessons ? 1 : 0,
   };

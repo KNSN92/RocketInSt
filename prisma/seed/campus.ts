@@ -1,82 +1,70 @@
 import campuses from "@/data/campus";
-import { prisma } from "@/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@/prisma/generated/prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/client";
 
-export default async function seed() {
+export default async function seed(prisma: Omit<PrismaClient<never, undefined, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends">) {
   await prisma.campus.deleteMany();
   await prisma.room.deleteMany();
-  await prisma.roomPlan.deleteMany();
 
-  Object.entries(campuses).forEach(async (value) => {
-    const [campusName, { mainRoom, allMember, rooms }] = value;
-    const { id } = await prisma.campus.create({
+  await Promise.all(Object.entries(campuses).map(async (value) => {
+    const [campusName, { mainRoom: mainRoomIdx, memberCount, rooms }] = value;
+    const mainRoom = rooms[mainRoomIdx];
+    const campus = await prisma.campus.create({
       data: {
         name: campusName,
-        allMember: allMember,
+        memberCount: memberCount,
       },
-    });
-    await rooms.forEach(async (room, i) => {
-      const createdRoom = await prisma.room.create({
-        data: {
-          name: room.name,
-          capacity: room.capacity,
-          roomPlan: {
-            create: {
-              x: room.plan.x,
-              y: room.plan.y,
-              w: room.plan.w,
-              h: room.plan.h,
-            },
-          },
-          campus: {
-            connect: {
-              id: id,
-            },
-          },
-        },
-      });
-      if (i === mainRoom) {
-        await prisma.campus.update({
-          where: {
-            id: id,
-          },
-          data: {
-            mainRoom: {
-              connect: {
-                id: createdRoom.id,
-              },
-            },
-          },
-        });
+      select: {
+        id: true
       }
+    });
+    await prisma.room.createMany({
+      data: rooms.map<Prisma.RoomCreateManyInput>(room => ({
+        campusId: campus.id,
+        name: room.name,
+        capacity: room.capacity,
+        roomPlan: room.plan,
+      }))
+    })
+    await prisma.campus.update({
+      where: {
+        id: campus.id
+      },
+      data: {
+        mainRoom: {
+          connect: {
+            name_campusId: {
+              campusId: campus.id,
+              name: mainRoom.name
+            }
+          }
+        }
+      }
+    });
+    await Promise.all(rooms.map(async (room) => {
       if (room.lessons.length > 0) {
-        const lessonTargets = (
-          await Promise.all(
-            room.lessons.map<Promise<Prisma.LessonWhereUniqueInput>>(
-              async (lesson) => {
-                const lessonId = (
-                  await prisma.lesson.findFirst({
-                    where: {
-                      title: lesson.name && (lesson.name as string),
-                      period: {
-                        some: {
-                          weekday: lesson.weekday,
-                          innername: lesson.period,
-                        },
-                      },
-                    },
-                  })
-                )?.id;
-                return {
-                  id: lessonId,
-                };
-              },
-            ),
-          )
-        ).filter((item) => item.id !== undefined);
+        const lessonTargets = await prisma.lesson.findMany({
+          where: {
+            OR: room.lessons.map((lesson) => ({
+              title: lesson.name && (lesson.name as string),
+              period: {
+                some: {
+                  weekday: lesson.weekday,
+                  innername: lesson.period,
+                }
+              }
+            }))
+          },
+          select: {
+            id: true
+          }
+        });
         await prisma.room.update({
           where: {
-            id: createdRoom.id,
+            name_campusId: {
+              campusId: campus.id,
+              name: room.name
+            }
           },
           data: {
             lessons: {
@@ -85,6 +73,6 @@ export default async function seed() {
           },
         });
       }
-    });
-  });
+    }));
+  }));
 }

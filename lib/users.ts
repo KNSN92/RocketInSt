@@ -1,5 +1,5 @@
 import { RecessPeriods, RecessPeriodsJA, RecessPeriodType } from "@/data/periods";
-import { Prisma, WeekDay } from "@prisma/client";
+import { Prisma, WeekDay } from "@prisma-gen/browser";
 
 export function combinateUserName(
   name?: string | null,

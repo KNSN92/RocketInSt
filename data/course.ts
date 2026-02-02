@@ -1,4 +1,4 @@
-import { Course, WeekDay } from "@prisma/client";
+import { Course, WeekDay } from "@prisma-gen/browser";
 
 export const CourseDays = [1, 3, 5] as const;
 

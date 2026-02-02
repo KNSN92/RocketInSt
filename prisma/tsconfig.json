@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "CommonJS",
     "paths": {
-      "@/*": ["./../*"]
+      "@/*": ["./../*"],
+      "@prisma-gen/*": ["./generated/prisma/*"]
     }
   }
 }

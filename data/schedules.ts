@@ -1,5 +1,5 @@
 import { LessonPeriodType } from "@/data/periods";
-import type { WeekDay } from "@prisma/client";
+import type { WeekDay } from "@prisma-gen/browser";
 
 export type DayColumn = {
   readonly [key in LessonPeriodType]: readonly string[];

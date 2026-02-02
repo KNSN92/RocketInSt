@@ -1,56 +1,35 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
 datasource db {
   provider = "postgresql"
 }
 
-generator client {
-  provider = "prisma-client"
-  output = "./generated/prisma"
-}
-
-// generator erd {
-//   provider = "prisma-erd-generator"
-// }
-
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  nickname      String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  role Role @default(User)
+  id                        String               @id @default(cuid())
+  name                      String?
+  email                     String               @unique
+  emailVerified             DateTime?
+  image                     String?
+  createdAt                 DateTime             @default(now())
+  updatedAt                 DateTime             @updatedAt
+  campusId                  String?
+  role                      Role                 @default(User)
+  nickname                  String?
+  course                    Course?
+  lessonsRegisteredDate     DateTime?
   moderatorOrMentorCampusId String?
-  //　ロールキャベツを感じた(???) roleCampusって名前の時にね
-  moderatorOrMentorCampus Campus? @relation(name: "moderatorOrMentorCampus", fields: [moderatorOrMentorCampusId], references: [id])
-
-  campus   Campus? @relation(fields: [campusId], references: [id])
-  campusId String?
-
-  course Course?
-
-  lessons Lesson[]
-  lessonsRegisteredDate DateTime?
-
-  timeTableFixReports TimeTableFixReport[] @relation(name: "byUser")
-
-  // Self-relation for followers and following
-  followers User[] @relation("UserFollowRelation")
-  following User[] @relation("UserFollowRelation")
-}
-
-enum Role {
-  User
-  Moderator
-  Mentor
-  Admin
+  accounts                  Account[]
+  Authenticator             Authenticator[]
+  sessions                  Session[]
+  timeTableFixReports       TimeTableFixReport[] @relation("byUser")
+  campus                    Campus?              @relation(fields: [campusId], references: [id])
+  moderatorOrMentorCampus   Campus?              @relation("moderatorOrMentorCampus", fields: [moderatorOrMentorCampusId], references: [id])
+  lessons                   Lesson[]             @relation("LessonToUser")
+  User_A                    User[]               @relation("UserFollowRelation")
+  User_B                    User[]               @relation("UserFollowRelation")
 }
 
 model Account {
@@ -65,11 +44,9 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -78,10 +55,9 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {
@@ -92,7 +68,6 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-// Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
   userId               String
@@ -102,76 +77,86 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
 }
 
 model Campus {
-  id   String @id @default(uuid())
-  name String
-
-  rooms Room[] @relation("rooms")
-
-  mainRoom   Room?   @relation("mainRoom", fields: [mainRoomId], references: [id])
-  mainRoomId String? @unique
-
-  members User[]
-  memberCount Int
-
-  moderatorOrMentorUsers User[] @relation("moderatorOrMentorCampus")
+  id                     String  @id @default(uuid())
+  name                   String
+  mainRoomId             String? @unique
+  memberCount            Int
+  mainRoom               Room?   @relation("mainRoom", fields: [mainRoomId], references: [id])
+  rooms                  Room[]  @relation("rooms")
+  members                User[]
+  moderatorOrMentorUsers User[]  @relation("moderatorOrMentorCampus")
 }
 
 model Room {
-  id   String @id @default(uuid())
-  name String
-
-  campus   Campus @relation(name: "rooms", fields: [campusId], references: [id], onDelete: Cascade)
+  id       String   @id @default(uuid())
+  name     String
   campusId String
-
-  mainFor Campus? @relation("mainRoom")
-
   capacity Int
-
-  lessons Lesson[]
-
   roomPlan Json?
+  mainFor  Campus?  @relation("mainRoom")
+  campus   Campus   @relation("rooms", fields: [campusId], references: [id], onDelete: Cascade)
+  lessons  Lesson[] @relation("LessonToRoom")
 }
 
 model Lesson {
-  id     String   @id @default(uuid())
-  title  String
-  period Period[]
-
-  rooms    Room[]
-  students User[]
-
+  id        String   @id @default(uuid())
+  title     String
   createdAt DateTime @default(now())
+  period    Period[] @relation("LessonToPeriod")
+  rooms     Room[]   @relation("LessonToRoom")
+  students  User[]   @relation("LessonToUser")
 }
 
 model Period {
-  id        String @id @default(uuid())
-  name      String
-  innername String
-
+  id        String    @id @default(uuid())
   weekday   WeekDay
   beginTime Int
   endTime   Int
-
-  lessons Lesson[]
-
-  tag PeriodTag
+  tag       PeriodTag
+  innername String
+  name      String
+  lessons   Lesson[]  @relation("LessonToPeriod")
 
   @@unique([innername, weekday])
 }
 
+model TimeTable {
+  id       String               @id @default(uuid())
+  date     DateTime
+  rawTable Json
+  reports  TimeTableFixReport[] @relation("TimeTable")
+}
+
+model TimeTableFixReport {
+  id         String    @id @default(uuid())
+  createdAt  DateTime  @default(now())
+  byId       String
+  reason     String?
+  tableId    String
+  fixedTable Json
+  by         User      @relation("byUser", fields: [byId], references: [id])
+  table      TimeTable @relation("TimeTable", fields: [tableId], references: [id])
+}
+
+enum Role {
+  User
+  Admin
+  Moderator
+  Mentor
+}
+
 enum PeriodTag {
   Lesson
-  Recess
   Meeting
   Event
   Other
+  Recess
 }
 
 enum WeekDay {
@@ -188,27 +173,4 @@ enum Course {
   OncePerWeek
   ThricePerWeek
   FiveTimesPerWeek
-}
-
-model TimeTable {
-  id String @id @default(uuid())
-  date DateTime
-  rawTable Json
-
-  reports TimeTableFixReport[] @relation(name: "TimeTable")
-}
-
-model TimeTableFixReport {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-
-  byId String
-  by User @relation(name: "byUser", fields: [byId], references: [id])
-
-  reason String?
-
-  tableId String
-  table TimeTable @relation(name: "TimeTable", fields: [tableId], references: [id])
-
-  fixedTable Json
 }

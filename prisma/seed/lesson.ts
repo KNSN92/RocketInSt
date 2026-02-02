@@ -10,10 +10,10 @@ import {
 } from "@/data/periods";
 import schedules from "@/data/schedules";
 import { WeekDayArray } from "@/data/weekdays";
-import { prisma } from "@/prisma";
-import type { Prisma, WeekDay as WeekDayType } from "@prisma/client";
+import type { Prisma, PrismaClient, WeekDay as WeekDayType } from "@/prisma/generated/prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/client";
 
-export default async function seed() {
+export default async function seed(prisma: Omit<PrismaClient<never, undefined, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends">) {
   await prisma.lesson.deleteMany();
 
   await WeekDayArray.forEach(async (weekday) => {
@@ -39,8 +39,8 @@ export default async function seed() {
           data: {
             title: lessonName,
             period: {
-              connect: periods,
-            },
+              connect: periods
+            }
           },
         });
       });

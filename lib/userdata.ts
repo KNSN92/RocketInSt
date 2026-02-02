@@ -1,7 +1,7 @@
 "use server";
 import authConfig from "@/auth.config";
 import { prisma } from "@/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma-gen/browser";
 import { getServerSession } from "next-auth";
 
 export async function fetchUserId() {

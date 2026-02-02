@@ -14,7 +14,7 @@ import {
   RecessPeriods,
 } from "@/data/periods";
 import { prisma } from "@/prisma";
-import { CourseFrequency, Prisma } from "@prisma/client";
+import { CourseFrequency, Prisma } from "@prisma-gen/browser";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 

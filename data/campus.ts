@@ -1,6 +1,6 @@
 import Schedules from "@/data/schedules";
-import { WeekDay } from "@prisma/client";
 import { LessonPeriodType, PeriodType } from "./periods";
+import { WeekDay } from "@/prisma/generated/prisma/enums";
 
 function LessonPeriod<W extends WeekDay, P extends LessonPeriodType>(
   weekday: W,
@@ -19,7 +19,7 @@ function Period(
 
 type CampusesData = {
   [campus: string]: {
-    allMember: number;
+    memberCount: number;
     mainRoom: number;
     rooms: {
       name: string;
@@ -42,7 +42,7 @@ type CampusesData = {
 const campuses: CampusesData = {
   神戸三ノ宮キャンパス: {
     mainRoom: 0,
-    allMember: 200,
+    memberCount: 200,
     rooms: [
       {
         name: "大広間",
