@@ -392,7 +392,9 @@ export const ModelName = {
   Campus: 'Campus',
   Room: 'Room',
   Lesson: 'Lesson',
-  Period: 'Period'
+  Period: 'Period',
+  TimeTable: 'TimeTable',
+  TimeTableFixReport: 'TimeTableFixReport'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "campus" | "room" | "lesson" | "period"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "campus" | "room" | "lesson" | "period" | "timeTable" | "timeTableFixReport"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1078,6 +1080,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TimeTable: {
+      payload: Prisma.$TimeTablePayload<ExtArgs>
+      fields: Prisma.TimeTableFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TimeTableFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TimeTableFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>
+        }
+        findFirst: {
+          args: Prisma.TimeTableFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TimeTableFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>
+        }
+        findMany: {
+          args: Prisma.TimeTableFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>[]
+        }
+        create: {
+          args: Prisma.TimeTableCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>
+        }
+        createMany: {
+          args: Prisma.TimeTableCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TimeTableCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>[]
+        }
+        delete: {
+          args: Prisma.TimeTableDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>
+        }
+        update: {
+          args: Prisma.TimeTableUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>
+        }
+        deleteMany: {
+          args: Prisma.TimeTableDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TimeTableUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TimeTableUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>[]
+        }
+        upsert: {
+          args: Prisma.TimeTableUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTablePayload>
+        }
+        aggregate: {
+          args: Prisma.TimeTableAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTimeTable>
+        }
+        groupBy: {
+          args: Prisma.TimeTableGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeTableGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TimeTableCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeTableCountAggregateOutputType> | number
+        }
+      }
+    }
+    TimeTableFixReport: {
+      payload: Prisma.$TimeTableFixReportPayload<ExtArgs>
+      fields: Prisma.TimeTableFixReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TimeTableFixReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TimeTableFixReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>
+        }
+        findFirst: {
+          args: Prisma.TimeTableFixReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TimeTableFixReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>
+        }
+        findMany: {
+          args: Prisma.TimeTableFixReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>[]
+        }
+        create: {
+          args: Prisma.TimeTableFixReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>
+        }
+        createMany: {
+          args: Prisma.TimeTableFixReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TimeTableFixReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>[]
+        }
+        delete: {
+          args: Prisma.TimeTableFixReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>
+        }
+        update: {
+          args: Prisma.TimeTableFixReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.TimeTableFixReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TimeTableFixReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TimeTableFixReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.TimeTableFixReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeTableFixReportPayload>
+        }
+        aggregate: {
+          args: Prisma.TimeTableFixReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTimeTableFixReport>
+        }
+        groupBy: {
+          args: Prisma.TimeTableFixReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeTableFixReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TimeTableFixReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeTableFixReportCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1127,6 +1277,7 @@ export const UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   role: 'role',
+  moderatorOrMentorCampusId: 'moderatorOrMentorCampusId',
   campusId: 'campusId',
   course: 'course',
   lessonsRegisteredDate: 'lessonsRegisteredDate'
@@ -1230,6 +1381,27 @@ export const PeriodScalarFieldEnum = {
 export type PeriodScalarFieldEnum = (typeof PeriodScalarFieldEnum)[keyof typeof PeriodScalarFieldEnum]
 
 
+export const TimeTableScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  rawTable: 'rawTable'
+} as const
+
+export type TimeTableScalarFieldEnum = (typeof TimeTableScalarFieldEnum)[keyof typeof TimeTableScalarFieldEnum]
+
+
+export const TimeTableFixReportScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  byId: 'byId',
+  reason: 'reason',
+  tableId: 'tableId',
+  fixedTable: 'fixedTable'
+} as const
+
+export type TimeTableFixReportScalarFieldEnum = (typeof TimeTableFixReportScalarFieldEnum)[keyof typeof TimeTableFixReportScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1244,6 +1416,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1513,6 +1692,8 @@ export type GlobalOmitConfig = {
   room?: Prisma.RoomOmit
   lesson?: Prisma.LessonOmit
   period?: Prisma.PeriodOmit
+  timeTable?: Prisma.TimeTableOmit
+  timeTableFixReport?: Prisma.TimeTableFixReportOmit
 }
 
 /* Types for Logging */

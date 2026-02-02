@@ -34,6 +34,7 @@ export type UserMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   role: $Enums.Role | null
+  moderatorOrMentorCampusId: string | null
   campusId: string | null
   course: $Enums.Course | null
   lessonsRegisteredDate: Date | null
@@ -49,6 +50,7 @@ export type UserMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   role: $Enums.Role | null
+  moderatorOrMentorCampusId: string | null
   campusId: string | null
   course: $Enums.Course | null
   lessonsRegisteredDate: Date | null
@@ -64,6 +66,7 @@ export type UserCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   role: number
+  moderatorOrMentorCampusId: number
   campusId: number
   course: number
   lessonsRegisteredDate: number
@@ -81,6 +84,7 @@ export type UserMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   role?: true
+  moderatorOrMentorCampusId?: true
   campusId?: true
   course?: true
   lessonsRegisteredDate?: true
@@ -96,6 +100,7 @@ export type UserMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   role?: true
+  moderatorOrMentorCampusId?: true
   campusId?: true
   course?: true
   lessonsRegisteredDate?: true
@@ -111,6 +116,7 @@ export type UserCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   role?: true
+  moderatorOrMentorCampusId?: true
   campusId?: true
   course?: true
   lessonsRegisteredDate?: true
@@ -199,6 +205,7 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   role: $Enums.Role
+  moderatorOrMentorCampusId: string | null
   campusId: string | null
   course: $Enums.Course | null
   lessonsRegisteredDate: Date | null
@@ -235,14 +242,17 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   Authenticator?: Prisma.AuthenticatorListRelationFilter
+  moderatorOrMentorCampus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
   campus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
   lessons?: Prisma.LessonListRelationFilter
+  timeTableFixReports?: Prisma.TimeTableFixReportListRelationFilter
   followers?: Prisma.UserListRelationFilter
   following?: Prisma.UserListRelationFilter
 }
@@ -257,14 +267,17 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrderInput | Prisma.SortOrder
   campusId?: Prisma.SortOrderInput | Prisma.SortOrder
   course?: Prisma.SortOrderInput | Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   Authenticator?: Prisma.AuthenticatorOrderByRelationAggregateInput
+  moderatorOrMentorCampus?: Prisma.CampusOrderByWithRelationInput
   campus?: Prisma.CampusOrderByWithRelationInput
   lessons?: Prisma.LessonOrderByRelationAggregateInput
+  timeTableFixReports?: Prisma.TimeTableFixReportOrderByRelationAggregateInput
   followers?: Prisma.UserOrderByRelationAggregateInput
   following?: Prisma.UserOrderByRelationAggregateInput
 }
@@ -282,14 +295,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   Authenticator?: Prisma.AuthenticatorListRelationFilter
+  moderatorOrMentorCampus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
   campus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
   lessons?: Prisma.LessonListRelationFilter
+  timeTableFixReports?: Prisma.TimeTableFixReportListRelationFilter
   followers?: Prisma.UserListRelationFilter
   following?: Prisma.UserListRelationFilter
 }, "id" | "email">
@@ -304,6 +320,7 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrderInput | Prisma.SortOrder
   campusId?: Prisma.SortOrderInput | Prisma.SortOrder
   course?: Prisma.SortOrderInput | Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -325,6 +342,7 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   campusId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableWithAggregatesFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -345,8 +363,10 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -361,6 +381,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
@@ -368,6 +389,7 @@ export type UserUncheckedCreateInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -387,8 +409,10 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -403,6 +427,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -410,6 +435,7 @@ export type UserUncheckedUpdateInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -424,6 +450,7 @@ export type UserCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
@@ -453,6 +480,7 @@ export type UserUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -478,6 +506,7 @@ export type UserCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
   course?: Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrder
@@ -493,6 +522,7 @@ export type UserMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
   course?: Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrder
@@ -508,6 +538,7 @@ export type UserMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
   course?: Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrder
@@ -667,10 +698,24 @@ export type UserCreateNestedManyWithoutCampusInput = {
   connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
 }
 
+export type UserCreateNestedManyWithoutModeratorOrMentorCampusInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput> | Prisma.UserCreateWithoutModeratorOrMentorCampusInput[] | Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput | Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput[]
+  createMany?: Prisma.UserCreateManyModeratorOrMentorCampusInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
 export type UserUncheckedCreateNestedManyWithoutCampusInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCampusInput, Prisma.UserUncheckedCreateWithoutCampusInput> | Prisma.UserCreateWithoutCampusInput[] | Prisma.UserUncheckedCreateWithoutCampusInput[]
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCampusInput | Prisma.UserCreateOrConnectWithoutCampusInput[]
   createMany?: Prisma.UserCreateManyCampusInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput> | Prisma.UserCreateWithoutModeratorOrMentorCampusInput[] | Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput | Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput[]
+  createMany?: Prisma.UserCreateManyModeratorOrMentorCampusInputEnvelope
   connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
 }
 
@@ -688,6 +733,20 @@ export type UserUpdateManyWithoutCampusNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
+export type UserUpdateManyWithoutModeratorOrMentorCampusNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput> | Prisma.UserCreateWithoutModeratorOrMentorCampusInput[] | Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput | Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutModeratorOrMentorCampusInput | Prisma.UserUpsertWithWhereUniqueWithoutModeratorOrMentorCampusInput[]
+  createMany?: Prisma.UserCreateManyModeratorOrMentorCampusInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutModeratorOrMentorCampusInput | Prisma.UserUpdateWithWhereUniqueWithoutModeratorOrMentorCampusInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutModeratorOrMentorCampusInput | Prisma.UserUpdateManyWithWhereWithoutModeratorOrMentorCampusInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
 export type UserUncheckedUpdateManyWithoutCampusNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCampusInput, Prisma.UserUncheckedCreateWithoutCampusInput> | Prisma.UserCreateWithoutCampusInput[] | Prisma.UserUncheckedCreateWithoutCampusInput[]
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCampusInput | Prisma.UserCreateOrConnectWithoutCampusInput[]
@@ -699,6 +758,20 @@ export type UserUncheckedUpdateManyWithoutCampusNestedInput = {
   connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
   update?: Prisma.UserUpdateWithWhereUniqueWithoutCampusInput | Prisma.UserUpdateWithWhereUniqueWithoutCampusInput[]
   updateMany?: Prisma.UserUpdateManyWithWhereWithoutCampusInput | Prisma.UserUpdateManyWithWhereWithoutCampusInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutModeratorOrMentorCampusNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput> | Prisma.UserCreateWithoutModeratorOrMentorCampusInput[] | Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput | Prisma.UserCreateOrConnectWithoutModeratorOrMentorCampusInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutModeratorOrMentorCampusInput | Prisma.UserUpsertWithWhereUniqueWithoutModeratorOrMentorCampusInput[]
+  createMany?: Prisma.UserCreateManyModeratorOrMentorCampusInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutModeratorOrMentorCampusInput | Prisma.UserUpdateWithWhereUniqueWithoutModeratorOrMentorCampusInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutModeratorOrMentorCampusInput | Prisma.UserUpdateManyWithWhereWithoutModeratorOrMentorCampusInput[]
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
@@ -740,6 +813,20 @@ export type UserUncheckedUpdateManyWithoutLessonsNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
+export type UserCreateNestedOneWithoutTimeTableFixReportsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTimeTableFixReportsInput, Prisma.UserUncheckedCreateWithoutTimeTableFixReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTimeTableFixReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTimeTableFixReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTimeTableFixReportsInput, Prisma.UserUncheckedCreateWithoutTimeTableFixReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTimeTableFixReportsInput
+  upsert?: Prisma.UserUpsertWithoutTimeTableFixReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTimeTableFixReportsInput, Prisma.UserUpdateWithoutTimeTableFixReportsInput>, Prisma.UserUncheckedUpdateWithoutTimeTableFixReportsInput>
+}
+
 export type UserCreateWithoutFollowingInput = {
   id?: string
   name?: string | null
@@ -755,8 +842,10 @@ export type UserCreateWithoutFollowingInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
 }
 
@@ -770,6 +859,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
@@ -777,6 +867,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
 }
 
@@ -800,8 +891,10 @@ export type UserCreateWithoutFollowersInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
 
@@ -815,6 +908,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
@@ -822,6 +916,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
 
@@ -859,6 +954,7 @@ export type UserScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -894,8 +990,10 @@ export type UserCreateWithoutAccountsInput = {
   lessonsRegisteredDate?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -910,12 +1008,14 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -950,8 +1050,10 @@ export type UserUpdateWithoutAccountsInput = {
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -966,12 +1068,14 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -990,8 +1094,10 @@ export type UserCreateWithoutSessionsInput = {
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1006,12 +1112,14 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1046,8 +1154,10 @@ export type UserUpdateWithoutSessionsInput = {
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1062,12 +1172,14 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1086,8 +1198,10 @@ export type UserCreateWithoutAuthenticatorInput = {
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1102,12 +1216,14 @@ export type UserUncheckedCreateWithoutAuthenticatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1142,8 +1258,10 @@ export type UserUpdateWithoutAuthenticatorInput = {
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1158,12 +1276,14 @@ export type UserUncheckedUpdateWithoutAuthenticatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1183,7 +1303,9 @@ export type UserCreateWithoutCampusInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1198,12 +1320,14 @@ export type UserUncheckedCreateWithoutCampusInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1215,6 +1339,60 @@ export type UserCreateOrConnectWithoutCampusInput = {
 
 export type UserCreateManyCampusInputEnvelope = {
   data: Prisma.UserCreateManyCampusInput | Prisma.UserCreateManyCampusInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserCreateWithoutModeratorOrMentorCampusInput = {
+  id?: string
+  name?: string | null
+  nickname?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role?: $Enums.Role
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserCreateNestedManyWithoutFollowersInput
+}
+
+export type UserUncheckedCreateWithoutModeratorOrMentorCampusInput = {
+  id?: string
+  name?: string | null
+  nickname?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role?: $Enums.Role
+  campusId?: string | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
+}
+
+export type UserCreateOrConnectWithoutModeratorOrMentorCampusInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput>
+}
+
+export type UserCreateManyModeratorOrMentorCampusInputEnvelope = {
+  data: Prisma.UserCreateManyModeratorOrMentorCampusInput | Prisma.UserCreateManyModeratorOrMentorCampusInput[]
   skipDuplicates?: boolean
 }
 
@@ -1234,6 +1412,22 @@ export type UserUpdateManyWithWhereWithoutCampusInput = {
   data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutCampusInput>
 }
 
+export type UserUpsertWithWhereUniqueWithoutModeratorOrMentorCampusInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedUpdateWithoutModeratorOrMentorCampusInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedCreateWithoutModeratorOrMentorCampusInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutModeratorOrMentorCampusInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutModeratorOrMentorCampusInput, Prisma.UserUncheckedUpdateWithoutModeratorOrMentorCampusInput>
+}
+
+export type UserUpdateManyWithWhereWithoutModeratorOrMentorCampusInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutModeratorOrMentorCampusInput>
+}
+
 export type UserCreateWithoutLessonsInput = {
   id?: string
   name?: string | null
@@ -1249,7 +1443,9 @@ export type UserCreateWithoutLessonsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1264,12 +1460,14 @@ export type UserUncheckedCreateWithoutLessonsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1295,6 +1493,110 @@ export type UserUpdateManyWithWhereWithoutLessonsInput = {
   data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutLessonsInput>
 }
 
+export type UserCreateWithoutTimeTableFixReportsInput = {
+  id?: string
+  name?: string | null
+  nickname?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role?: $Enums.Role
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserCreateNestedManyWithoutFollowersInput
+}
+
+export type UserUncheckedCreateWithoutTimeTableFixReportsInput = {
+  id?: string
+  name?: string | null
+  nickname?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
+  campusId?: string | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
+}
+
+export type UserCreateOrConnectWithoutTimeTableFixReportsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTimeTableFixReportsInput, Prisma.UserUncheckedCreateWithoutTimeTableFixReportsInput>
+}
+
+export type UserUpsertWithoutTimeTableFixReportsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTimeTableFixReportsInput, Prisma.UserUncheckedUpdateWithoutTimeTableFixReportsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTimeTableFixReportsInput, Prisma.UserUncheckedCreateWithoutTimeTableFixReportsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTimeTableFixReportsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTimeTableFixReportsInput, Prisma.UserUncheckedUpdateWithoutTimeTableFixReportsInput>
+}
+
+export type UserUpdateWithoutTimeTableFixReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTimeTableFixReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
+}
+
 export type UserUpdateWithoutFollowingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1310,8 +1612,10 @@ export type UserUpdateWithoutFollowingInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
 }
 
@@ -1325,6 +1629,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1332,6 +1637,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
 }
 
@@ -1345,6 +1651,7 @@ export type UserUncheckedUpdateManyWithoutFollowingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1365,8 +1672,10 @@ export type UserUpdateWithoutFollowersInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
 
@@ -1380,6 +1689,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1387,6 +1697,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
 
@@ -1400,6 +1711,7 @@ export type UserUncheckedUpdateManyWithoutFollowersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1415,6 +1727,22 @@ export type UserCreateManyCampusInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  moderatorOrMentorCampusId?: string | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
+}
+
+export type UserCreateManyModeratorOrMentorCampusInput = {
+  id?: string
+  name?: string | null
+  nickname?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role?: $Enums.Role
+  campusId?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
 }
@@ -1434,7 +1762,9 @@ export type UserUpdateWithoutCampusInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1449,12 +1779,14 @@ export type UserUncheckedUpdateWithoutCampusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1469,6 +1801,66 @@ export type UserUncheckedUpdateManyWithoutCampusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type UserUpdateWithoutModeratorOrMentorCampusInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
+}
+
+export type UserUncheckedUpdateWithoutModeratorOrMentorCampusInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutModeratorOrMentorCampusInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -1488,7 +1880,9 @@ export type UserUpdateWithoutLessonsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1503,12 +1897,14 @@ export type UserUncheckedUpdateWithoutLessonsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1523,6 +1919,7 @@ export type UserUncheckedUpdateManyWithoutLessonsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1538,6 +1935,7 @@ export type UserCountOutputType = {
   sessions: number
   Authenticator: number
   lessons: number
+  timeTableFixReports: number
   followers: number
   following: number
 }
@@ -1547,6 +1945,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   Authenticator?: boolean | UserCountOutputTypeCountAuthenticatorArgs
   lessons?: boolean | UserCountOutputTypeCountLessonsArgs
+  timeTableFixReports?: boolean | UserCountOutputTypeCountTimeTableFixReportsArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
   following?: boolean | UserCountOutputTypeCountFollowingArgs
 }
@@ -1592,6 +1991,13 @@ export type UserCountOutputTypeCountLessonsArgs<ExtArgs extends runtime.Types.Ex
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountTimeTableFixReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TimeTableFixReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserWhereInput
 }
@@ -1614,14 +2020,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   role?: boolean
+  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   Authenticator?: boolean | Prisma.User$AuthenticatorArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
   lessons?: boolean | Prisma.User$lessonsArgs<ExtArgs>
+  timeTableFixReports?: boolean | Prisma.User$timeTableFixReportsArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1637,9 +2046,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   role?: boolean
+  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1653,9 +2064,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   role?: boolean
+  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1669,26 +2082,31 @@ export type UserSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   role?: boolean
+  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nickname" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "campusId" | "course" | "lessonsRegisteredDate", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nickname" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "moderatorOrMentorCampusId" | "campusId" | "course" | "lessonsRegisteredDate", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   Authenticator?: boolean | Prisma.User$AuthenticatorArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
   lessons?: boolean | Prisma.User$lessonsArgs<ExtArgs>
+  timeTableFixReports?: boolean | Prisma.User$timeTableFixReportsArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
 }
 
@@ -1698,8 +2116,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[]
+    moderatorOrMentorCampus: Prisma.$CampusPayload<ExtArgs> | null
     campus: Prisma.$CampusPayload<ExtArgs> | null
     lessons: Prisma.$LessonPayload<ExtArgs>[]
+    timeTableFixReports: Prisma.$TimeTableFixReportPayload<ExtArgs>[]
     followers: Prisma.$UserPayload<ExtArgs>[]
     following: Prisma.$UserPayload<ExtArgs>[]
   }
@@ -1713,6 +2133,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date
     role: $Enums.Role
+    moderatorOrMentorCampusId: string | null
     campusId: string | null
     course: $Enums.Course | null
     lessonsRegisteredDate: Date | null
@@ -2113,8 +2534,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Authenticator<T extends Prisma.User$AuthenticatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$AuthenticatorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  moderatorOrMentorCampus<T extends Prisma.User$moderatorOrMentorCampusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   campus<T extends Prisma.User$campusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$campusArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   lessons<T extends Prisma.User$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  timeTableFixReports<T extends Prisma.User$timeTableFixReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$timeTableFixReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeTableFixReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2155,6 +2578,7 @@ export interface UserFieldRefs {
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly moderatorOrMentorCampusId: Prisma.FieldRef<"User", 'String'>
   readonly campusId: Prisma.FieldRef<"User", 'String'>
   readonly course: Prisma.FieldRef<"User", 'Course'>
   readonly lessonsRegisteredDate: Prisma.FieldRef<"User", 'DateTime'>
@@ -2626,6 +3050,25 @@ export type User$AuthenticatorArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * User.moderatorOrMentorCampus
+ */
+export type User$moderatorOrMentorCampusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Campus
+   */
+  select?: Prisma.CampusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Campus
+   */
+  omit?: Prisma.CampusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CampusInclude<ExtArgs> | null
+  where?: Prisma.CampusWhereInput
+}
+
+/**
  * User.campus
  */
 export type User$campusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2666,6 +3109,30 @@ export type User$lessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.LessonScalarFieldEnum | Prisma.LessonScalarFieldEnum[]
+}
+
+/**
+ * User.timeTableFixReports
+ */
+export type User$timeTableFixReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TimeTableFixReport
+   */
+  select?: Prisma.TimeTableFixReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TimeTableFixReport
+   */
+  omit?: Prisma.TimeTableFixReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeTableFixReportInclude<ExtArgs> | null
+  where?: Prisma.TimeTableFixReportWhereInput
+  orderBy?: Prisma.TimeTableFixReportOrderByWithRelationInput | Prisma.TimeTableFixReportOrderByWithRelationInput[]
+  cursor?: Prisma.TimeTableFixReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TimeTableFixReportScalarFieldEnum | Prisma.TimeTableFixReportScalarFieldEnum[]
 }
 
 /**

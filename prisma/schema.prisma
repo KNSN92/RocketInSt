@@ -27,6 +27,9 @@ model User {
   updatedAt DateTime @updatedAt
 
   role Role @default(User)
+  moderatorOrMentorCampusId String?
+  //　ロールキャベツを感じた(???)
+  moderatorOrMentorCampus Campus? @relation(name: "moderatorOrMentorCampus", fields: [moderatorOrMentorCampusId], references: [id])
 
   campus   Campus? @relation(fields: [campusId], references: [id])
   campusId String?
@@ -36,6 +39,8 @@ model User {
   lessons Lesson[]
   lessonsRegisteredDate DateTime?
 
+  timeTableFixReports TimeTableFixReport[] @relation(name: "byUser")
+
   // Self-relation for followers and following
   followers User[] @relation("UserFollowRelation")
   following User[] @relation("UserFollowRelation")
@@ -43,6 +48,8 @@ model User {
 
 enum Role {
   User
+  Moderator
+  Mentor
   Admin
 }
 
@@ -111,8 +118,9 @@ model Campus {
   mainRoomId String? @unique
 
   members User[]
-
   memberCount Int
+
+  moderatorOrMentorUsers User[] @relation("moderatorOrMentorCampus")
 }
 
 model Room {
@@ -178,4 +186,27 @@ enum Course {
   OncePerWeek
   ThricePerWeek
   FiveTimesPerWeek
+}
+
+model TimeTable {
+  id String @id @default(uuid())
+  date DateTime
+  rawTable Json
+
+  reports TimeTableFixReport[] @relation(name: "TimeTable")
+}
+
+model TimeTableFixReport {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  byId String
+  by User @relation(name: "byUser", fields: [byId], references: [id])
+
+  reason String?
+
+  tableId String
+  table TimeTable @relation(name: "TimeTable", fields: [tableId], references: [id])
+
+  fixedTable Json
 }

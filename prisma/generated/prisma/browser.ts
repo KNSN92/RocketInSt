@@ -62,3 +62,13 @@ export type Lesson = Prisma.LessonModel
  * 
  */
 export type Period = Prisma.PeriodModel
+/**
+ * Model TimeTable
+ * 
+ */
+export type TimeTable = Prisma.TimeTableModel
+/**
+ * Model TimeTableFixReport
+ * 
+ */
+export type TimeTableFixReport = Prisma.TimeTableFixReportModel
