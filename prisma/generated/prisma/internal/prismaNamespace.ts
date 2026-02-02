@@ -391,7 +391,6 @@ export const ModelName = {
   Authenticator: 'Authenticator',
   Campus: 'Campus',
   Room: 'Room',
-  RoomPlan: 'RoomPlan',
   Lesson: 'Lesson',
   Period: 'Period'
 } as const
@@ -409,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "campus" | "room" | "roomPlan" | "lesson" | "period"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "campus" | "room" | "lesson" | "period"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -931,80 +930,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    RoomPlan: {
-      payload: Prisma.$RoomPlanPayload<ExtArgs>
-      fields: Prisma.RoomPlanFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RoomPlanFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RoomPlanFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>
-        }
-        findFirst: {
-          args: Prisma.RoomPlanFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RoomPlanFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>
-        }
-        findMany: {
-          args: Prisma.RoomPlanFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>[]
-        }
-        create: {
-          args: Prisma.RoomPlanCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>
-        }
-        createMany: {
-          args: Prisma.RoomPlanCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RoomPlanCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>[]
-        }
-        delete: {
-          args: Prisma.RoomPlanDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>
-        }
-        update: {
-          args: Prisma.RoomPlanUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>
-        }
-        deleteMany: {
-          args: Prisma.RoomPlanDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RoomPlanUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RoomPlanUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>[]
-        }
-        upsert: {
-          args: Prisma.RoomPlanUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomPlanPayload>
-        }
-        aggregate: {
-          args: Prisma.RoomPlanAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRoomPlan>
-        }
-        groupBy: {
-          args: Prisma.RoomPlanGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RoomPlanGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RoomPlanCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RoomPlanCountAggregateOutputType> | number
-        }
-      }
-    }
     Lesson: {
       payload: Prisma.$LessonPayload<ExtArgs>
       fields: Prisma.LessonFieldRefs
@@ -1203,7 +1128,8 @@ export const UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   role: 'role',
   campusId: 'campusId',
-  courseFrequency: 'courseFrequency'
+  course: 'course',
+  lessonsRegisteredDate: 'lessonsRegisteredDate'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1266,7 +1192,7 @@ export const CampusScalarFieldEnum = {
   id: 'id',
   name: 'name',
   mainRoomId: 'mainRoomId',
-  allMember: 'allMember'
+  memberCount: 'memberCount'
 } as const
 
 export type CampusScalarFieldEnum = (typeof CampusScalarFieldEnum)[keyof typeof CampusScalarFieldEnum]
@@ -1276,22 +1202,11 @@ export const RoomScalarFieldEnum = {
   id: 'id',
   name: 'name',
   campusId: 'campusId',
-  capacity: 'capacity'
+  capacity: 'capacity',
+  roomPlan: 'roomPlan'
 } as const
 
 export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
-
-
-export const RoomPlanScalarFieldEnum = {
-  id: 'id',
-  roomId: 'roomId',
-  x: 'x',
-  y: 'y',
-  w: 'w',
-  h: 'h'
-} as const
-
-export type RoomPlanScalarFieldEnum = (typeof RoomPlanScalarFieldEnum)[keyof typeof RoomPlanScalarFieldEnum]
 
 
 export const LessonScalarFieldEnum = {
@@ -1323,6 +1238,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1337,6 +1260,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1388,16 +1320,16 @@ export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'CourseFrequency'
+ * Reference to a field of type 'Course'
  */
-export type EnumCourseFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseFrequency'>
+export type EnumCourseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Course'>
     
 
 
 /**
- * Reference to a field of type 'CourseFrequency[]'
+ * Reference to a field of type 'Course[]'
  */
-export type ListEnumCourseFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseFrequency[]'>
+export type ListEnumCourseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Course[]'>
     
 
 
@@ -1419,6 +1351,20 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -1565,7 +1511,6 @@ export type GlobalOmitConfig = {
   authenticator?: Prisma.AuthenticatorOmit
   campus?: Prisma.CampusOmit
   room?: Prisma.RoomOmit
-  roomPlan?: Prisma.RoomPlanOmit
   lesson?: Prisma.LessonOmit
   period?: Prisma.PeriodOmit
 }

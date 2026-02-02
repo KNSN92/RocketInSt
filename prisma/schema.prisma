@@ -31,7 +31,7 @@ model User {
   campus   Campus? @relation(fields: [campusId], references: [id])
   campusId String?
 
-  courseFrequency CourseFrequency?
+  course Course?
 
   lessons Lesson[]
   lessonsRegisteredDate DateTime?
@@ -112,7 +112,7 @@ model Campus {
 
   members User[]
 
-  allMember Int
+  memberCount Int
 }
 
 model Room {
@@ -128,19 +128,7 @@ model Room {
 
   lessons Lesson[]
 
-  roomPlan RoomPlan?
-}
-
-model RoomPlan {
-  id String @id @default(uuid())
-
-  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
-  roomId String @unique
-
-  x Int
-  y Int
-  w Int
-  h Int
+  roomPlan Json?
 }
 
 model Lesson {
@@ -186,7 +174,7 @@ enum WeekDay {
   Saturday
 }
 
-enum CourseFrequency {
+enum Course {
   OncePerWeek
   ThricePerWeek
   FiveTimesPerWeek

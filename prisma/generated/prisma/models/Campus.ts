@@ -27,63 +27,63 @@ export type AggregateCampus = {
 }
 
 export type CampusAvgAggregateOutputType = {
-  allMember: number | null
+  memberCount: number | null
 }
 
 export type CampusSumAggregateOutputType = {
-  allMember: number | null
+  memberCount: number | null
 }
 
 export type CampusMinAggregateOutputType = {
   id: string | null
   name: string | null
   mainRoomId: string | null
-  allMember: number | null
+  memberCount: number | null
 }
 
 export type CampusMaxAggregateOutputType = {
   id: string | null
   name: string | null
   mainRoomId: string | null
-  allMember: number | null
+  memberCount: number | null
 }
 
 export type CampusCountAggregateOutputType = {
   id: number
   name: number
   mainRoomId: number
-  allMember: number
+  memberCount: number
   _all: number
 }
 
 
 export type CampusAvgAggregateInputType = {
-  allMember?: true
+  memberCount?: true
 }
 
 export type CampusSumAggregateInputType = {
-  allMember?: true
+  memberCount?: true
 }
 
 export type CampusMinAggregateInputType = {
   id?: true
   name?: true
   mainRoomId?: true
-  allMember?: true
+  memberCount?: true
 }
 
 export type CampusMaxAggregateInputType = {
   id?: true
   name?: true
   mainRoomId?: true
-  allMember?: true
+  memberCount?: true
 }
 
 export type CampusCountAggregateInputType = {
   id?: true
   name?: true
   mainRoomId?: true
-  allMember?: true
+  memberCount?: true
   _all?: true
 }
 
@@ -177,7 +177,7 @@ export type CampusGroupByOutputType = {
   id: string
   name: string
   mainRoomId: string | null
-  allMember: number
+  memberCount: number
   _count: CampusCountAggregateOutputType | null
   _avg: CampusAvgAggregateOutputType | null
   _sum: CampusSumAggregateOutputType | null
@@ -207,7 +207,7 @@ export type CampusWhereInput = {
   id?: Prisma.StringFilter<"Campus"> | string
   name?: Prisma.StringFilter<"Campus"> | string
   mainRoomId?: Prisma.StringNullableFilter<"Campus"> | string | null
-  allMember?: Prisma.IntFilter<"Campus"> | number
+  memberCount?: Prisma.IntFilter<"Campus"> | number
   rooms?: Prisma.RoomListRelationFilter
   mainRoom?: Prisma.XOR<Prisma.RoomNullableScalarRelationFilter, Prisma.RoomWhereInput> | null
   members?: Prisma.UserListRelationFilter
@@ -217,7 +217,7 @@ export type CampusOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   mainRoomId?: Prisma.SortOrderInput | Prisma.SortOrder
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
   rooms?: Prisma.RoomOrderByRelationAggregateInput
   mainRoom?: Prisma.RoomOrderByWithRelationInput
   members?: Prisma.UserOrderByRelationAggregateInput
@@ -230,7 +230,7 @@ export type CampusWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CampusWhereInput[]
   NOT?: Prisma.CampusWhereInput | Prisma.CampusWhereInput[]
   name?: Prisma.StringFilter<"Campus"> | string
-  allMember?: Prisma.IntFilter<"Campus"> | number
+  memberCount?: Prisma.IntFilter<"Campus"> | number
   rooms?: Prisma.RoomListRelationFilter
   mainRoom?: Prisma.XOR<Prisma.RoomNullableScalarRelationFilter, Prisma.RoomWhereInput> | null
   members?: Prisma.UserListRelationFilter
@@ -240,7 +240,7 @@ export type CampusOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   mainRoomId?: Prisma.SortOrderInput | Prisma.SortOrder
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
   _count?: Prisma.CampusCountOrderByAggregateInput
   _avg?: Prisma.CampusAvgOrderByAggregateInput
   _max?: Prisma.CampusMaxOrderByAggregateInput
@@ -255,13 +255,13 @@ export type CampusScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Campus"> | string
   name?: Prisma.StringWithAggregatesFilter<"Campus"> | string
   mainRoomId?: Prisma.StringNullableWithAggregatesFilter<"Campus"> | string | null
-  allMember?: Prisma.IntWithAggregatesFilter<"Campus"> | number
+  memberCount?: Prisma.IntWithAggregatesFilter<"Campus"> | number
 }
 
 export type CampusCreateInput = {
   id?: string
   name: string
-  allMember: number
+  memberCount: number
   rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
   members?: Prisma.UserCreateNestedManyWithoutCampusInput
@@ -271,7 +271,7 @@ export type CampusUncheckedCreateInput = {
   id?: string
   name: string
   mainRoomId?: string | null
-  allMember: number
+  memberCount: number
   rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
   members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
 }
@@ -279,7 +279,7 @@ export type CampusUncheckedCreateInput = {
 export type CampusUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
   members?: Prisma.UserUpdateManyWithoutCampusNestedInput
@@ -289,7 +289,7 @@ export type CampusUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
 }
@@ -298,20 +298,20 @@ export type CampusCreateManyInput = {
   id?: string
   name: string
   mainRoomId?: string | null
-  allMember: number
+  memberCount: number
 }
 
 export type CampusUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CampusUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CampusNullableScalarRelationFilter = {
@@ -323,29 +323,29 @@ export type CampusCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   mainRoomId?: Prisma.SortOrder
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
 }
 
 export type CampusAvgOrderByAggregateInput = {
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
 }
 
 export type CampusMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   mainRoomId?: Prisma.SortOrder
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
 }
 
 export type CampusMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   mainRoomId?: Prisma.SortOrder
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
 }
 
 export type CampusSumOrderByAggregateInput = {
-  allMember?: Prisma.SortOrder
+  memberCount?: Prisma.SortOrder
 }
 
 export type CampusScalarRelationFilter = {
@@ -418,7 +418,7 @@ export type CampusUncheckedUpdateOneWithoutMainRoomNestedInput = {
 export type CampusCreateWithoutMembersInput = {
   id?: string
   name: string
-  allMember: number
+  memberCount: number
   rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
 }
@@ -427,7 +427,7 @@ export type CampusUncheckedCreateWithoutMembersInput = {
   id?: string
   name: string
   mainRoomId?: string | null
-  allMember: number
+  memberCount: number
   rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
 }
 
@@ -450,7 +450,7 @@ export type CampusUpdateToOneWithWhereWithoutMembersInput = {
 export type CampusUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
 }
@@ -459,14 +459,14 @@ export type CampusUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusCreateWithoutRoomsInput = {
   id?: string
   name: string
-  allMember: number
+  memberCount: number
   mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
   members?: Prisma.UserCreateNestedManyWithoutCampusInput
 }
@@ -475,7 +475,7 @@ export type CampusUncheckedCreateWithoutRoomsInput = {
   id?: string
   name: string
   mainRoomId?: string | null
-  allMember: number
+  memberCount: number
   members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
 }
 
@@ -487,7 +487,7 @@ export type CampusCreateOrConnectWithoutRoomsInput = {
 export type CampusCreateWithoutMainRoomInput = {
   id?: string
   name: string
-  allMember: number
+  memberCount: number
   rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   members?: Prisma.UserCreateNestedManyWithoutCampusInput
 }
@@ -495,7 +495,7 @@ export type CampusCreateWithoutMainRoomInput = {
 export type CampusUncheckedCreateWithoutMainRoomInput = {
   id?: string
   name: string
-  allMember: number
+  memberCount: number
   rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
   members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
 }
@@ -519,7 +519,7 @@ export type CampusUpdateToOneWithWhereWithoutRoomsInput = {
 export type CampusUpdateWithoutRoomsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
   members?: Prisma.UserUpdateManyWithoutCampusNestedInput
 }
@@ -528,7 +528,7 @@ export type CampusUncheckedUpdateWithoutRoomsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
 }
 
@@ -546,7 +546,7 @@ export type CampusUpdateToOneWithWhereWithoutMainRoomInput = {
 export type CampusUpdateWithoutMainRoomInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUpdateManyWithoutCampusNestedInput
 }
@@ -554,7 +554,7 @@ export type CampusUpdateWithoutMainRoomInput = {
 export type CampusUncheckedUpdateWithoutMainRoomInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  allMember?: Prisma.IntFieldUpdateOperationsInput | number
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
 }
@@ -603,7 +603,7 @@ export type CampusSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   name?: boolean
   mainRoomId?: boolean
-  allMember?: boolean
+  memberCount?: boolean
   rooms?: boolean | Prisma.Campus$roomsArgs<ExtArgs>
   mainRoom?: boolean | Prisma.Campus$mainRoomArgs<ExtArgs>
   members?: boolean | Prisma.Campus$membersArgs<ExtArgs>
@@ -614,7 +614,7 @@ export type CampusSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   name?: boolean
   mainRoomId?: boolean
-  allMember?: boolean
+  memberCount?: boolean
   mainRoom?: boolean | Prisma.Campus$mainRoomArgs<ExtArgs>
 }, ExtArgs["result"]["campus"]>
 
@@ -622,7 +622,7 @@ export type CampusSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   name?: boolean
   mainRoomId?: boolean
-  allMember?: boolean
+  memberCount?: boolean
   mainRoom?: boolean | Prisma.Campus$mainRoomArgs<ExtArgs>
 }, ExtArgs["result"]["campus"]>
 
@@ -630,10 +630,10 @@ export type CampusSelectScalar = {
   id?: boolean
   name?: boolean
   mainRoomId?: boolean
-  allMember?: boolean
+  memberCount?: boolean
 }
 
-export type CampusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "mainRoomId" | "allMember", ExtArgs["result"]["campus"]>
+export type CampusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "mainRoomId" | "memberCount", ExtArgs["result"]["campus"]>
 export type CampusInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rooms?: boolean | Prisma.Campus$roomsArgs<ExtArgs>
   mainRoom?: boolean | Prisma.Campus$mainRoomArgs<ExtArgs>
@@ -658,7 +658,7 @@ export type $CampusPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     name: string
     mainRoomId: string | null
-    allMember: number
+    memberCount: number
   }, ExtArgs["result"]["campus"]>
   composites: {}
 }
@@ -1088,7 +1088,7 @@ export interface CampusFieldRefs {
   readonly id: Prisma.FieldRef<"Campus", 'String'>
   readonly name: Prisma.FieldRef<"Campus", 'String'>
   readonly mainRoomId: Prisma.FieldRef<"Campus", 'String'>
-  readonly allMember: Prisma.FieldRef<"Campus", 'Int'>
+  readonly memberCount: Prisma.FieldRef<"Campus", 'Int'>
 }
     
 

@@ -53,11 +53,6 @@ export type Campus = Prisma.CampusModel
  */
 export type Room = Prisma.RoomModel
 /**
- * Model RoomPlan
- * 
- */
-export type RoomPlan = Prisma.RoomPlanModel
-/**
  * Model Lesson
  * 
  */

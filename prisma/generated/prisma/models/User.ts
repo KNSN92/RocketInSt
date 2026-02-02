@@ -35,7 +35,8 @@ export type UserMinAggregateOutputType = {
   updatedAt: Date | null
   role: $Enums.Role | null
   campusId: string | null
-  courseFrequency: $Enums.CourseFrequency | null
+  course: $Enums.Course | null
+  lessonsRegisteredDate: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -49,7 +50,8 @@ export type UserMaxAggregateOutputType = {
   updatedAt: Date | null
   role: $Enums.Role | null
   campusId: string | null
-  courseFrequency: $Enums.CourseFrequency | null
+  course: $Enums.Course | null
+  lessonsRegisteredDate: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -63,7 +65,8 @@ export type UserCountAggregateOutputType = {
   updatedAt: number
   role: number
   campusId: number
-  courseFrequency: number
+  course: number
+  lessonsRegisteredDate: number
   _all: number
 }
 
@@ -79,7 +82,8 @@ export type UserMinAggregateInputType = {
   updatedAt?: true
   role?: true
   campusId?: true
-  courseFrequency?: true
+  course?: true
+  lessonsRegisteredDate?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -93,7 +97,8 @@ export type UserMaxAggregateInputType = {
   updatedAt?: true
   role?: true
   campusId?: true
-  courseFrequency?: true
+  course?: true
+  lessonsRegisteredDate?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -107,7 +112,8 @@ export type UserCountAggregateInputType = {
   updatedAt?: true
   role?: true
   campusId?: true
-  courseFrequency?: true
+  course?: true
+  lessonsRegisteredDate?: true
   _all?: true
 }
 
@@ -194,7 +200,8 @@ export type UserGroupByOutputType = {
   updatedAt: Date
   role: $Enums.Role
   campusId: string | null
-  courseFrequency: $Enums.CourseFrequency | null
+  course: $Enums.Course | null
+  lessonsRegisteredDate: Date | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -229,7 +236,8 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
-  courseFrequency?: Prisma.EnumCourseFrequencyNullableFilter<"User"> | $Enums.CourseFrequency | null
+  course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   Authenticator?: Prisma.AuthenticatorListRelationFilter
@@ -250,7 +258,8 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   campusId?: Prisma.SortOrderInput | Prisma.SortOrder
-  courseFrequency?: Prisma.SortOrderInput | Prisma.SortOrder
+  course?: Prisma.SortOrderInput | Prisma.SortOrder
+  lessonsRegisteredDate?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   Authenticator?: Prisma.AuthenticatorOrderByRelationAggregateInput
@@ -274,7 +283,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
-  courseFrequency?: Prisma.EnumCourseFrequencyNullableFilter<"User"> | $Enums.CourseFrequency | null
+  course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   Authenticator?: Prisma.AuthenticatorListRelationFilter
@@ -295,7 +305,8 @@ export type UserOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   campusId?: Prisma.SortOrderInput | Prisma.SortOrder
-  courseFrequency?: Prisma.SortOrderInput | Prisma.SortOrder
+  course?: Prisma.SortOrderInput | Prisma.SortOrder
+  lessonsRegisteredDate?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -315,7 +326,8 @@ export type UserScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   campusId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  courseFrequency?: Prisma.EnumCourseFrequencyNullableWithAggregatesFilter<"User"> | $Enums.CourseFrequency | null
+  course?: Prisma.EnumCourseNullableWithAggregatesFilter<"User"> | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -328,7 +340,8 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
@@ -349,7 +362,8 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
@@ -368,7 +382,8 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
@@ -389,7 +404,8 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
@@ -409,7 +425,8 @@ export type UserCreateManyInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -422,7 +439,8 @@ export type UserUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -436,7 +454,8 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserListRelationFilter = {
@@ -460,7 +479,8 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
-  courseFrequency?: Prisma.SortOrder
+  course?: Prisma.SortOrder
+  lessonsRegisteredDate?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -474,7 +494,8 @@ export type UserMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
-  courseFrequency?: Prisma.SortOrder
+  course?: Prisma.SortOrder
+  lessonsRegisteredDate?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -488,7 +509,8 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
-  courseFrequency?: Prisma.SortOrder
+  course?: Prisma.SortOrder
+  lessonsRegisteredDate?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -540,8 +562,8 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
-export type NullableEnumCourseFrequencyFieldUpdateOperationsInput = {
-  set?: $Enums.CourseFrequency | null
+export type NullableEnumCourseFieldUpdateOperationsInput = {
+  set?: $Enums.Course | null
 }
 
 export type UserUpdateManyWithoutFollowingNestedInput = {
@@ -728,7 +750,8 @@ export type UserCreateWithoutFollowingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
@@ -748,7 +771,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
@@ -771,7 +795,8 @@ export type UserCreateWithoutFollowersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
@@ -791,7 +816,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
@@ -834,7 +860,8 @@ export type UserScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
-  courseFrequency?: Prisma.EnumCourseFrequencyNullableFilter<"User"> | $Enums.CourseFrequency | null
+  course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
 export type UserUpsertWithWhereUniqueWithoutFollowersInput = {
@@ -863,7 +890,8 @@ export type UserCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
@@ -883,7 +911,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
@@ -917,7 +946,8 @@ export type UserUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
@@ -937,7 +967,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
@@ -955,7 +986,8 @@ export type UserCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
@@ -975,7 +1007,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
@@ -1009,7 +1042,8 @@ export type UserUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
@@ -1029,7 +1063,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1047,7 +1082,8 @@ export type UserCreateWithoutAuthenticatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
@@ -1067,7 +1103,8 @@ export type UserUncheckedCreateWithoutAuthenticatorInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
@@ -1101,7 +1138,8 @@ export type UserUpdateWithoutAuthenticatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
@@ -1121,7 +1159,8 @@ export type UserUncheckedUpdateWithoutAuthenticatorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1139,7 +1178,8 @@ export type UserCreateWithoutCampusInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
@@ -1158,7 +1198,8 @@ export type UserUncheckedCreateWithoutCampusInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
@@ -1203,7 +1244,8 @@ export type UserCreateWithoutLessonsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
@@ -1223,7 +1265,8 @@ export type UserUncheckedCreateWithoutLessonsInput = {
   updatedAt?: Date | string
   role?: $Enums.Role
   campusId?: string | null
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
@@ -1262,7 +1305,8 @@ export type UserUpdateWithoutFollowingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
@@ -1282,7 +1326,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
@@ -1301,7 +1346,8 @@ export type UserUncheckedUpdateManyWithoutFollowingInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUpdateWithoutFollowersInput = {
@@ -1314,7 +1360,8 @@ export type UserUpdateWithoutFollowersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
@@ -1334,7 +1381,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
@@ -1353,7 +1401,8 @@ export type UserUncheckedUpdateManyWithoutFollowersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCreateManyCampusInput = {
@@ -1366,7 +1415,8 @@ export type UserCreateManyCampusInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  courseFrequency?: $Enums.CourseFrequency | null
+  course?: $Enums.Course | null
+  lessonsRegisteredDate?: Date | string | null
 }
 
 export type UserUpdateWithoutCampusInput = {
@@ -1379,7 +1429,8 @@ export type UserUpdateWithoutCampusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
@@ -1398,7 +1449,8 @@ export type UserUncheckedUpdateWithoutCampusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
@@ -1417,7 +1469,8 @@ export type UserUncheckedUpdateManyWithoutCampusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUpdateWithoutLessonsInput = {
@@ -1430,7 +1483,8 @@ export type UserUpdateWithoutLessonsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
@@ -1450,7 +1504,8 @@ export type UserUncheckedUpdateWithoutLessonsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
@@ -1469,7 +1524,8 @@ export type UserUncheckedUpdateManyWithoutLessonsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseFrequency?: Prisma.NullableEnumCourseFrequencyFieldUpdateOperationsInput | $Enums.CourseFrequency | null
+  course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
+  lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1559,7 +1615,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   role?: boolean
   campusId?: boolean
-  courseFrequency?: boolean
+  course?: boolean
+  lessonsRegisteredDate?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   Authenticator?: boolean | Prisma.User$AuthenticatorArgs<ExtArgs>
@@ -1581,7 +1638,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   role?: boolean
   campusId?: boolean
-  courseFrequency?: boolean
+  course?: boolean
+  lessonsRegisteredDate?: boolean
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1596,7 +1654,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   role?: boolean
   campusId?: boolean
-  courseFrequency?: boolean
+  course?: boolean
+  lessonsRegisteredDate?: boolean
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1611,10 +1670,11 @@ export type UserSelectScalar = {
   updatedAt?: boolean
   role?: boolean
   campusId?: boolean
-  courseFrequency?: boolean
+  course?: boolean
+  lessonsRegisteredDate?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nickname" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "campusId" | "courseFrequency", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nickname" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "campusId" | "course" | "lessonsRegisteredDate", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -1654,7 +1714,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     updatedAt: Date
     role: $Enums.Role
     campusId: string | null
-    courseFrequency: $Enums.CourseFrequency | null
+    course: $Enums.Course | null
+    lessonsRegisteredDate: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2095,7 +2156,8 @@ export interface UserFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly campusId: Prisma.FieldRef<"User", 'String'>
-  readonly courseFrequency: Prisma.FieldRef<"User", 'CourseFrequency'>
+  readonly course: Prisma.FieldRef<"User", 'Course'>
+  readonly lessonsRegisteredDate: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

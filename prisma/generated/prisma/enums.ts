@@ -41,10 +41,10 @@ export const WeekDay = {
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
 
 
-export const CourseFrequency = {
+export const Course = {
   OncePerWeek: 'OncePerWeek',
   ThricePerWeek: 'ThricePerWeek',
   FiveTimesPerWeek: 'FiveTimesPerWeek'
 } as const
 
-export type CourseFrequency = (typeof CourseFrequency)[keyof typeof CourseFrequency]
+export type Course = (typeof Course)[keyof typeof Course]
