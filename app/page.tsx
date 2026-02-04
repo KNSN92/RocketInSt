@@ -93,7 +93,7 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
         return {
           ...item,
           name: (
-            <div className="text-center overflow-scroll">
+            <div className="text-center overflow-visible">
               {`${item.name}`}
               <br />
               <span className="hidden sm:inline">{`${item.students}人`}</span>

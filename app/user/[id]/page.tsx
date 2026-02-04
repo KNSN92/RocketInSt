@@ -236,7 +236,7 @@ async function UserProfile({
               y: roomPlan?.y || 0,
               w: roomPlan?.w || 0,
               h: roomPlan?.h || 0,
-              name: <div className="overflow-scroll">{room.name}</div>,
+              name: <div className="overflow-visible">{room.name}</div>,
               className: clsx(
                 "border-2 rounded-lg flex flex-col items-center justify-center font-bold text-center text-xs md:text-lg sm:text-md",
                 here

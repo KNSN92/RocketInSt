@@ -3,7 +3,7 @@
 import { Notification, useNotification } from "@/lib/notification";
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import clsx from "clsx";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const NotificationColors: {
   [notificationType in Notification["type"]]: string;
@@ -61,10 +61,10 @@ function NotificationElement({ notification }: { notification: Notification }) {
       </button>
       <div className="w-full">
         {notification.message.split(/\r?\n/).map((line, i, lines) => (
-          <React.Fragment key={i}>
+          <span key={i}>
             {line}
             {i < lines.length - 1 && <br />}
-          </React.Fragment>
+          </span>
         ))}
       </div>
     </div>
