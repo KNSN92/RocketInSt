@@ -196,7 +196,7 @@ function Footer() {
   return (
     <footer className="h-[var(--footer-height)] w-screen overflow-scroll bg-blue-600 dark:bg-blue-900 flex items-center justify-between text-nowrap">
       <p className="ml-8 text-white text-2xl">
-        © 2025 RocketInSt Development Team
+        © 2026 RocketInSt Development Team
       </p>
       <div className="w-fit flex items-center text-white mr-8">
         <ThemeButton />
