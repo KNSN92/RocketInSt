@@ -14,7 +14,7 @@ import {
   RecessPeriods,
 } from "@/data/periods";
 import { prisma } from "@/prisma";
-import { CourseFrequency, Prisma } from "@prisma-gen/browser";
+import { Course, Prisma } from "@prisma-gen/browser";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
@@ -63,12 +63,12 @@ async function validateCampus(campus: string, ctx: z.RefinementCtx) {
     }
   } catch (e) {
     console.error(e);
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "データベースに接続出来ませんでした。",
-      });
-    }
+    // if (e instanceof Prisma.PrismaClientKnownRequestError) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: "データベースに接続出来ませんでした。",
+    //   });
+    // }
   }
 }
 
@@ -121,12 +121,12 @@ async function validateLessons(
     }
   } catch (e) {
     console.error(e);
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "データベースに接続出来ませんでした。",
-      });
-    }
+    // if (e instanceof Prisma.PrismaClientKnownRequestError) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: "データベースに接続出来ませんでした。",
+    //   });
+    // }
   }
 }
 
@@ -148,7 +148,7 @@ export default async function handleRegisterAction(
   if (!userId)
     return { success: false, error: true, msg: "ユーザーidを取得出来ませんでした。" };
 
-  const courseFreqEnum: CourseFrequency =
+  const courseEnum: Course =
     DaysToCourseMap[course as CourseDay];
 
   const lessonsEntry: Prisma.LessonWhereUniqueInput[] = lessons.map(
@@ -182,7 +182,7 @@ export default async function handleRegisterAction(
       where: { id: userId },
       data: {
         campus: { connect: { id: campus } },
-        courseFrequency: courseFreqEnum,
+        course: courseEnum,
       },
     }),
     prisma.user.update({
