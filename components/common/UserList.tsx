@@ -1,3 +1,5 @@
+import { RoleColors } from "@/data/role";
+import { Role } from "@prisma-gen/browser";
 import clsx from "clsx";
 import Link from "next/link";
 import { UserIcon } from "./UserIcon";
@@ -10,6 +12,7 @@ export default function UserList({
     name: string | null;
     nickname: string | null;
     image: string | null;
+    role: Role;
     lesson: {
       id?: string;
       room: string;
@@ -59,6 +62,7 @@ export default function UserList({
                         className={clsx(
                           "block text-nowrap text-2xl",
                           user.name && "relative top-2",
+                          RoleColors[user.role],
                         )}
                       >
                         {user.nickname}

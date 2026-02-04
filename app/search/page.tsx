@@ -119,17 +119,19 @@ async function WhenCampusRegistered({
       <div className="m-auto h-full w-screen p-8 2xl:w-[60vw]">
         <div className="mb-8 flex w-full flex-col items-center">
           <DefaultSearchField />
-          {rooms.length > 0 && <div className="mt-2">
-            <h2 className="mx-auto w-fit font-bold">
-              今居る部屋で検索(恐らく機能する)
-            </h2>
-            <div className="mx-auto w-fit max-w-[calc(100vw_-_4rem)] 2xl:max-w-[calc(60vw_-_4rem)] flex justify-start gap-1 flex-nowrap overflow-auto">
-              <RoomSearchSelector
-                rooms={rooms.map((room) => room.name)}
-                className="block text-nowrap"
-              />
+          {rooms.length > 0 && (
+            <div className="mt-2">
+              <h2 className="mx-auto w-fit font-bold">
+                今居る部屋で検索(恐らく機能する)
+              </h2>
+              <div className="mx-auto w-fit max-w-[calc(100vw_-_4rem)] 2xl:max-w-[calc(60vw_-_4rem)] flex justify-start gap-1 flex-nowrap overflow-auto">
+                <RoomSearchSelector
+                  rooms={rooms.map((room) => room.name)}
+                  className="block text-nowrap"
+                />
+              </div>
             </div>
-          </div>}
+          )}
         </div>
         <div className="flex items-center gap-4 md:gap-8 flex-col-reverse md:flex-row">
           <div className="text-lg text-nowrap">
@@ -225,9 +227,7 @@ async function fetchUserList(
           },
   };
   return Promise.all([
-    await prisma.user.count({
-      where: where,
-    }),
+    await prisma.user.count({ where }),
     (
       await prisma.user.findMany({
         where: where,
@@ -236,6 +236,7 @@ async function fetchUserList(
           name: true,
           nickname: true,
           image: true,
+          role: true,
           lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
         },
         orderBy: [
@@ -255,6 +256,7 @@ async function fetchUserList(
         name: user.name,
         nickname: user.nickname,
         image: user.image,
+        role: user.role,
         lesson: {
           id: getTakingRoomId(user.lessons),
           room: getTakingRoom(user.lessons),

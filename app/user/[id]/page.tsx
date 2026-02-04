@@ -3,16 +3,13 @@ import { DefaultRefreshButton } from "@/components/common/RefreshButton";
 import UpdatedTime from "@/components/common/UpdatedTime";
 import { UserIcon } from "@/components/common/UserIcon";
 import CampusMap from "@/components/home/CampusMap";
-import {
-  CourseJA,
-  CourseToDaysMap,
-  DaysToWeekDayMap,
-} from "@/data/course";
+import { CourseJA, CourseToDaysMap, DaysToWeekDayMap } from "@/data/course";
 import {
   LessonPeriods,
   LessonPeriodsJA,
   LessonPeriodType,
 } from "@/data/periods";
+import { RoleColors, RoleJA, shouldShowRole } from "@/data/role";
 import { NumToWeekDayMap, WeekDayJA } from "@/data/weekdays";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
 import {
@@ -97,7 +94,7 @@ async function UserProfile({
   nickname,
   image,
   role,
-  courseFrequency,
+  course,
   lessons,
 }: {
   initialIsFriend: boolean;
@@ -107,7 +104,7 @@ async function UserProfile({
   nickname: string | null;
   image: string | null;
   role: Role;
-  courseFrequency: Course | null;
+  course: Course | null;
   lessons: {
     title: string;
     rooms: { id: string; name: string }[];
@@ -127,12 +124,12 @@ async function UserProfile({
       <h1
         className={clsx(
           "pt-8 pb-4 font-bold flex flex-col justify-center items-center gap-2",
-          role === "Admin" && "text-[#ff0000]",
+          RoleColors[role],
         )}
       >
-        {role === "Admin" && (
+        {shouldShowRole(role) && (
           <span className="block text-nowrap text-3xl relative top-2">
-            &lt;Admin&gt;
+            &lt;{RoleJA[role]}&gt;
           </span>
         )}
         {nickname && (
@@ -179,7 +176,7 @@ async function UserProfile({
           <span className="font-bold sm:font-normal">コース</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
-          {courseFrequency ? CourseJA[courseFrequency] : "未登録"}
+          {course ? CourseJA[course] : "未登録"}
         </li>
         <li className="mt-4 sm:mt-0">
           <span className="font-bold sm:font-normal">現在居る部屋</span>
@@ -228,7 +225,12 @@ async function UserProfile({
             })
           ).map((room) => {
             const here = room.id === getTakingRoomId(lessons);
-            const roomPlan = room.roomPlan?.valueOf() as { x: number; y: number; w: number; h: number } | null;
+            const roomPlan = room.roomPlan?.valueOf() as {
+              x: number;
+              y: number;
+              w: number;
+              h: number;
+            } | null;
             return {
               x: roomPlan?.x || 0,
               y: roomPlan?.y || 0,
@@ -248,10 +250,7 @@ async function UserProfile({
       </div>
       <h2 className="mt-6 mb-2 text-3xl font-bold">授業</h2>
       <div className="overflow-auto w-screen mx-4 text-nowrap">
-        <LessonsTable
-          userId={profileUserId}
-          courseFrequency={courseFrequency}
-        />
+        <LessonsTable userId={profileUserId} courseFrequency={course} />
       </div>
     </div>
   );
@@ -359,7 +358,7 @@ async function fetchProfileUser(userId: string) {
     nickname: true,
     image: true,
     campusId: true,
-    courseFrequency: true,
+    course: true,
     role: true,
     lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
   });

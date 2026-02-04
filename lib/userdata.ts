@@ -36,7 +36,7 @@ export async function fetchUser<T extends Prisma.UserSelect>(
     return (
       (await prisma.user.findUnique({
         where: { id: userId },
-        select: select,
+        select,
       })) || undefined
     );
   return undefined;

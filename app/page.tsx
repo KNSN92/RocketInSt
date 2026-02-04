@@ -245,6 +245,7 @@ async function fetchFollowingUserList(userId: string, page: number) {
           name: true,
           nickname: true,
           image: true,
+          role: true,
           lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
         },
         skip: (page - 1) * pageLimit,
@@ -256,6 +257,7 @@ async function fetchFollowingUserList(userId: string, page: number) {
         name: user.name,
         nickname: user.nickname,
         image: user.image,
+        role: user.role,
         lesson: {
           id: getTakingRoomId(user.lessons),
           room: getTakingRoom(user.lessons),
@@ -269,9 +271,7 @@ async function fetchFollowingUserList(userId: string, page: number) {
 async function fetchUserCampusMap(userId: string) {
   const { weekday, minutes } = getNowJSTTimeAsMinutesWithWeekday();
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
-  const todayCourseFreqs = weekdayEnum
-    ? WeekDayToCourseMap[weekdayEnum]
-    : [];
+  const todayCourseFreqs = weekdayEnum ? WeekDayToCourseMap[weekdayEnum] : [];
   const userCampus = await fetchUserCampus(userId);
   if (!userCampus) return [];
   const todayAllStudents = await fetchCampusAllCourseStudents(
@@ -328,7 +328,12 @@ async function fetchUserCampusMap(userId: string) {
 
   return rooms
     .map((room) => {
-      const roomPlan = room.roomPlan?.valueOf() as { x: number; y: number; w: number; h: number } | null;
+      const roomPlan = room.roomPlan?.valueOf() as {
+        x: number;
+        y: number;
+        w: number;
+        h: number;
+      } | null;
       if (!roomPlan) return null;
       const roomStudents = room.lessons.reduce(
         (sum, roomStudent) => sum + roomStudent._count.students,
