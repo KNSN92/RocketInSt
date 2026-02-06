@@ -1,8 +1,11 @@
 "use client";
 
-import { deleteUser, setNickname } from "@/actions/settings/SettingsActions";
-import { Button } from "@/components/common/Buttons";
-import { useNotification } from "@/lib/notification";
+import {
+  deleteUser,
+  setNickname,
+} from "@/src/actions/settings/SettingsActions";
+import { Button } from "@/src/components/common/Buttons";
+import { useNotification } from "@/src/lib/notification";
 import { signOut } from "next-auth/react";
 import { useActionState, useEffect, useLayoutEffect, useState } from "react";
 

@@ -1,15 +1,18 @@
 import authConfig from "@/auth.config";
-import { SignInButton, SignOutButton } from "@/components/common/AuthButtons";
-import NotificationList from "@/components/common/NotificationList";
+import {
+  SignInButton,
+  SignOutButton,
+} from "@/src/components/common/AuthButtons";
+import NotificationList from "@/src/components/common/NotificationList";
 import {
   RocketInStLogo,
   RocketInStWhiteTextLogo,
-} from "@/components/common/RocketInStLogos";
-import ThemeButton from "@/components/common/ThemeButton";
-import { UserIcon } from "@/components/common/UserIcon";
-import { HeaderShowHideButton } from "@/components/layout/HeaderShowHideButton";
-import { NotificationProvider } from "@/lib/notification";
-import { NextAuthProvider } from "@/lib/providers";
+} from "@/src/components/common/RocketInStLogos";
+import ThemeButton from "@/src/components/common/ThemeButton";
+import { UserIcon } from "@/src/components/common/UserIcon";
+import { HeaderShowHideButton } from "@/src/components/layout/HeaderShowHideButton";
+import { NotificationProvider } from "@/src/lib/notification";
+import { NextAuthProvider } from "@/src/lib/providers";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Sawarabi_Gothic } from "next/font/google";

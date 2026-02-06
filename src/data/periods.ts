@@ -1,4 +1,4 @@
-import { TimeBetween } from "@/lib/time";
+import { TimeBetween } from "@/src/lib/time";
 
 export const LessonPeriods = [
   "FirstPeriod",

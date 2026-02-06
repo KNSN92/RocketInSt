@@ -11,8 +11,8 @@ import {
   RecessPeriods,
   RecessPeriodsJA,
   RecessPeriodTimes,
-} from "@/data/periods";
-import { WeekDayArray } from "@/data/weekdays";
+} from "@/src/data/periods";
+import { WeekDayArray } from "@/src/data/weekdays";
 import { Prisma, PrismaClient } from "@/prisma/generated/prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/client";
 

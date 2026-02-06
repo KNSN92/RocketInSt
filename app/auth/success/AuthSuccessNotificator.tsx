@@ -1,5 +1,5 @@
 "use client";
-import { useNotification } from "@/lib/notification";
+import { useNotification } from "@/src/lib/notification";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLayoutEffect } from "react";
 

@@ -1,4 +1,4 @@
-import { RecessPeriods, RecessPeriodsJA, RecessPeriodType } from "@/data/periods";
+import { RecessPeriods, RecessPeriodsJA, RecessPeriodType } from "@/src/data/periods";
 import { Prisma, WeekDay } from "@prisma-gen/browser";
 
 export function combinateUserName(

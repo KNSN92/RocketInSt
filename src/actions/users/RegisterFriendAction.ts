@@ -1,5 +1,5 @@
 "use server";
-import { fetchUserId, isUserFriend, userExist } from "@/lib/userdata";
+import { fetchUserId, isUserFriend, userExist } from "@/src/lib/userdata";
 import { prisma } from "@/prisma";
 import { z } from "zod";
 

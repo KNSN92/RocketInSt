@@ -1,23 +1,19 @@
 "use client";
 
-import handleRegisterAction from "@/actions/register/RegisterFormAction";
-import {
-  CourseDay,
-  CourseDays,
-  DaysToWeekDayMap,
-} from "@/data/course";
+import handleRegisterAction from "@/src/actions/register/RegisterFormAction";
+import { CourseDay, CourseDays, DaysToWeekDayMap } from "@/src/data/course";
 import {
   LessonPeriods,
   LessonPeriodsJA,
   LessonPeriodType,
-} from "@/data/periods";
-import { WeekDayJA } from "@/data/weekdays";
-import { useNotification } from "@/lib/notification";
+} from "@/src/data/periods";
+import { WeekDayJA } from "@/src/data/weekdays";
+import { useNotification } from "@/src/lib/notification";
 import { WeekDay } from "@prisma-gen/browser";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
-import { Button } from "../../components/common/Buttons";
-import RadioButton from "../../components/common/RadioButton";
+import { Button } from "../../src/components/common/Buttons";
+import RadioButton from "../../src/components/common/RadioButton";
 
 export default function RegisterForm({
   campuses,

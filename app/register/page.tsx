@@ -1,8 +1,8 @@
 import RegisterForm from "@/app/register/RegisterForm";
 import authConfig from "@/auth.config";
-import { CourseToDaysMap } from "@/data/course";
-import { AfterSchoolPeriod, LessonPeriods } from "@/data/periods";
 import { prisma } from "@/prisma";
+import { CourseToDaysMap } from "@/src/data/course";
+import { AfterSchoolPeriod, LessonPeriods } from "@/src/data/periods";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 
@@ -145,9 +145,7 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
   });
   return {
     campus: data?.campus?.id || undefined,
-    course: data?.course
-      ? CourseToDaysMap[data.course]
-      : undefined,
+    course: data?.course ? CourseToDaysMap[data.course] : undefined,
     afterschool: data?._count.lessons ? 1 : 0,
   };
 }

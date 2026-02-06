@@ -7,9 +7,9 @@ import {
   MeetingPeriodsJA,
   RecessPeriodsJA,
   RecessPeriodType,
-} from "@/data/periods";
-import schedules from "@/data/schedules";
-import { WeekDayArray } from "@/data/weekdays";
+} from "@/src/data/periods";
+import schedules from "@/src/data/schedules";
+import { WeekDayArray } from "@/src/data/weekdays";
 import type { Prisma, PrismaClient, WeekDay as WeekDayType } from "@/prisma/generated/prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/client";
 

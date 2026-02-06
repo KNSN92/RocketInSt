@@ -1,4 +1,4 @@
-import { LessonPeriodType } from "@/data/periods";
+import { LessonPeriodType } from "@/src/data/periods";
 import type { WeekDay } from "@prisma-gen/browser";
 
 export type DayColumn = {

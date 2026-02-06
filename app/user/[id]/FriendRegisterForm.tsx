@@ -1,8 +1,8 @@
 "use client";
 
-import registerFriendAction from "@/actions/users/RegisterFriendAction";
-import { Button } from "@/components/common/Buttons";
-import { useNotification } from "@/lib/notification";
+import registerFriendAction from "@/src/actions/users/RegisterFriendAction";
+import { Button } from "@/src/components/common/Buttons";
+import { useNotification } from "@/src/lib/notification";
 import { useActionState, useEffect } from "react";
 
 export default function FriendRegisterForm({

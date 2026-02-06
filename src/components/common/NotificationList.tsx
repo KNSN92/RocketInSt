@@ -1,6 +1,6 @@
 "use client";
 
-import { Notification, useNotification } from "@/lib/notification";
+import { Notification, useNotification } from "@/src/lib/notification";
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import clsx from "clsx";
 import { useEffect } from "react";

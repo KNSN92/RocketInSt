@@ -3,24 +3,24 @@ import { prisma } from "@/prisma";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { NumToWeekDayMap } from "@/data/weekdays";
+import { NumToWeekDayMap } from "@/src/data/weekdays";
 
-import { LinkButton } from "@/components/common/Buttons";
-import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
-import PaginationButtons from "@/components/common/PaginationButtons";
-import { DefaultRefreshButton } from "@/components/common/RefreshButton";
-import UpdatedTime from "@/components/common/UpdatedTime";
-import UserList from "@/components/common/UserList";
-import { RoomSearchSelector } from "@/components/search/RoomSearchSelector";
-import { DefaultSearchField } from "@/components/search/SearchField";
-import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
-import { fetchUserCampusId, fetchUserCampusRooms } from "@/lib/userdata";
+import { LinkButton } from "@/src/components/common/Buttons";
+import CampusRegisterRequired from "@/src/components/common/CampusRegisterRequired";
+import PaginationButtons from "@/src/components/common/PaginationButtons";
+import { DefaultRefreshButton } from "@/src/components/common/RefreshButton";
+import UpdatedTime from "@/src/components/common/UpdatedTime";
+import UserList from "@/src/components/common/UserList";
+import { RoomSearchSelector } from "@/src/components/search/RoomSearchSelector";
+import { DefaultSearchField } from "@/src/components/search/SearchField";
+import { getNowJSTTimeAsMinutesWithWeekday } from "@/src/lib/time";
+import { fetchUserCampusId, fetchUserCampusRooms } from "@/src/lib/userdata";
 import {
   genUserTakingLessonQuery,
   getTakingLesson,
   getTakingRoom,
   getTakingRoomId,
-} from "@/lib/users";
+} from "@/src/lib/users";
 import clsx from "clsx";
 import { Metadata } from "next";
 

@@ -1,4 +1,4 @@
-import { RoleColors } from "@/data/role";
+import { RoleColors } from "@/src/data/role";
 import { Role } from "@prisma-gen/browser";
 import clsx from "clsx";
 import Link from "next/link";

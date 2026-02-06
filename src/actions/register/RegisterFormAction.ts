@@ -1,18 +1,18 @@
 "use server";
 
 import authConfig from "@/auth.config";
-import type { CourseDay } from "@/data/course";
+import type { CourseDay } from "@/src/data/course";
 import {
   CourseDays,
   DaysToCourseMap,
   DaysToWeekDayMap,
-} from "@/data/course";
+} from "@/src/data/course";
 import {
   AfterSchoolPeriod,
   LessonPeriods,
   MeetingPeriods,
   RecessPeriods,
-} from "@/data/periods";
+} from "@/src/data/periods";
 import { prisma } from "@/prisma";
 import { Course, Prisma } from "@prisma-gen/browser";
 import { getServerSession } from "next-auth";

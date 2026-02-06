@@ -1,5 +1,5 @@
 import authConfig from "@/auth.config";
-import { SignInButton } from "@/components/common/AuthButtons";
+import { SignInButton } from "@/src/components/common/AuthButtons";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Roboto } from "next/font/google";

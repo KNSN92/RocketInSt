@@ -1,6 +1,6 @@
 "use server";
 
-import { fetchUser, fetchUserId } from "@/lib/userdata";
+import { fetchUser, fetchUserId } from "@/src/lib/userdata";
 import { prisma } from "@/prisma";
 import { Prisma } from "@prisma-gen/browser";
 import { signOut } from "next-auth/react";

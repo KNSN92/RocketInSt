@@ -1,4 +1,4 @@
-import Schedules from "@/data/schedules";
+import Schedules from "@/src/data/schedules";
 import { LessonPeriodType, PeriodType } from "./periods";
 import { WeekDay } from "@/prisma/generated/prisma/enums";
 

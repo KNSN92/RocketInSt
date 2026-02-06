@@ -1,17 +1,17 @@
-import { LinkButton } from "@/components/common/Buttons";
-import { DefaultRefreshButton } from "@/components/common/RefreshButton";
-import UpdatedTime from "@/components/common/UpdatedTime";
-import { UserIcon } from "@/components/common/UserIcon";
-import CampusMap from "@/components/home/CampusMap";
-import { CourseJA, CourseToDaysMap, DaysToWeekDayMap } from "@/data/course";
+import { LinkButton } from "@/src/components/common/Buttons";
+import { DefaultRefreshButton } from "@/src/components/common/RefreshButton";
+import UpdatedTime from "@/src/components/common/UpdatedTime";
+import { UserIcon } from "@/src/components/common/UserIcon";
+import CampusMap from "@/src/components/home/CampusMap";
+import { CourseJA, CourseToDaysMap, DaysToWeekDayMap } from "@/src/data/course";
 import {
   LessonPeriods,
   LessonPeriodsJA,
   LessonPeriodType,
-} from "@/data/periods";
-import { RoleColors, RoleJA, shouldShowRole } from "@/data/role";
-import { NumToWeekDayMap, WeekDayJA } from "@/data/weekdays";
-import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
+} from "@/src/data/periods";
+import { RoleColors, RoleJA, shouldShowRole } from "@/src/data/role";
+import { NumToWeekDayMap, WeekDayJA } from "@/src/data/weekdays";
+import { getNowJSTTimeAsMinutesWithWeekday } from "@/src/lib/time";
 import {
   fetchUser,
   fetchUserCampus,
@@ -19,13 +19,13 @@ import {
   fetchUserCampusRooms,
   fetchUserId,
   isUserFriend,
-} from "@/lib/userdata";
+} from "@/src/lib/userdata";
 import {
   genUserTakingLessonQuery,
   getTakingLesson,
   getTakingRoom,
   getTakingRoomId,
-} from "@/lib/users";
+} from "@/src/lib/users";
 import { Course, Role, WeekDay } from "@prisma-gen/browser";
 import clsx from "clsx";
 import { Metadata } from "next";

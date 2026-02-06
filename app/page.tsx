@@ -1,28 +1,28 @@
 import authConfig from "@/auth.config";
-import { SignInButton } from "@/components/common/AuthButtons";
-import { LinkButton } from "@/components/common/Buttons";
-import CampusRegisterRequired from "@/components/common/CampusRegisterRequired";
-import LoginRequired from "@/components/common/LoginRequired";
-import PaginationButtons from "@/components/common/PaginationButtons";
-import { DefaultRefreshButton } from "@/components/common/RefreshButton";
+import { prisma } from "@/prisma";
+import { SignInButton } from "@/src/components/common/AuthButtons";
+import { LinkButton } from "@/src/components/common/Buttons";
+import CampusRegisterRequired from "@/src/components/common/CampusRegisterRequired";
+import LoginRequired from "@/src/components/common/LoginRequired";
+import PaginationButtons from "@/src/components/common/PaginationButtons";
+import { DefaultRefreshButton } from "@/src/components/common/RefreshButton";
 import {
   RocketInStBlackTextLogo,
   RocketInStWhiteTextLogo,
-} from "@/components/common/RocketInStLogos";
-import UpdatedTime from "@/components/common/UpdatedTime";
-import UserList from "@/components/common/UserList";
-import CampusMap, { MapData } from "@/components/home/CampusMap";
-import { WeekDayToCourseMap } from "@/data/course";
-import { NumToWeekDayMap } from "@/data/weekdays";
-import { getNowJSTTimeAsMinutesWithWeekday } from "@/lib/time";
-import { fetchUserCampusId } from "@/lib/userdata";
+} from "@/src/components/common/RocketInStLogos";
+import UpdatedTime from "@/src/components/common/UpdatedTime";
+import UserList from "@/src/components/common/UserList";
+import CampusMap, { MapData } from "@/src/components/home/CampusMap";
+import { WeekDayToCourseMap } from "@/src/data/course";
+import { NumToWeekDayMap } from "@/src/data/weekdays";
+import { getNowJSTTimeAsMinutesWithWeekday } from "@/src/lib/time";
+import { fetchUserCampusId } from "@/src/lib/userdata";
 import {
   genUserTakingLessonQuery,
   getTakingLesson,
   getTakingRoom,
   getTakingRoomId,
-} from "@/lib/users";
-import { prisma } from "@/prisma";
+} from "@/src/lib/users";
 import { Course } from "@prisma-gen/browser";
 import clsx from "clsx";
 import { getServerSession } from "next-auth";

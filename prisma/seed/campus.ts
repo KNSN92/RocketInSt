@@ -1,4 +1,4 @@
-import campuses from "@/data/campus";
+import campuses from "@/src/data/campus";
 import { Prisma, PrismaClient } from "@/prisma/generated/prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/client";
 

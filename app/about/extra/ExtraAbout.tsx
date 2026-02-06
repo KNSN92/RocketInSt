@@ -3,7 +3,7 @@
 import {
   RocketInStSvgLogo,
   RocketInStSvgTextLogo,
-} from "@/components/common/RocketInStLogos";
+} from "@/src/components/common/RocketInStLogos";
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import gsap from "gsap";

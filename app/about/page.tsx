@@ -1,4 +1,4 @@
-import { RocketInStLogo } from "@/components/common/RocketInStLogos";
+import { RocketInStLogo } from "@/src/components/common/RocketInStLogos";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="h-fit w-screen">
-      <div
-        className="absolute left-full -translate-x-full size-48 overflow-hidden"
-      >
+      <div className="absolute left-full -translate-x-full size-48 overflow-hidden">
         <Link
           className="size-[calc(100%_*_sqrt(2))] text-5xl bg-blue-700 text-gray-200 flex justify-center items-end  -translate-x-[calc(50%_-_50%_*_sqrt(2))] -translate-y-1/2 rotate-45"
           href="/about/extra"
