@@ -12,7 +12,7 @@ export default function About() {
     <div className="h-fit w-screen">
       <div className="absolute left-full -translate-x-full size-48 overflow-hidden">
         <Link
-          className="size-[calc(100%_*_sqrt(2))] text-5xl bg-blue-700 text-gray-200 flex justify-center items-end  -translate-x-[calc(50%_-_50%_*_sqrt(2))] -translate-y-1/2 rotate-45"
+          className="size-[calc(100%*sqrt(2))] text-5xl bg-blue-700 text-gray-200 flex justify-center items-end  -translate-x-[calc(50%-50%*sqrt(2))] -translate-y-1/2 rotate-45"
           href="/about/extra"
         >
           Extra!
@@ -24,7 +24,7 @@ export default function About() {
             便利を世界へ。
           </h1>
           <div className="mt-4 flex flex-row items-center justify-center">
-            <div className="ml-12 md:ml-24 lg:ml-48 mr-4 inline-block h-0 w-5 md:w-10 lg:w-20 border-t-2 border-bgcolorinverse align-middle"></div>
+            <div className="ml-12 md:ml-24 lg:ml-48 mr-4 inline-block h-0 w-5 md:w-10 lg:w-20 border-t-2 border-dark dark:border-light align-middle"></div>
             <h2 className="inline-block text-xl md:text-2xl lg:text-4xl">
               RocketIn.St Development Team
             </h2>

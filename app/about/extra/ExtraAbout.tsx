@@ -579,7 +579,7 @@ export default function ExtraAbout() {
           ))}
         <FlyingRocket className="last absolute -translate-x-1/2 left-1/2" />
       </div>
-      <div className="last-circle absolute w-[5vw] aspect-square rounded-full bg-bgcolorinverse -translate-x-1/2 -translate-y-1/2 left-1/2" />
+      <div className="last-circle absolute w-[5vw] aspect-square rounded-full bg-dark dark:bg-light -translate-x-1/2 -translate-y-1/2 left-1/2" />
     </div>
   );
 }
@@ -607,7 +607,7 @@ function UsefulToTheWorld() {
           <div className="useful-to-the-world-char-odd">。</div>
         </div>
         <div className="useful-to-the-world-sub flex items-center gap-4 pt-4 pl-48">
-          <div className="inline-block w-16 h-[1px] bg-bgcolorinverse" />
+          <div className="inline-block w-16 h-px bg-dark dark:bg-light" />
           <h2 className="text-4xl">RocketInSt Development Team</h2>
         </div>
       </div>
@@ -619,9 +619,9 @@ function Features() {
   return (
     <div className="features absolute w-fit h-screen flex justify-start">
       <div className="w-screen h-screen px-8 flex items-center justify-between gap-6">
-        <div className="feature-title-bar w-0 h-1 bg-bgcolorinverse" />
+        <div className="feature-title-bar w-0 h-1 bg-dark dark:bg-light" />
         <h1 className="text-8xl">特徴</h1>
-        <div className="feature-title-bar w-0 h-1 bg-bgcolorinverse" />
+        <div className="feature-title-bar w-0 h-1 bg-dark dark:bg-light" />
       </div>
       <FeatureSection
         title="居場所表示機能"
@@ -686,9 +686,9 @@ function UsedLibs() {
   return (
     <div className="usedlibs absolute w-screen h-screen flex flex-col items-center justify-center gap-24">
       <div className="w-screen h-fit px-8 flex items-center justify-between gap-6">
-        <div className="usedlibs-title-bar w-0 h-1 bg-bgcolorinverse" />
+        <div className="usedlibs-title-bar w-0 h-1 bg-dark dark:bg-light" />
         <h1 className="text-8xl">使用技術</h1>
-        <div className="usedlibs-title-bar w-0 h-1 bg-bgcolorinverse" />
+        <div className="usedlibs-title-bar w-0 h-1 bg-dark dark:bg-light" />
       </div>
       <div className="flex flex-wrap items-center justify-center gap-16">
         <TechCard
@@ -817,42 +817,42 @@ function FlyingRocket({ className }: { className?: string }) {
     >
       <path
         d="M86.02,91.907c0,39.138-12.691,50.866-28.346,50.866s-28.346-11.728-28.346-50.866S57.673,1.04,57.673,1.04c0,0,28.346,51.728,28.346,90.866Z"
-        className="stroke-bgcolorinverse"
+        className="stroke-dark dark:stroke-light"
         fill="none"
         strokeLinecap="round"
         strokeMiterlimit="10"
       />
       <polygon
         points="28.846 162.076 .5 162.076 .5 132.05 28.846 105.383 28.846 162.076"
-        className="stroke-bgcolorinverse"
+        className="stroke-dark dark:stroke-light"
         fill="none"
         strokeLinecap="round"
         strokeMiterlimit="10"
       />
       <polygon
         points="114.846 162.076 86.5 162.076 86.5 105.383 114.846 132.05 114.846 162.076"
-        className="stroke-bgcolorinverse"
+        className="stroke-dark dark:stroke-light"
         fill="none"
         strokeLinecap="round"
         strokeMiterlimit="10"
       />
       <path
         d="M78.933,164.033s-6.692-21.26-21.26-21.26-21.26,21.26-21.26,21.26h42.52Z"
-        className="stroke-bgcolorinverse"
+        className="stroke-dark dark:stroke-light"
         fill="none"
         strokeLinecap="round"
         strokeMiterlimit="10"
       />
       <path
         d="M86.461,264.899c0,39.138-12.691,50.866-28.346,50.866s-28.346-11.728-28.346-50.866,28.346-90.866,28.346-90.866c0,0,28.346,51.728,28.346,90.866Z"
-        className="fire-outer stroke-bgcolorinverse"
+        className="fire-outer stroke-dark dark:stroke-light"
         fill="none"
         strokeLinecap="round"
         strokeMiterlimit="10"
       />
       <path
         d="M80.792,251.726c0,31.311-10.153,40.693-22.677,40.693s-22.677-9.382-22.677-40.693,22.677-72.693,22.677-72.693c0,0,22.677,41.382,22.677,72.693Z"
-        className="fire-inner stroke-bgcolorinverse"
+        className="fire-inner stroke-dark dark:stroke-light"
         fill="none"
         strokeLinecap="round"
         strokeMiterlimit="10"

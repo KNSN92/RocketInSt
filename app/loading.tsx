@@ -25,7 +25,7 @@ export default function Loading() {
       className="flex h-main-content w-screen flex-col items-center justify-center"
       ref={containerRef}
     >
-      <RocketInStSvgLogo className="logo size-[max(10vw,_10vh)]" />
+      <RocketInStSvgLogo className="logo size-[max(10vw,10vh)]" />
       <div className="text-2xl">
         <Typewriter words={["Loading..."]} cursor={true} loop={true} />
       </div>

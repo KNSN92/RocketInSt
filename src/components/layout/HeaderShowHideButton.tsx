@@ -17,7 +17,7 @@ export function HeaderShowHideButton() {
   }, [showed]);
   return (
     <button
-      className="fixed top-[var(--header-height)] z-[60] px-2 py-1 bg-blue-600 dark:bg-blue-900 text-white rounded-b-lg"
+      className="fixed top-(--header-height) z-60 px-2 py-1 bg-blue-600 dark:bg-blue-900 text-white rounded-b-lg"
       onClick={() => {
         setShowed(!showed);
       }}

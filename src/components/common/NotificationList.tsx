@@ -24,7 +24,7 @@ export default function NotificationList({
   return (
     <div
       className={clsx(
-        "fixed z-50 -translate-x-1/2 top-[var(--header-height)] left-1/2 flex flex-col gap-1",
+        "fixed z-50 -translate-x-1/2 top-(--header-height) left-1/2 flex flex-col gap-1",
         className,
       )}
     >
