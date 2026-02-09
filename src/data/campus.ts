@@ -1,6 +1,6 @@
+import { WeekDay } from "@/prisma/generated/prisma/enums";
 import Schedules from "@/src/data/schedules";
 import { LessonPeriodType, PeriodType } from "./periods";
-import { WeekDay } from "@/prisma/generated/prisma/enums";
 
 import kobeSannomiya from "./campus/kobe-sannomiya";
 
@@ -23,25 +23,31 @@ type CampusesData = {
   [campus: string]: CampusData;
 };
 
+interface RoomPlan {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export interface Lesson {
+  weekday: WeekDay;
+  period: PeriodType;
+  name?: (typeof Schedules)[WeekDay][LessonPeriodType][number];
+}
+
 export interface CampusData {
   memberCount: number;
   mainRoom: number;
-  rooms: {
-    name: string;
-    capacity: number;
-    accentColor?: string;
-    lessons: {
-      weekday: WeekDay;
-      period: PeriodType;
-      name?: (typeof Schedules)[WeekDay][LessonPeriodType][number];
-    }[];
-    plan: {
-      x: number;
-      y: number;
-      w: number;
-      h: number;
-    };
-  }[];
+  rooms: RoomData[];
+}
+
+export interface RoomData {
+  name: string;
+  capacity: number;
+  accentColor?: string;
+  lessons: Lesson[];
+  plan: RoomPlan;
 }
 
 const campuses: CampusesData = {
