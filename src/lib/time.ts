@@ -32,5 +32,5 @@ export function isTimeInRange(time: Time, timeRange: TimeBetween) {
   const tmpEndMinutes = timeRange.end.hours * 60 + timeRange.end.minutes;
   const endMinutes =
     startMinutes <= tmpEndMinutes ? tmpEndMinutes : tmpEndMinutes + 60 * 24;
-  return startMinutes <= totalMinutes && totalMinutes <= endMinutes;
+  return startMinutes <= totalMinutes && totalMinutes < endMinutes;
 }

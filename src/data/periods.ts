@@ -23,31 +23,32 @@ export const LessonPeriodsJA: { [key in LessonPeriodType]: string } = {
 export const LessonPeriodTimes: { [key in LessonPeriodType]: TimeBetween } = {
   FirstPeriod: {
     start: { hours: 9, minutes: 45 },
-    end: { hours: 10, minutes: 34 },
+    end: { hours: 10, minutes: 35 },
   },
   SecondPeriod: {
     start: { hours: 10, minutes: 45 },
-    end: { hours: 11, minutes: 34 },
+    end: { hours: 11, minutes: 35 },
   },
   ThirdPeriod: {
     start: { hours: 11, minutes: 45 },
-    end: { hours: 12, minutes: 34 },
+    end: { hours: 12, minutes: 35 },
   },
   FourthPeriod: {
     start: { hours: 13, minutes: 15 },
-    end: { hours: 14, minutes: 4 },
+    end: { hours: 14, minutes: 5 },
   },
   FifthPeriod: {
     start: { hours: 14, minutes: 15 },
-    end: { hours: 15, minutes: 4 },
+    end: { hours: 15, minutes: 5 },
   },
   SixthPeriod: {
     start: { hours: 15, minutes: 15 },
-    end: { hours: 16, minutes: 4 },
+    end: { hours: 16, minutes: 5 },
   },
 } as const;
 
 export const RecessPeriods = [
+  "Morning",
   "FirstSecondRecess",
   "SecondThirdRecess",
   "NoonRecess",
@@ -58,6 +59,7 @@ export const RecessPeriods = [
 export type RecessPeriodType = (typeof RecessPeriods)[number];
 
 export const RecessPeriodsJA: { [key in RecessPeriodType]: string } = {
+  Morning: "朝",
   FirstSecondRecess: "休み時間",
   SecondThirdRecess: "休み時間",
   NoonRecess: "昼休み",
@@ -66,25 +68,29 @@ export const RecessPeriodsJA: { [key in RecessPeriodType]: string } = {
 } as const;
 
 export const RecessPeriodTimes: { [key in RecessPeriodType]: TimeBetween } = {
+  Morning: {
+    start: { hours: 9, minutes: 0 },
+    end: { hours: 9, minutes: 30 },
+  },
   FirstSecondRecess: {
     start: { hours: 10, minutes: 35 },
-    end: { hours: 10, minutes: 44 },
+    end: { hours: 10, minutes: 45 },
   },
   SecondThirdRecess: {
     start: { hours: 11, minutes: 35 },
-    end: { hours: 11, minutes: 44 },
+    end: { hours: 11, minutes: 45 },
   },
   NoonRecess: {
     start: { hours: 12, minutes: 35 },
-    end: { hours: 13, minutes: 14 },
+    end: { hours: 13, minutes: 15 },
   },
   FourthFifthRecess: {
     start: { hours: 14, minutes: 5 },
-    end: { hours: 14, minutes: 14 },
+    end: { hours: 14, minutes: 15 },
   },
   FifthSixthRecess: {
     start: { hours: 15, minutes: 5 },
-    end: { hours: 15, minutes: 14 },
+    end: { hours: 15, minutes: 15 },
   },
 } as const;
 
@@ -111,11 +117,11 @@ export const MeetingPeriodsJA: { [key in MeetingPeriodType]: string } = {
 export const MeetingPeriodTimes: { [key in MeetingPeriodType]: TimeBetween } = {
   MorningMeeting: {
     start: { hours: 9, minutes: 30 },
-    end: { hours: 9, minutes: 44 },
+    end: { hours: 9, minutes: 45 },
   },
   ClosingMeeting: {
     start: { hours: 16, minutes: 5 },
-    end: { hours: 16, minutes: 14 },
+    end: { hours: 16, minutes: 15 },
   },
 } as const;
 
@@ -132,3 +138,31 @@ export type PeriodType =
   | RecessPeriodType
   | MeetingPeriodType
   | AfterSchoolPeriodType;
+
+export const TimeTablePeriodSequence: PeriodType[] = [
+  "Morning",
+  "MorningMeeting",
+  "FirstPeriod",
+  "SecondPeriod",
+  "ThirdPeriod",
+  "NoonRecess",
+  "FourthPeriod",
+  "FifthPeriod",
+  "SixthPeriod",
+  "ClosingMeeting",
+  "AfterSchool",
+] as const;
+
+export const PeriodsJA = {
+  ...LessonPeriodsJA,
+  ...RecessPeriodsJA,
+  ...MeetingPeriodsJA,
+  AfterSchool: AfterSchoolPeriodJA,
+} as const;
+
+export const PeriodTimes = {
+  ...LessonPeriodTimes,
+  ...RecessPeriodTimes,
+  ...MeetingPeriodTimes,
+  AfterSchool: AfterSchoolPeriodTime,
+} as const;
