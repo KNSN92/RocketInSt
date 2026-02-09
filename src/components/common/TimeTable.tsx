@@ -81,7 +81,7 @@ function TimeTablePeriodRow({
   return (
     <tr
       className={clsx(
-        "odd:bg-blue-100 *:max-w-32 *:w-32 *:not-first:border-l not-first:*:border-t *:border-stone-400/80",
+        "odd:bg-[#e2ecfe] *:max-w-32 *:w-32 *:not-first:border-l not-first:*:border-t *:border-stone-400/80",
         needSeparate ? "h-8" : "h-12",
       )}
       key={period}
