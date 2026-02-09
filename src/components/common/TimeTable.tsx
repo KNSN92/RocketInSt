@@ -5,15 +5,15 @@ import {
 } from "@/src/data/timetable";
 import clsx from "clsx";
 
-interface Props {
+interface TimeTableProps {
   date: Date;
   rooms: { name: string; color?: string }[];
   timetable: {
-    [room in string]: string[];
+    [room in string]: (string | null)[];
   };
 }
 
-export function TimeTable({ date, rooms, timetable }: Props) {
+export function TimeTable({ date, rooms, timetable }: TimeTableProps) {
   if (
     Object.keys(timetable).filter((room) =>
       rooms.map((r) => r.name).includes(room),
@@ -59,40 +59,45 @@ export function TimeTable({ date, rooms, timetable }: Props) {
   );
 }
 
+interface TimeTablePeriodRowProps {
+  period: PeriodType;
+  rooms: { name: string; color?: string }[];
+  rowidx: number;
+  timetable: {
+    [room in string]: (string | null)[];
+  };
+}
+
 function TimeTablePeriodRow({
   period,
   rooms,
   rowidx,
   timetable,
-}: {
-  period: PeriodType;
-  rooms: { name: string; color?: string }[];
-  rowidx: number;
-  timetable: {
-    [room in string]: string[];
-  };
-}) {
+}: TimeTablePeriodRowProps) {
+  const prevNeedSeparate =
+    rowidx > 0 &&
+    TimeTableSeparatePeriods.includes(TimeTablePeriodSequence[rowidx - 1]);
   const needSeparate = TimeTableSeparatePeriods.includes(period);
   return (
     <tr
       className={clsx(
-        "odd:bg-blue-100 *:max-w-32 *:w-32 *:border-1 *:border-stone-400/80",
+        "odd:bg-blue-100 *:max-w-32 *:w-32 *:not-first:border-l not-first:*:border-t *:border-stone-400/80",
         needSeparate ? "h-8" : "h-12",
       )}
       key={period}
     >
       <td
         className={clsx(
-          "border-r-1! border-r-black!",
-          needSeparate && "border-y-1! border-y-black!",
+          "border-r-1 border-r-black!",
+          (needSeparate || prevNeedSeparate) && "border-t-black!",
         )}
       >
         {PeriodsJA[period]}
       </td>
       <td
         className={clsx(
-          "border-r-2! border-r-black!",
-          needSeparate && "border-y-1! border-y-black!",
+          "border-r-2 border-r-black!",
+          (needSeparate || prevNeedSeparate) && "border-t-black!",
         )}
       >
         {PeriodTimes[period].start.hours}:
