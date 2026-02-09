@@ -45,3 +45,6 @@ supabase
 
 # pause vercel deployments shell script
 pause.sh
+
+# generated prisma client
+/prisma/generated/
