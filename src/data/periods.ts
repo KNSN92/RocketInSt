@@ -139,20 +139,6 @@ export type PeriodType =
   | MeetingPeriodType
   | AfterSchoolPeriodType;
 
-export const TimeTablePeriodSequence: PeriodType[] = [
-  "Morning",
-  "MorningMeeting",
-  "FirstPeriod",
-  "SecondPeriod",
-  "ThirdPeriod",
-  "NoonRecess",
-  "FourthPeriod",
-  "FifthPeriod",
-  "SixthPeriod",
-  "ClosingMeeting",
-  "AfterSchool",
-] as const;
-
 export const PeriodsJA = {
   ...LessonPeriodsJA,
   ...RecessPeriodsJA,
