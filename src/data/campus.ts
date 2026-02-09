@@ -29,6 +29,7 @@ export interface CampusData {
   rooms: {
     name: string;
     capacity: number;
+    accentColor?: string;
     lessons: {
       weekday: WeekDay;
       period: PeriodType;

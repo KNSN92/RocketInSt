@@ -7,6 +7,7 @@ export default {
     {
       name: "大広間",
       capacity: 80,
+      accentColor: "#d36859",
       plan: { x: 1, y: 0, w: 3, h: 2 },
       lessons: [
         Period("Monday", "MorningMeeting"),
@@ -78,6 +79,7 @@ export default {
     {
       name: "万里",
       capacity: 30,
+      accentColor: "#f7c08a",
       plan: { x: 2, y: 2, w: 2, h: 1 },
       lessons: [
         Period("Monday", "NoonRecess"),
@@ -128,6 +130,7 @@ export default {
     {
       name: "秘密基地",
       capacity: 20,
+      accentColor: "#e28587",
       plan: { x: 0, y: 0, w: 1, h: 1 },
       lessons: [
         // LessonPeriod("Monday", "FirstPeriod", ""),
@@ -169,6 +172,7 @@ export default {
     {
       name: "7階",
       capacity: 50,
+      accentColor: "#ffff86",
       plan: { x: 5, y: 0, w: 2, h: 3 },
       lessons: [
         // LessonPeriod("Monday", "FirstPeriod", ""),
@@ -207,5 +211,47 @@ export default {
         // LessonPeriod("Friday", "SixthPeriod", ""),
       ],
     },
+    {
+      name: "受付",
+      capacity: 20,
+      accentColor: "#a9d097",
+      plan: { x: 0, y: 1, w: 1, h: 1 },
+      lessons: [
+        // LessonPeriod("Monday", "FirstPeriod", ""),
+        // LessonPeriod("Monday", "SecondPeriod", ""),
+        // LessonPeriod("Monday", "ThirdPeriod", ""),
+        // LessonPeriod("Monday", "FourthPeriod", ""),
+        // LessonPeriod("Monday", "FifthPeriod", ""),
+        // LessonPeriod("Monday", "SixthPeriod", ""),
+
+        // LessonPeriod("Tuesday", "FirstPeriod", ""),
+        // LessonPeriod("Tuesday", "SecondPeriod", ""),
+        // LessonPeriod("Tuesday", "ThirdPeriod", ""),
+        // LessonPeriod("Tuesday", "FourthPeriod", ""),
+        // LessonPeriod("Tuesday", "FifthPeriod", ""),
+        // LessonPeriod("Tuesday", "SixthPeriod", ""),
+
+        // LessonPeriod("Wednesday", "FirstPeriod", ""),
+        // LessonPeriod("Wednesday", "SecondPeriod", ""),
+        // LessonPeriod("Wednesday", "ThirdPeriod", ""),
+        // LessonPeriod("Wednesday", "FourthPeriod", ""),
+        // LessonPeriod("Wednesday", "FifthPeriod", ""),
+        // LessonPeriod("Wednesday", "SixthPeriod", ""),
+
+        // LessonPeriod("Thursday", "FirstPeriod", ""),
+        // LessonPeriod("Thursday", "SecondPeriod", ""),
+        // LessonPeriod("Thursday", "ThirdPeriod", ""),
+        // LessonPeriod("Thursday", "FourthPeriod", ""),
+        // LessonPeriod("Thursday", "FifthPeriod", ""),
+        // LessonPeriod("Thursday", "SixthPeriod", ""),
+
+        // LessonPeriod("Friday", "FirstPeriod", ""),
+        // LessonPeriod("Friday", "SecondPeriod", ""),
+        // LessonPeriod("Friday", "ThirdPeriod", ""),
+        // LessonPeriod("Friday", "FourthPeriod", ""),
+        // LessonPeriod("Friday", "FifthPeriod", ""),
+        // LessonPeriod("Friday", "SixthPeriod", ""),
+      ]
+    }
   ],
 } satisfies CampusData;

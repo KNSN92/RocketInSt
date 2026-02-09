@@ -23,6 +23,7 @@ export default async function seed(prisma: Omit<PrismaClient<never, undefined, D
         campusId: campus.id,
         name: room.name,
         capacity: room.capacity,
+        accentColor: room.accentColor,
         roomPlan: room.plan,
       }))
     })
