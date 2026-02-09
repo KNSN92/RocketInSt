@@ -19,4 +19,5 @@ export const TimeTableSeparatePeriods: PeriodType[] = [
   "MorningMeeting",
   "NoonRecess",
   "ClosingMeeting",
+  "AfterSchool",
 ] as const;
