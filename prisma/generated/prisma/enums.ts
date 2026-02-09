@@ -11,9 +11,9 @@
 
 export const Role = {
   User: 'User',
+  Admin: 'Admin',
   Moderator: 'Moderator',
-  Mentor: 'Mentor',
-  Admin: 'Admin'
+  Mentor: 'Mentor'
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -21,10 +21,10 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const PeriodTag = {
   Lesson: 'Lesson',
-  Recess: 'Recess',
   Meeting: 'Meeting',
   Event: 'Event',
-  Other: 'Other'
+  Other: 'Other',
+  Recess: 'Recess'
 } as const
 
 export type PeriodTag = (typeof PeriodTag)[keyof typeof PeriodTag]

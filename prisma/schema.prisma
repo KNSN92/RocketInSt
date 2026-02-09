@@ -28,8 +28,8 @@ model User {
   campus                    Campus?              @relation(fields: [campusId], references: [id])
   moderatorOrMentorCampus   Campus?              @relation("moderatorOrMentorCampus", fields: [moderatorOrMentorCampusId], references: [id])
   lessons                   Lesson[]             @relation("LessonToUser")
-  User_A                    User[]               @relation("UserFollowRelation")
-  User_B                    User[]               @relation("UserFollowRelation")
+  followers                 User[]               @relation("UserFollowRelation")
+  following                 User[]               @relation("UserFollowRelation")
 }
 
 model Account {
@@ -83,25 +83,29 @@ model Authenticator {
 }
 
 model Campus {
-  id                     String  @id @default(uuid())
+  id                     String      @id @default(uuid())
   name                   String
-  mainRoomId             String? @unique
+  mainRoomId             String?     @unique
   memberCount            Int
-  mainRoom               Room?   @relation("mainRoom", fields: [mainRoomId], references: [id])
-  rooms                  Room[]  @relation("rooms")
+  mainRoom               Room?       @relation("mainRoom", fields: [mainRoomId], references: [id])
+  rooms                  Room[]      @relation("rooms")
   members                User[]
-  moderatorOrMentorUsers User[]  @relation("moderatorOrMentorCampus")
+  moderatorOrMentorUsers User[]      @relation("moderatorOrMentorCampus")
+  timeTables             TimeTable[]
 }
 
 model Room {
-  id       String   @id @default(uuid())
-  name     String
-  campusId String
-  capacity Int
-  roomPlan Json?
-  mainFor  Campus?  @relation("mainRoom")
-  campus   Campus   @relation("rooms", fields: [campusId], references: [id], onDelete: Cascade)
-  lessons  Lesson[] @relation("LessonToRoom")
+  id          String   @id @default(uuid())
+  name        String
+  campusId    String
+  capacity    Int
+  accentColor String?
+  roomPlan    Json?
+  mainFor     Campus?  @relation("mainRoom")
+  campus      Campus   @relation("rooms", fields: [campusId], references: [id], onDelete: Cascade)
+  lessons     Lesson[] @relation("LessonToRoom")
+
+  @@unique([name, campusId])
 }
 
 model Lesson {
@@ -129,6 +133,8 @@ model Period {
 model TimeTable {
   id       String               @id @default(uuid())
   date     DateTime
+  campusId String
+  campus   Campus               @relation(fields: [campusId], references: [id])
   rawTable Json
   reports  TimeTableFixReport[] @relation("TimeTable")
 }

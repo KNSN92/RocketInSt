@@ -27,49 +27,49 @@ export type AggregateUser = {
 export type UserMinAggregateOutputType = {
   id: string | null
   name: string | null
-  nickname: string | null
   email: string | null
   emailVerified: Date | null
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  role: $Enums.Role | null
-  moderatorOrMentorCampusId: string | null
   campusId: string | null
+  role: $Enums.Role | null
+  nickname: string | null
   course: $Enums.Course | null
   lessonsRegisteredDate: Date | null
+  moderatorOrMentorCampusId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  nickname: string | null
   email: string | null
   emailVerified: Date | null
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  role: $Enums.Role | null
-  moderatorOrMentorCampusId: string | null
   campusId: string | null
+  role: $Enums.Role | null
+  nickname: string | null
   course: $Enums.Course | null
   lessonsRegisteredDate: Date | null
+  moderatorOrMentorCampusId: string | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
   name: number
-  nickname: number
   email: number
   emailVerified: number
   image: number
   createdAt: number
   updatedAt: number
-  role: number
-  moderatorOrMentorCampusId: number
   campusId: number
+  role: number
+  nickname: number
   course: number
   lessonsRegisteredDate: number
+  moderatorOrMentorCampusId: number
   _all: number
 }
 
@@ -77,49 +77,49 @@ export type UserCountAggregateOutputType = {
 export type UserMinAggregateInputType = {
   id?: true
   name?: true
-  nickname?: true
   email?: true
   emailVerified?: true
   image?: true
   createdAt?: true
   updatedAt?: true
-  role?: true
-  moderatorOrMentorCampusId?: true
   campusId?: true
+  role?: true
+  nickname?: true
   course?: true
   lessonsRegisteredDate?: true
+  moderatorOrMentorCampusId?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
   name?: true
-  nickname?: true
   email?: true
   emailVerified?: true
   image?: true
   createdAt?: true
   updatedAt?: true
-  role?: true
-  moderatorOrMentorCampusId?: true
   campusId?: true
+  role?: true
+  nickname?: true
   course?: true
   lessonsRegisteredDate?: true
+  moderatorOrMentorCampusId?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
   name?: true
-  nickname?: true
   email?: true
   emailVerified?: true
   image?: true
   createdAt?: true
   updatedAt?: true
-  role?: true
-  moderatorOrMentorCampusId?: true
   campusId?: true
+  role?: true
+  nickname?: true
   course?: true
   lessonsRegisteredDate?: true
+  moderatorOrMentorCampusId?: true
   _all?: true
 }
 
@@ -198,17 +198,17 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: string
   name: string | null
-  nickname: string | null
   email: string
   emailVerified: Date | null
   image: string | null
   createdAt: Date
   updatedAt: Date
-  role: $Enums.Role
-  moderatorOrMentorCampusId: string | null
   campusId: string | null
+  role: $Enums.Role
+  nickname: string | null
   course: $Enums.Course | null
   lessonsRegisteredDate: Date | null
+  moderatorOrMentorCampusId: string | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -235,24 +235,24 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
-  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
   Authenticator?: Prisma.AuthenticatorListRelationFilter
-  moderatorOrMentorCampus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
-  campus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
-  lessons?: Prisma.LessonListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   timeTableFixReports?: Prisma.TimeTableFixReportListRelationFilter
+  campus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
+  moderatorOrMentorCampus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
+  lessons?: Prisma.LessonListRelationFilter
   followers?: Prisma.UserListRelationFilter
   following?: Prisma.UserListRelationFilter
 }
@@ -260,24 +260,24 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
-  nickname?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  moderatorOrMentorCampusId?: Prisma.SortOrderInput | Prisma.SortOrder
   campusId?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
+  nickname?: Prisma.SortOrderInput | Prisma.SortOrder
   course?: Prisma.SortOrderInput | Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
-  sessions?: Prisma.SessionOrderByRelationAggregateInput
   Authenticator?: Prisma.AuthenticatorOrderByRelationAggregateInput
-  moderatorOrMentorCampus?: Prisma.CampusOrderByWithRelationInput
-  campus?: Prisma.CampusOrderByWithRelationInput
-  lessons?: Prisma.LessonOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
   timeTableFixReports?: Prisma.TimeTableFixReportOrderByRelationAggregateInput
+  campus?: Prisma.CampusOrderByWithRelationInput
+  moderatorOrMentorCampus?: Prisma.CampusOrderByWithRelationInput
+  lessons?: Prisma.LessonOrderByRelationAggregateInput
   followers?: Prisma.UserOrderByRelationAggregateInput
   following?: Prisma.UserOrderByRelationAggregateInput
 }
@@ -289,23 +289,23 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringNullableFilter<"User"> | string | null
-  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
   Authenticator?: Prisma.AuthenticatorListRelationFilter
-  moderatorOrMentorCampus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
-  campus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
-  lessons?: Prisma.LessonListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   timeTableFixReports?: Prisma.TimeTableFixReportListRelationFilter
+  campus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
+  moderatorOrMentorCampus?: Prisma.XOR<Prisma.CampusNullableScalarRelationFilter, Prisma.CampusWhereInput> | null
+  lessons?: Prisma.LessonListRelationFilter
   followers?: Prisma.UserListRelationFilter
   following?: Prisma.UserListRelationFilter
 }, "id" | "email">
@@ -313,17 +313,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
-  nickname?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  moderatorOrMentorCampusId?: Prisma.SortOrderInput | Prisma.SortOrder
   campusId?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
+  nickname?: Prisma.SortOrderInput | Prisma.SortOrder
   course?: Prisma.SortOrderInput | Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -335,38 +335,38 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  nickname?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   campusId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  nickname?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableWithAggregatesFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -374,22 +374,22 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -397,22 +397,22 @@ export type UserUncheckedCreateInput = {
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -420,22 +420,22 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -443,29 +443,29 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -473,17 +473,17 @@ export type UserUpdateManyMutationInput = {
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserListRelationFilter = {
@@ -499,49 +499,49 @@ export type UserOrderByRelationAggregateInput = {
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  nickname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  moderatorOrMentorCampusId?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  nickname?: Prisma.SortOrder
   course?: Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  nickname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  moderatorOrMentorCampusId?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  nickname?: Prisma.SortOrder
   course?: Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  nickname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  moderatorOrMentorCampusId?: Prisma.SortOrder
   campusId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  nickname?: Prisma.SortOrder
   course?: Prisma.SortOrder
   lessonsRegisteredDate?: Prisma.SortOrder
+  moderatorOrMentorCampusId?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -830,44 +830,44 @@ export type UserUpdateOneRequiredWithoutTimeTableFixReportsNestedInput = {
 export type UserCreateWithoutFollowingInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
 }
 
@@ -879,44 +879,44 @@ export type UserCreateOrConnectWithoutFollowingInput = {
 export type UserCreateWithoutFollowersInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
 
@@ -947,17 +947,17 @@ export type UserScalarWhereInput = {
   NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
-  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
   campusId?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   course?: Prisma.EnumCourseNullableFilter<"User"> | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
 export type UserUpsertWithWhereUniqueWithoutFollowersInput = {
@@ -979,21 +979,21 @@ export type UserUpdateManyWithWhereWithoutFollowersInput = {
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1001,21 +1001,21 @@ export type UserCreateWithoutAccountsInput = {
 export type UserUncheckedCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  moderatorOrMentorCampusId?: string | null
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1039,21 +1039,21 @@ export type UserUpdateToOneWithWhereWithoutAccountsInput = {
 export type UserUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1061,21 +1061,21 @@ export type UserUpdateWithoutAccountsInput = {
 export type UserUncheckedUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1083,21 +1083,21 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1105,21 +1105,21 @@ export type UserCreateWithoutSessionsInput = {
 export type UserUncheckedCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1143,21 +1143,21 @@ export type UserUpdateToOneWithWhereWithoutSessionsInput = {
 export type UserUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1165,21 +1165,21 @@ export type UserUpdateWithoutSessionsInput = {
 export type UserUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1187,21 +1187,21 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
 export type UserCreateWithoutAuthenticatorInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
-  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1209,21 +1209,21 @@ export type UserCreateWithoutAuthenticatorInput = {
 export type UserUncheckedCreateWithoutAuthenticatorInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1247,21 +1247,21 @@ export type UserUpdateToOneWithWhereWithoutAuthenticatorInput = {
 export type UserUpdateWithoutAuthenticatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1269,21 +1269,21 @@ export type UserUpdateWithoutAuthenticatorInput = {
 export type UserUncheckedUpdateWithoutAuthenticatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1291,21 +1291,21 @@ export type UserUncheckedUpdateWithoutAuthenticatorInput = {
 export type UserCreateWithoutCampusInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
-  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1313,21 +1313,21 @@ export type UserCreateWithoutCampusInput = {
 export type UserUncheckedCreateWithoutCampusInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1345,21 +1345,21 @@ export type UserCreateManyCampusInputEnvelope = {
 export type UserCreateWithoutModeratorOrMentorCampusInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
-  timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1367,21 +1367,21 @@ export type UserCreateWithoutModeratorOrMentorCampusInput = {
 export type UserUncheckedCreateWithoutModeratorOrMentorCampusInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
+  lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
 }
@@ -1431,21 +1431,21 @@ export type UserUpdateManyWithWhereWithoutModeratorOrMentorCampusInput = {
 export type UserCreateWithoutLessonsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
-  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportCreateNestedManyWithoutByInput
+  campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
 }
@@ -1453,20 +1453,20 @@ export type UserCreateWithoutLessonsInput = {
 export type UserUncheckedCreateWithoutLessonsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutByInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
@@ -1496,20 +1496,20 @@ export type UserUpdateManyWithWhereWithoutLessonsInput = {
 export type UserCreateWithoutTimeTableFixReportsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorCreateNestedManyWithoutUserInput
-  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   campus?: Prisma.CampusCreateNestedOneWithoutMembersInput
+  moderatorOrMentorCampus?: Prisma.CampusCreateNestedOneWithoutModeratorOrMentorUsersInput
   lessons?: Prisma.LessonCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserCreateNestedManyWithoutFollowersInput
@@ -1518,20 +1518,20 @@ export type UserCreateWithoutTimeTableFixReportsInput = {
 export type UserUncheckedCreateWithoutTimeTableFixReportsInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   Authenticator?: Prisma.AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutStudentsInput
   followers?: Prisma.UserUncheckedCreateNestedManyWithoutFollowingInput
   following?: Prisma.UserUncheckedCreateNestedManyWithoutFollowersInput
@@ -1556,20 +1556,20 @@ export type UserUpdateToOneWithWhereWithoutTimeTableFixReportsInput = {
 export type UserUpdateWithoutTimeTableFixReportsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
@@ -1578,20 +1578,20 @@ export type UserUpdateWithoutTimeTableFixReportsInput = {
 export type UserUncheckedUpdateWithoutTimeTableFixReportsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
@@ -1600,149 +1600,149 @@ export type UserUncheckedUpdateWithoutTimeTableFixReportsInput = {
 export type UserUpdateWithoutFollowingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutFollowingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUpdateWithoutFollowersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
-  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
+  lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutFollowersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserCreateManyCampusInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   role?: $Enums.Role
-  moderatorOrMentorCampusId?: string | null
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
+  moderatorOrMentorCampusId?: string | null
 }
 
 export type UserCreateManyModeratorOrMentorCampusInput = {
   id?: string
   name?: string | null
-  nickname?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
   campusId?: string | null
+  role?: $Enums.Role
+  nickname?: string | null
   course?: $Enums.Course | null
   lessonsRegisteredDate?: Date | string | null
 }
@@ -1750,21 +1750,21 @@ export type UserCreateManyModeratorOrMentorCampusInput = {
 export type UserUpdateWithoutCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
-  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1772,21 +1772,21 @@ export type UserUpdateWithoutCampusInput = {
 export type UserUncheckedUpdateWithoutCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1794,36 +1794,36 @@ export type UserUncheckedUpdateWithoutCampusInput = {
 export type UserUncheckedUpdateManyWithoutCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUpdateWithoutModeratorOrMentorCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutStudentsNestedInput
-  timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1831,21 +1831,21 @@ export type UserUpdateWithoutModeratorOrMentorCampusInput = {
 export type UserUncheckedUpdateWithoutModeratorOrMentorCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
+  lessons?: Prisma.LessonUncheckedUpdateManyWithoutStudentsNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
 }
@@ -1853,14 +1853,14 @@ export type UserUncheckedUpdateWithoutModeratorOrMentorCampusInput = {
 export type UserUncheckedUpdateManyWithoutModeratorOrMentorCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -1868,21 +1868,21 @@ export type UserUncheckedUpdateManyWithoutModeratorOrMentorCampusInput = {
 export type UserUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUpdateManyWithoutUserNestedInput
-  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
-  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUpdateManyWithoutByNestedInput
+  campus?: Prisma.CampusUpdateOneWithoutMembersNestedInput
+  moderatorOrMentorCampus?: Prisma.CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput
   followers?: Prisma.UserUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUpdateManyWithoutFollowersNestedInput
 }
@@ -1890,20 +1890,20 @@ export type UserUpdateWithoutLessonsInput = {
 export type UserUncheckedUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   Authenticator?: Prisma.AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   timeTableFixReports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutByNestedInput
   followers?: Prisma.UserUncheckedUpdateManyWithoutFollowingNestedInput
   following?: Prisma.UserUncheckedUpdateManyWithoutFollowersNestedInput
@@ -1912,17 +1912,17 @@ export type UserUncheckedUpdateWithoutLessonsInput = {
 export type UserUncheckedUpdateManyWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   campusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.NullableEnumCourseFieldUpdateOperationsInput | $Enums.Course | null
   lessonsRegisteredDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderatorOrMentorCampusId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1932,20 +1932,20 @@ export type UserUncheckedUpdateManyWithoutLessonsInput = {
 
 export type UserCountOutputType = {
   accounts: number
-  sessions: number
   Authenticator: number
-  lessons: number
+  sessions: number
   timeTableFixReports: number
+  lessons: number
   followers: number
   following: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   Authenticator?: boolean | UserCountOutputTypeCountAuthenticatorArgs
-  lessons?: boolean | UserCountOutputTypeCountLessonsArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   timeTableFixReports?: boolean | UserCountOutputTypeCountTimeTableFixReportsArgs
+  lessons?: boolean | UserCountOutputTypeCountLessonsArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
   following?: boolean | UserCountOutputTypeCountFollowingArgs
 }
@@ -1970,13 +1970,6 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SessionWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountAuthenticatorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AuthenticatorWhereInput
 }
@@ -1984,8 +1977,8 @@ export type UserCountOutputTypeCountAuthenticatorArgs<ExtArgs extends runtime.Ty
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountLessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.LessonWhereInput
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
 }
 
 /**
@@ -1993,6 +1986,13 @@ export type UserCountOutputTypeCountLessonsArgs<ExtArgs extends runtime.Types.Ex
  */
 export type UserCountOutputTypeCountTimeTableFixReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TimeTableFixReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LessonWhereInput
 }
 
 /**
@@ -2013,24 +2013,24 @@ export type UserCountOutputTypeCountFollowingArgs<ExtArgs extends runtime.Types.
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  nickname?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
-  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
+  role?: boolean
+  nickname?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
+  moderatorOrMentorCampusId?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   Authenticator?: boolean | Prisma.User$AuthenticatorArgs<ExtArgs>
-  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
-  campus?: boolean | Prisma.User$campusArgs<ExtArgs>
-  lessons?: boolean | Prisma.User$lessonsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   timeTableFixReports?: boolean | Prisma.User$timeTableFixReportsArgs<ExtArgs>
+  campus?: boolean | Prisma.User$campusArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
+  lessons?: boolean | Prisma.User$lessonsArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2039,104 +2039,104 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  nickname?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
-  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
+  role?: boolean
+  nickname?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
-  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
+  moderatorOrMentorCampusId?: boolean
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  nickname?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
-  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
+  role?: boolean
+  nickname?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
-  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
+  moderatorOrMentorCampusId?: boolean
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   name?: boolean
-  nickname?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
-  moderatorOrMentorCampusId?: boolean
   campusId?: boolean
+  role?: boolean
+  nickname?: boolean
   course?: boolean
   lessonsRegisteredDate?: boolean
+  moderatorOrMentorCampusId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nickname" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "moderatorOrMentorCampusId" | "campusId" | "course" | "lessonsRegisteredDate", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "campusId" | "role" | "nickname" | "course" | "lessonsRegisteredDate" | "moderatorOrMentorCampusId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   Authenticator?: boolean | Prisma.User$AuthenticatorArgs<ExtArgs>
-  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
-  campus?: boolean | Prisma.User$campusArgs<ExtArgs>
-  lessons?: boolean | Prisma.User$lessonsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   timeTableFixReports?: boolean | Prisma.User$timeTableFixReportsArgs<ExtArgs>
+  campus?: boolean | Prisma.User$campusArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
+  lessons?: boolean | Prisma.User$lessonsArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
   campus?: boolean | Prisma.User$campusArgs<ExtArgs>
+  moderatorOrMentorCampus?: boolean | Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
-    sessions: Prisma.$SessionPayload<ExtArgs>[]
     Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[]
-    moderatorOrMentorCampus: Prisma.$CampusPayload<ExtArgs> | null
-    campus: Prisma.$CampusPayload<ExtArgs> | null
-    lessons: Prisma.$LessonPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
     timeTableFixReports: Prisma.$TimeTableFixReportPayload<ExtArgs>[]
+    campus: Prisma.$CampusPayload<ExtArgs> | null
+    moderatorOrMentorCampus: Prisma.$CampusPayload<ExtArgs> | null
+    lessons: Prisma.$LessonPayload<ExtArgs>[]
     followers: Prisma.$UserPayload<ExtArgs>[]
     following: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string | null
-    nickname: string | null
     email: string
     emailVerified: Date | null
     image: string | null
     createdAt: Date
     updatedAt: Date
-    role: $Enums.Role
-    moderatorOrMentorCampusId: string | null
     campusId: string | null
+    role: $Enums.Role
+    nickname: string | null
     course: $Enums.Course | null
     lessonsRegisteredDate: Date | null
+    moderatorOrMentorCampusId: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2532,12 +2532,12 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Authenticator<T extends Prisma.User$AuthenticatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$AuthenticatorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  moderatorOrMentorCampus<T extends Prisma.User$moderatorOrMentorCampusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  campus<T extends Prisma.User$campusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$campusArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  lessons<T extends Prisma.User$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timeTableFixReports<T extends Prisma.User$timeTableFixReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$timeTableFixReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeTableFixReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  campus<T extends Prisma.User$campusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$campusArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  moderatorOrMentorCampus<T extends Prisma.User$moderatorOrMentorCampusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moderatorOrMentorCampusArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  lessons<T extends Prisma.User$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2571,17 +2571,17 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
-  readonly nickname: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
-  readonly role: Prisma.FieldRef<"User", 'Role'>
-  readonly moderatorOrMentorCampusId: Prisma.FieldRef<"User", 'String'>
   readonly campusId: Prisma.FieldRef<"User", 'String'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly nickname: Prisma.FieldRef<"User", 'String'>
   readonly course: Prisma.FieldRef<"User", 'Course'>
   readonly lessonsRegisteredDate: Prisma.FieldRef<"User", 'DateTime'>
+  readonly moderatorOrMentorCampusId: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -3002,30 +3002,6 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * User.sessions
- */
-export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Session
-   */
-  select?: Prisma.SessionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Session
-   */
-  omit?: Prisma.SessionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SessionInclude<ExtArgs> | null
-  where?: Prisma.SessionWhereInput
-  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
-  cursor?: Prisma.SessionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
-}
-
-/**
  * User.Authenticator
  */
 export type User$AuthenticatorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3050,9 +3026,57 @@ export type User$AuthenticatorArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * User.moderatorOrMentorCampus
+ * User.sessions
  */
-export type User$moderatorOrMentorCampusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.timeTableFixReports
+ */
+export type User$timeTableFixReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TimeTableFixReport
+   */
+  select?: Prisma.TimeTableFixReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TimeTableFixReport
+   */
+  omit?: Prisma.TimeTableFixReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeTableFixReportInclude<ExtArgs> | null
+  where?: Prisma.TimeTableFixReportWhereInput
+  orderBy?: Prisma.TimeTableFixReportOrderByWithRelationInput | Prisma.TimeTableFixReportOrderByWithRelationInput[]
+  cursor?: Prisma.TimeTableFixReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TimeTableFixReportScalarFieldEnum | Prisma.TimeTableFixReportScalarFieldEnum[]
+}
+
+/**
+ * User.campus
+ */
+export type User$campusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Campus
    */
@@ -3069,9 +3093,9 @@ export type User$moderatorOrMentorCampusArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
- * User.campus
+ * User.moderatorOrMentorCampus
  */
-export type User$campusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$moderatorOrMentorCampusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Campus
    */
@@ -3109,30 +3133,6 @@ export type User$lessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.LessonScalarFieldEnum | Prisma.LessonScalarFieldEnum[]
-}
-
-/**
- * User.timeTableFixReports
- */
-export type User$timeTableFixReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TimeTableFixReport
-   */
-  select?: Prisma.TimeTableFixReportSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TimeTableFixReport
-   */
-  omit?: Prisma.TimeTableFixReportOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TimeTableFixReportInclude<ExtArgs> | null
-  where?: Prisma.TimeTableFixReportWhereInput
-  orderBy?: Prisma.TimeTableFixReportOrderByWithRelationInput | Prisma.TimeTableFixReportOrderByWithRelationInput[]
-  cursor?: Prisma.TimeTableFixReportWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TimeTableFixReportScalarFieldEnum | Prisma.TimeTableFixReportScalarFieldEnum[]
 }
 
 /**

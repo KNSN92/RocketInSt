@@ -38,32 +38,32 @@ export type PeriodSumAggregateOutputType = {
 
 export type PeriodMinAggregateOutputType = {
   id: string | null
-  name: string | null
-  innername: string | null
   weekday: $Enums.WeekDay | null
   beginTime: number | null
   endTime: number | null
   tag: $Enums.PeriodTag | null
+  innername: string | null
+  name: string | null
 }
 
 export type PeriodMaxAggregateOutputType = {
   id: string | null
-  name: string | null
-  innername: string | null
   weekday: $Enums.WeekDay | null
   beginTime: number | null
   endTime: number | null
   tag: $Enums.PeriodTag | null
+  innername: string | null
+  name: string | null
 }
 
 export type PeriodCountAggregateOutputType = {
   id: number
-  name: number
-  innername: number
   weekday: number
   beginTime: number
   endTime: number
   tag: number
+  innername: number
+  name: number
   _all: number
 }
 
@@ -80,32 +80,32 @@ export type PeriodSumAggregateInputType = {
 
 export type PeriodMinAggregateInputType = {
   id?: true
-  name?: true
-  innername?: true
   weekday?: true
   beginTime?: true
   endTime?: true
   tag?: true
+  innername?: true
+  name?: true
 }
 
 export type PeriodMaxAggregateInputType = {
   id?: true
-  name?: true
-  innername?: true
   weekday?: true
   beginTime?: true
   endTime?: true
   tag?: true
+  innername?: true
+  name?: true
 }
 
 export type PeriodCountAggregateInputType = {
   id?: true
-  name?: true
-  innername?: true
   weekday?: true
   beginTime?: true
   endTime?: true
   tag?: true
+  innername?: true
+  name?: true
   _all?: true
 }
 
@@ -197,12 +197,12 @@ export type PeriodGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type PeriodGroupByOutputType = {
   id: string
-  name: string
-  innername: string
   weekday: $Enums.WeekDay
   beginTime: number
   endTime: number
   tag: $Enums.PeriodTag
+  innername: string
+  name: string
   _count: PeriodCountAggregateOutputType | null
   _avg: PeriodAvgAggregateOutputType | null
   _sum: PeriodSumAggregateOutputType | null
@@ -230,23 +230,23 @@ export type PeriodWhereInput = {
   OR?: Prisma.PeriodWhereInput[]
   NOT?: Prisma.PeriodWhereInput | Prisma.PeriodWhereInput[]
   id?: Prisma.StringFilter<"Period"> | string
-  name?: Prisma.StringFilter<"Period"> | string
-  innername?: Prisma.StringFilter<"Period"> | string
   weekday?: Prisma.EnumWeekDayFilter<"Period"> | $Enums.WeekDay
   beginTime?: Prisma.IntFilter<"Period"> | number
   endTime?: Prisma.IntFilter<"Period"> | number
   tag?: Prisma.EnumPeriodTagFilter<"Period"> | $Enums.PeriodTag
+  innername?: Prisma.StringFilter<"Period"> | string
+  name?: Prisma.StringFilter<"Period"> | string
   lessons?: Prisma.LessonListRelationFilter
 }
 
 export type PeriodOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  innername?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   beginTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   tag?: Prisma.SortOrder
+  innername?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   lessons?: Prisma.LessonOrderByRelationAggregateInput
 }
 
@@ -256,23 +256,23 @@ export type PeriodWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PeriodWhereInput | Prisma.PeriodWhereInput[]
   OR?: Prisma.PeriodWhereInput[]
   NOT?: Prisma.PeriodWhereInput | Prisma.PeriodWhereInput[]
-  name?: Prisma.StringFilter<"Period"> | string
-  innername?: Prisma.StringFilter<"Period"> | string
   weekday?: Prisma.EnumWeekDayFilter<"Period"> | $Enums.WeekDay
   beginTime?: Prisma.IntFilter<"Period"> | number
   endTime?: Prisma.IntFilter<"Period"> | number
   tag?: Prisma.EnumPeriodTagFilter<"Period"> | $Enums.PeriodTag
+  innername?: Prisma.StringFilter<"Period"> | string
+  name?: Prisma.StringFilter<"Period"> | string
   lessons?: Prisma.LessonListRelationFilter
 }, "id" | "innername_weekday">
 
 export type PeriodOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  innername?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   beginTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   tag?: Prisma.SortOrder
+  innername?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   _count?: Prisma.PeriodCountOrderByAggregateInput
   _avg?: Prisma.PeriodAvgOrderByAggregateInput
   _max?: Prisma.PeriodMaxOrderByAggregateInput
@@ -285,86 +285,86 @@ export type PeriodScalarWhereWithAggregatesInput = {
   OR?: Prisma.PeriodScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PeriodScalarWhereWithAggregatesInput | Prisma.PeriodScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Period"> | string
-  name?: Prisma.StringWithAggregatesFilter<"Period"> | string
-  innername?: Prisma.StringWithAggregatesFilter<"Period"> | string
   weekday?: Prisma.EnumWeekDayWithAggregatesFilter<"Period"> | $Enums.WeekDay
   beginTime?: Prisma.IntWithAggregatesFilter<"Period"> | number
   endTime?: Prisma.IntWithAggregatesFilter<"Period"> | number
   tag?: Prisma.EnumPeriodTagWithAggregatesFilter<"Period"> | $Enums.PeriodTag
+  innername?: Prisma.StringWithAggregatesFilter<"Period"> | string
+  name?: Prisma.StringWithAggregatesFilter<"Period"> | string
 }
 
 export type PeriodCreateInput = {
   id?: string
-  name: string
-  innername: string
   weekday: $Enums.WeekDay
   beginTime: number
   endTime: number
   tag: $Enums.PeriodTag
+  innername: string
+  name: string
   lessons?: Prisma.LessonCreateNestedManyWithoutPeriodInput
 }
 
 export type PeriodUncheckedCreateInput = {
   id?: string
-  name: string
-  innername: string
   weekday: $Enums.WeekDay
   beginTime: number
   endTime: number
   tag: $Enums.PeriodTag
+  innername: string
+  name: string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutPeriodInput
 }
 
 export type PeriodUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   lessons?: Prisma.LessonUpdateManyWithoutPeriodNestedInput
 }
 
 export type PeriodUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutPeriodNestedInput
 }
 
 export type PeriodCreateManyInput = {
   id?: string
-  name: string
-  innername: string
   weekday: $Enums.WeekDay
   beginTime: number
   endTime: number
   tag: $Enums.PeriodTag
+  innername: string
+  name: string
 }
 
 export type PeriodUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PeriodUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PeriodListRelationFilter = {
@@ -384,12 +384,12 @@ export type PeriodInnernameWeekdayCompoundUniqueInput = {
 
 export type PeriodCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  innername?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   beginTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   tag?: Prisma.SortOrder
+  innername?: Prisma.SortOrder
+  name?: Prisma.SortOrder
 }
 
 export type PeriodAvgOrderByAggregateInput = {
@@ -399,22 +399,22 @@ export type PeriodAvgOrderByAggregateInput = {
 
 export type PeriodMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  innername?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   beginTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   tag?: Prisma.SortOrder
+  innername?: Prisma.SortOrder
+  name?: Prisma.SortOrder
 }
 
 export type PeriodMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  innername?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   beginTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   tag?: Prisma.SortOrder
+  innername?: Prisma.SortOrder
+  name?: Prisma.SortOrder
 }
 
 export type PeriodSumOrderByAggregateInput = {
@@ -470,22 +470,22 @@ export type EnumPeriodTagFieldUpdateOperationsInput = {
 
 export type PeriodCreateWithoutLessonsInput = {
   id?: string
-  name: string
-  innername: string
   weekday: $Enums.WeekDay
   beginTime: number
   endTime: number
   tag: $Enums.PeriodTag
+  innername: string
+  name: string
 }
 
 export type PeriodUncheckedCreateWithoutLessonsInput = {
   id?: string
-  name: string
-  innername: string
   weekday: $Enums.WeekDay
   beginTime: number
   endTime: number
   tag: $Enums.PeriodTag
+  innername: string
+  name: string
 }
 
 export type PeriodCreateOrConnectWithoutLessonsInput = {
@@ -514,42 +514,42 @@ export type PeriodScalarWhereInput = {
   OR?: Prisma.PeriodScalarWhereInput[]
   NOT?: Prisma.PeriodScalarWhereInput | Prisma.PeriodScalarWhereInput[]
   id?: Prisma.StringFilter<"Period"> | string
-  name?: Prisma.StringFilter<"Period"> | string
-  innername?: Prisma.StringFilter<"Period"> | string
   weekday?: Prisma.EnumWeekDayFilter<"Period"> | $Enums.WeekDay
   beginTime?: Prisma.IntFilter<"Period"> | number
   endTime?: Prisma.IntFilter<"Period"> | number
   tag?: Prisma.EnumPeriodTagFilter<"Period"> | $Enums.PeriodTag
+  innername?: Prisma.StringFilter<"Period"> | string
+  name?: Prisma.StringFilter<"Period"> | string
 }
 
 export type PeriodUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PeriodUncheckedUpdateWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PeriodUncheckedUpdateManyWithoutLessonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  innername?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
   beginTime?: Prisma.IntFieldUpdateOperationsInput | number
   endTime?: Prisma.IntFieldUpdateOperationsInput | number
   tag?: Prisma.EnumPeriodTagFieldUpdateOperationsInput | $Enums.PeriodTag
+  innername?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -585,47 +585,47 @@ export type PeriodCountOutputTypeCountLessonsArgs<ExtArgs extends runtime.Types.
 
 export type PeriodSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
-  innername?: boolean
   weekday?: boolean
   beginTime?: boolean
   endTime?: boolean
   tag?: boolean
+  innername?: boolean
+  name?: boolean
   lessons?: boolean | Prisma.Period$lessonsArgs<ExtArgs>
   _count?: boolean | Prisma.PeriodCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["period"]>
 
 export type PeriodSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
-  innername?: boolean
   weekday?: boolean
   beginTime?: boolean
   endTime?: boolean
   tag?: boolean
+  innername?: boolean
+  name?: boolean
 }, ExtArgs["result"]["period"]>
 
 export type PeriodSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
-  innername?: boolean
   weekday?: boolean
   beginTime?: boolean
   endTime?: boolean
   tag?: boolean
+  innername?: boolean
+  name?: boolean
 }, ExtArgs["result"]["period"]>
 
 export type PeriodSelectScalar = {
   id?: boolean
-  name?: boolean
-  innername?: boolean
   weekday?: boolean
   beginTime?: boolean
   endTime?: boolean
   tag?: boolean
+  innername?: boolean
+  name?: boolean
 }
 
-export type PeriodOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "innername" | "weekday" | "beginTime" | "endTime" | "tag", ExtArgs["result"]["period"]>
+export type PeriodOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "weekday" | "beginTime" | "endTime" | "tag" | "innername" | "name", ExtArgs["result"]["period"]>
 export type PeriodInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lessons?: boolean | Prisma.Period$lessonsArgs<ExtArgs>
   _count?: boolean | Prisma.PeriodCountOutputTypeDefaultArgs<ExtArgs>
@@ -640,12 +640,12 @@ export type $PeriodPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
-    innername: string
     weekday: $Enums.WeekDay
     beginTime: number
     endTime: number
     tag: $Enums.PeriodTag
+    innername: string
+    name: string
   }, ExtArgs["result"]["period"]>
   composites: {}
 }
@@ -1071,12 +1071,12 @@ export interface Prisma__PeriodClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface PeriodFieldRefs {
   readonly id: Prisma.FieldRef<"Period", 'String'>
-  readonly name: Prisma.FieldRef<"Period", 'String'>
-  readonly innername: Prisma.FieldRef<"Period", 'String'>
   readonly weekday: Prisma.FieldRef<"Period", 'WeekDay'>
   readonly beginTime: Prisma.FieldRef<"Period", 'Int'>
   readonly endTime: Prisma.FieldRef<"Period", 'Int'>
   readonly tag: Prisma.FieldRef<"Period", 'PeriodTag'>
+  readonly innername: Prisma.FieldRef<"Period", 'String'>
+  readonly name: Prisma.FieldRef<"Period", 'String'>
 }
     
 

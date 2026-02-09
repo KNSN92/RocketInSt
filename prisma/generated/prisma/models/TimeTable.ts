@@ -27,16 +27,19 @@ export type AggregateTimeTable = {
 export type TimeTableMinAggregateOutputType = {
   id: string | null
   date: Date | null
+  campusId: string | null
 }
 
 export type TimeTableMaxAggregateOutputType = {
   id: string | null
   date: Date | null
+  campusId: string | null
 }
 
 export type TimeTableCountAggregateOutputType = {
   id: number
   date: number
+  campusId: number
   rawTable: number
   _all: number
 }
@@ -45,16 +48,19 @@ export type TimeTableCountAggregateOutputType = {
 export type TimeTableMinAggregateInputType = {
   id?: true
   date?: true
+  campusId?: true
 }
 
 export type TimeTableMaxAggregateInputType = {
   id?: true
   date?: true
+  campusId?: true
 }
 
 export type TimeTableCountAggregateInputType = {
   id?: true
   date?: true
+  campusId?: true
   rawTable?: true
   _all?: true
 }
@@ -134,6 +140,7 @@ export type TimeTableGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type TimeTableGroupByOutputType = {
   id: string
   date: Date
+  campusId: string
   rawTable: runtime.JsonValue
   _count: TimeTableCountAggregateOutputType | null
   _min: TimeTableMinAggregateOutputType | null
@@ -161,14 +168,18 @@ export type TimeTableWhereInput = {
   NOT?: Prisma.TimeTableWhereInput | Prisma.TimeTableWhereInput[]
   id?: Prisma.StringFilter<"TimeTable"> | string
   date?: Prisma.DateTimeFilter<"TimeTable"> | Date | string
+  campusId?: Prisma.StringFilter<"TimeTable"> | string
   rawTable?: Prisma.JsonFilter<"TimeTable">
+  campus?: Prisma.XOR<Prisma.CampusScalarRelationFilter, Prisma.CampusWhereInput>
   reports?: Prisma.TimeTableFixReportListRelationFilter
 }
 
 export type TimeTableOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  campusId?: Prisma.SortOrder
   rawTable?: Prisma.SortOrder
+  campus?: Prisma.CampusOrderByWithRelationInput
   reports?: Prisma.TimeTableFixReportOrderByRelationAggregateInput
 }
 
@@ -178,13 +189,16 @@ export type TimeTableWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TimeTableWhereInput[]
   NOT?: Prisma.TimeTableWhereInput | Prisma.TimeTableWhereInput[]
   date?: Prisma.DateTimeFilter<"TimeTable"> | Date | string
+  campusId?: Prisma.StringFilter<"TimeTable"> | string
   rawTable?: Prisma.JsonFilter<"TimeTable">
+  campus?: Prisma.XOR<Prisma.CampusScalarRelationFilter, Prisma.CampusWhereInput>
   reports?: Prisma.TimeTableFixReportListRelationFilter
 }, "id">
 
 export type TimeTableOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  campusId?: Prisma.SortOrder
   rawTable?: Prisma.SortOrder
   _count?: Prisma.TimeTableCountOrderByAggregateInput
   _max?: Prisma.TimeTableMaxOrderByAggregateInput
@@ -197,6 +211,7 @@ export type TimeTableScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TimeTableScalarWhereWithAggregatesInput | Prisma.TimeTableScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TimeTable"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"TimeTable"> | Date | string
+  campusId?: Prisma.StringWithAggregatesFilter<"TimeTable"> | string
   rawTable?: Prisma.JsonWithAggregatesFilter<"TimeTable">
 }
 
@@ -204,12 +219,14 @@ export type TimeTableCreateInput = {
   id?: string
   date: Date | string
   rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  campus: Prisma.CampusCreateNestedOneWithoutTimeTablesInput
   reports?: Prisma.TimeTableFixReportCreateNestedManyWithoutTableInput
 }
 
 export type TimeTableUncheckedCreateInput = {
   id?: string
   date: Date | string
+  campusId: string
   rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
   reports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutTableInput
 }
@@ -218,12 +235,14 @@ export type TimeTableUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  campus?: Prisma.CampusUpdateOneRequiredWithoutTimeTablesNestedInput
   reports?: Prisma.TimeTableFixReportUpdateManyWithoutTableNestedInput
 }
 
 export type TimeTableUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campusId?: Prisma.StringFieldUpdateOperationsInput | string
   rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   reports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutTableNestedInput
 }
@@ -231,6 +250,7 @@ export type TimeTableUncheckedUpdateInput = {
 export type TimeTableCreateManyInput = {
   id?: string
   date: Date | string
+  campusId: string
   rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
@@ -243,28 +263,84 @@ export type TimeTableUpdateManyMutationInput = {
 export type TimeTableUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campusId?: Prisma.StringFieldUpdateOperationsInput | string
   rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+}
+
+export type TimeTableListRelationFilter = {
+  every?: Prisma.TimeTableWhereInput
+  some?: Prisma.TimeTableWhereInput
+  none?: Prisma.TimeTableWhereInput
+}
+
+export type TimeTableOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type TimeTableCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  campusId?: Prisma.SortOrder
   rawTable?: Prisma.SortOrder
 }
 
 export type TimeTableMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  campusId?: Prisma.SortOrder
 }
 
 export type TimeTableMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  campusId?: Prisma.SortOrder
 }
 
 export type TimeTableScalarRelationFilter = {
   is?: Prisma.TimeTableWhereInput
   isNot?: Prisma.TimeTableWhereInput
+}
+
+export type TimeTableCreateNestedManyWithoutCampusInput = {
+  create?: Prisma.XOR<Prisma.TimeTableCreateWithoutCampusInput, Prisma.TimeTableUncheckedCreateWithoutCampusInput> | Prisma.TimeTableCreateWithoutCampusInput[] | Prisma.TimeTableUncheckedCreateWithoutCampusInput[]
+  connectOrCreate?: Prisma.TimeTableCreateOrConnectWithoutCampusInput | Prisma.TimeTableCreateOrConnectWithoutCampusInput[]
+  createMany?: Prisma.TimeTableCreateManyCampusInputEnvelope
+  connect?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+}
+
+export type TimeTableUncheckedCreateNestedManyWithoutCampusInput = {
+  create?: Prisma.XOR<Prisma.TimeTableCreateWithoutCampusInput, Prisma.TimeTableUncheckedCreateWithoutCampusInput> | Prisma.TimeTableCreateWithoutCampusInput[] | Prisma.TimeTableUncheckedCreateWithoutCampusInput[]
+  connectOrCreate?: Prisma.TimeTableCreateOrConnectWithoutCampusInput | Prisma.TimeTableCreateOrConnectWithoutCampusInput[]
+  createMany?: Prisma.TimeTableCreateManyCampusInputEnvelope
+  connect?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+}
+
+export type TimeTableUpdateManyWithoutCampusNestedInput = {
+  create?: Prisma.XOR<Prisma.TimeTableCreateWithoutCampusInput, Prisma.TimeTableUncheckedCreateWithoutCampusInput> | Prisma.TimeTableCreateWithoutCampusInput[] | Prisma.TimeTableUncheckedCreateWithoutCampusInput[]
+  connectOrCreate?: Prisma.TimeTableCreateOrConnectWithoutCampusInput | Prisma.TimeTableCreateOrConnectWithoutCampusInput[]
+  upsert?: Prisma.TimeTableUpsertWithWhereUniqueWithoutCampusInput | Prisma.TimeTableUpsertWithWhereUniqueWithoutCampusInput[]
+  createMany?: Prisma.TimeTableCreateManyCampusInputEnvelope
+  set?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  disconnect?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  delete?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  connect?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  update?: Prisma.TimeTableUpdateWithWhereUniqueWithoutCampusInput | Prisma.TimeTableUpdateWithWhereUniqueWithoutCampusInput[]
+  updateMany?: Prisma.TimeTableUpdateManyWithWhereWithoutCampusInput | Prisma.TimeTableUpdateManyWithWhereWithoutCampusInput[]
+  deleteMany?: Prisma.TimeTableScalarWhereInput | Prisma.TimeTableScalarWhereInput[]
+}
+
+export type TimeTableUncheckedUpdateManyWithoutCampusNestedInput = {
+  create?: Prisma.XOR<Prisma.TimeTableCreateWithoutCampusInput, Prisma.TimeTableUncheckedCreateWithoutCampusInput> | Prisma.TimeTableCreateWithoutCampusInput[] | Prisma.TimeTableUncheckedCreateWithoutCampusInput[]
+  connectOrCreate?: Prisma.TimeTableCreateOrConnectWithoutCampusInput | Prisma.TimeTableCreateOrConnectWithoutCampusInput[]
+  upsert?: Prisma.TimeTableUpsertWithWhereUniqueWithoutCampusInput | Prisma.TimeTableUpsertWithWhereUniqueWithoutCampusInput[]
+  createMany?: Prisma.TimeTableCreateManyCampusInputEnvelope
+  set?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  disconnect?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  delete?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  connect?: Prisma.TimeTableWhereUniqueInput | Prisma.TimeTableWhereUniqueInput[]
+  update?: Prisma.TimeTableUpdateWithWhereUniqueWithoutCampusInput | Prisma.TimeTableUpdateWithWhereUniqueWithoutCampusInput[]
+  updateMany?: Prisma.TimeTableUpdateManyWithWhereWithoutCampusInput | Prisma.TimeTableUpdateManyWithWhereWithoutCampusInput[]
+  deleteMany?: Prisma.TimeTableScalarWhereInput | Prisma.TimeTableScalarWhereInput[]
 }
 
 export type TimeTableCreateNestedOneWithoutReportsInput = {
@@ -281,15 +357,67 @@ export type TimeTableUpdateOneRequiredWithoutReportsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TimeTableUpdateToOneWithWhereWithoutReportsInput, Prisma.TimeTableUpdateWithoutReportsInput>, Prisma.TimeTableUncheckedUpdateWithoutReportsInput>
 }
 
+export type TimeTableCreateWithoutCampusInput = {
+  id?: string
+  date: Date | string
+  rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  reports?: Prisma.TimeTableFixReportCreateNestedManyWithoutTableInput
+}
+
+export type TimeTableUncheckedCreateWithoutCampusInput = {
+  id?: string
+  date: Date | string
+  rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  reports?: Prisma.TimeTableFixReportUncheckedCreateNestedManyWithoutTableInput
+}
+
+export type TimeTableCreateOrConnectWithoutCampusInput = {
+  where: Prisma.TimeTableWhereUniqueInput
+  create: Prisma.XOR<Prisma.TimeTableCreateWithoutCampusInput, Prisma.TimeTableUncheckedCreateWithoutCampusInput>
+}
+
+export type TimeTableCreateManyCampusInputEnvelope = {
+  data: Prisma.TimeTableCreateManyCampusInput | Prisma.TimeTableCreateManyCampusInput[]
+  skipDuplicates?: boolean
+}
+
+export type TimeTableUpsertWithWhereUniqueWithoutCampusInput = {
+  where: Prisma.TimeTableWhereUniqueInput
+  update: Prisma.XOR<Prisma.TimeTableUpdateWithoutCampusInput, Prisma.TimeTableUncheckedUpdateWithoutCampusInput>
+  create: Prisma.XOR<Prisma.TimeTableCreateWithoutCampusInput, Prisma.TimeTableUncheckedCreateWithoutCampusInput>
+}
+
+export type TimeTableUpdateWithWhereUniqueWithoutCampusInput = {
+  where: Prisma.TimeTableWhereUniqueInput
+  data: Prisma.XOR<Prisma.TimeTableUpdateWithoutCampusInput, Prisma.TimeTableUncheckedUpdateWithoutCampusInput>
+}
+
+export type TimeTableUpdateManyWithWhereWithoutCampusInput = {
+  where: Prisma.TimeTableScalarWhereInput
+  data: Prisma.XOR<Prisma.TimeTableUpdateManyMutationInput, Prisma.TimeTableUncheckedUpdateManyWithoutCampusInput>
+}
+
+export type TimeTableScalarWhereInput = {
+  AND?: Prisma.TimeTableScalarWhereInput | Prisma.TimeTableScalarWhereInput[]
+  OR?: Prisma.TimeTableScalarWhereInput[]
+  NOT?: Prisma.TimeTableScalarWhereInput | Prisma.TimeTableScalarWhereInput[]
+  id?: Prisma.StringFilter<"TimeTable"> | string
+  date?: Prisma.DateTimeFilter<"TimeTable"> | Date | string
+  campusId?: Prisma.StringFilter<"TimeTable"> | string
+  rawTable?: Prisma.JsonFilter<"TimeTable">
+}
+
 export type TimeTableCreateWithoutReportsInput = {
   id?: string
   date: Date | string
   rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  campus: Prisma.CampusCreateNestedOneWithoutTimeTablesInput
 }
 
 export type TimeTableUncheckedCreateWithoutReportsInput = {
   id?: string
   date: Date | string
+  campusId: string
   rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
@@ -313,9 +441,37 @@ export type TimeTableUpdateWithoutReportsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  campus?: Prisma.CampusUpdateOneRequiredWithoutTimeTablesNestedInput
 }
 
 export type TimeTableUncheckedUpdateWithoutReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campusId?: Prisma.StringFieldUpdateOperationsInput | string
+  rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+}
+
+export type TimeTableCreateManyCampusInput = {
+  id?: string
+  date: Date | string
+  rawTable: Prisma.JsonNullValueInput | runtime.InputJsonValue
+}
+
+export type TimeTableUpdateWithoutCampusInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  reports?: Prisma.TimeTableFixReportUpdateManyWithoutTableNestedInput
+}
+
+export type TimeTableUncheckedUpdateWithoutCampusInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  reports?: Prisma.TimeTableFixReportUncheckedUpdateManyWithoutTableNestedInput
+}
+
+export type TimeTableUncheckedUpdateManyWithoutCampusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rawTable?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -355,7 +511,9 @@ export type TimeTableCountOutputTypeCountReportsArgs<ExtArgs extends runtime.Typ
 export type TimeTableSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   date?: boolean
+  campusId?: boolean
   rawTable?: boolean
+  campus?: boolean | Prisma.CampusDefaultArgs<ExtArgs>
   reports?: boolean | Prisma.TimeTable$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.TimeTableCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeTable"]>
@@ -363,37 +521,49 @@ export type TimeTableSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type TimeTableSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   date?: boolean
+  campusId?: boolean
   rawTable?: boolean
+  campus?: boolean | Prisma.CampusDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeTable"]>
 
 export type TimeTableSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   date?: boolean
+  campusId?: boolean
   rawTable?: boolean
+  campus?: boolean | Prisma.CampusDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeTable"]>
 
 export type TimeTableSelectScalar = {
   id?: boolean
   date?: boolean
+  campusId?: boolean
   rawTable?: boolean
 }
 
-export type TimeTableOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "rawTable", ExtArgs["result"]["timeTable"]>
+export type TimeTableOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "campusId" | "rawTable", ExtArgs["result"]["timeTable"]>
 export type TimeTableInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  campus?: boolean | Prisma.CampusDefaultArgs<ExtArgs>
   reports?: boolean | Prisma.TimeTable$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.TimeTableCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type TimeTableIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TimeTableIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TimeTableIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  campus?: boolean | Prisma.CampusDefaultArgs<ExtArgs>
+}
+export type TimeTableIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  campus?: boolean | Prisma.CampusDefaultArgs<ExtArgs>
+}
 
 export type $TimeTablePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TimeTable"
   objects: {
+    campus: Prisma.$CampusPayload<ExtArgs>
     reports: Prisma.$TimeTableFixReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     date: Date
+    campusId: string
     rawTable: runtime.JsonValue
   }, ExtArgs["result"]["timeTable"]>
   composites: {}
@@ -789,6 +959,7 @@ readonly fields: TimeTableFieldRefs;
  */
 export interface Prisma__TimeTableClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  campus<T extends Prisma.CampusDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CampusDefaultArgs<ExtArgs>>): Prisma.Prisma__CampusClient<runtime.Types.Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   reports<T extends Prisma.TimeTable$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TimeTable$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeTableFixReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -821,6 +992,7 @@ export interface Prisma__TimeTableClient<T, Null = never, ExtArgs extends runtim
 export interface TimeTableFieldRefs {
   readonly id: Prisma.FieldRef<"TimeTable", 'String'>
   readonly date: Prisma.FieldRef<"TimeTable", 'DateTime'>
+  readonly campusId: Prisma.FieldRef<"TimeTable", 'String'>
   readonly rawTable: Prisma.FieldRef<"TimeTable", 'Json'>
 }
     
@@ -1071,6 +1243,10 @@ export type TimeTableCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    */
   data: Prisma.TimeTableCreateManyInput | Prisma.TimeTableCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeTableIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1141,6 +1317,10 @@ export type TimeTableUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many TimeTables to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeTableIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

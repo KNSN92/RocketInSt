@@ -83,17 +83,17 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  nickname: 'nickname',
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  role: 'role',
-  moderatorOrMentorCampusId: 'moderatorOrMentorCampusId',
   campusId: 'campusId',
+  role: 'role',
+  nickname: 'nickname',
   course: 'course',
-  lessonsRegisteredDate: 'lessonsRegisteredDate'
+  lessonsRegisteredDate: 'lessonsRegisteredDate',
+  moderatorOrMentorCampusId: 'moderatorOrMentorCampusId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -167,6 +167,7 @@ export const RoomScalarFieldEnum = {
   name: 'name',
   campusId: 'campusId',
   capacity: 'capacity',
+  accentColor: 'accentColor',
   roomPlan: 'roomPlan'
 } as const
 
@@ -184,12 +185,12 @@ export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof 
 
 export const PeriodScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  innername: 'innername',
   weekday: 'weekday',
   beginTime: 'beginTime',
   endTime: 'endTime',
-  tag: 'tag'
+  tag: 'tag',
+  innername: 'innername',
+  name: 'name'
 } as const
 
 export type PeriodScalarFieldEnum = (typeof PeriodScalarFieldEnum)[keyof typeof PeriodScalarFieldEnum]
@@ -198,6 +199,7 @@ export type PeriodScalarFieldEnum = (typeof PeriodScalarFieldEnum)[keyof typeof 
 export const TimeTableScalarFieldEnum = {
   id: 'id',
   date: 'date',
+  campusId: 'campusId',
   rawTable: 'rawTable'
 } as const
 

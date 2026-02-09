@@ -208,10 +208,11 @@ export type CampusWhereInput = {
   name?: Prisma.StringFilter<"Campus"> | string
   mainRoomId?: Prisma.StringNullableFilter<"Campus"> | string | null
   memberCount?: Prisma.IntFilter<"Campus"> | number
-  rooms?: Prisma.RoomListRelationFilter
   mainRoom?: Prisma.XOR<Prisma.RoomNullableScalarRelationFilter, Prisma.RoomWhereInput> | null
+  rooms?: Prisma.RoomListRelationFilter
   members?: Prisma.UserListRelationFilter
   moderatorOrMentorUsers?: Prisma.UserListRelationFilter
+  timeTables?: Prisma.TimeTableListRelationFilter
 }
 
 export type CampusOrderByWithRelationInput = {
@@ -219,25 +220,27 @@ export type CampusOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   mainRoomId?: Prisma.SortOrderInput | Prisma.SortOrder
   memberCount?: Prisma.SortOrder
-  rooms?: Prisma.RoomOrderByRelationAggregateInput
   mainRoom?: Prisma.RoomOrderByWithRelationInput
+  rooms?: Prisma.RoomOrderByRelationAggregateInput
   members?: Prisma.UserOrderByRelationAggregateInput
   moderatorOrMentorUsers?: Prisma.UserOrderByRelationAggregateInput
+  timeTables?: Prisma.TimeTableOrderByRelationAggregateInput
 }
 
 export type CampusWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  name?: string
   mainRoomId?: string
   AND?: Prisma.CampusWhereInput | Prisma.CampusWhereInput[]
   OR?: Prisma.CampusWhereInput[]
   NOT?: Prisma.CampusWhereInput | Prisma.CampusWhereInput[]
+  name?: Prisma.StringFilter<"Campus"> | string
   memberCount?: Prisma.IntFilter<"Campus"> | number
-  rooms?: Prisma.RoomListRelationFilter
   mainRoom?: Prisma.XOR<Prisma.RoomNullableScalarRelationFilter, Prisma.RoomWhereInput> | null
+  rooms?: Prisma.RoomListRelationFilter
   members?: Prisma.UserListRelationFilter
   moderatorOrMentorUsers?: Prisma.UserListRelationFilter
-}, "id" | "name" | "mainRoomId">
+  timeTables?: Prisma.TimeTableListRelationFilter
+}, "id" | "mainRoomId">
 
 export type CampusOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -265,10 +268,11 @@ export type CampusCreateInput = {
   id?: string
   name: string
   memberCount: number
-  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
+  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   members?: Prisma.UserCreateNestedManyWithoutCampusInput
   moderatorOrMentorUsers?: Prisma.UserCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableCreateNestedManyWithoutCampusInput
 }
 
 export type CampusUncheckedCreateInput = {
@@ -279,16 +283,18 @@ export type CampusUncheckedCreateInput = {
   rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
   members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
   moderatorOrMentorUsers?: Prisma.UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableUncheckedCreateNestedManyWithoutCampusInput
 }
 
 export type CampusUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
+  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUpdateManyWithoutCampusNestedInput
   moderatorOrMentorUsers?: Prisma.UserUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusUncheckedUpdateInput = {
@@ -299,6 +305,7 @@ export type CampusUncheckedUpdateInput = {
   rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
   moderatorOrMentorUsers?: Prisma.UserUncheckedUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUncheckedUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusCreateManyInput = {
@@ -360,26 +367,16 @@ export type CampusScalarRelationFilter = {
   isNot?: Prisma.CampusWhereInput
 }
 
-export type CampusCreateNestedOneWithoutModeratorOrMentorUsersInput = {
-  create?: Prisma.XOR<Prisma.CampusCreateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedCreateWithoutModeratorOrMentorUsersInput>
-  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutModeratorOrMentorUsersInput
-  connect?: Prisma.CampusWhereUniqueInput
-}
-
 export type CampusCreateNestedOneWithoutMembersInput = {
   create?: Prisma.XOR<Prisma.CampusCreateWithoutMembersInput, Prisma.CampusUncheckedCreateWithoutMembersInput>
   connectOrCreate?: Prisma.CampusCreateOrConnectWithoutMembersInput
   connect?: Prisma.CampusWhereUniqueInput
 }
 
-export type CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput = {
+export type CampusCreateNestedOneWithoutModeratorOrMentorUsersInput = {
   create?: Prisma.XOR<Prisma.CampusCreateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedCreateWithoutModeratorOrMentorUsersInput>
   connectOrCreate?: Prisma.CampusCreateOrConnectWithoutModeratorOrMentorUsersInput
-  upsert?: Prisma.CampusUpsertWithoutModeratorOrMentorUsersInput
-  disconnect?: Prisma.CampusWhereInput | boolean
-  delete?: Prisma.CampusWhereInput | boolean
   connect?: Prisma.CampusWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutModeratorOrMentorUsersInput, Prisma.CampusUpdateWithoutModeratorOrMentorUsersInput>, Prisma.CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput>
 }
 
 export type CampusUpdateOneWithoutMembersNestedInput = {
@@ -392,10 +389,14 @@ export type CampusUpdateOneWithoutMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutMembersInput, Prisma.CampusUpdateWithoutMembersInput>, Prisma.CampusUncheckedUpdateWithoutMembersInput>
 }
 
-export type CampusCreateNestedOneWithoutRoomsInput = {
-  create?: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
-  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutRoomsInput
+export type CampusUpdateOneWithoutModeratorOrMentorUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.CampusCreateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedCreateWithoutModeratorOrMentorUsersInput>
+  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutModeratorOrMentorUsersInput
+  upsert?: Prisma.CampusUpsertWithoutModeratorOrMentorUsersInput
+  disconnect?: Prisma.CampusWhereInput | boolean
+  delete?: Prisma.CampusWhereInput | boolean
   connect?: Prisma.CampusWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutModeratorOrMentorUsersInput, Prisma.CampusUpdateWithoutModeratorOrMentorUsersInput>, Prisma.CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput>
 }
 
 export type CampusCreateNestedOneWithoutMainRoomInput = {
@@ -404,18 +405,16 @@ export type CampusCreateNestedOneWithoutMainRoomInput = {
   connect?: Prisma.CampusWhereUniqueInput
 }
 
+export type CampusCreateNestedOneWithoutRoomsInput = {
+  create?: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
+  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutRoomsInput
+  connect?: Prisma.CampusWhereUniqueInput
+}
+
 export type CampusUncheckedCreateNestedOneWithoutMainRoomInput = {
   create?: Prisma.XOR<Prisma.CampusCreateWithoutMainRoomInput, Prisma.CampusUncheckedCreateWithoutMainRoomInput>
   connectOrCreate?: Prisma.CampusCreateOrConnectWithoutMainRoomInput
   connect?: Prisma.CampusWhereUniqueInput
-}
-
-export type CampusUpdateOneRequiredWithoutRoomsNestedInput = {
-  create?: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
-  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutRoomsInput
-  upsert?: Prisma.CampusUpsertWithoutRoomsInput
-  connect?: Prisma.CampusWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutRoomsInput, Prisma.CampusUpdateWithoutRoomsInput>, Prisma.CampusUncheckedUpdateWithoutRoomsInput>
 }
 
 export type CampusUpdateOneWithoutMainRoomNestedInput = {
@@ -428,6 +427,14 @@ export type CampusUpdateOneWithoutMainRoomNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutMainRoomInput, Prisma.CampusUpdateWithoutMainRoomInput>, Prisma.CampusUncheckedUpdateWithoutMainRoomInput>
 }
 
+export type CampusUpdateOneRequiredWithoutRoomsNestedInput = {
+  create?: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
+  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutRoomsInput
+  upsert?: Prisma.CampusUpsertWithoutRoomsInput
+  connect?: Prisma.CampusWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutRoomsInput, Prisma.CampusUpdateWithoutRoomsInput>, Prisma.CampusUncheckedUpdateWithoutRoomsInput>
+}
+
 export type CampusUncheckedUpdateOneWithoutMainRoomNestedInput = {
   create?: Prisma.XOR<Prisma.CampusCreateWithoutMainRoomInput, Prisma.CampusUncheckedCreateWithoutMainRoomInput>
   connectOrCreate?: Prisma.CampusCreateOrConnectWithoutMainRoomInput
@@ -438,36 +445,28 @@ export type CampusUncheckedUpdateOneWithoutMainRoomNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutMainRoomInput, Prisma.CampusUpdateWithoutMainRoomInput>, Prisma.CampusUncheckedUpdateWithoutMainRoomInput>
 }
 
-export type CampusCreateWithoutModeratorOrMentorUsersInput = {
-  id?: string
-  name: string
-  memberCount: number
-  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
-  mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
-  members?: Prisma.UserCreateNestedManyWithoutCampusInput
+export type CampusCreateNestedOneWithoutTimeTablesInput = {
+  create?: Prisma.XOR<Prisma.CampusCreateWithoutTimeTablesInput, Prisma.CampusUncheckedCreateWithoutTimeTablesInput>
+  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutTimeTablesInput
+  connect?: Prisma.CampusWhereUniqueInput
 }
 
-export type CampusUncheckedCreateWithoutModeratorOrMentorUsersInput = {
-  id?: string
-  name: string
-  mainRoomId?: string | null
-  memberCount: number
-  rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
-  members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
-}
-
-export type CampusCreateOrConnectWithoutModeratorOrMentorUsersInput = {
-  where: Prisma.CampusWhereUniqueInput
-  create: Prisma.XOR<Prisma.CampusCreateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedCreateWithoutModeratorOrMentorUsersInput>
+export type CampusUpdateOneRequiredWithoutTimeTablesNestedInput = {
+  create?: Prisma.XOR<Prisma.CampusCreateWithoutTimeTablesInput, Prisma.CampusUncheckedCreateWithoutTimeTablesInput>
+  connectOrCreate?: Prisma.CampusCreateOrConnectWithoutTimeTablesInput
+  upsert?: Prisma.CampusUpsertWithoutTimeTablesInput
+  connect?: Prisma.CampusWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CampusUpdateToOneWithWhereWithoutTimeTablesInput, Prisma.CampusUpdateWithoutTimeTablesInput>, Prisma.CampusUncheckedUpdateWithoutTimeTablesInput>
 }
 
 export type CampusCreateWithoutMembersInput = {
   id?: string
   name: string
   memberCount: number
-  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
+  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   moderatorOrMentorUsers?: Prisma.UserCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableCreateNestedManyWithoutCampusInput
 }
 
 export type CampusUncheckedCreateWithoutMembersInput = {
@@ -477,6 +476,7 @@ export type CampusUncheckedCreateWithoutMembersInput = {
   memberCount: number
   rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
   moderatorOrMentorUsers?: Prisma.UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableUncheckedCreateNestedManyWithoutCampusInput
 }
 
 export type CampusCreateOrConnectWithoutMembersInput = {
@@ -484,33 +484,29 @@ export type CampusCreateOrConnectWithoutMembersInput = {
   create: Prisma.XOR<Prisma.CampusCreateWithoutMembersInput, Prisma.CampusUncheckedCreateWithoutMembersInput>
 }
 
-export type CampusUpsertWithoutModeratorOrMentorUsersInput = {
-  update: Prisma.XOR<Prisma.CampusUpdateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput>
+export type CampusCreateWithoutModeratorOrMentorUsersInput = {
+  id?: string
+  name: string
+  memberCount: number
+  mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
+  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
+  members?: Prisma.UserCreateNestedManyWithoutCampusInput
+  timeTables?: Prisma.TimeTableCreateNestedManyWithoutCampusInput
+}
+
+export type CampusUncheckedCreateWithoutModeratorOrMentorUsersInput = {
+  id?: string
+  name: string
+  mainRoomId?: string | null
+  memberCount: number
+  rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
+  members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
+  timeTables?: Prisma.TimeTableUncheckedCreateNestedManyWithoutCampusInput
+}
+
+export type CampusCreateOrConnectWithoutModeratorOrMentorUsersInput = {
+  where: Prisma.CampusWhereUniqueInput
   create: Prisma.XOR<Prisma.CampusCreateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedCreateWithoutModeratorOrMentorUsersInput>
-  where?: Prisma.CampusWhereInput
-}
-
-export type CampusUpdateToOneWithWhereWithoutModeratorOrMentorUsersInput = {
-  where?: Prisma.CampusWhereInput
-  data: Prisma.XOR<Prisma.CampusUpdateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput>
-}
-
-export type CampusUpdateWithoutModeratorOrMentorUsersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
-  mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
-  members?: Prisma.UserUpdateManyWithoutCampusNestedInput
-}
-
-export type CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
-  members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusUpsertWithoutMembersInput = {
@@ -528,9 +524,10 @@ export type CampusUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
+  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   moderatorOrMentorUsers?: Prisma.UserUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusUncheckedUpdateWithoutMembersInput = {
@@ -540,29 +537,38 @@ export type CampusUncheckedUpdateWithoutMembersInput = {
   memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
   moderatorOrMentorUsers?: Prisma.UserUncheckedUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUncheckedUpdateManyWithoutCampusNestedInput
 }
 
-export type CampusCreateWithoutRoomsInput = {
-  id?: string
-  name: string
-  memberCount: number
-  mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
-  members?: Prisma.UserCreateNestedManyWithoutCampusInput
-  moderatorOrMentorUsers?: Prisma.UserCreateNestedManyWithoutModeratorOrMentorCampusInput
+export type CampusUpsertWithoutModeratorOrMentorUsersInput = {
+  update: Prisma.XOR<Prisma.CampusUpdateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput>
+  create: Prisma.XOR<Prisma.CampusCreateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedCreateWithoutModeratorOrMentorUsersInput>
+  where?: Prisma.CampusWhereInput
 }
 
-export type CampusUncheckedCreateWithoutRoomsInput = {
-  id?: string
-  name: string
-  mainRoomId?: string | null
-  memberCount: number
-  members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
-  moderatorOrMentorUsers?: Prisma.UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput
+export type CampusUpdateToOneWithWhereWithoutModeratorOrMentorUsersInput = {
+  where?: Prisma.CampusWhereInput
+  data: Prisma.XOR<Prisma.CampusUpdateWithoutModeratorOrMentorUsersInput, Prisma.CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput>
 }
 
-export type CampusCreateOrConnectWithoutRoomsInput = {
-  where: Prisma.CampusWhereUniqueInput
-  create: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
+export type CampusUpdateWithoutModeratorOrMentorUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
+  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
+  members?: Prisma.UserUpdateManyWithoutCampusNestedInput
+  timeTables?: Prisma.TimeTableUpdateManyWithoutCampusNestedInput
+}
+
+export type CampusUncheckedUpdateWithoutModeratorOrMentorUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
+  members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
+  timeTables?: Prisma.TimeTableUncheckedUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusCreateWithoutMainRoomInput = {
@@ -572,6 +578,7 @@ export type CampusCreateWithoutMainRoomInput = {
   rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
   members?: Prisma.UserCreateNestedManyWithoutCampusInput
   moderatorOrMentorUsers?: Prisma.UserCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableCreateNestedManyWithoutCampusInput
 }
 
 export type CampusUncheckedCreateWithoutMainRoomInput = {
@@ -581,6 +588,7 @@ export type CampusUncheckedCreateWithoutMainRoomInput = {
   rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
   members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
   moderatorOrMentorUsers?: Prisma.UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableUncheckedCreateNestedManyWithoutCampusInput
 }
 
 export type CampusCreateOrConnectWithoutMainRoomInput = {
@@ -588,33 +596,29 @@ export type CampusCreateOrConnectWithoutMainRoomInput = {
   create: Prisma.XOR<Prisma.CampusCreateWithoutMainRoomInput, Prisma.CampusUncheckedCreateWithoutMainRoomInput>
 }
 
-export type CampusUpsertWithoutRoomsInput = {
-  update: Prisma.XOR<Prisma.CampusUpdateWithoutRoomsInput, Prisma.CampusUncheckedUpdateWithoutRoomsInput>
+export type CampusCreateWithoutRoomsInput = {
+  id?: string
+  name: string
+  memberCount: number
+  mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
+  members?: Prisma.UserCreateNestedManyWithoutCampusInput
+  moderatorOrMentorUsers?: Prisma.UserCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableCreateNestedManyWithoutCampusInput
+}
+
+export type CampusUncheckedCreateWithoutRoomsInput = {
+  id?: string
+  name: string
+  mainRoomId?: string | null
+  memberCount: number
+  members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
+  moderatorOrMentorUsers?: Prisma.UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput
+  timeTables?: Prisma.TimeTableUncheckedCreateNestedManyWithoutCampusInput
+}
+
+export type CampusCreateOrConnectWithoutRoomsInput = {
+  where: Prisma.CampusWhereUniqueInput
   create: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
-  where?: Prisma.CampusWhereInput
-}
-
-export type CampusUpdateToOneWithWhereWithoutRoomsInput = {
-  where?: Prisma.CampusWhereInput
-  data: Prisma.XOR<Prisma.CampusUpdateWithoutRoomsInput, Prisma.CampusUncheckedUpdateWithoutRoomsInput>
-}
-
-export type CampusUpdateWithoutRoomsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
-  members?: Prisma.UserUpdateManyWithoutCampusNestedInput
-  moderatorOrMentorUsers?: Prisma.UserUpdateManyWithoutModeratorOrMentorCampusNestedInput
-}
-
-export type CampusUncheckedUpdateWithoutRoomsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
-  moderatorOrMentorUsers?: Prisma.UserUncheckedUpdateManyWithoutModeratorOrMentorCampusNestedInput
 }
 
 export type CampusUpsertWithoutMainRoomInput = {
@@ -635,11 +639,100 @@ export type CampusUpdateWithoutMainRoomInput = {
   rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUpdateManyWithoutCampusNestedInput
   moderatorOrMentorUsers?: Prisma.UserUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUpdateManyWithoutCampusNestedInput
 }
 
 export type CampusUncheckedUpdateWithoutMainRoomInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
+  members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
+  moderatorOrMentorUsers?: Prisma.UserUncheckedUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUncheckedUpdateManyWithoutCampusNestedInput
+}
+
+export type CampusUpsertWithoutRoomsInput = {
+  update: Prisma.XOR<Prisma.CampusUpdateWithoutRoomsInput, Prisma.CampusUncheckedUpdateWithoutRoomsInput>
+  create: Prisma.XOR<Prisma.CampusCreateWithoutRoomsInput, Prisma.CampusUncheckedCreateWithoutRoomsInput>
+  where?: Prisma.CampusWhereInput
+}
+
+export type CampusUpdateToOneWithWhereWithoutRoomsInput = {
+  where?: Prisma.CampusWhereInput
+  data: Prisma.XOR<Prisma.CampusUpdateWithoutRoomsInput, Prisma.CampusUncheckedUpdateWithoutRoomsInput>
+}
+
+export type CampusUpdateWithoutRoomsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
+  members?: Prisma.UserUpdateManyWithoutCampusNestedInput
+  moderatorOrMentorUsers?: Prisma.UserUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUpdateManyWithoutCampusNestedInput
+}
+
+export type CampusUncheckedUpdateWithoutRoomsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
+  moderatorOrMentorUsers?: Prisma.UserUncheckedUpdateManyWithoutModeratorOrMentorCampusNestedInput
+  timeTables?: Prisma.TimeTableUncheckedUpdateManyWithoutCampusNestedInput
+}
+
+export type CampusCreateWithoutTimeTablesInput = {
+  id?: string
+  name: string
+  memberCount: number
+  mainRoom?: Prisma.RoomCreateNestedOneWithoutMainForInput
+  rooms?: Prisma.RoomCreateNestedManyWithoutCampusInput
+  members?: Prisma.UserCreateNestedManyWithoutCampusInput
+  moderatorOrMentorUsers?: Prisma.UserCreateNestedManyWithoutModeratorOrMentorCampusInput
+}
+
+export type CampusUncheckedCreateWithoutTimeTablesInput = {
+  id?: string
+  name: string
+  mainRoomId?: string | null
+  memberCount: number
+  rooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCampusInput
+  members?: Prisma.UserUncheckedCreateNestedManyWithoutCampusInput
+  moderatorOrMentorUsers?: Prisma.UserUncheckedCreateNestedManyWithoutModeratorOrMentorCampusInput
+}
+
+export type CampusCreateOrConnectWithoutTimeTablesInput = {
+  where: Prisma.CampusWhereUniqueInput
+  create: Prisma.XOR<Prisma.CampusCreateWithoutTimeTablesInput, Prisma.CampusUncheckedCreateWithoutTimeTablesInput>
+}
+
+export type CampusUpsertWithoutTimeTablesInput = {
+  update: Prisma.XOR<Prisma.CampusUpdateWithoutTimeTablesInput, Prisma.CampusUncheckedUpdateWithoutTimeTablesInput>
+  create: Prisma.XOR<Prisma.CampusCreateWithoutTimeTablesInput, Prisma.CampusUncheckedCreateWithoutTimeTablesInput>
+  where?: Prisma.CampusWhereInput
+}
+
+export type CampusUpdateToOneWithWhereWithoutTimeTablesInput = {
+  where?: Prisma.CampusWhereInput
+  data: Prisma.XOR<Prisma.CampusUpdateWithoutTimeTablesInput, Prisma.CampusUncheckedUpdateWithoutTimeTablesInput>
+}
+
+export type CampusUpdateWithoutTimeTablesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  mainRoom?: Prisma.RoomUpdateOneWithoutMainForNestedInput
+  rooms?: Prisma.RoomUpdateManyWithoutCampusNestedInput
+  members?: Prisma.UserUpdateManyWithoutCampusNestedInput
+  moderatorOrMentorUsers?: Prisma.UserUpdateManyWithoutModeratorOrMentorCampusNestedInput
+}
+
+export type CampusUncheckedUpdateWithoutTimeTablesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  mainRoomId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberCount?: Prisma.IntFieldUpdateOperationsInput | number
   rooms?: Prisma.RoomUncheckedUpdateManyWithoutCampusNestedInput
   members?: Prisma.UserUncheckedUpdateManyWithoutCampusNestedInput
@@ -655,12 +748,14 @@ export type CampusCountOutputType = {
   rooms: number
   members: number
   moderatorOrMentorUsers: number
+  timeTables: number
 }
 
 export type CampusCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rooms?: boolean | CampusCountOutputTypeCountRoomsArgs
   members?: boolean | CampusCountOutputTypeCountMembersArgs
   moderatorOrMentorUsers?: boolean | CampusCountOutputTypeCountModeratorOrMentorUsersArgs
+  timeTables?: boolean | CampusCountOutputTypeCountTimeTablesArgs
 }
 
 /**
@@ -694,16 +789,24 @@ export type CampusCountOutputTypeCountModeratorOrMentorUsersArgs<ExtArgs extends
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * CampusCountOutputType without action
+ */
+export type CampusCountOutputTypeCountTimeTablesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TimeTableWhereInput
+}
+
 
 export type CampusSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   mainRoomId?: boolean
   memberCount?: boolean
-  rooms?: boolean | Prisma.Campus$roomsArgs<ExtArgs>
   mainRoom?: boolean | Prisma.Campus$mainRoomArgs<ExtArgs>
+  rooms?: boolean | Prisma.Campus$roomsArgs<ExtArgs>
   members?: boolean | Prisma.Campus$membersArgs<ExtArgs>
   moderatorOrMentorUsers?: boolean | Prisma.Campus$moderatorOrMentorUsersArgs<ExtArgs>
+  timeTables?: boolean | Prisma.Campus$timeTablesArgs<ExtArgs>
   _count?: boolean | Prisma.CampusCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["campus"]>
 
@@ -732,10 +835,11 @@ export type CampusSelectScalar = {
 
 export type CampusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "mainRoomId" | "memberCount", ExtArgs["result"]["campus"]>
 export type CampusInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rooms?: boolean | Prisma.Campus$roomsArgs<ExtArgs>
   mainRoom?: boolean | Prisma.Campus$mainRoomArgs<ExtArgs>
+  rooms?: boolean | Prisma.Campus$roomsArgs<ExtArgs>
   members?: boolean | Prisma.Campus$membersArgs<ExtArgs>
   moderatorOrMentorUsers?: boolean | Prisma.Campus$moderatorOrMentorUsersArgs<ExtArgs>
+  timeTables?: boolean | Prisma.Campus$timeTablesArgs<ExtArgs>
   _count?: boolean | Prisma.CampusCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CampusIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -748,10 +852,11 @@ export type CampusIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $CampusPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Campus"
   objects: {
-    rooms: Prisma.$RoomPayload<ExtArgs>[]
     mainRoom: Prisma.$RoomPayload<ExtArgs> | null
+    rooms: Prisma.$RoomPayload<ExtArgs>[]
     members: Prisma.$UserPayload<ExtArgs>[]
     moderatorOrMentorUsers: Prisma.$UserPayload<ExtArgs>[]
+    timeTables: Prisma.$TimeTablePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1152,10 +1257,11 @@ readonly fields: CampusFieldRefs;
  */
 export interface Prisma__CampusClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  rooms<T extends Prisma.Campus$roomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campus$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mainRoom<T extends Prisma.Campus$mainRoomArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campus$mainRoomArgs<ExtArgs>>): Prisma.Prisma__RoomClient<runtime.Types.Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  rooms<T extends Prisma.Campus$roomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campus$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Campus$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campus$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moderatorOrMentorUsers<T extends Prisma.Campus$moderatorOrMentorUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campus$moderatorOrMentorUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  timeTables<T extends Prisma.Campus$timeTablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Campus$timeTablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeTablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1585,6 +1691,25 @@ export type CampusDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Campus.mainRoom
+ */
+export type Campus$mainRoomArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Room
+   */
+  select?: Prisma.RoomSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Room
+   */
+  omit?: Prisma.RoomOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomInclude<ExtArgs> | null
+  where?: Prisma.RoomWhereInput
+}
+
+/**
  * Campus.rooms
  */
 export type Campus$roomsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1606,25 +1731,6 @@ export type Campus$roomsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.RoomScalarFieldEnum | Prisma.RoomScalarFieldEnum[]
-}
-
-/**
- * Campus.mainRoom
- */
-export type Campus$mainRoomArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Room
-   */
-  select?: Prisma.RoomSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Room
-   */
-  omit?: Prisma.RoomOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RoomInclude<ExtArgs> | null
-  where?: Prisma.RoomWhereInput
 }
 
 /**
@@ -1673,6 +1779,30 @@ export type Campus$moderatorOrMentorUsersArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * Campus.timeTables
+ */
+export type Campus$timeTablesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TimeTable
+   */
+  select?: Prisma.TimeTableSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TimeTable
+   */
+  omit?: Prisma.TimeTableOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeTableInclude<ExtArgs> | null
+  where?: Prisma.TimeTableWhereInput
+  orderBy?: Prisma.TimeTableOrderByWithRelationInput | Prisma.TimeTableOrderByWithRelationInput[]
+  cursor?: Prisma.TimeTableWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TimeTableScalarFieldEnum | Prisma.TimeTableScalarFieldEnum[]
 }
 
 /**
