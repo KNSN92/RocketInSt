@@ -89,9 +89,9 @@ model Campus {
   memberCount            Int
   mainRoom               Room?       @relation("mainRoom", fields: [mainRoomId], references: [id])
   rooms                  Room[]      @relation("rooms")
+  timeTables             TimeTable[]
   members                User[]
   moderatorOrMentorUsers User[]      @relation("moderatorOrMentorCampus")
-  timeTables             TimeTable[]
 }
 
 model Room {
@@ -99,13 +99,16 @@ model Room {
   name        String
   campusId    String
   capacity    Int
-  accentColor String?
   roomPlan    Json?
+  accentColor String?
+  mustShow    Boolean  @default(false)
+  order       Int?
   mainFor     Campus?  @relation("mainRoom")
   campus      Campus   @relation("rooms", fields: [campusId], references: [id], onDelete: Cascade)
   lessons     Lesson[] @relation("LessonToRoom")
 
   @@unique([name, campusId])
+  @@unique([order, campusId])
 }
 
 model Lesson {
@@ -125,7 +128,7 @@ model Period {
   tag       PeriodTag
   innername String
   name      String
-  lessons   Lesson[]  @relation("LessonToPeriod")
+  lessons   Lesson[] @relation("LessonToPeriod")
 
   @@unique([innername, weekday])
 }
@@ -133,9 +136,9 @@ model Period {
 model TimeTable {
   id       String               @id @default(uuid())
   date     DateTime
+  rawTable Json
   campusId String
   campus   Campus               @relation(fields: [campusId], references: [id])
-  rawTable Json
   reports  TimeTableFixReport[] @relation("TimeTable")
 }
 

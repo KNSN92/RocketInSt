@@ -46,6 +46,8 @@ export interface RoomData {
   name: string;
   capacity: number;
   accentColor?: string;
+  order: number;
+  mustShow?: boolean;
   lessons: Lesson[];
   plan: RoomPlan;
 }

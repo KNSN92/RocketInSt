@@ -5,12 +5,16 @@ import {
 } from "@/src/data/timetable";
 import clsx from "clsx";
 
+type TimeTable = {
+  [room in string]: {
+    [period in (typeof TimeTablePeriodSequence)[number]]?: string | null;
+  };
+};
+
 interface TimeTableProps {
   date: Date;
   rooms: { name: string; color?: string }[];
-  timetable: {
-    [room in string]: (string | null)[];
-  };
+  timetable: TimeTable;
 }
 
 export function TimeTable({ date, rooms, timetable }: TimeTableProps) {
@@ -63,9 +67,7 @@ interface TimeTablePeriodRowProps {
   period: PeriodType;
   rooms: { name: string; color?: string }[];
   rowidx: number;
-  timetable: {
-    [room in string]: (string | null)[];
-  };
+  timetable: TimeTable;
 }
 
 function TimeTablePeriodRow({
@@ -106,10 +108,7 @@ function TimeTablePeriodRow({
         {PeriodTimes[period].end.minutes.toString().padStart(2, "0")}
       </td>
       {rooms.map((room) => {
-        const lesson =
-          timetable[room.name].length > rowidx
-            ? timetable[room.name][rowidx]
-            : undefined;
+        const lesson = timetable[room.name][period];
         return <td key={room.name}>{lesson || ""}</td>;
       })}
     </tr>

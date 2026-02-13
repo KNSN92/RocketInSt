@@ -29,6 +29,8 @@ export default async function seed(
           campusId: campus.id,
           name: room.name,
           capacity: room.capacity,
+          mustShow: room.mustShow ?? false,
+          order: room.order,
           accentColor: room.accentColor,
           roomPlan: room.plan as object,
         })),
