@@ -139,6 +139,13 @@ export type PeriodType =
   | MeetingPeriodType
   | AfterSchoolPeriodType;
 
+export const Periods = [
+  ...LessonPeriods,
+  ...RecessPeriods,
+  ...MeetingPeriods,
+  AfterSchoolPeriod,
+] as const;
+
 export const PeriodsJA = {
   ...LessonPeriodsJA,
   ...RecessPeriodsJA,
