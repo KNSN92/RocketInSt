@@ -1,3 +1,8 @@
+import type {
+  Prisma,
+  PrismaClient,
+  WeekDay as WeekDayType,
+} from "@/prisma/generated/prisma/client";
 import {
   AfterSchoolPeriod,
   AfterSchoolPeriodJA,
@@ -10,15 +15,19 @@ import {
 } from "@/src/data/periods";
 import schedules from "@/src/data/schedules";
 import { WeekDayArray } from "@/src/data/weekdays";
-import type { Prisma, PrismaClient, WeekDay as WeekDayType } from "@/prisma/generated/prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/client";
 
-export default async function seed(prisma: Omit<PrismaClient<never, undefined, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends">) {
+export default async function seed(
+  prisma: Omit<
+    PrismaClient<never, undefined, DefaultArgs>,
+    "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends"
+  >,
+) {
   await prisma.lesson.deleteMany();
 
   await WeekDayArray.forEach(async (weekday) => {
     await LessonPeriods.forEach(async (lessonPeriod) => {
-      const lessonNames = [...schedules[weekday as WeekDayType][lessonPeriod]];
+      const lessonNames = schedules[weekday as WeekDayType][lessonPeriod];
       await lessonNames.forEach(async (lessonName) => {
         const periods: Prisma.PeriodWhereUniqueInput[] = [
           {
@@ -39,8 +48,8 @@ export default async function seed(prisma: Omit<PrismaClient<never, undefined, D
           data: {
             title: lessonName,
             period: {
-              connect: periods
-            }
+              connect: periods,
+            },
           },
         });
       });
