@@ -1,102 +1,89 @@
-import type {
-  Prisma,
-  PrismaClient,
-  WeekDay as WeekDayType,
-} from "@/prisma/generated/prisma/client";
+import type { WeekDay as WeekDayType } from "@/prisma/generated/prisma/client";
 import {
-  AfterSchoolPeriod,
   AfterSchoolPeriodJA,
-  LessonPeriods,
-  LessonToRecessPeriodMap,
-  MeetingPeriods,
   MeetingPeriodsJA,
+  Periods,
+  PeriodType,
   RecessPeriodsJA,
-  RecessPeriodType,
 } from "@/src/data/periods";
 import schedules from "@/src/data/schedules";
 import { WeekDayArray } from "@/src/data/weekdays";
-import { DefaultArgs } from "@prisma/client/runtime/client";
+import { TransactionClient } from "@prisma-gen/internal/prismaNamespace";
+import { LessonCreateManyInput } from "@prisma-gen/models";
 
-export default async function seed(
-  prisma: Omit<
-    PrismaClient<never, undefined, DefaultArgs>,
-    "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends"
-  >,
-) {
+type LessonRecords = Record<
+  string,
+  { weekday: WeekDayType; period: PeriodType }[]
+>;
+
+export default async function seed(prisma: TransactionClient) {
   await prisma.lesson.deleteMany();
 
+  const lessons: LessonRecords = {};
   await WeekDayArray.forEach(async (weekday) => {
-    await LessonPeriods.forEach(async (lessonPeriod) => {
-      const lessonNames = schedules[weekday as WeekDayType][lessonPeriod];
-      await lessonNames.forEach(async (lessonName) => {
-        const periods: Prisma.PeriodWhereUniqueInput[] = [
-          {
-            innername_weekday: {
-              innername: lessonPeriod,
-              weekday: weekday,
-            },
-          },
-        ];
-        if (LessonToRecessPeriodMap[lessonPeriod])
-          periods.push({
-            innername_weekday: {
-              innername: LessonToRecessPeriodMap[lessonPeriod],
-              weekday: weekday,
-            },
-          });
-        await prisma.lesson.create({
-          data: {
-            title: lessonName,
-            period: {
-              connect: periods,
-            },
-          },
-        });
-      });
-    });
-    const noonRecessPeriod: RecessPeriodType = "NoonRecess";
-    const noonRecessName = RecessPeriodsJA[noonRecessPeriod];
-    await prisma.lesson.create({
-      data: {
-        title: noonRecessName,
-        period: {
-          connect: {
-            innername_weekday: {
-              innername: noonRecessPeriod,
-              weekday: weekday,
-            },
-          },
-        },
-      },
-    });
-    await MeetingPeriods.forEach(async (meetingPeriod) => {
-      const meetingName = MeetingPeriodsJA[meetingPeriod];
-      await prisma.lesson.create({
-        data: {
-          title: meetingName,
-          period: {
-            connect: {
-              innername_weekday: {
-                innername: meetingPeriod,
-                weekday: weekday,
-              },
-            },
-          },
-        },
-      });
-    });
-    await prisma.lesson.create({
-      data: {
-        title: AfterSchoolPeriodJA,
-        period: {
-          connect: {
-            innername_weekday: {
-              innername: AfterSchoolPeriod,
-              weekday: weekday,
-            },
-          },
-        },
-      },
+    await Periods.forEach(async (period) => {
+      addLessonPeriods(lessons, weekday, period);
+      addRecessPeriods(lessons, weekday, period);
+      addMeetingPeriods(lessons, weekday, period);
+      addAfterSchoolPeriods(lessons, weekday, period);
     });
   });
+
+  await prisma.lesson.createMany({
+    data: Object.keys(lessons).map<LessonCreateManyInput>((lesson) => ({
+      title: lesson,
+    })),
+  });
+}
+
+function addLessonPeriods(
+  lessons: LessonRecords,
+  weekday: WeekDayType,
+  period: PeriodType,
+) {
+  const lessonNames: string[] | undefined = schedules[weekday]?.[period]; // なんで型付かないの？
+  if (!lessonNames) return;
+  lessonNames.forEach(async (lessonName) => {
+    if (!lessons[lessonName]) {
+      lessons[lessonName] = [];
+    }
+    lessons[lessonName].push({ weekday, period });
+  });
+}
+
+function addRecessPeriods(
+  lessons: LessonRecords,
+  weekday: WeekDayType,
+  period: PeriodType,
+) {
+  Object.values(RecessPeriodsJA).forEach((recessName) => {
+    if (!lessons[recessName]) {
+      lessons[recessName] = [];
+    }
+    lessons[recessName].push({ weekday, period });
+  });
+}
+
+function addMeetingPeriods(
+  lessons: LessonRecords,
+  weekday: WeekDayType,
+  period: PeriodType,
+) {
+  Object.values(MeetingPeriodsJA).forEach((meetingName) => {
+    if (!lessons[meetingName]) {
+      lessons[meetingName] = [];
+    }
+    lessons[meetingName].push({ weekday, period });
+  });
+}
+
+function addAfterSchoolPeriods(
+  lessons: LessonRecords,
+  weekday: WeekDayType,
+  period: PeriodType,
+) {
+  if (!lessons[AfterSchoolPeriodJA]) {
+    lessons[AfterSchoolPeriodJA] = [];
+  }
+  lessons[AfterSchoolPeriodJA].push({ weekday, period });
 }

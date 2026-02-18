@@ -1,5 +1,6 @@
 import authConfig from "@/auth.config";
 import { prisma } from "@/prisma";
+import { UserWhereInput } from "@/prisma/generated/prisma/models";
 import { SignInButton } from "@/src/components/common/AuthButtons";
 import { LinkButton } from "@/src/components/common/Buttons";
 import CampusRegisterRequired from "@/src/components/common/CampusRegisterRequired";
@@ -10,6 +11,10 @@ import {
   RocketInStBlackTextLogo,
   RocketInStWhiteTextLogo,
 } from "@/src/components/common/RocketInStLogos";
+import {
+  TimeTable,
+  TimeTableRoomList,
+} from "@/src/components/common/TimeTable";
 import UpdatedTime from "@/src/components/common/UpdatedTime";
 import UserList from "@/src/components/common/UserList";
 import CampusMap, { MapData } from "@/src/components/home/CampusMap";
@@ -23,7 +28,7 @@ import {
   getTakingRoom,
   getTakingRoomId,
 } from "@/src/lib/users";
-import { Course } from "@prisma-gen/browser";
+import { Course, WeekDay } from "@prisma-gen/browser";
 import clsx from "clsx";
 import { getServerSession } from "next-auth";
 
@@ -119,12 +124,37 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
     : [];
   const userCampus = await fetchUserCampus(session.user.id);
 
+  const { rooms, timetable } = await fetchDefaultTodayTimeTable(
+    "d72b955f-57cd-4a78-b475-a64eb10cd125",
+    "Friday",
+  );
   return (
     <div className="w-screen sm:w-fit">
       <div className="text-2xl font-semibold">
         こんにちは {session.user?.name}
         さん
       </div>
+      <TimeTable
+        date={{ year: 2026, month: 2, day: 13 }}
+        rooms={rooms}
+        timetable={timetable}
+      />
+      {/* <TimeTable
+        date={{
+          year: 2026,
+          month: 2,
+          day: 13,
+        }}
+        rooms={[
+          { name: "大広間", color: "#d36859" },
+          { name: "秘密基地", color: "#e28587" },
+          { name: "万里", color: "#f7c08a" },
+          { name: "7階", color: "#ffff86" },
+        ]}
+        timetable={{
+          大広間: { AfterSchool: "放課後" },
+        }}
+      /> */}
       <h1 className="mt-8 text-3xl font-bold">混雑状況マップ</h1>
       <CampusRegisterRequired
         message={
@@ -226,7 +256,7 @@ async function fetchFollowingUserList(userId: string, page: number) {
   const weekdayEnum = NumToWeekDayMap[weekday] || undefined;
   const userCampusId = await fetchUserCampusId(userId);
   if (!userCampusId) return [];
-  const where = {
+  const where: UserWhereInput = {
     followers: {
       some: {
         id: userId,
@@ -235,18 +265,22 @@ async function fetchFollowingUserList(userId: string, page: number) {
   };
   return Promise.all([
     await prisma.user.count({
-      where: where,
+      where,
     }),
     (
       await prisma.user.findMany({
-        where: where,
+        where,
         select: {
           id: true,
           name: true,
           nickname: true,
           image: true,
           role: true,
-          lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
+          lessonPeriods: genUserTakingLessonQuery(
+            userCampusId,
+            minutes,
+            weekdayEnum,
+          ),
         },
         skip: (page - 1) * pageLimit,
         take: pageLimit,
@@ -259,9 +293,9 @@ async function fetchFollowingUserList(userId: string, page: number) {
         image: user.image,
         role: user.role,
         lesson: {
-          id: getTakingRoomId(user.lessons),
-          room: getTakingRoom(user.lessons),
-          lesson: getTakingLesson(user.lessons),
+          id: getTakingRoomId(user.lessonPeriods),
+          room: getTakingRoom(user.lessonPeriods),
+          lesson: getTakingLesson(user.lessonPeriods),
         },
       };
     }),
@@ -293,18 +327,16 @@ async function fetchUserCampusMap(userId: string) {
       name: true,
       roomPlan: true,
       capacity: true,
-      lessons: {
+      lessonPeriods: {
         where: {
           period: {
-            some: {
-              weekday: weekdayEnum,
-              AND: {
-                beginTime: {
-                  lte: minutes,
-                },
-                endTime: {
-                  gte: minutes,
-                },
+            weekday: weekdayEnum,
+            AND: {
+              beginTime: {
+                lte: minutes,
+              },
+              endTime: {
+                gte: minutes,
               },
             },
           },
@@ -335,7 +367,7 @@ async function fetchUserCampusMap(userId: string) {
         h: number;
       } | null;
       if (!roomPlan) return null;
-      const roomStudents = room.lessons.reduce(
+      const roomStudents = room.lessonPeriods.reduce(
         (sum, roomStudent) => sum + roomStudent._count.students,
         0,
       );
@@ -405,7 +437,79 @@ async function fetchUserCampus(userId: string) {
   );
 }
 
+async function fetchDefaultTodayTimeTable(
+  campusId: string,
+  weekday: WeekDay,
+): Promise<{
+  rooms: TimeTableRoomList;
+  timetable: TimeTable;
+}> {
+  const resultRooms = (
+    await prisma.campus.findUnique({
+      where: {
+        id: campusId,
+      },
+      select: {
+        rooms: {
+          select: {
+            name: true,
+            accentColor: true,
+            order: true,
+            mustShow: true,
+            lessonPeriods: {
+              where: {
+                period: {
+                  weekday,
+                },
+              },
+              select: {
+                lesson: {
+                  select: {
+                    title: true,
+                    periods: {},
+                  },
+                },
+                period: {
+                  select: {
+                    innername: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    })
+  )?.rooms;
+  console.log(resultRooms);
+  if (!resultRooms) return { rooms: [], timetable: {} };
+  const rooms = resultRooms
+    .sort((a, b) => (a.order ?? 0xffff) - (b.order ?? 0xffff)) // オーダーが未設定なら最後に回す。(65535個も部屋無いでしょ普通)
+    .map((room) => ({
+      name: room.name,
+      color: room.accentColor || undefined,
+    }));
+  const timetable = resultRooms.reduce((acc, room) => {
+    if (room.lessonPeriods.length === 0) {
+      return room.mustShow ? { ...acc, [room.name]: {} } : acc;
+    }
+    return {
+      ...acc,
+      [room.name]: {
+        ...room.lessonPeriods.reduce((acc2, lessonPeriod) => {
+          const periodName = lessonPeriod.period.innername;
+          const lessonTitle = lessonPeriod.lesson.title;
+          return {
+            ...acc2,
+            [periodName]: lessonTitle,
+          };
+        }, {}),
+      },
+    };
+  }, {});
+  return { rooms, timetable };
+}
+
 function replaceNanInf(num: number, defaultNum: number): number {
-  if (isFinite(num)) return num;
-  return defaultNum;
+  return isFinite(num) && !isNaN(num) ? num : defaultNum;
 }

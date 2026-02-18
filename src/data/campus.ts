@@ -1,22 +1,26 @@
 import { WeekDay } from "@/prisma/generated/prisma/enums";
 import Schedules from "@/src/data/schedules";
-import { LessonPeriodType, PeriodType } from "./periods";
+import { LessonPeriodType, PeriodsJA, PeriodType } from "./periods";
 
 import kobeSannomiya from "./campus/kobe-sannomiya";
 
 export function LessonPeriod<W extends WeekDay, P extends LessonPeriodType>(
   weekday: W,
   period: P,
-  name: (typeof Schedules)[W][P][number],
-): { weekday: W; period: P; name: (typeof Schedules)[W][P][number] } {
-  return { weekday: weekday, period: period, name: name };
+  title: (typeof Schedules)[W][P][number],
+): { weekday: W; period: P; title: (typeof Schedules)[W][P][number] } {
+  return { weekday: weekday, period: period, title: title };
 }
 
 export function Period(
   weekday: WeekDay,
   period: PeriodType,
-): { weekday: WeekDay; period: PeriodType } {
-  return { weekday: weekday, period: period };
+): {
+  weekday: WeekDay;
+  period: PeriodType;
+  title: (typeof PeriodsJA)[PeriodType];
+} {
+  return { weekday: weekday, period: period, title: PeriodsJA[period] };
 }
 
 type CampusesData = {
@@ -33,7 +37,9 @@ interface RoomPlan {
 export interface Lesson {
   weekday: WeekDay;
   period: PeriodType;
-  name?: (typeof Schedules)[WeekDay][LessonPeriodType][number];
+  title:
+    | (typeof Schedules)[WeekDay][LessonPeriodType][number]
+    | (typeof PeriodsJA)[PeriodType];
 }
 
 export interface CampusData {

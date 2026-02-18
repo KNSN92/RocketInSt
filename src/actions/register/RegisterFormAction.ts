@@ -1,6 +1,7 @@
 "use server";
 
 import authConfig from "@/auth.config";
+import { prisma } from "@/prisma";
 import type { CourseDay } from "@/src/data/course";
 import {
   CourseDays,
@@ -13,7 +14,6 @@ import {
   MeetingPeriods,
   RecessPeriods,
 } from "@/src/data/periods";
-import { prisma } from "@/prisma";
 import { Course, Prisma } from "@prisma-gen/browser";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
@@ -98,16 +98,14 @@ async function validateLessons(
     });
   }
   try {
-    const foundLessons = await prisma.lesson.count({
+    const foundLessons = await prisma.lessonPeriod.count({
       where: {
         id: { in: lessons },
         period: {
-          some: {
-            weekday: {
-              in: DaysToWeekDayMap[course as CourseDay],
-            },
-            tag: "Lesson",
+          weekday: {
+            in: DaysToWeekDayMap[course as CourseDay],
           },
+          tag: "Lesson",
         },
       },
     });
@@ -131,9 +129,9 @@ async function validateLessons(
 }
 
 export default async function handleRegisterAction(
-  previousState: { success: boolean, error: boolean; msg?: string },
+  previousState: { success: boolean; error: boolean; msg?: string },
   formData: FormData,
-): Promise<{ success: boolean, error: boolean; msg?: string }> {
+): Promise<{ success: boolean; error: boolean; msg?: string }> {
   const parseResult = await schema.safeParseAsync({
     campus: formData.get("campus"),
     course: formData.get("course"),
@@ -141,33 +139,50 @@ export default async function handleRegisterAction(
     lessons: formData.getAll("lessons"),
   });
   if (!parseResult.success)
-    return { success: false, error: true, msg: parseResult.error?.errors[0].message };
+    return {
+      success: false,
+      error: true,
+      msg: parseResult.error?.errors[0].message,
+    };
   const { campus, course, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
   const userId = session?.user?.id;
   if (!userId)
-    return { success: false, error: true, msg: "ユーザーidを取得出来ませんでした。" };
+    return {
+      success: false,
+      error: true,
+      msg: "ユーザーidを取得出来ませんでした。",
+    };
 
-  const courseEnum: Course =
-    DaysToCourseMap[course as CourseDay];
+  const courseEnum: Course = DaysToCourseMap[course as CourseDay];
 
-  const lessonsEntry: Prisma.LessonWhereUniqueInput[] = lessons.map(
-    (lesson) => ({ id: lesson }),
-  );
+  const lessonsEntry: Prisma.LessonPeriodWhereUniqueInput[] = (
+    await prisma.lessonPeriod.findMany({
+      where: {
+        id: { in: lessons },
+        period: {
+          weekday: {
+            in: DaysToWeekDayMap[course as CourseDay],
+          },
+          tag: "Lesson",
+        },
+      },
+      select: { id: true },
+    })
+  ).map((lp) => ({ id: lp.id }));
+  console.log("lessonsEntry", lessonsEntry);
   const otherEntryInnernames: string[] = [...MeetingPeriods, RecessPeriods[2]];
   if (afterschool === 1) otherEntryInnernames.push(AfterSchoolPeriod);
 
-  const otherEntry: Prisma.LessonWhereUniqueInput[] = (
-    await prisma.lesson.findMany({
+  const otherEntry: Prisma.LessonPeriodWhereUniqueInput[] = (
+    await prisma.lessonPeriod.findMany({
       where: {
         period: {
-          some: {
-            innername: {
-              in: otherEntryInnernames,
-            },
-            weekday: {
-              in: DaysToWeekDayMap[course as CourseDay],
-            },
+          innername: {
+            in: otherEntryInnernames,
+          },
+          weekday: {
+            in: DaysToWeekDayMap[course as CourseDay],
           },
         },
       },
@@ -188,20 +203,12 @@ export default async function handleRegisterAction(
     prisma.user.update({
       where: { id: userId },
       data: {
-        lessons: {
-          set: [],
-        },
-      },
-    }),
-    prisma.user.update({
-      where: { id: userId },
-      data: {
-        lessons: {
-          connect: [...lessonsEntry, ...otherEntry],
+        lessonPeriods: {
+          set: [...lessonsEntry, ...otherEntry],
         },
       },
     }),
   ]);
 
-  return {success: true, error: false};
+  return { success: true, error: false };
 }

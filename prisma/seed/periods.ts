@@ -1,3 +1,4 @@
+import { PeriodTag, Prisma, WeekDay } from "@/prisma/generated/prisma/client";
 import {
   AfterSchoolPeriod,
   AfterSchoolPeriodJA,
@@ -13,13 +14,35 @@ import {
   RecessPeriodTimes,
 } from "@/src/data/periods";
 import { WeekDayArray } from "@/src/data/weekdays";
-import { Prisma, PrismaClient } from "@/prisma/generated/prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/client";
+import { TransactionClient } from "@prisma-gen/internal/prismaNamespace";
 
-export default async function seed(prisma: Omit<PrismaClient<never, undefined, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends">) {
+interface Period {
+  name: string;
+  innername: string;
+  weekday: WeekDay;
+  beginTime: number;
+  endTime: number;
+  tag: PeriodTag;
+}
+
+export default async function seed(prisma: TransactionClient) {
   await prisma.period.deleteMany();
 
-  await LessonPeriods.forEach(async (lessonPeriod) => {
+  const periods: Period[] = [];
+  WeekDayArray.forEach((weekday) => {
+    addLessonPeriods(periods, weekday);
+    addRecessPeriods(periods, weekday);
+    addMeetingPeriods(periods, weekday);
+    addAfterSchoolPeriods(periods, weekday);
+  });
+
+  await prisma.period.createMany({
+    data: periods,
+  });
+}
+
+function addLessonPeriods(periods: Period[], weekday: WeekDay) {
+  LessonPeriods.forEach((lessonPeriod) => {
     const periodTime = LessonPeriodTimes[lessonPeriod];
     const periodTemp: Omit<Prisma.PeriodCreateManyInput, "weekday"> = {
       name: LessonPeriodsJA[lessonPeriod],
@@ -28,15 +51,12 @@ export default async function seed(prisma: Omit<PrismaClient<never, undefined, D
       endTime: periodTime.end.hours * 60 + periodTime.end.minutes,
       tag: "Lesson",
     };
-    await prisma.period.createMany({
-      data: WeekDayArray.map((weekday) => ({
-        ...periodTemp,
-        weekday: weekday,
-      })),
-    });
+    periods.push({ ...periodTemp, weekday });
   });
+}
 
-  await RecessPeriods.forEach(async (recessPeriod) => {
+function addRecessPeriods(periods: Period[], weekday: WeekDay) {
+  RecessPeriods.forEach(async (recessPeriod) => {
     const periodTime = RecessPeriodTimes[recessPeriod];
     const periodTemp: Omit<Prisma.PeriodCreateManyInput, "weekday"> = {
       name: RecessPeriodsJA[recessPeriod],
@@ -45,15 +65,12 @@ export default async function seed(prisma: Omit<PrismaClient<never, undefined, D
       endTime: periodTime.end.hours * 60 + periodTime.end.minutes,
       tag: "Recess",
     };
-    await prisma.period.createMany({
-      data: WeekDayArray.map((weekday) => ({
-        ...periodTemp,
-        weekday: weekday,
-      })),
-    });
+    periods.push({ ...periodTemp, weekday });
   });
+}
 
-  await MeetingPeriods.forEach(async (meetingPeriod) => {
+function addMeetingPeriods(periods: Period[], weekday: WeekDay) {
+  MeetingPeriods.forEach(async (meetingPeriod) => {
     const periodTime = MeetingPeriodTimes[meetingPeriod];
     const periodTemp: Omit<Prisma.PeriodCreateManyInput, "weekday"> = {
       name: MeetingPeriodsJA[meetingPeriod],
@@ -62,15 +79,12 @@ export default async function seed(prisma: Omit<PrismaClient<never, undefined, D
       endTime: periodTime.end.hours * 60 + periodTime.end.minutes,
       tag: "Meeting",
     };
-    await prisma.period.createMany({
-      data: WeekDayArray.map((weekday) => ({
-        ...periodTemp,
-        weekday: weekday,
-      })),
-    });
+    periods.push({ ...periodTemp, weekday });
   });
+}
 
-  const afterschoolPeriodTemp: Omit<Prisma.PeriodCreateManyInput, "weekday"> = {
+function addAfterSchoolPeriods(periods: Period[], weekday: WeekDay) {
+  const periodTemp: Omit<Prisma.PeriodCreateManyInput, "weekday"> = {
     name: AfterSchoolPeriodJA,
     innername: AfterSchoolPeriod,
     beginTime:
@@ -80,10 +94,5 @@ export default async function seed(prisma: Omit<PrismaClient<never, undefined, D
       AfterSchoolPeriodTime.end.hours * 60 + AfterSchoolPeriodTime.end.minutes,
     tag: "Other",
   };
-  await prisma.period.createMany({
-    data: WeekDayArray.map((weekday) => ({
-      ...afterschoolPeriodTemp,
-      weekday: weekday,
-    })),
-  });
+  periods.push({ ...periodTemp, weekday });
 }

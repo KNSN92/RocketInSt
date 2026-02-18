@@ -37,27 +37,23 @@ export default async function Register() {
 }
 
 async function fetchLessonsAndGenTable(userId?: string) {
-  const items = await prisma.lesson.findMany({
+  const items = await prisma.lessonPeriod.findMany({
     where: {
       period: {
-        some: {
-          tag: "Lesson",
-          innername: {
-            in: [...LessonPeriods],
-          },
+        tag: "Lesson",
+        innername: {
+          in: [...LessonPeriods],
         },
       },
     },
     select: {
       id: true,
-      title: true,
-      period: {
-        where: {
-          tag: "Lesson",
-          innername: {
-            in: [...LessonPeriods],
-          },
+      lesson: {
+        select: {
+          title: true,
         },
+      },
+      period: {
         select: {
           innername: true,
           weekday: true,
@@ -73,7 +69,9 @@ async function fetchLessonsAndGenTable(userId?: string) {
       },
     },
     orderBy: {
-      title: "asc",
+      lesson: {
+        title: "asc",
+      },
     },
   });
   const table: {
@@ -86,13 +84,18 @@ async function fetchLessonsAndGenTable(userId?: string) {
     };
   } = {};
   items.forEach((item) => {
-    const { weekday, innername } = item.period[0];
+    const {
+      id,
+      period: { weekday, innername },
+      lesson: { title },
+      students,
+    } = item;
     if (!table[weekday]) table[weekday] = {};
     if (!table[weekday][innername]) table[weekday][innername] = [];
     table[weekday][innername].push({
-      id: item.id,
-      title: item.title,
-      selected: item.students.length > 0,
+      id: id,
+      title: title,
+      selected: students.length > 0,
     });
   });
   return table;
@@ -130,12 +133,10 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
       course: true,
       _count: {
         select: {
-          lessons: {
+          lessonPeriods: {
             where: {
               period: {
-                some: {
-                  innername: AfterSchoolPeriod,
-                },
+                innername: AfterSchoolPeriod,
               },
             },
           },
@@ -146,6 +147,6 @@ async function fetchUserSchoolInfoOrUndefined(userId?: string) {
   return {
     campus: data?.campus?.id || undefined,
     course: data?.course ? CourseToDaysMap[data.course] : undefined,
-    afterschool: data?._count.lessons ? 1 : 0,
+    afterschool: data?._count.lessonPeriods ? 1 : 0,
   };
 }

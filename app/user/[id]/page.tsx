@@ -95,7 +95,7 @@ async function UserProfile({
   image,
   role,
   course,
-  lessons,
+  lessonPeriods,
 }: {
   initialIsFriend: boolean;
   userId: string;
@@ -105,14 +105,14 @@ async function UserProfile({
   image: string | null;
   role: Role;
   course: Course | null;
-  lessons: {
-    title: string;
+  lessonPeriods: {
+    lesson: { title: string };
     rooms: { id: string; name: string }[];
-    period: { name: string; innername: string }[];
+    period: { name: string; innername: string };
   }[];
 }) {
   const userCampus = await fetchUserCampus(profileUserId);
-  const takingRoomId = getTakingRoomId(lessons);
+  const takingRoomId = getTakingRoomId(lessonPeriods);
   return (
     <div className="mx-auto py-8 flex w-screen flex-col items-center sm:px-8 md:px-32">
       <UserIcon
@@ -182,13 +182,13 @@ async function UserProfile({
           <span className="font-bold sm:font-normal">現在居る部屋</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
-          {getTakingRoom(lessons)}
+          {getTakingRoom(lessonPeriods)}
         </li>
         <li className="mt-4 sm:mt-0">
           <span className="font-bold sm:font-normal">受講中の授業</span>
           <span className="hidden sm:inline">：</span>
           <br className="w-0 inline sm:hidden" />
-          {getTakingLesson(lessons)}
+          {getTakingLesson(lessonPeriods)}
         </li>
       </ul>
       <div className="mt-4 flex items-center justify-center md:gap-4 flex-col md:flex-row">
@@ -224,7 +224,7 @@ async function UserProfile({
               name: true,
             })
           ).map((room) => {
-            const here = room.id === getTakingRoomId(lessons);
+            const here = room.id === getTakingRoomId(lessonPeriods);
             const roomPlan = room.roomPlan?.valueOf() as {
               x: number;
               y: number;
@@ -266,39 +266,37 @@ async function LessonsTable({
   if (!courseFrequency) return undefined;
   const fetchedLessons = (
     await fetchUser(userId, {
-      lessons: {
+      lessonPeriods: {
         where: {
           period: {
-            some: {
-              tag: "Lesson",
-            },
+            tag: "Lesson",
           },
         },
         select: {
           period: {
-            where: {
-              tag: "Lesson",
-            },
             select: {
               weekday: true,
               innername: true,
             },
           },
-          title: true,
+          lesson: {
+            select: {
+              title: true,
+            },
+          },
         },
       },
     })
-  )?.lessons;
+  )?.lessonPeriods;
   if (!fetchedLessons) return undefined;
   const lessons: { [key in WeekDay]: { [key in LessonPeriodType]: string } } =
     fetchedLessons.reduce(
       (acc, fetchedLesson) => {
-        if (fetchedLesson.period.length <= 0) return acc;
-        const period = fetchedLesson.period[0];
+        const period = fetchedLesson.period;
         if (!acc[period.weekday])
           acc[period.weekday] = {} as (typeof lessons)[WeekDay];
         acc[period.weekday][period.innername as LessonPeriodType] =
-          fetchedLesson.title;
+          fetchedLesson.lesson.title;
         return acc;
       },
       {} as typeof lessons,
@@ -360,6 +358,6 @@ async function fetchProfileUser(userId: string) {
     campusId: true,
     course: true,
     role: true,
-    lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
+    lessonPeriods: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
   });
 }

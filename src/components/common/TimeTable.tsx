@@ -5,26 +5,27 @@ import {
 } from "@/src/data/timetable";
 import clsx from "clsx";
 
-type TimeTable = {
+export type TimeTable = {
   [room in string]: {
-    [period in (typeof TimeTablePeriodSequence)[number]]?: string | null;
+    [period in (typeof TimeTablePeriodSequence)[number]]?: string;
   };
 };
 
+export type TimeTableRoomList = { name: string; color?: string }[];
+
+export interface TimeTableDate {
+  year: number;
+  month: number;
+  day: number;
+}
+
 interface TimeTableProps {
-  date: Date;
-  rooms: { name: string; color?: string }[];
+  date: TimeTableDate;
+  rooms: TimeTableRoomList;
   timetable: TimeTable;
 }
 
 export function TimeTable({ date, rooms, timetable }: TimeTableProps) {
-  if (
-    Object.keys(timetable).filter((room) =>
-      rooms.map((r) => r.name).includes(room),
-    ).length !== rooms.length
-  ) {
-    throw new Error("Timetable data does not match the rooms provided.");
-  }
   return (
     <table className="bg-white text-black *:border-collapse">
       <thead>
@@ -33,7 +34,7 @@ export function TimeTable({ date, rooms, timetable }: TimeTableProps) {
             className="font-normal text-3xl border-r-2 border-black"
             colSpan={2}
           >
-            {date.getFullYear()}年{date.getMonth() + 1}月{date.getDate()}日
+            {date.year}年{date.month}月{date.day}日
           </th>
           {rooms.map((room) => (
             <th
@@ -108,7 +109,7 @@ function TimeTablePeriodRow({
         {PeriodTimes[period].end.minutes.toString().padStart(2, "0")}
       </td>
       {rooms.map((room) => {
-        const lesson = timetable[room.name][period];
+        const lesson = timetable[room.name]?.[period];
         return <td key={room.name}>{lesson || ""}</td>;
       })}
     </tr>

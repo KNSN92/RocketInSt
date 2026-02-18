@@ -15,13 +15,7 @@ import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { Button } from "../../src/components/common/Buttons";
 import RadioButton from "../../src/components/common/RadioButton";
 
-export default function RegisterForm({
-  campuses,
-  initialTable,
-  initialCampus,
-  initialCourse,
-  initialAfterschool,
-}: {
+interface RegisterFormProps {
   campuses: { title: string; value: string }[];
   initialTable: {
     [key: string]: {
@@ -31,11 +25,20 @@ export default function RegisterForm({
   initialCampus?: string;
   initialCourse?: CourseDay;
   initialAfterschool?: number;
-}) {
+}
+
+export default function RegisterForm({
+  campuses,
+  initialTable,
+  initialCampus,
+  initialCourse,
+  initialAfterschool,
+}: RegisterFormProps) {
   const [registerData, setRegisterData] = useState({
     campus: initialCampus,
     course: initialCourse || 1,
   });
+  console.log(initialTable);
   const [lessonTable, setLessonTable] = useState(initialTable);
 
   function handleCourseChange(e: ChangeEvent<HTMLInputElement>) {
@@ -54,15 +57,17 @@ export default function RegisterForm({
     c: WeekDay,
     r: LessonPeriodType,
   ) {
-    const updatedLessons = lessonTable[c][r].map((lesson) => {
+    const lessons = lessonTable[c]?.[r];
+    if (!lessons) return;
+    const updatedLessons = lessons.map((lesson) => {
       lesson.selected = lesson.id === e.target.value;
       return lesson;
     });
     setLessonTable({
       ...lessonTable,
-      c: {
+      [c]: {
         ...lessonTable[c],
-        r: updatedLessons,
+        [r]: updatedLessons,
       },
     });
   }
@@ -183,7 +188,7 @@ export default function RegisterForm({
                         >
                           <select
                             value={
-                              lessonTable[courseDay][lessonPeriod].find(
+                              lessonTable[courseDay]?.[lessonPeriod]?.find(
                                 (lesson) => lesson.selected,
                               )?.id || ""
                             }
@@ -196,7 +201,7 @@ export default function RegisterForm({
                             className="lesson-select w-40 sm:w-60 bg-[#ebf6f7] dark:bg-transparent dark:text-[#b8e2e6] py-2"
                           >
                             <option value="">選択</option>
-                            {lessonTable[courseDay][lessonPeriod].map(
+                            {(lessonTable[courseDay]?.[lessonPeriod] ?? []).map(
                               ({ id, title }, i) => (
                                 <option key={i} value={id}>
                                   {title}

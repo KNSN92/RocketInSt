@@ -27,7 +27,7 @@ model User {
   timeTableFixReports       TimeTableFixReport[] @relation("byUser")
   campus                    Campus?              @relation(fields: [campusId], references: [id])
   moderatorOrMentorCampus   Campus?              @relation("moderatorOrMentorCampus", fields: [moderatorOrMentorCampusId], references: [id])
-  lessons                   Lesson[]             @relation("LessonToUser")
+  lessonPeriods             LessonPeriod[]       @relation("LessonPeriodToUser")
   followers                 User[]               @relation("UserFollowRelation")
   following                 User[]               @relation("UserFollowRelation")
 }
@@ -95,40 +95,51 @@ model Campus {
 }
 
 model Room {
-  id          String   @id @default(uuid())
-  name        String
-  campusId    String
-  capacity    Int
-  roomPlan    Json?
-  accentColor String?
-  mustShow    Boolean  @default(false)
-  order       Int?
-  mainFor     Campus?  @relation("mainRoom")
-  campus      Campus   @relation("rooms", fields: [campusId], references: [id], onDelete: Cascade)
-  lessons     Lesson[] @relation("LessonToRoom")
+  id            String         @id @default(uuid())
+  name          String
+  campusId      String
+  capacity      Int
+  roomPlan      Json?
+  accentColor   String?
+  mustShow      Boolean        @default(false)
+  order         Int?
+  mainFor       Campus?        @relation("mainRoom")
+  campus        Campus         @relation("rooms", fields: [campusId], references: [id], onDelete: Cascade)
+  lessonPeriods LessonPeriod[]
 
   @@unique([name, campusId])
   @@unique([order, campusId])
 }
 
+model LessonPeriod {
+  id       String  @id @default(uuid())
+  rooms    Room[]
+  lessonId String
+  periodId String
+  lesson   Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  period   Period  @relation(fields: [periodId], references: [id], onDelete: Cascade)
+  students User[]  @relation("LessonPeriodToUser")
+  userId   String?
+
+  @@unique([lessonId, periodId])
+}
+
 model Lesson {
-  id        String   @id @default(uuid())
+  id        String         @id @default(uuid())
   title     String
-  createdAt DateTime @default(now())
-  period    Period[] @relation("LessonToPeriod")
-  rooms     Room[]   @relation("LessonToRoom")
-  students  User[]   @relation("LessonToUser")
+  createdAt DateTime       @default(now())
+  periods   LessonPeriod[]
 }
 
 model Period {
-  id        String    @id @default(uuid())
+  id        String         @id @default(uuid())
   weekday   WeekDay
   beginTime Int
   endTime   Int
   tag       PeriodTag
   innername String
   name      String
-  lessons   Lesson[] @relation("LessonToPeriod")
+  lessons   LessonPeriod[]
 
   @@unique([innername, weekday])
 }

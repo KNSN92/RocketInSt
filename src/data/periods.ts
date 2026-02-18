@@ -11,7 +11,7 @@ export const LessonPeriods = [
 
 export type LessonPeriodType = (typeof LessonPeriods)[number];
 
-export const LessonPeriodsJA: { [key in LessonPeriodType]: string } = {
+export const LessonPeriodsJA = {
   FirstPeriod: "一限目",
   SecondPeriod: "二限目",
   ThirdPeriod: "三限目",
@@ -58,7 +58,7 @@ export const RecessPeriods = [
 
 export type RecessPeriodType = (typeof RecessPeriods)[number];
 
-export const RecessPeriodsJA: { [key in RecessPeriodType]: string } = {
+export const RecessPeriodsJA = {
   Morning: "朝",
   FirstSecondRecess: "休み時間",
   SecondThirdRecess: "休み時間",
@@ -109,7 +109,7 @@ export const MeetingPeriods = ["MorningMeeting", "ClosingMeeting"] as const;
 
 export type MeetingPeriodType = (typeof MeetingPeriods)[number];
 
-export const MeetingPeriodsJA: { [key in MeetingPeriodType]: string } = {
+export const MeetingPeriodsJA = {
   MorningMeeting: "朝礼",
   ClosingMeeting: "終礼",
 } as const;

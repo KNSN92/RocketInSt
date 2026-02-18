@@ -197,7 +197,7 @@ async function fetchUserList(
     campus: {
       id: userCampusId,
     },
-    lessons:
+    lessonPeriods:
       !roomQuery || roomQuery.length <= 0
         ? undefined
         : {
@@ -211,15 +211,13 @@ async function fetchUserList(
                 },
               },
               period: {
-                some: {
-                  weekday: weekdayEnum,
-                  AND: {
-                    beginTime: {
-                      lte: minutes,
-                    },
-                    endTime: {
-                      gte: minutes,
-                    },
+                weekday: weekdayEnum,
+                AND: {
+                  beginTime: {
+                    lte: minutes,
+                  },
+                  endTime: {
+                    gte: minutes,
                   },
                 },
               },
@@ -237,7 +235,11 @@ async function fetchUserList(
           nickname: true,
           image: true,
           role: true,
-          lessons: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
+          lessonPeriods: genUserTakingLessonQuery(
+            userCampusId,
+            minutes,
+            weekdayEnum,
+          ),
         },
         orderBy: [
           {
@@ -258,9 +260,9 @@ async function fetchUserList(
         image: user.image,
         role: user.role,
         lesson: {
-          id: getTakingRoomId(user.lessons),
-          room: getTakingRoom(user.lessons),
-          lesson: getTakingLesson(user.lessons),
+          id: getTakingRoomId(user.lessonPeriods),
+          room: getTakingRoom(user.lessonPeriods),
+          lesson: getTakingLesson(user.lessonPeriods),
         },
       };
     }),
