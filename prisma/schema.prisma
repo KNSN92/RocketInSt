@@ -83,15 +83,16 @@ model Authenticator {
 }
 
 model Campus {
-  id                     String      @id @default(uuid())
+  id                     String              @id @default(uuid())
   name                   String
-  mainRoomId             String?     @unique
+  mainRoomId             String?             @unique
   memberCount            Int
-  mainRoom               Room?       @relation("mainRoom", fields: [mainRoomId], references: [id])
-  rooms                  Room[]      @relation("rooms")
+  mainRoom               Room?               @relation("mainRoom", fields: [mainRoomId], references: [id])
+  rooms                  Room[]              @relation("rooms")
   timeTables             TimeTable[]
   members                User[]
-  moderatorOrMentorUsers User[]      @relation("moderatorOrMentorCampus")
+  moderatorOrMentorUsers User[]              @relation("moderatorOrMentorCampus")
+  timeTableUploaders     TimeTableUploader[]
 }
 
 model Room {
@@ -162,6 +163,18 @@ model TimeTableFixReport {
   fixedTable Json
   by         User      @relation("byUser", fields: [byId], references: [id])
   table      TimeTable @relation("TimeTable", fields: [tableId], references: [id])
+}
+
+model TimeTableUploader {
+  id        String   @id @default(uuid())
+  token     String   @unique // ハッシュ化されたトークン
+  expiresAt DateTime
+
+  campusId String // どのキャンパスの時間割をアップロードするためのトークンか
+  campus   Campus @relation(fields: [campusId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {
