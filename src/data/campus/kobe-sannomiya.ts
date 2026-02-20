@@ -1,6 +1,12 @@
 import { CampusData, LessonPeriod, Period, type Lesson } from "../campus";
 
 const oohiromaLessons: Lesson[] = [
+  Period("Monday", "Morning"),
+  Period("Tuesday", "Morning"),
+  Period("Wednesday", "Morning"),
+  Period("Thursday", "Morning"),
+  Period("Friday", "Morning"),
+
   Period("Monday", "MorningMeeting"),
   Period("Tuesday", "MorningMeeting"),
   Period("Wednesday", "MorningMeeting"),
