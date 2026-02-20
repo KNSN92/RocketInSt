@@ -20,7 +20,10 @@ import UserList from "@/src/components/common/UserList";
 import CampusMap, { MapData } from "@/src/components/home/CampusMap";
 import { WeekDayToCourseMap } from "@/src/data/course";
 import { NumToWeekDayMap } from "@/src/data/weekdays";
-import { getNowJSTTimeAsMinutesWithWeekday } from "@/src/lib/time";
+import {
+  getNowJSTTimeAsMinutesWithWeekday,
+  getNowJSTTimeWithWeekday,
+} from "@/src/lib/time";
 import { fetchUserCampusId } from "@/src/lib/userdata";
 import {
   genUserTakingLessonQuery,
@@ -124,37 +127,22 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
     : [];
   const userCampus = await fetchUserCampus(session.user.id);
 
-  const { rooms, timetable } = await fetchDefaultTodayTimeTable(
-    "d72b955f-57cd-4a78-b475-a64eb10cd125",
-    "Friday",
-  );
+  const timetable =
+    userCampus &&
+    ((await fetchTimeTable(userCampus.id)) ||
+      (await fetchDefaultTimeTable(
+        userCampus.id,
+        NumToWeekDayMap[getNowJSTTimeWithWeekday().weekday]!,
+      )));
   return (
     <div className="w-screen sm:w-fit">
       <div className="text-2xl font-semibold">
         こんにちは {session.user?.name}
         さん
       </div>
-      <TimeTable
-        date={{ year: 2026, month: 2, day: 13 }}
-        rooms={rooms}
-        timetable={timetable}
-      />
-      {/* <TimeTable
-        date={{
-          year: 2026,
-          month: 2,
-          day: 13,
-        }}
-        rooms={[
-          { name: "大広間", color: "#d36859" },
-          { name: "秘密基地", color: "#e28587" },
-          { name: "万里", color: "#f7c08a" },
-          { name: "7階", color: "#ffff86" },
-        ]}
-        timetable={{
-          大広間: { AfterSchool: "放課後" },
-        }}
-      /> */}
+      {timetable && (
+        <TimeTable date={{ year: 2026, month: 2, day: 13 }} {...timetable} />
+      )}
       <h1 className="mt-8 text-3xl font-bold">混雑状況マップ</h1>
       <CampusRegisterRequired
         message={
@@ -437,7 +425,7 @@ async function fetchUserCampus(userId: string) {
   );
 }
 
-async function fetchDefaultTodayTimeTable(
+async function fetchDefaultTimeTable(
   campusId: string,
   weekday: WeekDay,
 ): Promise<{
@@ -454,7 +442,6 @@ async function fetchDefaultTodayTimeTable(
           select: {
             name: true,
             accentColor: true,
-            order: true,
             mustShow: true,
             lessonPeriods: {
               where: {
@@ -477,18 +464,19 @@ async function fetchDefaultTodayTimeTable(
               },
             },
           },
+          orderBy: {
+            order: "asc",
+          },
         },
       },
     })
   )?.rooms;
   console.log(resultRooms);
   if (!resultRooms) return { rooms: [], timetable: {} };
-  const rooms = resultRooms
-    .sort((a, b) => (a.order ?? 0xffff) - (b.order ?? 0xffff)) // オーダーが未設定なら最後に回す。(65535個も部屋無いでしょ普通)
-    .map((room) => ({
-      name: room.name,
-      color: room.accentColor || undefined,
-    }));
+  const rooms = resultRooms.map((room) => ({
+    name: room.name,
+    color: room.accentColor || undefined,
+  }));
   const timetable = resultRooms.reduce((acc, room) => {
     if (room.lessonPeriods.length === 0) {
       return room.mustShow ? { ...acc, [room.name]: {} } : acc;
@@ -508,6 +496,84 @@ async function fetchDefaultTodayTimeTable(
     };
   }, {});
   return { rooms, timetable };
+}
+
+async function fetchTimeTable(campusId: string): Promise<{
+  rooms: TimeTableRoomList;
+  timetable: TimeTable;
+} | null> {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  const rooms = (
+    await prisma.room.findMany({
+      where: {
+        campusId,
+      },
+      select: {
+        name: true,
+        accentColor: true,
+        mustShow: true,
+      },
+      orderBy: {
+        order: "asc",
+      },
+    })
+  ).map((room) => ({
+    name: room.name,
+    color: room.accentColor || undefined,
+    mustShow: room.mustShow,
+  }));
+  const timetableData = await prisma.timeTable.findFirst({
+    where: {
+      campusId,
+      date: {
+        gte: today,
+        lt: tomorrow,
+      },
+    },
+    select: {
+      id: true,
+      rawTable: true,
+      date: true,
+      _count: {
+        select: {
+          reports: true,
+        },
+      },
+    },
+    orderBy: {
+      date: "desc",
+    },
+  });
+  if (!timetableData) return null;
+  let timetable = timetableData.rawTable as TimeTable;
+  if (timetableData._count.reports > 0) {
+    const fixedTimeTableData = await prisma.timeTableFixReport.findFirst({
+      where: {
+        tableId: timetableData.id,
+        createdAt: {
+          gte: timetableData.date,
+        },
+      },
+      select: {
+        fixedTable: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    if (fixedTimeTableData) {
+      timetable = fixedTimeTableData.fixedTable as TimeTable;
+    }
+  }
+  for (const room of rooms) {
+    if (Object.keys(timetable).includes(room.name)) continue;
+    if (room.mustShow) {
+      timetable[room.name] = {};
+    }
+  }
+  return { timetable, rooms };
 }
 
 function replaceNanInf(num: number, defaultNum: number): number {
