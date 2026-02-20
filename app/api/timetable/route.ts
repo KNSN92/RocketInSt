@@ -13,14 +13,14 @@ const RoomTimeTableSchema = z.record(
   LessonSchema,
 );
 
-export const TimeTableSchema = z.record(z.string(), RoomTimeTableSchema);
+const TimeTableSchema = z.record(z.string(), RoomTimeTableSchema);
 
 /**
  * キャンパスに属する部屋名のみを許容する TimeTableSchema
  * @param campusId バリデーション対象のキャンパスID
  * @returns 部屋名検証付きの Zod スキーマ
  */
-export const createTimeTableSchemaWithCampusValidation = (campusId: string) =>
+const createTimeTableSchemaWithCampusValidation = (campusId: string) =>
   TimeTableSchema.refine(
     async (data) => {
       // campusId に属する全ての部屋を取得
