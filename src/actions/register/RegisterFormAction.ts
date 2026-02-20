@@ -15,6 +15,7 @@ import {
   RecessPeriods,
 } from "@/src/data/periods";
 import { Course, Prisma } from "@prisma-gen/browser";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
@@ -63,12 +64,12 @@ async function validateCampus(campus: string, ctx: z.RefinementCtx) {
     }
   } catch (e) {
     console.error(e);
-    // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-    //   ctx.addIssue({
-    //     code: z.ZodIssueCode.custom,
-    //     message: "データベースに接続出来ませんでした。",
-    //   });
-    // }
+    if (e instanceof PrismaClientKnownRequestError) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "データベースに接続出来ませんでした。",
+      });
+    }
   }
 }
 
@@ -119,12 +120,12 @@ async function validateLessons(
     }
   } catch (e) {
     console.error(e);
-    // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-    //   ctx.addIssue({
-    //     code: z.ZodIssueCode.custom,
-    //     message: "データベースに接続出来ませんでした。",
-    //   });
-    // }
+    if (e instanceof PrismaClientKnownRequestError) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "データベースに接続出来ませんでした。",
+      });
+    }
   }
 }
 
