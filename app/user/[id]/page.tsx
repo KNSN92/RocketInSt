@@ -57,10 +57,14 @@ export default async function UserInfo({
   const userId = await fetchUserId();
   if (!userId) return redirect("/signin");
   const userCampusId = await fetchUserCampusId(userId);
-  if (!userCampusId) return <WhenUserCampusUnregistered />;
-
   const { id } = await params;
-  const profileUser = await fetchProfileUser(id);
+  const isSelf = userId === id;
+  if (!userCampusId && !isSelf) return <WhenUserCampusUnregistered />;
+
+  const profileUser =
+    isSelf && !userCampusId
+      ? await fetchSimpleProfileUser(id)
+      : await fetchProfileUser(id);
   if (profileUser /* && profileUser.campusId === userCampusId*/) {
     return (
       <UserProfile
@@ -100,19 +104,20 @@ async function UserProfile({
   initialIsFriend: boolean;
   userId: string;
   profileUserId: string;
+  role: Role;
   name: string | null;
   nickname: string | null;
   image: string | null;
-  role: Role;
-  course: Course | null;
-  lessonPeriods: {
+  course?: Course;
+  lessonPeriods?: {
     lesson: { title: string };
     rooms: { id: string; name: string }[];
     period: { name: string; innername: string };
   }[];
 }) {
   const userCampus = await fetchUserCampus(profileUserId);
-  const takingRoomId = getTakingRoomId(lessonPeriods);
+  const takingRoomId =
+    (lessonPeriods && getTakingRoomId(lessonPeriods)) ?? undefined;
   return (
     <div className="mx-auto py-8 flex w-screen flex-col items-center sm:px-8 md:px-32">
       <UserIcon
@@ -171,6 +176,45 @@ async function UserProfile({
           initialIsFriend={initialIsFriend}
         />
       )}
+      {course && userCampus && lessonPeriods && (
+        <UserCampusProfile
+          course={course}
+          profileUserId={profileUserId}
+          userCampus={userCampus}
+          lessonPeriods={lessonPeriods}
+        />
+      )}
+    </div>
+  );
+}
+
+interface UserCampusProfileProps {
+  course: Course;
+  profileUserId: string;
+  userCampus: { id: string; name: string };
+  lessonPeriods: {
+    rooms: {
+      id: string;
+      name: string;
+    }[];
+    lesson: {
+      title: string;
+    };
+    period: {
+      name: string;
+      innername: string;
+    };
+  }[];
+}
+
+async function UserCampusProfile({
+  course,
+  profileUserId,
+  userCampus,
+  lessonPeriods,
+}: UserCampusProfileProps) {
+  return (
+    <>
       <ul className="mt-4 text-2xl text-center sm:text-left">
         <li>
           <span className="font-bold sm:font-normal">コース</span>
@@ -252,7 +296,7 @@ async function UserProfile({
       <div className="overflow-auto w-screen mx-4 text-nowrap">
         <LessonsTable userId={profileUserId} courseFrequency={course} />
       </div>
-    </div>
+    </>
   );
 }
 
@@ -359,5 +403,14 @@ async function fetchProfileUser(userId: string) {
     course: true,
     role: true,
     lessonPeriods: genUserTakingLessonQuery(userCampusId, minutes, weekdayEnum),
+  });
+}
+
+async function fetchSimpleProfileUser(userId: string) {
+  return await fetchUser(userId, {
+    name: true,
+    nickname: true,
+    image: true,
+    role: true,
   });
 }
