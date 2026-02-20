@@ -2,6 +2,7 @@ import {
   AfterSchoolPeriod,
   AfterSchoolPeriodJA,
   LessonPeriods,
+  LessonPeriodType,
   MeetingPeriods,
   MeetingPeriodsJA,
   PeriodType,
@@ -35,7 +36,8 @@ async function createLessonLessonPeriods(
   weekday: WeekDay,
   period: PeriodType,
 ) {
-  const lessons: string[] | undefined = table[weekday][period];
+  if (!(LessonPeriods as unknown as string[]).includes(period)) return;
+  const lessons = table[weekday][period as LessonPeriodType];
   if (!lessons) return;
   await Promise.all(
     lessons.map((lessonTitle) =>

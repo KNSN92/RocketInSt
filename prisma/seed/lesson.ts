@@ -1,6 +1,8 @@
 import type { WeekDay as WeekDayType } from "@/prisma/generated/prisma/client";
 import {
   AfterSchoolPeriodJA,
+  LessonPeriods,
+  LessonPeriodType,
   MeetingPeriodsJA,
   Periods,
   PeriodType,
@@ -41,7 +43,8 @@ function addLessonPeriods(
   weekday: WeekDayType,
   period: PeriodType,
 ) {
-  const lessonNames: string[] | undefined = schedules[weekday]?.[period]; // なんで型付かないの？
+  if (!(LessonPeriods as unknown as string[]).includes(period)) return;
+  const lessonNames = schedules[weekday][period as LessonPeriodType]; // なんで型付かないの？
   if (!lessonNames) return;
   lessonNames.forEach(async (lessonName) => {
     if (!lessons[lessonName]) {
