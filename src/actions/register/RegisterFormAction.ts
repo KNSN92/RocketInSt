@@ -145,7 +145,7 @@ export default async function handleRegisterAction(
       error: true,
       msg: parseResult.error?.errors[0].message,
     };
-  const { campus, course, afterschool, lessons } = parseResult.data;
+  const { campus, course: courseDays, afterschool, lessons } = parseResult.data;
   const session = await getServerSession(authConfig);
   const userId = session?.user?.id;
   if (!userId)
@@ -155,7 +155,7 @@ export default async function handleRegisterAction(
       msg: "ユーザーidを取得出来ませんでした。",
     };
 
-  const courseEnum: Course = DaysToCourseMap[course as CourseDay];
+  const course: Course = DaysToCourseMap[courseDays as CourseDay];
 
   const lessonsEntry: Prisma.LessonPeriodWhereUniqueInput[] = (
     await prisma.lessonPeriod.findMany({
@@ -163,7 +163,7 @@ export default async function handleRegisterAction(
         id: { in: lessons },
         period: {
           weekday: {
-            in: DaysToWeekDayMap[course as CourseDay],
+            in: DaysToWeekDayMap[courseDays as CourseDay],
           },
           tag: "Lesson",
         },
@@ -183,7 +183,7 @@ export default async function handleRegisterAction(
             in: otherEntryInnernames,
           },
           weekday: {
-            in: DaysToWeekDayMap[course as CourseDay],
+            in: DaysToWeekDayMap[courseDays as CourseDay],
           },
         },
       },
@@ -198,7 +198,7 @@ export default async function handleRegisterAction(
       where: { id: userId },
       data: {
         campus: { connect: { id: campus } },
-        course: courseEnum,
+        course,
       },
     }),
     prisma.user.update({
