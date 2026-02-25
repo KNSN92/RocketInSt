@@ -170,7 +170,7 @@ model TimeTableUploader {
   token     String   @unique // ハッシュ化されたトークン
   expiresAt DateTime
 
-  campusId String // どのキャンパスの時間割をアップロードするためのトークンか
+  campusId String @unique // どのキャンパスの時間割をアップロードするためのトークンか
   campus   Campus @relation(fields: [campusId], references: [id])
 
   createdAt DateTime @default(now())
