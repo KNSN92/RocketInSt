@@ -46,7 +46,7 @@ export async function generateMetadata({
   const user = await fetchUser(id, { id: true, nickname: true });
   const userName = user ? user.nickname : "???";
   return {
-    title: `${userName}'s profile`,
+    title: `${userName ?? "???"}'s profile`,
   };
 }
 export default async function UserInfo({
