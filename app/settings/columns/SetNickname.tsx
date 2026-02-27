@@ -3,7 +3,7 @@
 import { setNickname } from "@/src/actions/settings/Nickname";
 import { Button } from "@/src/components/common/Buttons";
 import { useNotification } from "@/src/lib/notification";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 export function SetNickname({
   initialNickName,
@@ -25,6 +25,8 @@ export function SetNickname({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
+
+  const [nickname, setNicknameState] = useState(initialNickName);
   return (
     <div>
       <h1 className="text-2xl font-bold">ニックネームの変更</h1>
@@ -33,10 +35,15 @@ export function SetNickname({
           type="text"
           name="nickname"
           className="min-w-64 max-w-96 w-1/2 h-12 rounded-lg border-1 border-blue-600 px-4 dark:bg-dark"
-          defaultValue={state.nickname}
+          value={nickname}
+          onChange={(e) => setNicknameState(e.target.value)}
           required
         />
-        <Button color="primary" type="submit" disabled={isPending}>
+        <Button
+          color="primary"
+          type="submit"
+          disabled={initialNickName === nickname || isPending}
+        >
           {isPending ? "変更中..." : "変更"}
         </Button>
       </form>
