@@ -133,23 +133,25 @@ function GenerateTokenUI({
   showToken: boolean;
   setShowToken: (value: boolean) => void;
 }) {
-  const { notify } = useNotification();
-
-  console.log("tokenStatus in UI:", tokenStatus);
-
-  const copyToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      notify("トークンをクリップボードにコピーしました", "success");
-    } catch {
-      notify("コピーに失敗しました", "error");
-    }
-  };
-
   return (
     <div className="w-full">
       <h1 className="text-2xl font-bold">時間割アップロードトークン</h1>
       <div className="mt-4 space-y-4">
+        {!("error" in tokenStatus) && (
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <p className="text-sm text-blue-800 dark:text-blue-300">
+              現在のトークン有効期限:{" "}
+              {new Date(tokenStatus.expiresAt).toLocaleString("ja-JP", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </p>
+          </div>
+        )}
+
         {"error" in tokenStatus && (
           <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
             <p className="text-sm text-yellow-800 dark:text-yellow-300">
@@ -161,36 +163,11 @@ function GenerateTokenUI({
         )}
 
         {tokenGenerateStatus.success && (
-          <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-            <p className="text-sm font-semibold text-green-800 dark:text-green-300 mb-2">
-              新しいトークン（この画面でのみ表示されます）
-            </p>
-            <div className="flex gap-2 items-center">
-              <div className="flex-1 font-mono text-sm bg-white dark:bg-gray-800 p-3 rounded border border-green-300 dark:border-green-700 break-all">
-                {showToken ? tokenGenerateStatus.success : "•".repeat(64)}
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowToken(!showToken)}
-                className="p-2 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors"
-                title={showToken ? "トークンを隠す" : "トークンを表示"}
-              >
-                {showToken ? (
-                  <EyeSlashIcon className="w-5 h-5" />
-                ) : (
-                  <EyeIcon className="w-5 h-5" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => copyToClipboard(tokenGenerateStatus.success!)}
-                className="p-2 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors"
-                title="トークンをコピー"
-              >
-                <ClipboardDocumentIcon className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+          <TokenGenerated
+            showToken={showToken}
+            setShowToken={setShowToken}
+            tokenGenerateStatus={tokenGenerateStatus}
+          />
         )}
 
         <form action={formAction}>
@@ -208,6 +185,61 @@ function GenerateTokenUI({
           <p>• トークンは安全に保管してください</p>
           <p>• 有効期限は生成から365日間です</p>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function TokenGenerated({
+  showToken,
+  setShowToken,
+  tokenGenerateStatus,
+}: {
+  showToken: boolean;
+  setShowToken: (value: boolean) => void;
+  tokenGenerateStatus: {
+    error?: string | undefined;
+    success?: string | undefined;
+  };
+}) {
+  const { notify } = useNotification();
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      notify("トークンをクリップボードにコピーしました", "success");
+    } catch {
+      notify("コピーに失敗しました", "error");
+    }
+  };
+  return (
+    <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+      <p className="text-sm font-semibold text-green-800 dark:text-green-300 mb-2">
+        新しいトークン（この画面でのみ表示されます）
+      </p>
+      <div className="flex gap-2 items-center">
+        <div className="flex-1 font-mono text-sm bg-white dark:bg-gray-800 p-3 rounded border border-green-300 dark:border-green-700 break-all">
+          {showToken ? tokenGenerateStatus.success : "•".repeat(64)}
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowToken(!showToken)}
+          className="p-2 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors"
+          title={showToken ? "トークンを隠す" : "トークンを表示"}
+        >
+          {showToken ? (
+            <EyeSlashIcon className="w-5 h-5" />
+          ) : (
+            <EyeIcon className="w-5 h-5" />
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => copyToClipboard(tokenGenerateStatus.success!)}
+          className="p-2 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors"
+          title="トークンをコピー"
+        >
+          <ClipboardDocumentIcon className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
