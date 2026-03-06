@@ -41,7 +41,7 @@ class WebPushManager {
 
   async registerServiceWorker() {
     try {
-      const registration = await navigator.serviceWorker.register("/sw/sw.js", {
+      const registration = await navigator.serviceWorker.register("/sw.js", {
         scope: "/",
         updateViaCache: "none",
       });
