@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import webpush from "web-push";
 import z from "zod";
 
+if (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_SECRET_KEY) {
+  throw new Error("VAPID keys are not set in environment variables");
+}
+
 webpush.setVapidDetails(
   "https://knsn92.github.io",
   process.env.VAPID_PUBLIC_KEY!,
@@ -11,7 +15,7 @@ webpush.setVapidDetails(
 const WebPushPayloadSchema = z.object({
   message: z.string(),
   subscription: z.object({
-    endpoint: z.string(),
+    endpoint: z.string().url(),
     expirationTime: z.number().nullish().optional(),
     keys: z.object({
       p256dh: z.string(),
