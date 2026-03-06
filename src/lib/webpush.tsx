@@ -1,8 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-export function useWebPush() {
+const WebPushContext = createContext({
+  isSupported: false,
+  manager: null as WebPushManager | null,
+});
+
+export function WebPushProvider({ children }: { children: ReactNode }) {
   const mgrRef = useRef<WebPushManager | null>(null);
   const [isSupported, setIsSupported] = useState(false);
   useEffect(() => {
@@ -16,10 +28,20 @@ export function useWebPush() {
       mgrRef.current = mgr;
     }
   }, []);
-  return {
-    isSupported,
-    manager: mgrRef.current,
-  };
+  return (
+    <WebPushContext.Provider
+      value={{
+        isSupported,
+        manager: mgrRef.current,
+      }}
+    >
+      {children}
+    </WebPushContext.Provider>
+  );
+}
+
+export function useWebPush() {
+  return useContext(WebPushContext);
 }
 
 class WebPushManager {

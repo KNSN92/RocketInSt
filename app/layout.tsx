@@ -10,10 +10,11 @@ import {
 } from "@/src/components/common/RocketInStLogos";
 import ThemeButton from "@/src/components/common/ThemeButton";
 import { UserIcon } from "@/src/components/common/UserIcon";
-import { HeaderShowHideButton } from "@/src/components/layout/HeaderShowHideButton";
 import WebPushNotificationDialog from "@/src/components/home/WebPushNotificationDialog";
+import { HeaderShowHideButton } from "@/src/components/layout/HeaderShowHideButton";
 import { NotificationProvider } from "@/src/lib/notification";
 import { NextAuthProvider } from "@/src/lib/providers";
+import { WebPushProvider } from "@/src/lib/webpush";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Sawarabi_Gothic } from "next/font/google";
@@ -48,13 +49,15 @@ export default async function RootLayout({
         className={`min-h-screen w-screen not-dark:bg-white dark:bg-black text-dark dark:text-gray-200 antialiased ${SawarabiGothicFont.className}`}
       >
         <NextAuthProvider>
-          <NotificationProvider>
-            <Header />
-            <HeaderShowHideButton />
-            <Main>{children}</Main>
-            <Footer />
-            <WebPushNotificationDialog />
-          </NotificationProvider>
+          <WebPushProvider>
+            <NotificationProvider>
+              <Header />
+              <HeaderShowHideButton />
+              <Main>{children}</Main>
+              <Footer />
+              <WebPushNotificationDialog />
+            </NotificationProvider>
+          </WebPushProvider>
         </NextAuthProvider>
       </body>
     </html>
