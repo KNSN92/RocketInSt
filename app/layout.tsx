@@ -11,6 +11,7 @@ import {
 import ThemeButton from "@/src/components/common/ThemeButton";
 import { UserIcon } from "@/src/components/common/UserIcon";
 import { HeaderShowHideButton } from "@/src/components/layout/HeaderShowHideButton";
+import WebPushNotificationDialog from "@/src/components/home/WebPushNotificationDialog";
 import { NotificationProvider } from "@/src/lib/notification";
 import { NextAuthProvider } from "@/src/lib/providers";
 import { Metadata } from "next";
@@ -52,6 +53,7 @@ export default async function RootLayout({
             <HeaderShowHideButton />
             <Main>{children}</Main>
             <Footer />
+            <WebPushNotificationDialog />
           </NotificationProvider>
         </NextAuthProvider>
       </body>
