@@ -30,6 +30,7 @@ model User {
   lessonPeriods             LessonPeriod[]       @relation("LessonPeriodToUser")
   followers                 User[]               @relation("UserFollowRelation")
   following                 User[]               @relation("UserFollowRelation")
+  pushSubscriptions         PushSubscription[]
 }
 
 model Account {
@@ -206,4 +207,15 @@ enum Course {
   OncePerWeek
   ThricePerWeek
   FiveTimesPerWeek
+}
+
+model PushSubscription {
+  id             String   @id @default(uuid())
+  userId         String
+  endpoint       String   @unique
+  expirationTime Int?
+  p256dh         String
+  auth           String
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
