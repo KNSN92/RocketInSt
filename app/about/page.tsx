@@ -29,6 +29,12 @@ export default function About() {
               RocketIn.St Development Team
             </h2>
           </div>
+          <div className="mt-4 flex flex-row items-center justify-center">
+            <div className="ml-12 md:ml-24 lg:ml-48 mr-4 inline-block h-0 w-5 md:w-10 lg:w-20 border-t-2 border-dark dark:border-light align-middle"></div>
+            <h2 className="inline-block text-xl md:text-2xl lg:text-4xl">
+              RocketIn.St Improvement Team
+            </h2>
+          </div>
         </div>
       </div>
       <div className="mx-auto h-1 w-[80vw] bg-gray-200" />
