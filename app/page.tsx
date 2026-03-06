@@ -129,7 +129,7 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
 
   const timetable =
     userCampus &&
-    ((await fetchTimeTable(userCampus.id)) ||
+    ((await fetchTodayTimeTable(userCampus.id)) ||
       (await fetchDefaultTimeTable(
         userCampus.id,
         NumToWeekDayMap[getNowJSTTimeWithWeekday().weekday]!,
@@ -471,34 +471,51 @@ async function fetchDefaultTimeTable(
       },
     })
   )?.rooms;
-  console.log(resultRooms);
   if (!resultRooms) return { rooms: [], timetable: {} };
   const rooms = resultRooms.map((room) => ({
     name: room.name,
     color: room.accentColor || undefined,
+    mustShow: room.mustShow,
   }));
-  const timetable = resultRooms.reduce((acc, room) => {
-    if (room.lessonPeriods.length === 0) {
-      return room.mustShow ? { ...acc, [room.name]: {} } : acc;
-    }
-    return {
-      ...acc,
-      [room.name]: {
-        ...room.lessonPeriods.reduce((acc2, lessonPeriod) => {
+  const timetable = resultRooms.reduce<Record<string, Record<string, string>>>(
+    (acc, room) => {
+      if (room.lessonPeriods.length === 0) {
+        return room.mustShow ? { ...acc, [room.name]: {} } : acc;
+      }
+      const roomLessons = room.lessonPeriods.reduce<Record<string, string>>(
+        (acc2, lessonPeriod) => {
           const periodName = lessonPeriod.period.innername;
           const lessonTitle = lessonPeriod.lesson.title;
           return {
             ...acc2,
             [periodName]: lessonTitle,
           };
-        }, {}),
-      },
-    };
-  }, {});
+        },
+        {},
+      );
+      return {
+        ...acc,
+        [room.name]: {
+          ...roomLessons,
+        },
+      };
+    },
+    {},
+  );
+  for (let i = 0; i < rooms.length; i++) {
+    const room = rooms[i];
+    if (Object.keys(timetable).includes(room.name)) continue;
+    if (room.mustShow) {
+      timetable[room.name] = {};
+    }else {
+      rooms.splice(i);
+    }
+  }
+  console.log(rooms, timetable);
   return { rooms, timetable };
 }
 
-async function fetchTimeTable(campusId: string): Promise<{
+async function fetchTodayTimeTable(campusId: string): Promise<{
   rooms: TimeTableRoomList;
   timetable: TimeTable;
 } | null> {
