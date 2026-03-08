@@ -1,24 +1,29 @@
-import authConfig from "@/auth.config";
 import { prisma } from "@/prisma";
-import { getServerSession } from "next-auth";
+import { fetchUserId } from "@/src/lib/userdata";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 export default async function CampusRegisterRequired({
   children,
   message,
+  redirectWhenNotLoggedIn = true,
 }: {
   children: ReactNode;
   message: ReactNode;
+  redirectWhenNotLoggedIn: boolean;
 }) {
-  const session = await getServerSession(authConfig);
-  if (!session?.user?.id) {
-    return redirect("/signin");
+  const userId = await fetchUserId();
+  if (!userId) {
+    if (redirectWhenNotLoggedIn) {
+      return redirect("/signin");
+    } else {
+      return message;
+    }
   }
   const userCampus = (
     await prisma.user.findUnique({
       where: {
-        id: session.user.id,
+        id: userId,
       },
     })
   )?.campusId;
