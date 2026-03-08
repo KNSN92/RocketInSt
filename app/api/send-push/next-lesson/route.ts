@@ -1,4 +1,5 @@
 import { prisma } from "@/prisma";
+import { PeriodType } from "@/src/data/periods";
 import { NumToWeekDayMap } from "@/src/data/weekdays";
 import { hashToken } from "@/src/lib/hash";
 import { getNowJSTTimeAsMinutesWithWeekday } from "@/src/lib/time";
@@ -48,7 +49,8 @@ export async function POST(req: NextRequest) {
 
     if (!nextPeriod) {
       return NextResponse.json({
-        message: "本日これ以降の授業はありません。本日もお疲れ様でした！",
+        message:
+          "本日これ以降の授業はありません。本日もお疲れ様でした！(送信していません)",
         sent: 0,
         expired: 0,
         failed: 0,
@@ -83,7 +85,19 @@ export async function POST(req: NextRequest) {
     for (const lp of lessonPeriods) {
       const lessonTitle = lp.lesson.title;
       const roomName = lp.rooms.map((r) => r.name).join(", ") || "未定";
-      const message = `${nextPeriod.name}の授業は\n\"${lessonTitle}\"です。\n部屋:（${roomName}）`;
+      let message: string;
+      switch (nextPeriod.innername as PeriodType) {
+        case "MorningMeeting":
+          message = "おはようございます。今日も一日頑張りましょう！";
+          break;
+        case "ClosingMeeting":
+          message =
+            "終わりの会が終われば、今日の授業は全て完了です。お疲れ様でした！";
+          break;
+        default:
+          message = `${nextPeriod.name}の授業は\n\"${lessonTitle}\"です。\n部屋:（${roomName}）`;
+          break;
+      }
 
       for (const student of lp.students) {
         for (const sub of student.pushSubscriptions) {
