@@ -1,5 +1,6 @@
 const JSTOffset = 9;
 
+export type Date = { year: number; month: number; day: number };
 export type Time = { hours: number; minutes: number };
 export type TimeAsMinutes = number;
 export type TimeWithWeekday = Time & { weekday: number };
@@ -23,6 +24,15 @@ export function getNowJSTTimeAsMinutesWithWeekday(): TimeAsMinutesWithWeekday {
   return {
     weekday: nowJSTTime.getUTCDay(),
     minutes: nowJSTTime.getUTCHours() * 60 + nowJSTTime.getUTCMinutes(),
+  };
+}
+
+export function getNowJSTDate() {
+  const nowJSTTime = new Date(new Date().getTime() + JSTOffset * 3600 * 1000);
+  return {
+    year: nowJSTTime.getUTCFullYear(),
+    month: nowJSTTime.getUTCMonth() + 1,
+    day: nowJSTTime.getUTCDate(),
   };
 }
 

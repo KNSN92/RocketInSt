@@ -21,6 +21,7 @@ import CampusMap, { MapData } from "@/src/components/home/CampusMap";
 import { WeekDayToCourseMap } from "@/src/data/course";
 import { NumToWeekDayMap } from "@/src/data/weekdays";
 import {
+  getNowJSTDate,
   getNowJSTTimeAsMinutesWithWeekday,
   getNowJSTTimeWithWeekday,
 } from "@/src/lib/time";
@@ -127,22 +128,61 @@ async function WhenUserLoggedIn({ page }: { page: number }) {
     : [];
   const userCampus = await fetchUserCampus(session.user.id);
 
-  const timetable =
-    userCampus &&
-    ((await fetchTodayTimeTable(userCampus.id)) ||
+  let timetable = null;
+  let isDefaultTimeTable = true;
+  if (userCampus) {
+    timetable = await fetchTodayTimeTable(userCampus.id);
+    isDefaultTimeTable = timetable == null;
+    timetable =
+      timetable ||
       (await fetchDefaultTimeTable(
         userCampus.id,
         NumToWeekDayMap[getNowJSTTimeWithWeekday().weekday]!,
-      )));
+      ));
+  }
   return (
     <div className="w-screen sm:w-fit">
       <div className="text-2xl font-semibold">
         こんにちは {session.user?.name}
         さん
       </div>
-      {timetable && (
-        <TimeTable date={{ year: 2026, month: 2, day: 13 }} {...timetable} />
-      )}
+      <h1 className="mt-8 text-3xl font-bold">今日の時間割表</h1>
+      <CampusRegisterRequired
+        message={
+          <div className="flex flex-col items-center">
+            <div className="text-xl font-bold">
+              今日の時間割を表示するにはキャンパスを登録してください。
+            </div>
+            <LinkButton href="/register">登録ページへ</LinkButton>
+          </div>
+        }
+      >
+        {isDefaultTimeTable && (
+          <p className="mt-2 text-xl font-bold">
+            デフォルトの時間割表を表示しています。
+            実際の時間割とは異なる場合があります。
+          </p>
+        )}
+        {timetable && (
+          <div className="mt-2 h-fit w-screen rounded-lg border-2 border-gray-400 p-4 lg:w-[80vw] xl:w-[50vw]">
+            {userCampus && (
+              <h2 className="h-fit w-full text-center text-xl font-bold">
+                {userCampus.name}
+              </h2>
+            )}
+            <div>
+              <DefaultRefreshButton className="my-2" />
+              <span className="ml-4 text-lg">
+                更新：
+                <UpdatedTime />
+              </span>
+            </div>
+            <div className="w-fit mx-auto">
+              <TimeTable date={getNowJSTDate()} {...timetable} />
+            </div>
+          </div>
+        )}
+      </CampusRegisterRequired>
       <h1 className="mt-8 text-3xl font-bold">混雑状況マップ</h1>
       <CampusRegisterRequired
         message={
@@ -507,7 +547,7 @@ async function fetchDefaultTimeTable(
     if (Object.keys(timetable).includes(room.name)) continue;
     if (room.mustShow) {
       timetable[room.name] = {};
-    }else {
+    } else {
       rooms.splice(i);
     }
   }
