@@ -364,13 +364,23 @@ export default function ExtraAbout() {
               "<",
             )
             .fromTo(
-              ".useful-to-the-world-sub",
+              ".useful-to-the-world-sub-dev",
               {
                 autoAlpha: 0,
               },
               {
                 autoAlpha: 1,
               },
+            )
+            .fromTo(
+              ".useful-to-the-world-sub-imp",
+              {
+                autoAlpha: 0,
+              },
+              {
+                autoAlpha: 1,
+              },
+              "+=1",
             )
             .to(
               ".useful-to-the-world",
@@ -606,9 +616,13 @@ function UsefulToTheWorld() {
           <div className="useful-to-the-world-char-even">へ</div>
           <div className="useful-to-the-world-char-odd">。</div>
         </div>
-        <div className="useful-to-the-world-sub flex items-center gap-4 pt-4 pl-48">
+        <div className="useful-to-the-world-sub-dev flex items-center gap-4 pt-4 pl-48">
           <div className="inline-block w-16 h-px bg-dark dark:bg-light" />
           <h2 className="text-4xl">RocketInSt Development Team</h2>
+        </div>
+        <div className="useful-to-the-world-sub-imp flex items-center gap-4 pt-4 pl-48">
+          <div className="inline-block w-16 h-px bg-dark dark:bg-light" />
+          <h2 className="text-4xl">RocketInSt Improvement Team</h2>
         </div>
       </div>
     </div>
