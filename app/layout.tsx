@@ -3,6 +3,7 @@ import {
   SignInButton,
   SignOutButton,
 } from "@/src/components/common/AuthButtons";
+import CampusRegisterRequired from "@/src/components/common/CampusRegisterRequired";
 import NotificationList from "@/src/components/common/NotificationList";
 import {
   RocketInStLogo,
@@ -55,7 +56,12 @@ export default async function RootLayout({
               <HeaderShowHideButton />
               <Main>{children}</Main>
               <Footer />
-              <WebPushNotificationDialog />
+              <CampusRegisterRequired
+                message={null}
+                redirectWhenNotLoggedIn={false}
+              >
+                <WebPushNotificationDialog />
+              </CampusRegisterRequired>
             </NotificationProvider>
           </WebPushProvider>
         </NextAuthProvider>
