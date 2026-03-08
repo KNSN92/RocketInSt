@@ -10,7 +10,7 @@ export default async function CampusRegisterRequired({
 }: {
   children: ReactNode;
   message: ReactNode;
-  redirectWhenNotLoggedIn: boolean;
+  redirectWhenNotLoggedIn?: boolean;
 }) {
   const userId = await fetchUserId();
   if (!userId) {
