@@ -413,7 +413,9 @@ export default function ExtraAbout() {
                 .to(".features", { x: -vw * 4, duration: 2 }, "+=0.25")
                 .to(".features", { x: -vw * 5, duration: 2 }, "+=0.25")
                 .to(".features", { x: -vw * 6, duration: 2 }, "+=0.25")
-                .to(".features", { x: -vw * 7, duration: 2 }, "+=0.25"),
+                .to(".features", { x: -vw * 7, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 8, duration: 2 }, "+=0.25")
+                .to(".features", { x: -vw * 9, duration: 2 }, "+=0.25"),
               "+=0.5",
             )
             .to(
@@ -464,7 +466,7 @@ export default function ExtraAbout() {
           ".logo-needle",
           {
             rotate: 360 * 5,
-            duration: 40.5,
+            duration: 45,
           },
           "startNeedleRotate",
         )
@@ -656,6 +658,16 @@ function Features() {
         title="フレンド機能"
         desc="メインページからでもユーザーがどこに居るのかすぐに分かります。今後さらなる機能が追加される可能性があります。"
         img="/extraabout/friend.png"
+      />
+      <FeatureSection
+        title="時間割の確認が可能"
+        desc="slackに投稿された画像から時間割を自動で認識し、ユーザーの時間割を表示する機能が実装されました。"
+        img="/extraabout/timetable.png"
+      />
+      <FeatureSection
+        title="プッシュ通知機能内蔵"
+        desc="プッシュ通知を搭載しました。これにより、次に行われる授業の案内などが可能になります。"
+        img="/extraabout/notification.png"
       />
       <FeatureSection
         title="レスポンシブ対応"
